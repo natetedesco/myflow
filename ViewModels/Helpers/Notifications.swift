@@ -1,0 +1,45 @@
+//
+// Notifications.swift
+//  Flow Timer
+//  Created by Nate Tedesco on 6/21/21.
+//
+
+import Foundation
+import UserNotifications
+
+final class NotificationManager: NSObject, ObservableObject, UNUserNotificationCenterDelegate  {
+    @Published private(set) var notifications: [UNNotificationRequest] = []
+    @Published private(set) var authorizationStatus: UNAuthorizationStatus?
+    
+    // Reload Authorization
+    func reloadAuthorizationStatus() {
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            DispatchQueue.main.async {
+                self.authorizationStatus = settings.authorizationStatus
+            }
+        }
+    }
+    
+    // Request Authorization
+    func requestAuthorization() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { isGranted, _ in
+            DispatchQueue.main.async {
+                self.authorizationStatus = isGranted ? .authorized: .denied
+            }
+        }
+    }
+    
+    // Reload Local Notifications
+    func reloadLocalNotifications() {
+        print("reloadLocalNotifications")
+        UNUserNotificationCenter.current().getPendingNotificationRequests { notifications in
+            DispatchQueue.main.async {
+                self.notifications = notifications
+            }
+        }
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.sound])
+    }
+}
