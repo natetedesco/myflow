@@ -9,33 +9,31 @@ import Foundation
 extension FlowModel {
     
     func Start() {
+        mediumHaptic()
+        
         switch mode {
             
-        // Start
         case .Initial: mode = .flowRunning
-            initializeTimer(flow: true, time: flowTime)
+            Initialize(flow: true, time: flowTime)
             
         case .flowStart: mode = .flowRunning
-            initializeTimer(flow: true, time: flowTime)
+            Initialize(flow: true, time: flowTime)
             
         case .breakStart: mode = .breakRunning
-            initializeTimer(flow: false, time: breakTime)
+            Initialize(flow: false, time: breakTime)
             
-        // Pause
         case .flowRunning: mode = .flowPaused
             Pause()
             
         case .breakRunning: mode = .breakPaused
             Pause()
             
-        // Unpause
         case .flowPaused: mode = .flowRunning
-            initializeTimer(flow: true, time: flowTime)
+            Initialize(flow: true, time: flowTime)
             
         case .breakPaused: mode = .breakRunning
-            initializeTimer(flow: false, time: breakTime)
+            Initialize(flow: false, time: breakTime)
             
         }
-        mediumHaptic()
     }
 }

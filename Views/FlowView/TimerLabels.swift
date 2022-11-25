@@ -13,12 +13,11 @@ struct TimerLabels: View {
         ZStack {
             
             if !model.simple {
-                TimerLabel(color: .myBlue, text: "\(formatTime(seconds: model.flowTimeLeft))")
+                TimerLabel(color: .myBlue,
+                           
+                           text: "\(formatTime(seconds: model.flowTimeLeft))"
+                )
                     .font(.system(size: 50))
-                
-//                    .modifier(AnimatingFontSize(fontSize: model.mode == .flowRunning ? 60 : 30))
-//                    .scaleEffect(model.mode == .breakRunning ? 0.0 : 1.0)
-//                    .padding(.trailing, model.mode == .flowRunning ? 0 : 120)
                     .opacity(model.mode == .breakRunning ? 0.0 : 1.0)
                     .animation(.easeInOut(duration: 0.3), value: model.mode)
             }

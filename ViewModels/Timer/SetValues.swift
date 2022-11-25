@@ -15,7 +15,6 @@ extension FlowModel {
         if simple {
             flowTime = flowList[selection].flowMinuteSelection
             breakTime = flowList[selection].breakMinuteSelection
-        
             roundsCompleted = 0
             roundsRemaining = flowList[selection].roundsSelection
         }
@@ -44,7 +43,6 @@ extension FlowModel {
         }
         
         self.blocksCompleted = 0
-        
     }
     
     func setTimes() {
