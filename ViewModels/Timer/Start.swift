@@ -14,13 +14,13 @@ extension FlowModel {
         switch mode {
             
         case .Initial: mode = .flowRunning
-            Initialize(flow: true, time: flowTime)
+            Run(flow: true, time: flowTime)
             
         case .flowStart: mode = .flowRunning
-            Initialize(flow: true, time: flowTime)
+            Run(flow: true, time: flowTime)
             
         case .breakStart: mode = .breakRunning
-            Initialize(flow: false, time: breakTime)
+            Run(flow: false, time: breakTime)
             
         case .flowRunning: mode = .flowPaused
             Pause()
@@ -29,10 +29,10 @@ extension FlowModel {
             Pause()
             
         case .flowPaused: mode = .flowRunning
-            Initialize(flow: true, time: flowTime)
+            Run(flow: true, time: flowTime)
             
         case .breakPaused: mode = .breakRunning
-            Initialize(flow: false, time: breakTime)
+            Run(flow: false, time: breakTime)
             
         }
     }

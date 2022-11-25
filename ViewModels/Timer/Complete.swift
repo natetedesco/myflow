@@ -8,31 +8,40 @@ import Foundation
 
 extension FlowModel {
     
-    func completeSimple(flow: Bool) {
-        if flow {
-            mode = completeRound() ? .Initial : .breakStart
+    func completeFlow() {
+        if completeRound() {
+            completeSession()
         }
-        if !flow {
-            setTimes()
-            mode = .flowStart
+        else {
+            mode = .breakStart
         }
     }
     
-    func completeCustom() {
+    func completeBreak() {
+        flowTimeLeft = flowTime
+        breakTimeLeft = breakTime
+        elapsedTime = 0
+        mode = .flowStart
+    }
+    
+    func completeBlock() {
         blocksCompleted = blocksCompleted + 1
-
+        
         if blocksCompleted == flowList[selection].blocks.count {
-            mode = .Initial
-            completed = true
-            self.blocksCompleted = 0
+            completeSession()
         }
         
         else {
-            blockTime = flowList[selection].blocks[blocksCompleted].timeSelection
             let flowBlock = flowList[selection].blocks[blocksCompleted].flow ? true : false
-            setNextBlock(flow: flowBlock, time: blockTime)
-
+            setNextBlock(flow: flowBlock)
+            
         }
     }
     
+    func completeSession() {
+        setValues()
+        completed = true
+        mode = .Initial
+        self.blocksCompleted = 0
+    }
 }

@@ -9,21 +9,12 @@ import Foundation
 extension FlowModel {
     
     // Initialize
-    func Initialize(flow: Bool, time: Int) {
-        start = Date()
-        let calendar = Calendar.current
-        let end = calendar.date(byAdding: .second, value: (time - elapsedTime), to: start)!
-        
+    func Run(flow: Bool, time: Int) {
+        let end = setEndTime(time: time)
         notifications.Set(flow: flow, time: time, elapsedTime: elapsedTime)
-        Run(flow: flow, end: end)
-    }
-    
-    // Run
-    func Run(flow: Bool, end: Date) {
+        
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [self] timer in
-            
-            let timeLeft = setTimeLeft(flow: flow, end: end)
-            if timeLeft == 0 {
+            if setTimeLeft(flow: flow, end: end) == 0 {
                 Complete(flow: flow)
             }
         })
@@ -36,9 +27,9 @@ extension FlowModel {
         if simple {
             completeSimple(flow: flow)
         }
-        
         if !simple {
-            completeCustom()
+            completeBlock()
         }
     }
 }
+

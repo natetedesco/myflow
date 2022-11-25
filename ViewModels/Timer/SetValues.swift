@@ -44,10 +44,4 @@ extension FlowModel {
         
         self.blocksCompleted = 0
     }
-    
-    func setTimes() {
-        flowTimeLeft = flowTime
-        breakTimeLeft = breakTime
-        elapsedTime = 0
-    }
 }

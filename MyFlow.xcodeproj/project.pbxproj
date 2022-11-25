@@ -17,6 +17,10 @@
 		F01922E628E62A2100E5BA6F /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01922E528E62A2100E5BA6F /* Reminder.swift */; };
 		F01922E828E62AA700E5BA6F /* DeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01922E728E62AA700E5BA6F /* DeleteButton.swift */; };
 		F019629D29306BFF00336821 /* SetNextBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F019629C29306BFF00336821 /* SetNextBlock.swift */; };
+		F019629F2931250D00336821 /* CompleteRound.swift in Sources */ = {isa = PBXBuildFile; fileRef = F019629E2931250D00336821 /* CompleteRound.swift */; };
+		F01962A12931255D00336821 /* GetElapsedTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962A02931255D00336821 /* GetElapsedTime.swift */; };
+		F01962A32931259700336821 /* CompleteSimple.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962A22931259700336821 /* CompleteSimple.swift */; };
+		F01962A5293125DA00336821 /* InvalidateTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962A4293125DA00336821 /* InvalidateTimer.swift */; };
 		F02C146F270FA679002FE382 /* Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C1466270FA679002FE382 /* Toolbar.swift */; };
 		F02C1471270FA679002FE382 /* TimerLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C1468270FA679002FE382 /* TimerLabels.swift */; };
 		F02C1472270FA679002FE382 /* UI Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C1469270FA679002FE382 /* UI Elements.swift */; };
@@ -53,7 +57,6 @@
 		F09861FF26968B4B00A61B42 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09861FE26968B4B00A61B42 /* WelcomeView.swift */; };
 		F09862012696C80E00A61B42 /* AquaSound.aif in Resources */ = {isa = PBXBuildFile; fileRef = F09862002696C80E00A61B42 /* AquaSound.aif */; };
 		F0AD98642914E49900E7587B /* Complete.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AD98632914E49900E7587B /* Complete.swift */; };
-		F0AD986629197C6D00E7587B /* CompleteRound.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AD986529197C6D00E7587B /* CompleteRound.swift */; };
 		F0BA1E1F28FB7FFB00FCB5A8 /* SwipeDelete.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BA1E1E28FB7FFB00FCB5A8 /* SwipeDelete.swift */; };
 		F0BA1E2128FCBA5900FCB5A8 /* FlowBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BA1E2028FCBA5800FCB5A8 /* FlowBlock.swift */; };
 		F0BF2A9528C8205000C78A1C /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BF2A9428C8204F00C78A1C /* Text.swift */; };
@@ -66,7 +69,7 @@
 		F0F7F41F2904EAEF00BC8E16 /* FlowMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F41E2904EAEF00BC8E16 /* FlowMenu.swift */; };
 		F0F7F4232904F0A900BC8E16 /* Waves.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F4222904F0A900BC8E16 /* Waves.swift */; };
 		F0F7F428290E2DF400BC8E16 /* TimerNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F427290E2DF400BC8E16 /* TimerNotifications.swift */; };
-		F0F7F42C2911B3B100BC8E16 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F42B2911B3B100BC8E16 /* Helpers.swift */; };
+		F0F7F42C2911B3B100BC8E16 /* SetEndTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F42B2911B3B100BC8E16 /* SetEndTime.swift */; };
 		F0F7F42E2911B3DE00BC8E16 /* SetTimeLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F42D2911B3DE00BC8E16 /* SetTimeLeft.swift */; };
 		F0F7F4302911C6CA00BC8E16 /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F42F2911C6CA00BC8E16 /* Run.swift */; };
 		F0F7F4342911C96E00BC8E16 /* Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F4332911C96E00BC8E16 /* Flow.swift */; };
@@ -106,6 +109,10 @@
 		F01922E528E62A2100E5BA6F /* Reminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
 		F01922E728E62AA700E5BA6F /* DeleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteButton.swift; sourceTree = "<group>"; };
 		F019629C29306BFF00336821 /* SetNextBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetNextBlock.swift; sourceTree = "<group>"; };
+		F019629E2931250D00336821 /* CompleteRound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteRound.swift; sourceTree = "<group>"; };
+		F01962A02931255D00336821 /* GetElapsedTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetElapsedTime.swift; sourceTree = "<group>"; };
+		F01962A22931259700336821 /* CompleteSimple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteSimple.swift; sourceTree = "<group>"; };
+		F01962A4293125DA00336821 /* InvalidateTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvalidateTimer.swift; sourceTree = "<group>"; };
 		F02C1466270FA679002FE382 /* Toolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toolbar.swift; sourceTree = "<group>"; };
 		F02C1468270FA679002FE382 /* TimerLabels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerLabels.swift; sourceTree = "<group>"; };
 		F02C1469270FA679002FE382 /* UI Elements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UI Elements.swift"; sourceTree = "<group>"; };
@@ -145,7 +152,6 @@
 		F09861FE26968B4B00A61B42 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		F09862002696C80E00A61B42 /* AquaSound.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = AquaSound.aif; sourceTree = "<group>"; };
 		F0AD98632914E49900E7587B /* Complete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Complete.swift; sourceTree = "<group>"; };
-		F0AD986529197C6D00E7587B /* CompleteRound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteRound.swift; sourceTree = "<group>"; };
 		F0BA1E1E28FB7FFB00FCB5A8 /* SwipeDelete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeDelete.swift; sourceTree = "<group>"; };
 		F0BA1E2028FCBA5800FCB5A8 /* FlowBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowBlock.swift; sourceTree = "<group>"; };
 		F0BF2A9428C8204F00C78A1C /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
@@ -159,7 +165,7 @@
 		F0F7F41E2904EAEF00BC8E16 /* FlowMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowMenu.swift; sourceTree = "<group>"; };
 		F0F7F4222904F0A900BC8E16 /* Waves.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Waves.swift; sourceTree = "<group>"; };
 		F0F7F427290E2DF400BC8E16 /* TimerNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerNotifications.swift; sourceTree = "<group>"; };
-		F0F7F42B2911B3B100BC8E16 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		F0F7F42B2911B3B100BC8E16 /* SetEndTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetEndTime.swift; sourceTree = "<group>"; };
 		F0F7F42D2911B3DE00BC8E16 /* SetTimeLeft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTimeLeft.swift; sourceTree = "<group>"; };
 		F0F7F42F2911C6CA00BC8E16 /* Run.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Run.swift; sourceTree = "<group>"; };
 		F0F7F4332911C96E00BC8E16 /* Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flow.swift; sourceTree = "<group>"; };
@@ -206,10 +212,13 @@
 		F019629B2930659E00336821 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				F04FFB5D29033EC70058E66D /* Controls.swift */,
 				F0F7F42D2911B3DE00BC8E16 /* SetTimeLeft.swift */,
-				F0AD986529197C6D00E7587B /* CompleteRound.swift */,
+				F0F7F42B2911B3B100BC8E16 /* SetEndTime.swift */,
 				F019629C29306BFF00336821 /* SetNextBlock.swift */,
+				F01962A02931255D00336821 /* GetElapsedTime.swift */,
+				F019629E2931250D00336821 /* CompleteRound.swift */,
+				F01962A22931259700336821 /* CompleteSimple.swift */,
+				F01962A4293125DA00336821 /* InvalidateTimer.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -267,6 +276,7 @@
 				F04FFB5129032D350058E66D /* Start.swift */,
 				F0F7F42F2911C6CA00BC8E16 /* Run.swift */,
 				F0AD98632914E49900E7587B /* Complete.swift */,
+				F04FFB5D29033EC70058E66D /* Controls.swift */,
 				F019629B2930659E00336821 /* Helpers */,
 			);
 			path = Timer;
@@ -401,7 +411,6 @@
 		F0FD718728ECD7B9008D9DC1 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				F0F7F42B2911B3B100BC8E16 /* Helpers.swift */,
 				F0391316285FA0990074CF33 /* Haptics.swift */,
 				F0391313285EBF860074CF33 /* Format.swift */,
 				F0BA1E1E28FB7FFB00FCB5A8 /* SwipeDelete.swift */,
@@ -484,16 +493,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				F04FFB5E29033EC70058E66D /* Controls.swift in Sources */,
-				F0F7F42C2911B3B100BC8E16 /* Helpers.swift in Sources */,
+				F0F7F42C2911B3B100BC8E16 /* SetEndTime.swift in Sources */,
 				F0899DE5292EA54F00A35D4D /* OverviewCard.swift in Sources */,
 				F0BF2A9528C8205000C78A1C /* Text.swift in Sources */,
 				F001C24228D7F24100134EB5 /* CustomFlow.swift in Sources */,
 				F01922E628E62A2100E5BA6F /* Reminder.swift in Sources */,
+				F019629F2931250D00336821 /* CompleteRound.swift in Sources */,
 				F045998D28E3810000573A0A /* SimpleFlow.swift in Sources */,
 				F0948C4C2681907A00A5F48D /* Notifications.swift in Sources */,
 				F045998F28E406EA00573A0A /* Goal.swift in Sources */,
 				F0F7F41A29039ADA00BC8E16 /* UpgradeButton.swift in Sources */,
+				F01962A32931259700336821 /* CompleteSimple.swift in Sources */,
 				F01922E428E6070100E5BA6F /* FlowTitle.swift in Sources */,
+				F01962A12931255D00336821 /* GetElapsedTime.swift in Sources */,
 				F0F7F4122903931300BC8E16 /* VersionNumber.swift in Sources */,
 				F03256432721308C009D3EFB /* AnimatedBlur.swift in Sources */,
 				F001C23B28D3A71100134EB5 /* EllipsisView.swift in Sources */,
@@ -530,11 +542,11 @@
 				F04FFB4928FF38330058E66D /* AddButton.swift in Sources */,
 				F0F7F4102903756200BC8E16 /* SetValues.swift in Sources */,
 				F001C23D28D3C59F00134EB5 /* FlowSheet.swift in Sources */,
+				F01962A5293125DA00336821 /* InvalidateTimer.swift in Sources */,
 				F04FFB4328FF2C890058E66D /* Blocks.swift in Sources */,
 				F01922E828E62AA700E5BA6F /* DeleteButton.swift in Sources */,
 				F0391317285FA0990074CF33 /* Haptics.swift in Sources */,
 				F064AE0A28C45CA3005EE330 /* ControlButtons.swift in Sources */,
-				F0AD986629197C6D00E7587B /* CompleteRound.swift in Sources */,
 				F0F7F41F2904EAEF00BC8E16 /* FlowMenu.swift in Sources */,
 				F018CF202864E11D002A17D7 /* ContentView.swift in Sources */,
 				F0391314285EBF860074CF33 /* Format.swift in Sources */,

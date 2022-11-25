@@ -1,7 +1,6 @@
 //
 //  SetNextBlock.swift
 //  MyFlow
-//
 //  Created by Nate Tedesco on 11/24/22.
 //
 
@@ -9,9 +8,9 @@ import Foundation
 
 extension FlowModel {
     
-    func setNextBlock(flow: Bool, time: Int) {
-        let blockTime = time
-        
+    func setNextBlock(flow: Bool) {
+        blockTime = flowList[selection].blocks[blocksCompleted].timeSelection
+
         if flow {
             flowTime = blockTime
             flowTimeLeft = blockTime
