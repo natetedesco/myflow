@@ -15,7 +15,7 @@ class FlowModel: ObservableObject {
             if let decoded = try? JSONDecoder().decode([Flow].self, from: data) {
                 flowList = decoded
                 
-                setValues()
+                Initialize()
                 
                 return
             }
@@ -29,13 +29,13 @@ class FlowModel: ObservableObject {
     
     @Published var flowList: [Flow] {
         didSet { // update values if a flow is modified
-            setValues()
+            Initialize()
         }
     }
     
     @Published var selection = 0 {
         didSet { // update values if selection changes
-            setValues()
+            Initialize()
         }
     }
     

@@ -9,23 +9,23 @@ import Foundation
 extension FlowModel {
     
     // Pause
-    func Pause() {
-        timer.invalidate()
+    func Pause(flow: Bool) {
+        mode = flow ? .flowPaused : .breakPaused
+        
         getElapsedTime()
-        notifications.removeAllPendingNotificationRequests()
+        invalidateTimer()
     }
     
     // Skip
     func Skip() {
         if mode == .flowPaused {
             flowTimeLeft = 0
-            
-            Complete(flow: true)
+            completeSimple(flow: true)
         }
+        
         if mode == .breakPaused {
             breakTimeLeft = 0
-            
-            Complete(flow: false)
+            completeSimple(flow: false)
         }
     }
     
@@ -44,12 +44,13 @@ extension FlowModel {
     
     // Reset
     func Reset() {
-        invalidateTimer()
-        
-        mode = .Initial
-        
-        setValues()
-        
         mediumHaptic()
+        invalidateTimer()
+        mode = .Initial
+        elapsedTime = 0
+        roundsCompleted = 0
+        blocksCompleted = 0
+        Initialize()
     }
+
 }

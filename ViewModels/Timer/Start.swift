@@ -1,7 +1,7 @@
 //
-//  TimerHelper.swift
+//  Start.swift
 //  MyFlow
-//  Created by Nate Tedesco on 10/21/22.
+//  Created by Nate Tedesco on 11/25/22.
 //
 
 import Foundation
@@ -13,27 +13,17 @@ extension FlowModel {
         
         switch mode {
             
-        case .Initial: mode = .flowRunning
+            // Start Flow
+        case .Initial, .flowStart, .flowPaused:
             Run(flow: true, time: flowTime)
             
-        case .flowStart: mode = .flowRunning
-            Run(flow: true, time: flowTime)
-            
-        case .breakStart: mode = .breakRunning
+            // Start Break
+        case .breakStart, .breakPaused:
             Run(flow: false, time: breakTime)
             
-        case .flowRunning: mode = .flowPaused
-            Pause()
-            
-        case .breakRunning: mode = .breakPaused
-            Pause()
-            
-        case .flowPaused: mode = .flowRunning
-            Run(flow: true, time: flowTime)
-            
-        case .breakPaused: mode = .breakRunning
-            Run(flow: false, time: breakTime)
-            
+            // Pause
+        case .flowRunning, .breakRunning:
+            Pause(flow: mode == .flowRunning ? true : false)
         }
     }
 }
