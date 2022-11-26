@@ -11,8 +11,7 @@ extension FlowModel {
     // Pause
     func Pause(flow: Bool) {
         mode = flow ? .flowPaused : .breakPaused
-        
-        getElapsedTime()
+        setElapsedTime()
         invalidateTimer()
     }
     
@@ -20,12 +19,12 @@ extension FlowModel {
     func Skip() {
         if mode == .flowPaused {
             flowTimeLeft = 0
-            completeSimple(flow: true)
+            completeSimple()
         }
         
         if mode == .breakPaused {
             breakTimeLeft = 0
-            completeSimple(flow: false)
+            completeSimple()
         }
     }
     

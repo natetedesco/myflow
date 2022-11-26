@@ -18,12 +18,12 @@ struct SheetCapsule: View {
 }
 
 struct FlowModePicker: View {
-    @Binding var customFlow: Bool
+    @Binding var simple: Bool
     
     var body: some View {
-        Picker("", selection: $customFlow, content: {
-            Text("Simple").tag(false)
-            Text("Custom").tag(true)
+        Picker("", selection: $simple, content: {
+            Text("Simple").tag(true)
+            Text("Custom").tag(false)
         })
         .pickerStyle(SegmentedPickerStyle())
         .preferredColorScheme(.dark)

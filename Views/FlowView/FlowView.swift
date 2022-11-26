@@ -25,7 +25,7 @@ struct FlowView: View {
             
             FlowMenu(model: model, selectedFlow: $selectedFlow)
             
-            if !model.simple {
+            if model.flowMode == .Custom {
                 if model.mode == .Initial || model.mode == .flowStart || model.mode == .flowPaused || model.mode == .flowRunning {
                     FlowCircle(model: model)
                 }
@@ -35,7 +35,7 @@ struct FlowView: View {
             }
             
             
-            if model.simple {
+            if model.flowMode == .Simple {
                 if model.mode != .breakRunning {
                     FlowCircle(model: model)
                 }
@@ -48,7 +48,7 @@ struct FlowView: View {
             
             Controls(model: model)
             
-            if model.simple {
+            if model.flowMode == .Simple {
                 Rounds(model: model)
             }
             

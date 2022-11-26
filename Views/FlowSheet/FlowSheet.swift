@@ -27,9 +27,14 @@ struct FlowSheet: View {
                 
                     // Simple & Custom Flows
                     VStack( alignment: .leading) {
-                        FlowModePicker(customFlow: $flow.customFlow)
-                        if !flow.customFlow { SimpleFlow(flow: $flow) }
-                        else { CustomFlow(flow: $flow) }
+                        FlowModePicker(simple: $flow.simple)
+                        if flow.simple {
+                            SimpleFlow(flow: $flow)
+                        }
+                        else {
+                            CustomFlow(flow: $flow)
+                            
+                        }
                     }
                     .modifier(CustomGlass())
                 
@@ -52,7 +57,7 @@ struct FlowSheet: View {
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        .animation(.default, value: flow.customFlow)
+        .animation(.default, value: flow.simple)
         }
     }
 }

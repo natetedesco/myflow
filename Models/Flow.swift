@@ -12,7 +12,7 @@ struct Flow: Codable, Hashable, Identifiable {
     
     var title: String = ""
     
-    var customFlow = false
+    var simple = true
     var blocks = [Block(flow: true), Block(flow: false)]
     
     var flowMinuteSelection: Int = 0

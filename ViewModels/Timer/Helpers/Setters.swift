@@ -8,66 +8,56 @@ import Foundation
 
 extension FlowModel {
     
+    func setFlowMode() {
+        if flowList[selection].simple {
+            flowMode = .Simple
+        }
+        if !flowList[selection].simple {
+            flowMode = .Custom
+        }
+        
+    }
+    
+    // Set Flow Time
     func setFlowTime(time: Int) {
         flowTime = time
         flowTimeLeft = time
     }
     
+    // Set Break Time
     func setBreakTime(time: Int) {
         breakTime = time
         breakTimeLeft = time
     }
     
-    func invalidateTimer() {
-        timer.invalidate()
-        notifications.removeAllPendingNotificationRequests()
-    }
-    
-    func completeSession() {
-        completed = true
-        Reset()
-    }
-    
-    func getElapsedTime() {
+    // Set Elapsed Time
+    func setElapsedTime() {
         let newTime = Int(abs(start.timeIntervalSinceNow))
         elapsedTime = elapsedTime + newTime
     }
     
+    // Set Mode
     func setMode(
-        flow: Bool,
         start: Bool = false,
-        running: Bool = false,
+        run: Bool = false,
         pause: Bool = false) {
             
         if start {
-            if flow {
+            if type == .Flow {
                 mode = .breakStart
             }
-            if !flow {
+            if type == .Break {
                 mode = .flowStart
             }
         }
         
-        if running {
-            if flow {
+        if run {
+            if type == .Flow {
                 mode = .flowRunning
             }
-            if !flow {
+            if type == .Break {
                 mode = .breakRunning
             }
         }
-    }
-    
-    func setTimeLeft(flow: Bool, end: Date) -> Int {
-        let timeLeft = Calendar.current.dateComponents([.second], from: Date(), to: end + 1).second ?? 0
-        self.animate = animate + 1
-        
-        if flow {
-            flowTimeLeft = timeLeft
-        }
-        if !flow {
-            breakTimeLeft = timeLeft
-        }
-        return timeLeft
     }
 }

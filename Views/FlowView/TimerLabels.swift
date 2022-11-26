@@ -12,17 +12,16 @@ struct TimerLabels: View {
     var body: some View {
         ZStack {
             
-            if !model.simple {
+            if model.flowMode == .Custom {
                 TimerLabel(color: .myBlue,
-                           
                            text: "\(formatTime(seconds: model.flowTimeLeft))"
                 )
-                    .font(.system(size: 50))
-                    .opacity(model.mode == .breakRunning ? 0.0 : 1.0)
-                    .animation(.easeInOut(duration: 0.3), value: model.mode)
+                .font(.system(size: 50))
+                .opacity(model.mode == .breakRunning ? 0.0 : 1.0)
+                .animation(.easeInOut(duration: 0.3), value: model.mode)
             }
             
-            if model.simple {
+            if model.flowMode == .Simple {
                 // Flow Label
                 TimerLabel(color: .myBlue, text: "\(formatTime(seconds: model.flowTimeLeft))")
                 

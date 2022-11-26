@@ -11,7 +11,7 @@ struct ButtonView: View {
     
     var body: some View {
         Button {
-            model.Start()
+            model.startInput()
         } label: {
             switch model.mode {
                 

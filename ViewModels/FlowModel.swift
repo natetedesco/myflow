@@ -16,7 +16,6 @@ class FlowModel: ObservableObject {
                 flowList = decoded
                 
                 Initialize()
-                
                 return
             }
         }
@@ -40,7 +39,8 @@ class FlowModel: ObservableObject {
     }
     
     @Published var mode: TimerMode = .Initial
-    var simple: Bool = true
+    @Published var type: FlowType = .Flow
+    @Published var flowMode: FlowMode = .Simple
     
     @Published var flowTime: Int = 0
     @Published var breakTime: Int = 0
@@ -62,6 +62,16 @@ class FlowModel: ObservableObject {
     var timer = Timer()
     var start = Date()
     var elapsedTime = 0
+}
+
+enum FlowType {
+    case Flow
+    case Break
+}
+
+enum FlowMode {
+    case Simple
+    case Custom
 }
 
 enum TimerMode {

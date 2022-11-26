@@ -49,7 +49,7 @@ extension FlowModel {
             
         title: flow.title,
         
-        customFlow: flow.customFlow,
+        simple: flow.simple,
         blocks: flow.blocks,
         
         flowMinuteSelection: flow.flowMinuteSelection,

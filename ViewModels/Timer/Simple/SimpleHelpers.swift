@@ -9,23 +9,31 @@ import Foundation
 
 extension FlowModel {
     
-    func runTimer(flow: Bool, end: Date) {
+    // Run Timer
+    func runTimer(time: Int, end: Date) {
+        notifications.Set(
+            flow: type == .Flow ? true : false,
+            time: time,
+            elapsedTime: elapsedTime)
+        setMode(run: true)
+
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [self] timer in
-            if setTimeLeft(flow: flow, end: end) == 0 {
-                completeSimple(flow: flow)
+            if getTimeLeft(end: end) == 0 {
+                completeSimple()
             }
         })
     }
     
-    func setTimer(flow: Bool, time: Int) -> Date {
-        start = Date()
-        let calendar = Calendar.current
-        let end = calendar.date(byAdding: .second, value: (time - elapsedTime), to: start)!
-        
-        notifications.Set(flow: flow, time: time, elapsedTime: elapsedTime)
-        
-        setMode(flow: flow, running: true)
-
-        return end
+    // Complete Round
+    func completeRound() -> Bool {
+        if type == .Flow {
+            self.roundsCompleted = roundsCompleted + 1
+            self.roundsRemaining = roundsRemaining - 1
+            
+            if roundsCompleted == flowList[selection].roundsSelection {
+                return true
+            }
+        }
+        return false
     }
 }

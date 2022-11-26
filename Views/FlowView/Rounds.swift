@@ -28,7 +28,7 @@ struct Rounds: View {
                     RoundCircleFull()
                 }
                 
-                if model.flowList[model.selection].customFlow != true {
+                if !model.flowList[model.selection].simple {
                     if model.mode == .flowRunning || model.mode == .flowPaused {
                         RoundCircleHalfFull()
                     }

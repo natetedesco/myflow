@@ -8,16 +8,12 @@ import Foundation
 
 extension FlowModel {
     
-    func initializeCustom() {
-        setBlock()
-    }
-    
     // Run
-    func runCustom(flow: Bool, time: Int) {
-        let end = setTimer(flow: flow, time: time)
+    func startCustom(flow: Bool, time: Int) {
+        let end = getEnd(time: time)
         
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [self] timer in
-            if setTimeLeft(flow: flow, end: end) == 0 { // get time left
+            if getTimeLeft(end: end) == 0 { // get time left
                 completeCustom()
             }
         })
