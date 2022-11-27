@@ -16,14 +16,13 @@
 		F01922E428E6070100E5BA6F /* FlowTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01922E328E6070100E5BA6F /* FlowTitle.swift */; };
 		F01922E628E62A2100E5BA6F /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01922E528E62A2100E5BA6F /* Reminder.swift */; };
 		F01922E828E62AA700E5BA6F /* DeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01922E728E62AA700E5BA6F /* DeleteButton.swift */; };
-		F019629F2931250D00336821 /* CustomHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F019629E2931250D00336821 /* CustomHelpers.swift */; };
 		F01962A12931255D00336821 /* Setters.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962A02931255D00336821 /* Setters.swift */; };
 		F01962AB29317CE300336821 /* Initialize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962AA29317CE300336821 /* Initialize.swift */; };
 		F01962AD2931824200336821 /* Simple.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962AC2931824200336821 /* Simple.swift */; };
-		F01962B1293184BD00336821 /* SimpleHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962B0293184BD00336821 /* SimpleHelpers.swift */; };
-		F01962B32931EBE700336821 /* Start.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962B22931EBE700336821 /* Start.swift */; };
+		F01962B1293184BD00336821 /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962B0293184BD00336821 /* Run.swift */; };
+		F01962B32931EBE700336821 /* Case Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962B22931EBE700336821 /* Case Handler.swift */; };
 		F01962B82931EF3400336821 /* Getters.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962B72931EF3400336821 /* Getters.swift */; };
-		F01962BA2931F06C00336821 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962B92931F06C00336821 /* Helpers.swift */; };
+		F01962BA2931F06C00336821 /* Complete.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962B92931F06C00336821 /* Complete.swift */; };
 		F02C146F270FA679002FE382 /* Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C1466270FA679002FE382 /* Toolbar.swift */; };
 		F02C1471270FA679002FE382 /* TimerLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C1468270FA679002FE382 /* TimerLabels.swift */; };
 		F02C1472270FA679002FE382 /* UI Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C1469270FA679002FE382 /* UI Elements.swift */; };
@@ -106,14 +105,13 @@
 		F01922E328E6070100E5BA6F /* FlowTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowTitle.swift; sourceTree = "<group>"; };
 		F01922E528E62A2100E5BA6F /* Reminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
 		F01922E728E62AA700E5BA6F /* DeleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteButton.swift; sourceTree = "<group>"; };
-		F019629E2931250D00336821 /* CustomHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHelpers.swift; sourceTree = "<group>"; };
 		F01962A02931255D00336821 /* Setters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setters.swift; sourceTree = "<group>"; };
 		F01962AA29317CE300336821 /* Initialize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initialize.swift; sourceTree = "<group>"; };
 		F01962AC2931824200336821 /* Simple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Simple.swift; sourceTree = "<group>"; };
-		F01962B0293184BD00336821 /* SimpleHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleHelpers.swift; sourceTree = "<group>"; };
-		F01962B22931EBE700336821 /* Start.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Start.swift; sourceTree = "<group>"; };
+		F01962B0293184BD00336821 /* Run.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Run.swift; sourceTree = "<group>"; };
+		F01962B22931EBE700336821 /* Case Handler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Case Handler.swift"; sourceTree = "<group>"; };
 		F01962B72931EF3400336821 /* Getters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Getters.swift; sourceTree = "<group>"; };
-		F01962B92931F06C00336821 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		F01962B92931F06C00336821 /* Complete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Complete.swift; sourceTree = "<group>"; };
 		F02C1466270FA679002FE382 /* Toolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toolbar.swift; sourceTree = "<group>"; };
 		F02C1468270FA679002FE382 /* TimerLabels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerLabels.swift; sourceTree = "<group>"; };
 		F02C1469270FA679002FE382 /* UI Elements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UI Elements.swift"; sourceTree = "<group>"; };
@@ -163,7 +161,7 @@
 		F0F7F41E2904EAEF00BC8E16 /* FlowMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowMenu.swift; sourceTree = "<group>"; };
 		F0F7F4222904F0A900BC8E16 /* Waves.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Waves.swift; sourceTree = "<group>"; };
 		F0F7F427290E2DF400BC8E16 /* TimerNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerNotifications.swift; sourceTree = "<group>"; };
-		F0F7F42F2911C6CA00BC8E16 /* Custom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Custom.swift; path = "../New Group/Custom.swift"; sourceTree = "<group>"; };
+		F0F7F42F2911C6CA00BC8E16 /* Custom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Custom.swift; sourceTree = "<group>"; };
 		F0F7F4332911C96E00BC8E16 /* Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flow.swift; sourceTree = "<group>"; };
 		F0FB423628F5409300271BC6 /* MonthCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -205,30 +203,16 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		F01962AE2931846100336821 /* Simple */ = {
-			isa = PBXGroup;
-			children = (
-				F01962AC2931824200336821 /* Simple.swift */,
-				F01962B0293184BD00336821 /* SimpleHelpers.swift */,
-			);
-			path = Simple;
-			sourceTree = "<group>";
-		};
-		F01962AF2931847F00336821 /* Custom */ = {
-			isa = PBXGroup;
-			children = (
-				F0F7F42F2911C6CA00BC8E16 /* Custom.swift */,
-				F019629E2931250D00336821 /* CustomHelpers.swift */,
-			);
-			path = Custom;
-			sourceTree = "<group>";
-		};
 		F01962B42931EC7B00336821 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				F01962AA29317CE300336821 /* Initialize.swift */,
+				F01962B22931EBE700336821 /* Case Handler.swift */,
+				F04FFB5D29033EC70058E66D /* Controls.swift */,
+				F01962B0293184BD00336821 /* Run.swift */,
 				F01962A02931255D00336821 /* Setters.swift */,
 				F01962B72931EF3400336821 /* Getters.swift */,
-				F01962B92931F06C00336821 /* Helpers.swift */,
+				F01962B92931F06C00336821 /* Complete.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -282,11 +266,8 @@
 		F04FFB55290339000058E66D /* Timer */ = {
 			isa = PBXGroup;
 			children = (
-				F01962AA29317CE300336821 /* Initialize.swift */,
-				F01962B22931EBE700336821 /* Start.swift */,
-				F04FFB5D29033EC70058E66D /* Controls.swift */,
-				F01962AE2931846100336821 /* Simple */,
-				F01962AF2931847F00336821 /* Custom */,
+				F01962AC2931824200336821 /* Simple.swift */,
+				F0F7F42F2911C6CA00BC8E16 /* Custom.swift */,
 				F01962B42931EC7B00336821 /* Helpers */,
 			);
 			path = Timer;
@@ -507,13 +488,12 @@
 				F0BF2A9528C8205000C78A1C /* Text.swift in Sources */,
 				F001C24228D7F24100134EB5 /* CustomFlow.swift in Sources */,
 				F01922E628E62A2100E5BA6F /* Reminder.swift in Sources */,
-				F019629F2931250D00336821 /* CustomHelpers.swift in Sources */,
 				F045998D28E3810000573A0A /* SimpleFlow.swift in Sources */,
 				F0948C4C2681907A00A5F48D /* Notifications.swift in Sources */,
 				F045998F28E406EA00573A0A /* Goal.swift in Sources */,
 				F0F7F41A29039ADA00BC8E16 /* UpgradeButton.swift in Sources */,
 				F01922E428E6070100E5BA6F /* FlowTitle.swift in Sources */,
-				F01962B1293184BD00336821 /* SimpleHelpers.swift in Sources */,
+				F01962B1293184BD00336821 /* Run.swift in Sources */,
 				F01962A12931255D00336821 /* Setters.swift in Sources */,
 				F0F7F4122903931300BC8E16 /* VersionNumber.swift in Sources */,
 				F01962B82931EF3400336821 /* Getters.swift in Sources */,
@@ -555,11 +535,11 @@
 				F0391317285FA0990074CF33 /* Haptics.swift in Sources */,
 				F064AE0A28C45CA3005EE330 /* ControlButtons.swift in Sources */,
 				F0F7F41F2904EAEF00BC8E16 /* FlowMenu.swift in Sources */,
-				F01962B32931EBE700336821 /* Start.swift in Sources */,
+				F01962B32931EBE700336821 /* Case Handler.swift in Sources */,
 				F018CF202864E11D002A17D7 /* ContentView.swift in Sources */,
 				F0391314285EBF860074CF33 /* Format.swift in Sources */,
 				F0BA1E2128FCBA5900FCB5A8 /* FlowBlock.swift in Sources */,
-				F01962BA2931F06C00336821 /* Helpers.swift in Sources */,
+				F01962BA2931F06C00336821 /* Complete.swift in Sources */,
 				F001C23928D3A12100134EB5 /* Modifiers.swift in Sources */,
 				F032564B272251A6009D3EFB /* SettingsView.swift in Sources */,
 				F0F7F428290E2DF400BC8E16 /* TimerNotifications.swift in Sources */,

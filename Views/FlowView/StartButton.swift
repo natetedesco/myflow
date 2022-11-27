@@ -16,34 +16,25 @@ struct ButtonView: View {
             switch model.mode {
                 
             case .Initial:
-                StartButton(
-                    image: "play.circle.fill")
+                StartButton(image: "play.circle.fill")
                 
             case .flowRunning:
-                StartButton(
-                    image: "pause.circle.fill")
+                StartButton(image: "pause.circle.fill")
                 
             case .flowPaused:
-                StartButton(
-                    image: "play.circle.fill")
+                StartButton(image: "play.circle.fill")
                 
             case .breakStart:
-                StartNextButton(
-                    image: "play.fill",
-                    text: "Break ")
+                StartNextButton(image: "play.fill",text: "Break ")
                 
             case .breakRunning:
-                StartButton(
-                    image: "pause.circle.fill")
+                StartButton(image: "pause.circle.fill")
                 
             case .breakPaused:
-                StartButton(
-                    image: "play.circle.fill")
+                StartButton(image: "play.circle.fill")
                 
             case .flowStart:
-                StartNextButton(
-                    image: "play.fill",
-                    text: "Flow")
+                StartNextButton(image: "play.fill",text: "Flow")
                 
             }
         }

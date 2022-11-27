@@ -15,30 +15,25 @@ struct FlowView: View {
         ZStack {
             
             if model.completed {
-                Text("Flow Completed")
-                    .padding(.bottom, 500)
-                    .foregroundColor(.myBlue)
-                    .onTapGesture {
-                        model.completed = false
-                    }
+                FlowCompletedLabel(model: model)
             }
             
             FlowMenu(model: model, selectedFlow: $selectedFlow)
             
             if model.flowMode == .Custom {
-                if model.mode == .Initial || model.mode == .flowStart || model.mode == .flowPaused || model.mode == .flowRunning {
+                if model.type == .Flow {
                     FlowCircle(model: model)
                 }
-                if model.mode == .breakRunning || model.mode == .breakStart || model.mode == .breakPaused {
+                if model.type == .Break {
                     BreakCircle(model: model)
                 }
             }
-            
             
             if model.flowMode == .Simple {
                 if model.mode != .breakRunning {
                     FlowCircle(model: model)
                 }
+                
                 if model.mode != .flowRunning {
                     BreakCircle(model: model)
                 }
@@ -66,5 +61,18 @@ struct FlowView: View {
 struct FlowView_Previews: PreviewProvider {
     static var previews: some View {
         FlowView(model: FlowModel())
+    }
+}
+
+struct FlowCompletedLabel: View {
+    @ObservedObject var model: FlowModel
+
+    var body: some View {
+        Text("Flow Completed")
+            .padding(.bottom, 500)
+            .foregroundColor(.myBlue)
+            .onTapGesture {
+                model.completed = false
+            }
     }
 }

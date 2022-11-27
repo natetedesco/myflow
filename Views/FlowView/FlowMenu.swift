@@ -28,7 +28,7 @@ struct FlowMenu: View {
                 ForEach(0..<self.$model.flowList.count, id: \.self) { index in
                     Text(model.flowList[index].title)
                 }
-            }label: {} // Unused Picker label
+            }label: {} // Unused
         }
     label: { // Menu Label
         Text(model.flowList[model.selection].title)

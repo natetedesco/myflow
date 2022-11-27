@@ -15,25 +15,16 @@ extension FlowModel {
             flow: type == .Flow ? true : false,
             time: time,
             elapsedTime: elapsedTime)
-        setMode(run: true)
-
+        
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [self] timer in
             if getTimeLeft(end: end) == 0 {
-                completeSimple()
+                if flowMode == .Simple {
+                    completeSimple()
+                }
+                if flowMode == .Custom {
+                    completeCustom()
+                }
             }
         })
-    }
-    
-    // Complete Round
-    func completeRound() -> Bool {
-        if type == .Flow {
-            self.roundsCompleted = roundsCompleted + 1
-            self.roundsRemaining = roundsRemaining - 1
-            
-            if roundsCompleted == flowList[selection].roundsSelection {
-                return true
-            }
-        }
-        return false
     }
 }

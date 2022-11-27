@@ -14,7 +14,7 @@ struct Rounds: View {
         // Initial
         if model.mode == .Initial {
             HStack {
-                ForEach(0 ..< model.roundsRemaining, id: \.self) {_ in
+                ForEach(0 ..< model.roundsSet, id: \.self) {_ in
                     RoundCircleFull()
                 }
             }
@@ -28,7 +28,7 @@ struct Rounds: View {
                     RoundCircleFull()
                 }
                 
-                if !model.flowList[model.selection].simple {
+                if model.flowMode == .Simple {
                     if model.mode == .flowRunning || model.mode == .flowPaused {
                         RoundCircleHalfFull()
                     }

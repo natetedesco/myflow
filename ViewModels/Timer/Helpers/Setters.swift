@@ -8,6 +8,12 @@ import Foundation
 
 extension FlowModel {
     
+    // Invalidate Timer
+    func invalidateTimer() {
+        timer.invalidate()
+        notifications.removeAllPendingNotificationRequests()
+    }
+    
     func setFlowMode() {
         if flowList[selection].simple {
             flowMode = .Simple
@@ -15,7 +21,6 @@ extension FlowModel {
         if !flowList[selection].simple {
             flowMode = .Custom
         }
-        
     }
     
     // Set Flow Time
@@ -30,34 +35,16 @@ extension FlowModel {
         breakTimeLeft = time
     }
     
+    // Set Both
+    func setBothTimes(flowTime: Int, breakTime: Int) {
+        setFlowTime(time: flowTime)
+        setBreakTime(time: breakTime)
+    }
+    
     // Set Elapsed Time
     func setElapsedTime() {
         let newTime = Int(abs(start.timeIntervalSinceNow))
         elapsedTime = elapsedTime + newTime
     }
     
-    // Set Mode
-    func setMode(
-        start: Bool = false,
-        run: Bool = false,
-        pause: Bool = false) {
-            
-        if start {
-            if type == .Flow {
-                mode = .breakStart
-            }
-            if type == .Break {
-                mode = .flowStart
-            }
-        }
-        
-        if run {
-            if type == .Flow {
-                mode = .flowRunning
-            }
-            if type == .Break {
-                mode = .breakRunning
-            }
-        }
-    }
 }

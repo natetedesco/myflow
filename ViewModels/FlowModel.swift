@@ -48,8 +48,8 @@ class FlowModel: ObservableObject {
     @Published var flowTimeLeft: Int = 0
     @Published var breakTimeLeft: Int = 0
     
+    @Published var roundsSet: Int = 0
     @Published var roundsCompleted: Int = 0
-    @Published var roundsRemaining: Int = 0
     
     @Published var blockTime: Int = 0
     @Published var blocksCompleted: Int = 0
@@ -62,24 +62,4 @@ class FlowModel: ObservableObject {
     var timer = Timer()
     var start = Date()
     var elapsedTime = 0
-}
-
-enum FlowType {
-    case Flow
-    case Break
-}
-
-enum FlowMode {
-    case Simple
-    case Custom
-}
-
-enum TimerMode {
-    case Initial
-    case flowStart
-    case flowRunning
-    case flowPaused
-    case breakStart
-    case breakRunning
-    case breakPaused
 }
