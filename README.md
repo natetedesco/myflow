@@ -13,10 +13,11 @@ Customize your flows to support workouts, meditation, skill training, or even la
 
 **Custom flow sessions** - Create a productivity workflow, a custom workout, or an entire morning or evening routine
 
-**Productivity Tracking** - Set and track your flow time to gain a better understanding of your work habits and hold yourself accountable![image-9](https://user-images.githubusercontent.com/89711518/204119228-8908c606-4cf6-4e8c-be2b-0fe17cb7176a.png)
-
+**Productivity Tracking** - Set and track your flow time to gain a better understanding of your work habits and hold yourself accountable!
 
 ### Requirements
 xCode 14.1
 
 IOS 16.0
+
+[image-9](https://user-images.githubusercontent.com/89711518/204119228-8908c606-4cf6-4e8c-be2b-0fe17cb7176a.png)
