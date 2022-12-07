@@ -9,6 +9,7 @@ import SwiftUI
 struct StatsView: View {
     @AppStorage("SelectedTab") var selectedTab: Tab = .home
     @ObservedObject var model: FlowModel
+    @ObservedObject var data = FlowData()
     
     var body: some View {
         NavigationView {
@@ -27,15 +28,14 @@ struct StatsView: View {
                         Text("Weekly")
                             .font(.headline)
                             .padding([.top, .horizontal])
-                        WeekCard()
+                        WeekCard(data: data)
                         
                         // This Month
                         Text("Monthly")
                             .font(.headline)
                             .padding(.horizontal)
                             .padding(.top)
-                        MonthCard()
-                        
+                        MonthCard(data: data)
                     }
                     .padding(.top)
                 }

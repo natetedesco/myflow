@@ -8,53 +8,44 @@ import Foundation
 import SwiftUI
 import Charts
 
-struct MountPrice: Identifiable {
-    var id = UUID()
-    var mount: String
-    var value: Double
-}
-
 struct MonthCard: View {
-    let data: [MountPrice] = [
-        MountPrice(mount: "jan", value: 5),
-        MountPrice(mount: "feb", value: 4),
-        MountPrice(mount: "mar", value: 7),
-        MountPrice(mount: "apr", value: 15),
-        MountPrice(mount: "may", value: 14),
-        MountPrice(mount: "jun", value: 27)
-    ]
+    var data: FlowData
     
     var body: some View {
-        
         VStack {
             HStack {
                 Spacer()
-
+                
                 Text("Monthly Flow Time Goal:")
                     .foregroundColor(.gray)
                     .font(.footnote)
-
+                
                 Text("20h")
                     .font(.subheadline)
                 Spacer()
             }
-            Chart(data) {
+            
+            Chart(data.days) { day in
                 LineMark(
-                    x: .value("Mount", $0.mount),
-                    y: .value("Value", $0.value)
+                    x: .value("Day", day.day, unit: .day),
+                    y: .value("Views", day.flowTime)
                 )
                 PointMark(
-                    x: .value("Mount", $0.mount),
-                    y: .value("Value", $0.value)
+                    x: .value("Day", day.day, unit: .day),
+                    y: .value("Views", day.flowTime)
                 )
             }
             .accentColor(.myBlue)
             .frame(height: 120)
-                .padding(8)
+            .padding(8)
         }
         .frame(minHeight: 130) // temporary
         .modifier(CustomGlass())
-        
+    }
+}
 
+struct MonthCard_Previews: PreviewProvider {
+    static var previews: some View {
+        MonthCard(data: FlowData())
     }
 }

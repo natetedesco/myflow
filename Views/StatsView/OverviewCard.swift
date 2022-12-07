@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct OverviewCard: View {
+    
     var body: some View {
         HStack(alignment: .center) {
             VStack(alignment: .center, spacing: 4) {
                 Text("Today")
                     .foregroundColor(.gray)
                     .font(.footnote)
-                Text("1h 15m")
+                Text(formatHoursAndMinutes(time: 100))
                     .font(.subheadline)
                     .foregroundColor(.myBlue)
             }
@@ -24,10 +25,9 @@ struct OverviewCard: View {
                 Text("This Week")
                     .font(.footnote)
                     .foregroundColor(.gray)
-                Text("5h 20m")
+                Text(formatHoursAndMinutes(time: 1000))
                     .font(.subheadline)
                     .foregroundColor(.myBlue)
-
             }
             .frame(maxWidth: .infinity)
             
@@ -35,10 +35,9 @@ struct OverviewCard: View {
                 Text("This Month")
                     .foregroundColor(.gray)
                     .font(.footnote)
-                Text("25h 23m")
+                Text(formatHoursAndMinutes(time: 10000))
                     .font(.subheadline)
                     .foregroundColor(.myBlue)
-
             }
             .frame(maxWidth: .infinity)
         }

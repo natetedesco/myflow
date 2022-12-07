@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct WeekCard: View {
+    var data: FlowData
+    
     var body: some View {
         VStack(alignment: .center) {
             HStack {
@@ -21,15 +23,11 @@ struct WeekCard: View {
                     .font(.subheadline)
                 Spacer()
             }
-
+            
             HStack(alignment: .center, spacing: 16) {
-                BarGraph(text: "M", value: 0.7)
-                BarGraph(text: "T", value: 1.0)
-                BarGraph(text: "W", value: 0.8)
-                BarGraph(text: "T", value: 0.9)
-                BarGraph(text: "F", color: .myBlue, value: 0.5)
-                BarGraph(text: "S")
-                BarGraph(text: "S")
+                ForEach(data.days) { day in
+                    BarGraph(value: 0)
+                }
             }
         }
         .frame(maxWidth: .infinity)
@@ -39,6 +37,6 @@ struct WeekCard: View {
 
 struct WeekCard_Previews: PreviewProvider {
     static var previews: some View {
-        WeekCard()
+        WeekCard(data: FlowData())
     }
 }

@@ -7,9 +7,9 @@
 import SwiftUI
 
 struct BarGraph: View {
-    var text: String
+    var text: String = "D"
     var color: Color = .gray
-    @State var value: Float = 0
+    @State var value: CGFloat = 0
     
     var body: some View {
         VStack {

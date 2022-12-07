@@ -11,10 +11,18 @@ func formatTime(seconds: Int) -> String {
     let seconds = "\((seconds % 3600) % 60)"
     
     let minuteStamp = minutes.count > 1 ? minutes : minutes
-    
     let secondStamp = seconds.count > 1 ? seconds : "0" + seconds
     
     return ("\(minuteStamp):\(secondStamp)")
+}
+
+func formatHoursAndMinutes(time: Int) -> String {
+    let hours = "\(time / 60)"
+    let minutes = "\((time % 3600) % 60)"
+    
+    let hourStamp = hours.count >= 1 ? hours : "0"
+    let minuteStamp = minutes.count >= 1 ? minutes : "0"
+    return ("\(hourStamp)h \(minuteStamp)m")
 }
 
 func formatProgress(time: Int, timeLeft: Int) -> CGFloat {
