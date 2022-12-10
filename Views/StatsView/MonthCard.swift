@@ -25,14 +25,14 @@ struct MonthCard: View {
                 Spacer()
             }
             
-            Chart(data.days) { day in
+            Chart(data.presentedDays) { day in
                 LineMark(
                     x: .value("Day", day.day, unit: .day),
-                    y: .value("Views", day.flowTime)
+                    y: .value("Views", day.time)
                 )
                 PointMark(
                     x: .value("Day", day.day, unit: .day),
-                    y: .value("Views", day.flowTime)
+                    y: .value("Views", day.time)
                 )
             }
             .accentColor(.myBlue)
