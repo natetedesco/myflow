@@ -22,7 +22,6 @@ extension FlowModel {
         start = Date()
         let calendar = Calendar.current
         let end = calendar.date(byAdding: .second, value: (time - elapsedTime), to: start)!
-        
         return end
     }
     

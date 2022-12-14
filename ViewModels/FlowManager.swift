@@ -48,21 +48,18 @@ extension FlowModel {
         let changedFlow = Flow(
             
         title: flow.title,
-        
         simple: flow.simple,
         blocks: flow.blocks,
         
         flowMinuteSelection: flow.flowMinuteSelection,
         flowSecondsSelection: flow.flowSecondsSelection,
-        
         breakMinuteSelection: flow.breakMinuteSelection,
         breakSecondsSelection: flow.breakSecondsSelection,
         
         roundsSelection: flow.roundsSelection,
-        
         reminder: flow.reminder,
         goal: flow.goal)
-        
+    
         return changedFlow
     }
 }

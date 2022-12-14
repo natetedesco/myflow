@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct WeekCard: View {
-    var data: FlowData
+    @ObservedObject var data: FlowData
+    var days = ["M", "T", "W", "T", "F", "S", "S"]
+    var daysTime = [0, 0, 0, 0, 0, 0, 0]
+
     
     var body: some View {
         VStack(alignment: .center) {
@@ -24,9 +27,24 @@ struct WeekCard: View {
                 Spacer()
             }
             
-            HStack(alignment: .center, spacing: 16) {
-                ForEach(data.days) { day in
-                    BarGraph(value: 0)
+            VStack {
+                HStack(alignment: .center, spacing: 16) {
+                    
+                    ForEach(0..<self.data.thisWeekDays.count, id: \.self) { index in
+                        BarGraph(
+                            text: days[index],
+                            color: index == data.dayOfTheWeek ? .myBlue : .gray,
+                            value: CGFloat(data.thisWeekDays[index].time)
+                        )
+                    }
+                    
+                }
+                
+                HStack(alignment: .center, spacing: 16) {
+                    
+                    ForEach(data.thisWeekDays) { day in
+                        BarGraph(value: CGFloat(day.time))
+                    }
                 }
             }
         }
@@ -40,3 +58,5 @@ struct WeekCard_Previews: PreviewProvider {
         WeekCard(data: FlowData())
     }
 }
+
+

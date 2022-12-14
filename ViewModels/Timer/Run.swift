@@ -11,10 +11,9 @@ extension FlowModel {
     
     // Run Timer
     func runTimer(time: Int, end: Date) {
-        notifications.Set(
-            flow: type == .Flow ? true : false,
-            time: time,
-            elapsedTime: elapsedTime)
+        notifications.Set(flow: type == .Flow ? true : false, time: time, elapsedTime: elapsedTime)
+        
+        data.createDayStruct()
         
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [self] timer in
             if getTimeLeft(end: end) == 0 {
@@ -26,5 +25,13 @@ extension FlowModel {
                 }
             }
         })
+    }
+    
+
+    
+    func countTime() {
+        
+        // Create Day Struct
+        
     }
 }

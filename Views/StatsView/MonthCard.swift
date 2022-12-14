@@ -9,7 +9,7 @@ import SwiftUI
 import Charts
 
 struct MonthCard: View {
-    var data: FlowData
+    @ObservedObject var data: FlowData
     
     var body: some View {
         VStack {
@@ -25,16 +25,16 @@ struct MonthCard: View {
                 Spacer()
             }
             
-            Chart(data.presentedDays) { day in
-                LineMark(
-                    x: .value("Day", day.day, unit: .day),
-                    y: .value("Views", day.time)
-                )
-                PointMark(
-                    x: .value("Day", day.day, unit: .day),
-                    y: .value("Views", day.time)
-                )
-            }
+//            Chart(data.presentedDays) { day in
+//                LineMark(
+//                    x: .value("Day", day.day, unit: .day),
+//                    y: .value("Views", day.time)
+//                )
+//                PointMark(
+//                    x: .value("Day", day.day, unit: .day),
+//                    y: .value("Views", day.time)
+//                )
+//            }
             .accentColor(.myBlue)
             .frame(height: 120)
             .padding(8)

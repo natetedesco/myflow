@@ -9,12 +9,38 @@ import SwiftUI
 
 class FlowModel: ObservableObject {
     
+    @Published var mode: TimerMode = .Initial
+    @Published var type: FlowType = .Flow
+    @Published var flowMode: FlowMode = .Simple
+    
+    @Published var flowTime: Int = 0
+    @Published var breakTime: Int = 0
+    
+    @Published var flowTimeLeft: Int = 0
+    @Published var breakTimeLeft: Int = 0
+    
+    @Published var roundsSet: Int = 0
+    @Published var roundsCompleted: Int = 0
+    
+    @Published var blockTime: Int = 0
+    @Published var blocksCompleted: Int = 0
+    
+    @Published var animate: Int = 0
+    
+    @Published var completed = false
+    
+    var notifications = NotificationManager()
+    var data = FlowData()
+    
+    var timer = Timer()
+    var start = Date()
+    var elapsedTime = 0
+    
     init() {
         // if data
         if let data = UserDefaults.standard.data(forKey: "SavedData") {
             if let decoded = try? JSONDecoder().decode([Flow].self, from: data) {
                 flowList = decoded
-                
                 Initialize()
                 return
             }
@@ -37,29 +63,4 @@ class FlowModel: ObservableObject {
             Initialize()
         }
     }
-    
-    @Published var mode: TimerMode = .Initial
-    @Published var type: FlowType = .Flow
-    @Published var flowMode: FlowMode = .Simple
-    
-    @Published var flowTime: Int = 0
-    @Published var breakTime: Int = 0
-    
-    @Published var flowTimeLeft: Int = 0
-    @Published var breakTimeLeft: Int = 0
-    
-    @Published var roundsSet: Int = 0
-    @Published var roundsCompleted: Int = 0
-    
-    @Published var blockTime: Int = 0
-    @Published var blocksCompleted: Int = 0
-    
-    @Published var animate: Int = 0
-    
-    @Published var completed = false
-    
-    var notifications = NotificationManager()
-    var timer = Timer()
-    var start = Date()
-    var elapsedTime = 0
 }

@@ -7,6 +7,7 @@
 import SwiftUI
 
 struct StatsView: View {
+    
     @AppStorage("SelectedTab") var selectedTab: Tab = .home
     @ObservedObject var model: FlowModel
     @ObservedObject var data = FlowData()
@@ -22,7 +23,7 @@ struct StatsView: View {
                         Text("Overview")
                             .font(.headline)
                             .padding(.leading)
-                        OverviewCard()
+                        OverviewCard(data: data)
                         
                         // This Week
                         Text("Weekly")
@@ -45,6 +46,7 @@ struct StatsView: View {
             .navigationTitle("Statistics")
             .toolbar{
                 Button {
+                    data.createDayStruct()
                 } label: {
                     Image(systemName: "ellipsis")
                         .foregroundColor(.myBlue)

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct OverviewCard: View {
+    @ObservedObject var data: FlowData
     
     var body: some View {
         HStack(alignment: .center) {
@@ -15,7 +16,8 @@ struct OverviewCard: View {
                 Text("Today")
                     .foregroundColor(.gray)
                     .font(.footnote)
-                Text(formatHoursAndMinutes(time: 100))
+                Text("\(data.todayTime)")
+//                Text(formatHoursAndMinutes(time: 100))
                     .font(.subheadline)
                     .foregroundColor(.myBlue)
             }
@@ -25,7 +27,8 @@ struct OverviewCard: View {
                 Text("This Week")
                     .font(.footnote)
                     .foregroundColor(.gray)
-                Text(formatHoursAndMinutes(time: 1000))
+                Text("\(data.thisWeekTime)")
+//                Text(formatHoursAndMinutes(time: 1000))
                     .font(.subheadline)
                     .foregroundColor(.myBlue)
             }
@@ -35,7 +38,8 @@ struct OverviewCard: View {
                 Text("This Month")
                     .foregroundColor(.gray)
                     .font(.footnote)
-                Text(formatHoursAndMinutes(time: 10000))
+                Text("\(data.thisMonthTime)")
+//                Text(formatHoursAndMinutes(time: 10000))
                     .font(.subheadline)
                     .foregroundColor(.myBlue)
             }
@@ -47,6 +51,6 @@ struct OverviewCard: View {
 
 struct OverviewCard_Previews: PreviewProvider {
     static var previews: some View {
-        OverviewCard()
+        OverviewCard(data: FlowData())
     }
 }
