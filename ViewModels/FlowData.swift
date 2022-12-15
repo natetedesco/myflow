@@ -9,9 +9,8 @@ import Foundation
 class FlowData: ObservableObject {
     
     @Published var days: [Day] = [
-//        Day(day: Date.from(year: 2022, month: 12, day: 14), time: 1),
-        Day(day: Date.from(year: 2022, month: 12, day: 13), time: 1),
-        Day(day: Date.from(year: 2022, month: 12, day: 12), time: 1)
+        Day(day: Date.from(year: 2022, month: 12, day: 13), time: 10),
+        Day(day: Date.from(year: 2022, month: 12, day: 12), time: 10)
     ]
     
     let date = Date()
@@ -26,11 +25,17 @@ class FlowData: ObservableObject {
     var dayOfTheWeek: Int { getDayOfTheWeek() }
     
     func createDayStruct() {
+        //if day exists
+        
+        // if day doesn't exist
         let comp = calendar.dateComponents([.year, .month, .day], from: date)
         days.insert(Day(
             day: Date.from(year: comp.year!, month: comp.month!, day: comp.day!),
             time: 1), at: 0)
-        print(days)
+    }
+    
+    func addTimeToDay(time: Int) {
+        days[0].time = time
     }
     
     func getTodayTime() -> Int {
@@ -44,14 +49,14 @@ class FlowData: ObservableObject {
     
     func getThisWeekTime() -> Int {
         let comp = calendar.dateComponents([.year, .month, .day], from: firstDayOfTheWeek)
-        var daysCounted = 0
+        var counted = 0
         var weekTime = 0
         
         for i in 0...6 {
-            if days.indices.contains(daysCounted) {
-                if days[daysCounted].day == Date.from(year: comp.year!, month: comp.month!, day: (comp.day! + 6) - i) {
-                    weekTime = weekTime + days[daysCounted].time
-                    daysCounted = daysCounted + 1
+            if days.indices.contains(counted) {
+                if days[counted].day == Date.from(year: comp.year!, month: comp.month!, day: (comp.day! + 6) - i) {
+                    weekTime = weekTime + days[counted].time
+                    counted = counted + 1
                 }
             }
         }
@@ -60,21 +65,21 @@ class FlowData: ObservableObject {
     
     func getThisWeekDays() -> [Day] {
         let comp = calendar.dateComponents([.year, .month, .day], from: firstDayOfTheWeek)
-        var daysCounted = 0
+        var counted = 0
         var presentedDays: [Day] = []
         
         for i in 0...6 {
-            if days.indices.contains(daysCounted) {
-                if days[daysCounted].day == Date.from(year: comp.year!, month: comp.month!, day: (comp.day! + 6) - i) {
-                    presentedDays.insert(days[daysCounted], at: 0)
-                    daysCounted = daysCounted + 1
+            if days.indices.contains(counted) {
+                if days[counted].day == Date.from(year: comp.year!, month: comp.month!, day: (comp.day! + 6) - i) {
+                    presentedDays.insert(days[counted], at: 0)
+                    counted = counted + 1
                 }
                 else {
-                    presentedDays.insert(Day(day: Date.from(year: comp.year!, month: comp.month!, day: comp.day! + i), time: 0), at: i)
+                    presentedDays.insert(Day(day: Date.from(year: comp.year!, month: comp.month!, day: comp.day! + 6 - i), time: 0), at: 0)
                 }
             }
             else {
-                presentedDays.insert(Day(day: Date.from(year: comp.year!, month: comp.month!, day: comp.day! + i), time: 0), at: i)
+                presentedDays.insert(Day(day: Date.from(year: comp.year!, month: comp.month!, day: comp.day! + 6 - i), time: 0), at: 0)
             }
         }
         return presentedDays
@@ -83,14 +88,14 @@ class FlowData: ObservableObject {
     func getThisMonthTime() -> Int {
         let firstDayOfMonth = Date().startOfMonth()
         let comp = calendar.dateComponents([.year, .month, .day], from: firstDayOfMonth)
-        var daysCounted = 0
+        var counted = 0
         var time = 0
         
         for i in 0...30 {
             if days.indices.contains(i) {
-                if calendar.isDate(days[daysCounted].day, equalTo: Date.from(year: comp.year!, month: comp.month!, day: comp.day!), toGranularity: .month) {
-                    time = time + days[daysCounted].time
-                    daysCounted = daysCounted + 1
+                if calendar.isDate(days[counted].day, equalTo: Date.from(year: comp.year!, month: comp.month!, day: comp.day!), toGranularity: .month) {
+                    time = time + days[counted].time
+                    counted = counted + 1
                 }
             }
         }

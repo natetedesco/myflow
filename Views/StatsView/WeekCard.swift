@@ -11,7 +11,6 @@ struct WeekCard: View {
     @ObservedObject var data: FlowData
     var days = ["M", "T", "W", "T", "F", "S", "S"]
     var daysTime = [0, 0, 0, 0, 0, 0, 0]
-
     
     var body: some View {
         VStack(alignment: .center) {
@@ -34,22 +33,14 @@ struct WeekCard: View {
                         BarGraph(
                             text: days[index],
                             color: index == data.dayOfTheWeek ? .myBlue : .gray,
-                            value: CGFloat(data.thisWeekDays[index].time)
+                            value: CGFloat(data.thisWeekDays[index].time/10) // 10 is goal time
                         )
-                    }
-                    
-                }
-                
-                HStack(alignment: .center, spacing: 16) {
-                    
-                    ForEach(data.thisWeekDays) { day in
-                        BarGraph(value: CGFloat(day.time))
                     }
                 }
             }
+            .frame(maxWidth: .infinity)
+            .modifier(CustomGlass())
         }
-        .frame(maxWidth: .infinity)
-        .modifier(CustomGlass())
     }
 }
 

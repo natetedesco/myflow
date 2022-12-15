@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Day: Identifiable, Equatable {
     let day: Date
-    let time: Int
+    var time: Int
     var today: Bool = false
     var id: Date { day }
 }
