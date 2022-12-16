@@ -7,11 +7,33 @@
 import Foundation
 
 class FlowData: ObservableObject {
+    init() {
+        if let data = UserDefaults.standard.data(forKey: "SavedFlowData") {
+            if let decoded = try? JSONDecoder().decode([Day].self, from: data) {
+                days = decoded
+                return
+            }
+        }
+        days = [
+//            Day(day: Date.from(year: 2022, month: 12, day: 16), time: 100),
+            Day(day: Date.from(year: 2022, month: 12, day: 15), time: 90),
+            Day(day: Date.from(year: 2022, month: 12, day: 14), time: 140),
+            Day(day: Date.from(year: 2022, month: 12, day: 13), time: 100),
+            Day(day: Date.from(year: 2022, month: 12, day: 12), time: 100),
+            Day(day: Date.from(year: 2022, month: 12, day: 11), time: 120),
+            Day(day: Date.from(year: 2022, month: 12, day: 10), time: 60),
+            Day(day: Date.from(year: 2022, month: 12, day: 9), time: 80),
+            Day(day: Date.from(year: 2022, month: 12, day: 8), time: 100),
+            Day(day: Date.from(year: 2022, month: 12, day: 7), time: 120),
+            Day(day: Date.from(year: 2022, month: 12, day: 6), time: 140),
+            Day(day: Date.from(year: 2022, month: 12, day: 5), time: 90),
+            Day(day: Date.from(year: 2022, month: 12, day: 4), time: 70),
+            Day(day: Date.from(year: 2022, month: 12, day: 3), time: 80),
+            Day(day: Date.from(year: 2022, month: 12, day: 1), time: 60),
+        ]
+    }
     
-    @Published var days: [Day] = [
-        Day(day: Date.from(year: 2022, month: 12, day: 13), time: 10),
-        Day(day: Date.from(year: 2022, month: 12, day: 12), time: 10)
-    ]
+    @Published var days: [Day] = []
     
     let date = Date()
     let firstDayOfTheWeek = Date().startOfWeek()
@@ -21,23 +43,69 @@ class FlowData: ObservableObject {
     var thisWeekTime: Int { getThisWeekTime() }
     var thisMonthTime: Int { getThisMonthTime() }
     
-    var thisWeekDays: [Day] { getThisWeekDays() }
     var dayOfTheWeek: Int { getDayOfTheWeek() }
+    var thisWeekDays: [Day] { getThisWeekDays() }
+    var thisMonthDays: [Day] { getThisMonthDays() }
     
-    func createDayStruct() {
-        //if day exists
+    // Get this month days
+    func getThisMonthDays() -> [Day] {
+        let firstDayOfMonth = Date().startOfMonth()
+        let comp = calendar.dateComponents([.year, .month, .day], from: firstDayOfMonth)
+        let date = calendar.date(from: comp)!
         
-        // if day doesn't exist
+        let range = calendar.range(of: .day, in: .month, for: date)!
+        let numDays = range.count
+        var counted = 0
+        
+        var presentedDays: [Day] = []
+        
+        for i in 0...numDays {
+            // Add if day is less than or equal to today
+            
+            if days.indices.contains(counted) {
+                if days[counted].day == Date.from(year: comp.year!, month: comp.month!, day: (comp.day! + numDays) - i) {
+                    presentedDays.insert(days[counted], at: 0)
+                    counted = counted + 1
+                }
+                // if whole month
+//                else {
+//                    presentedDays.insert(Day(day: Date.from(year: comp.year!, month: comp.month!, day: comp.day! + numDays - i), time: 0), at: 0)
+//                }
+            }
+            else {
+                presentedDays.insert(Day(day: Date.from(year: comp.year!, month: comp.month!, day: comp.day! + numDays - i), time: 0), at: 0)
+            }
+        }
+        return presentedDays
+    }
+    
+    // Save
+    func save() {
+        if let encoded = try? JSONEncoder().encode(days) {
+            UserDefaults.standard.set(encoded, forKey: "SavedFlowData")
+        }
+    }
+    
+    // Add time to today
+    func addTimeToDay() {
+        days[0].time = days[0].time + 1
+        save()
+    }
+    
+    // Create day struct
+    func createDayStruct() {
         let comp = calendar.dateComponents([.year, .month, .day], from: date)
-        days.insert(Day(
-            day: Date.from(year: comp.year!, month: comp.month!, day: comp.day!),
-            time: 1), at: 0)
+        
+        //if day exists
+        if days[0].day != Date.from(year: comp.year!, month: comp.month!, day: comp.day!) {
+            days.insert(Day(
+                day: Date.from(year: comp.year!, month: comp.month!, day: comp.day!),
+                time: 1), at: 0)
+            save()
+        }
     }
     
-    func addTimeToDay(time: Int) {
-        days[0].time = time
-    }
-    
+    // Get todays time
     func getTodayTime() -> Int {
         let comp = calendar.dateComponents([.year, .month, .day], from: date)
         var time = 0
@@ -47,6 +115,7 @@ class FlowData: ObservableObject {
         return time
     }
     
+    // Get this weeks time
     func getThisWeekTime() -> Int {
         let comp = calendar.dateComponents([.year, .month, .day], from: firstDayOfTheWeek)
         var counted = 0
@@ -63,6 +132,7 @@ class FlowData: ObservableObject {
         return weekTime
     }
     
+    // Get this weeks days
     func getThisWeekDays() -> [Day] {
         let comp = calendar.dateComponents([.year, .month, .day], from: firstDayOfTheWeek)
         var counted = 0
@@ -85,6 +155,7 @@ class FlowData: ObservableObject {
         return presentedDays
     }
     
+    // Get this months time
     func getThisMonthTime() -> Int {
         let firstDayOfMonth = Date().startOfMonth()
         let comp = calendar.dateComponents([.year, .month, .day], from: firstDayOfMonth)

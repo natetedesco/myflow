@@ -11,14 +11,11 @@ struct Controls: View {
     
     var body: some View {
         ZStack {
-            
             if model.mode == .breakStart {
                 ContinueButton()
             }
-            
             // Middle
             if      model.mode == .flowPaused || model.mode == .breakPaused {
-                
                 HStack(spacing: 60) {
                     
                     // Restart

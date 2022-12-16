@@ -8,12 +8,7 @@ import Foundation
 
 extension FlowModel {
     
-    // Invalidate Timer
-    func invalidateTimer() {
-        timer.invalidate()
-        notifications.removeAllPendingNotificationRequests()
-    }
-    
+    // Set Flow Mode
     func setFlowMode() {
         if flowList[selection].simple {
             flowMode = .Simple

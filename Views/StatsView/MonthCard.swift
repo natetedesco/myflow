@@ -10,33 +10,24 @@ import Charts
 
 struct MonthCard: View {
     @ObservedObject var data: FlowData
+    @AppStorage("GoalTime") var goalSelection: Int = 2
     
     var body: some View {
         VStack {
-            HStack {
-                Spacer()
-                
-                Text("Monthly Flow Time Goal:")
-                    .foregroundColor(.gray)
-                    .font(.footnote)
-                
-                Text("20h")
-                    .font(.subheadline)
-                Spacer()
-            }
             
-//            Chart(data.presentedDays) { day in
-//                LineMark(
-//                    x: .value("Day", day.day, unit: .day),
-//                    y: .value("Views", day.time)
-//                )
+            Chart(data.thisMonthDays) { day in
+                LineMark(
+                    x: .value("Day", day.day, unit: .day),
+                    y: .value("Views", Double(day.time) / 60)
+                )
 //                PointMark(
 //                    x: .value("Day", day.day, unit: .day),
 //                    y: .value("Views", day.time)
 //                )
-//            }
+            }
             .accentColor(.myBlue)
             .frame(height: 120)
+            .padding(.top, 8)
             .padding(8)
         }
         .frame(minHeight: 130) // temporary

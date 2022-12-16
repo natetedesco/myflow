@@ -7,7 +7,7 @@
 import Foundation
 import SwiftUI
 
-struct Day: Identifiable, Equatable {
+struct Day: Codable, Identifiable, Equatable {
     let day: Date
     var time: Int
     var today: Bool = false

@@ -1,7 +1,6 @@
 //
 //  SimpleHelpers.swift
 //  MyFlow
-//
 //  Created by Nate Tedesco on 11/25/22.
 //
 
@@ -25,13 +24,5 @@ extension FlowModel {
                 }
             }
         })
-    }
-    
-
-    
-    func countTime() {
-        
-        // Create Day Struct
-        
     }
 }

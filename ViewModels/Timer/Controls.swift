@@ -51,5 +51,4 @@ extension FlowModel {
         blocksCompleted = 0
         Initialize()
     }
-
 }

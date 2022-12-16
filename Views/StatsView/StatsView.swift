@@ -7,51 +7,58 @@
 import SwiftUI
 
 struct StatsView: View {
-    
     @AppStorage("SelectedTab") var selectedTab: Tab = .home
     @ObservedObject var model: FlowModel
     @ObservedObject var data = FlowData()
+    @State var showGoal: Bool = false
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                AnimatedBlur()
-                ScrollView {
-                    VStack(alignment: .leading) {
-                        
-                        // Overview
-                        Text("Overview")
-                            .font(.headline)
-                            .padding(.leading)
-                        OverviewCard(data: data)
-                        
-                        // This Week
-                        Text("Weekly")
-                            .font(.headline)
-                            .padding([.top, .horizontal])
-                        WeekCard(data: data)
-                        
-                        // This Month
-                        Text("Monthly")
-                            .font(.headline)
-                            .padding(.horizontal)
-                            .padding(.top)
-                        MonthCard(data: data)
+        
+        ZStack {
+            NavigationView {
+                ZStack {
+                    AnimatedBlur()
+                    
+                    ScrollView {
+                        VStack(alignment: .leading) {
+                            
+                            // Overview
+                            Text("Overview")
+                                .font(.headline)
+                                .padding(.leading)
+                            OverviewCard(data: data)
+                            
+                            // This Week
+                            Text("Weekly")
+                                .font(.headline)
+                                .padding([.top, .horizontal])
+                            WeekCard(data: data)
+                            
+                            // This Month
+                            Text("Monthly")
+                                .font(.headline)
+                                .padding([.top, .horizontal])
+                            MonthCard(data: data)
+                        }
+                        .padding(.top)
                     }
-                    .padding(.top)
+                    .padding(.bottom, 80)
+                    Toolbar(model: model)
                 }
-                .padding(.bottom, 80)
-                Toolbar(model: model)
+                .navigationTitle("Statistics")
+                .toolbar{
+                    Button {
+                        showGoal.toggle()
+                    } label: {
+                        Image(systemName: "ellipsis")
+                            .foregroundColor(.myBlue)
+                            .font(.headline)
+                    }
+                }
             }
-            .navigationTitle("Statistics")
-            .toolbar{
-                Button {
-                    data.createDayStruct()
-                } label: {
-                    Image(systemName: "ellipsis")
-                        .foregroundColor(.myBlue)
-                        .font(.headline)
-                }
+            
+            if showGoal {
+                GoalView(showGoal: $showGoal)
             }
         }
     }

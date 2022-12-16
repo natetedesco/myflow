@@ -62,6 +62,10 @@ struct FlowSheet: View {
     }
 }
 
+enum Field: Hashable {
+    case flowname
+}
+
 struct Previews_FlowSheet_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {

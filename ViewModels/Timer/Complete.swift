@@ -8,6 +8,12 @@ import Foundation
 
 extension FlowModel {
     
+    // Invalidate Timer
+    func invalidateTimer() {
+        timer.invalidate()
+        notifications.removeAllPendingNotificationRequests()
+    }
+    
     // Complete Round
     func completeRound() -> Bool {
         if type == .Flow {
@@ -20,6 +26,7 @@ extension FlowModel {
         return false
     }
     
+    // Complete Block
     func completeBlock() -> Bool {
         blocksCompleted = blocksCompleted + 1
         

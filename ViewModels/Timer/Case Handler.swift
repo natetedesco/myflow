@@ -10,28 +10,20 @@ extension FlowModel {
     
     func startInput() {
         switch mode {
-            
         case .Initial:
             startFlowRunning()
-            
         case .flowStart:
             startFlowRunning()
-            
         case .flowPaused:
             startFlowRunning()
-            
         case .breakStart:
             startBreakrunning()
-            
         case .breakPaused:
             startBreakrunning()
-            
         case .flowRunning:
             pauseFlow()
-            
         case .breakRunning:
             pauseBreak()
-            
         }
     }
     

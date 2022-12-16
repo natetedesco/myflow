@@ -29,6 +29,7 @@ extension FlowModel {
     func getTimeLeft(end: Date) -> Int {
         let timeLeft = Calendar.current.dateComponents([.second], from: Date(), to: end + 1).second ?? 0
         self.animate = animate + 1
+        data.addTimeToDay()
         
         if type == .Flow {
             flowTimeLeft = timeLeft

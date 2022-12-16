@@ -9,6 +9,7 @@ import SwiftUI
 
 struct WeekCard: View {
     @ObservedObject var data: FlowData
+    @AppStorage("GoalTime") var goalSelection: Int = 2
     var days = ["M", "T", "W", "T", "F", "S", "S"]
     var daysTime = [0, 0, 0, 0, 0, 0, 0]
     
@@ -21,26 +22,26 @@ struct WeekCard: View {
                     .foregroundColor(.gray)
                     .font(.footnote)
                 
-                Text("2h")
+//                Text("2h")
+                Text("\(goalSelection)h")
                     .font(.subheadline)
                 Spacer()
             }
             
-            VStack {
-                HStack(alignment: .center, spacing: 16) {
-                    
-                    ForEach(0..<self.data.thisWeekDays.count, id: \.self) { index in
-                        BarGraph(
-                            text: days[index],
-                            color: index == data.dayOfTheWeek ? .myBlue : .gray,
-                            value: CGFloat(data.thisWeekDays[index].time/10) // 10 is goal time
-                        )
-                    }
+            
+            HStack(alignment: .center, spacing: 16) {
+                
+                ForEach(0..<self.data.thisWeekDays.count, id: \.self) { index in
+                    BarGraph(
+                        text: days[index],
+                        color: index == data.dayOfTheWeek ? .myBlue : .gray,
+                        value: (CGFloat(data.thisWeekDays[index].time))
+                    )
                 }
             }
-            .frame(maxWidth: .infinity)
-            .modifier(CustomGlass())
         }
+        .frame(maxWidth: .infinity)
+        .modifier(CustomGlass())
     }
 }
 
