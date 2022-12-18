@@ -11,7 +11,6 @@ struct TimerLabels: View {
     
     var body: some View {
         ZStack {
-            
             if model.flowMode == .Custom {
                 TimerLabel(color: model.type == .Flow ? .myBlue : .gray,
                            text: "\(formatTime(seconds: model.type == .Flow ? model.flowTimeLeft : model.breakTimeLeft))"

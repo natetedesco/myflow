@@ -12,10 +12,6 @@
 		F001C24228D7F24100134EB5 /* CustomFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F001C24128D7F24100134EB5 /* CustomFlow.swift */; };
 		F014A05D293AA67300B9D7D4 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = F014A05C293AA67200B9D7D4 /* Data.swift */; };
 		F018CF202864E11D002A17D7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066923326FB9C3800DB905E /* ContentView.swift */; };
-		F01922E128E4EB0300E5BA6F /* SaveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01922E028E4EB0300E5BA6F /* SaveButton.swift */; };
-		F01922E428E6070100E5BA6F /* FlowTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01922E328E6070100E5BA6F /* FlowTitle.swift */; };
-		F01922E628E62A2100E5BA6F /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01922E528E62A2100E5BA6F /* Reminder.swift */; };
-		F01922E828E62AA700E5BA6F /* DeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01922E728E62AA700E5BA6F /* DeleteButton.swift */; };
 		F01962A12931255D00336821 /* Setters.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962A02931255D00336821 /* Setters.swift */; };
 		F01962AB29317CE300336821 /* Initialize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962AA29317CE300336821 /* Initialize.swift */; };
 		F01962AD2931824200336821 /* Simple.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962AC2931824200336821 /* Simple.swift */; };
@@ -32,16 +28,15 @@
 		F032564B272251A6009D3EFB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F032564A272251A5009D3EFB /* SettingsView.swift */; };
 		F03358F7294CE4A60020E5F3 /* GoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03358F6294CE4A60020E5F3 /* GoalView.swift */; };
 		F03358F9294CE8950020E5F3 /* DayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03358F8294CE8950020E5F3 /* DayButton.swift */; };
+		F03358FC294D263A0020E5F3 /* FlowCompleted.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03358FB294D263A0020E5F3 /* FlowCompleted.swift */; };
 		F0391314285EBF860074CF33 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0391313285EBF860074CF33 /* Format.swift */; };
 		F0391317285FA0990074CF33 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0391316285FA0990074CF33 /* Haptics.swift */; };
 		F041791128597178004FC836 /* BarGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = F041791028597178004FC836 /* BarGraph.swift */; };
 		F045998D28E3810000573A0A /* SimpleFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F045998C28E3810000573A0A /* SimpleFlow.swift */; };
-		F045998F28E406EA00573A0A /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = F045998E28E406EA00573A0A /* Goal.swift */; };
 		F04AB6E628DA70D60075D500 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04AB6E528DA70D60075D500 /* Components.swift */; };
 		F04B500D2852F6DE004269DD /* FlowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04B500C2852F6DE004269DD /* FlowButton.swift */; };
 		F04FFB4328FF2C890058E66D /* Blocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB4228FF2C890058E66D /* Blocks.swift */; };
 		F04FFB4728FF326E0058E66D /* Reminders.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB4628FF326E0058E66D /* Reminders.swift */; };
-		F04FFB4928FF38330058E66D /* AddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB4828FF38330058E66D /* AddButton.swift */; };
 		F04FFB4C28FF66B30058E66D /* FlowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB4B28FF66B30058E66D /* FlowModel.swift */; };
 		F04FFB4E28FF67140058E66D /* FlowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB4D28FF67140058E66D /* FlowManager.swift */; };
 		F04FFB5E29033EC70058E66D /* Controls.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB5D29033EC70058E66D /* Controls.swift */; };
@@ -107,10 +102,6 @@
 		F001C23C28D3C59F00134EB5 /* FlowSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowSheet.swift; sourceTree = "<group>"; };
 		F001C24128D7F24100134EB5 /* CustomFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFlow.swift; sourceTree = "<group>"; };
 		F014A05C293AA67200B9D7D4 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
-		F01922E028E4EB0300E5BA6F /* SaveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveButton.swift; sourceTree = "<group>"; };
-		F01922E328E6070100E5BA6F /* FlowTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowTitle.swift; sourceTree = "<group>"; };
-		F01922E528E62A2100E5BA6F /* Reminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
-		F01922E728E62AA700E5BA6F /* DeleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteButton.swift; sourceTree = "<group>"; };
 		F01962A02931255D00336821 /* Setters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setters.swift; sourceTree = "<group>"; };
 		F01962AA29317CE300336821 /* Initialize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initialize.swift; sourceTree = "<group>"; };
 		F01962AC2931824200336821 /* Simple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Simple.swift; sourceTree = "<group>"; };
@@ -127,16 +118,15 @@
 		F032564A272251A5009D3EFB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		F03358F6294CE4A60020E5F3 /* GoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalView.swift; sourceTree = "<group>"; };
 		F03358F8294CE8950020E5F3 /* DayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayButton.swift; sourceTree = "<group>"; };
+		F03358FB294D263A0020E5F3 /* FlowCompleted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowCompleted.swift; sourceTree = "<group>"; };
 		F0391313285EBF860074CF33 /* Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Format.swift; sourceTree = "<group>"; };
 		F0391316285FA0990074CF33 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		F041791028597178004FC836 /* BarGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarGraph.swift; sourceTree = "<group>"; };
 		F045998C28E3810000573A0A /* SimpleFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleFlow.swift; sourceTree = "<group>"; };
-		F045998E28E406EA00573A0A /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
 		F04AB6E528DA70D60075D500 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
 		F04B500C2852F6DE004269DD /* FlowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowButton.swift; sourceTree = "<group>"; };
 		F04FFB4228FF2C890058E66D /* Blocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blocks.swift; sourceTree = "<group>"; };
 		F04FFB4628FF326E0058E66D /* Reminders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminders.swift; sourceTree = "<group>"; };
-		F04FFB4828FF38330058E66D /* AddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButton.swift; sourceTree = "<group>"; };
 		F04FFB4B28FF66B30058E66D /* FlowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowModel.swift; sourceTree = "<group>"; };
 		F04FFB4D28FF67140058E66D /* FlowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowManager.swift; sourceTree = "<group>"; };
 		F04FFB5D29033EC70058E66D /* Controls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controls.swift; sourceTree = "<group>"; };
@@ -193,14 +183,10 @@
 			isa = PBXGroup;
 			children = (
 				F001C23C28D3C59F00134EB5 /* FlowSheet.swift */,
-				F01922E328E6070100E5BA6F /* FlowTitle.swift */,
-				F01922E028E4EB0300E5BA6F /* SaveButton.swift */,
-				F045998E28E406EA00573A0A /* Goal.swift */,
-				F01922E528E62A2100E5BA6F /* Reminder.swift */,
-				F01922E728E62AA700E5BA6F /* DeleteButton.swift */,
 				F045998C28E3810000573A0A /* SimpleFlow.swift */,
 				F001C24128D7F24100134EB5 /* CustomFlow.swift */,
 				F0BA1E2028FCBA5800FCB5A8 /* FlowBlock.swift */,
+				F04AB6E528DA70D60075D500 /* Components.swift */,
 			);
 			path = FlowSheet;
 			sourceTree = "<group>";
@@ -233,20 +219,10 @@
 			children = (
 				F04B500A2852F68C004269DD /* FlowView */,
 				F001C24028D7BE1A00134EB5 /* FlowSheet */,
-				F03358FA294CE8FA0020E5F3 /* Components */,
 				F08B18072853DBA000D466ED /* StatsView */,
 				F08B18082853DBE600D466ED /* SettingsView */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		F03358FA294CE8FA0020E5F3 /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				F04FFB4828FF38330058E66D /* AddButton.swift */,
-				F04AB6E528DA70D60075D500 /* Components.swift */,
-			);
-			path = Components;
 			sourceTree = "<group>";
 		};
 		F04B500A2852F68C004269DD /* FlowView */ = {
@@ -260,6 +236,7 @@
 				F082B305271B690E002E238F /* Rounds.swift */,
 				F02C146A270FA679002FE382 /* StartButton.swift */,
 				F064AE0928C45CA3005EE330 /* ControlButtons.swift */,
+				F03358FB294D263A0020E5F3 /* FlowCompleted.swift */,
 			);
 			path = FlowView;
 			sourceTree = "<group>";
@@ -505,12 +482,9 @@
 				F0899DE5292EA54F00A35D4D /* OverviewCard.swift in Sources */,
 				F0BF2A9528C8205000C78A1C /* Text.swift in Sources */,
 				F001C24228D7F24100134EB5 /* CustomFlow.swift in Sources */,
-				F01922E628E62A2100E5BA6F /* Reminder.swift in Sources */,
 				F045998D28E3810000573A0A /* SimpleFlow.swift in Sources */,
 				F0948C4C2681907A00A5F48D /* Notifications.swift in Sources */,
-				F045998F28E406EA00573A0A /* Goal.swift in Sources */,
 				F0F7F41A29039ADA00BC8E16 /* UpgradeButton.swift in Sources */,
-				F01922E428E6070100E5BA6F /* FlowTitle.swift in Sources */,
 				F0A025CE2949022500AF723F /* Archive.swift in Sources */,
 				F01962B1293184BD00336821 /* Run.swift in Sources */,
 				F01962A12931255D00336821 /* Setters.swift in Sources */,
@@ -525,7 +499,6 @@
 				F074D67A271D124900CE1AB4 /* FlowView.swift in Sources */,
 				F04FFB4728FF326E0058E66D /* Reminders.swift in Sources */,
 				F02C1472270FA679002FE382 /* UI Elements.swift in Sources */,
-				F01922E128E4EB0300E5BA6F /* SaveButton.swift in Sources */,
 				F09861FF26968B4B00A61B42 /* WelcomeView.swift in Sources */,
 				F03358F7294CE4A60020E5F3 /* GoalView.swift in Sources */,
 				F0F7F4302911C6CA00BC8E16 /* Custom.swift in Sources */,
@@ -551,16 +524,15 @@
 				F02C1471270FA679002FE382 /* TimerLabels.swift in Sources */,
 				F0F7F41829039A0B00BC8E16 /* NavigationLinks.swift in Sources */,
 				F074D67C271D135900CE1AB4 /* BreakCircle.swift in Sources */,
-				F04FFB4928FF38330058E66D /* AddButton.swift in Sources */,
 				F001C23D28D3C59F00134EB5 /* FlowSheet.swift in Sources */,
 				F04FFB4328FF2C890058E66D /* Blocks.swift in Sources */,
-				F01922E828E62AA700E5BA6F /* DeleteButton.swift in Sources */,
 				F0391317285FA0990074CF33 /* Haptics.swift in Sources */,
 				F064AE0A28C45CA3005EE330 /* ControlButtons.swift in Sources */,
 				F0F7F41F2904EAEF00BC8E16 /* FlowMenu.swift in Sources */,
 				F01962B32931EBE700336821 /* Case Handler.swift in Sources */,
 				F018CF202864E11D002A17D7 /* ContentView.swift in Sources */,
 				F0391314285EBF860074CF33 /* Format.swift in Sources */,
+				F03358FC294D263A0020E5F3 /* FlowCompleted.swift in Sources */,
 				F0BA1E2128FCBA5900FCB5A8 /* FlowBlock.swift in Sources */,
 				F01962BA2931F06C00336821 /* Complete.swift in Sources */,
 				F001C23928D3A12100134EB5 /* Modifiers.swift in Sources */,

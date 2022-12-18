@@ -10,7 +10,7 @@ extension FlowModel {
     
     func Initialize() {
         let selection = flowList[selection]
-        let block = selection.blocks[blocksCompleted]
+//        let block = selection.blocks[blocksCompleted]
         mode = .Initial
         setFlowMode()
         
@@ -25,7 +25,7 @@ extension FlowModel {
         if flowMode == .Custom {
             mode = .Initial
             if selection.blocks[0].flow {
-                setFlowTime(time: block.timeSelection)
+                setFlowTime(time: selection.flowMinuteSelection)
                 type = .Flow
             }
             

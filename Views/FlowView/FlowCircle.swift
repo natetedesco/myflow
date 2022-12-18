@@ -26,9 +26,7 @@ struct FlowCircle: View {
             
             // Track
             Circle()
-                .stroke(
-                    Color.myBlue.opacity(0.3),
-                    style: StrokeStyle(lineWidth: 8,lineCap: .round))
+                .stroke(Color.myBlue.opacity(0.3),style: StrokeStyle(lineWidth: 8,lineCap: .round))
                 .frame(width: 310)
                 .blur(radius: 0.5)
             
@@ -39,10 +37,7 @@ struct FlowCircle: View {
                     to: model.mode == .Initial || model.mode == .flowStart ? 1.0 :
                         0.0 + formatProgress(time: model.flowTime, timeLeft: model.flowTimeLeft)
                 )
-                .stroke(Color.myBlue.opacity(0.2),
-                        style: StrokeStyle(
-                            lineWidth: 8,
-                            lineCap: .round))
+                .stroke(Color.myBlue.opacity(0.2),style: StrokeStyle(lineWidth: 8,lineCap: .round))
                 .rotationEffect(.degrees(-90))
                 .animation(.default.speed(0.20), value: model.animate)
                 .frame(width: 310)

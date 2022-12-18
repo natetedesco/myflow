@@ -11,49 +11,35 @@ struct OverviewCard: View {
     @ObservedObject var data: FlowData
     
     var body: some View {
-        VStack {
-            
-            HStack(alignment: .center) {
-                VStack(alignment: .center, spacing: 4) {
-                    Text("Today")
-                        .foregroundColor(.gray)
-                        .font(.footnote)
-                    Text("\(formatHoursAndMinutes(time: data.todayTime))")
-    //                Text(formatHoursAndMinutes(time: 100))
-                        .font(.subheadline)
-                        .foregroundColor(.myBlue)
-                }
-                .frame(maxWidth: .infinity)
-                
-                VStack(alignment: .center, spacing: 4) {
-                    Text("This Week")
-                        .font(.footnote)
-                        .foregroundColor(.gray)
-                    Text("\(formatHoursAndMinutes(time: data.thisWeekTime))")
-    //                Text(formatHoursAndMinutes(time: 1000))
-                        .font(.subheadline)
-                        .foregroundColor(.myBlue)
-                }
-                .frame(maxWidth: .infinity)
-                
-                VStack(alignment: .center, spacing: 4) {
-                    Text("This Month")
-                        .foregroundColor(.gray)
-                        .font(.footnote)
-                    Text("\(formatHoursAndMinutes(time: data.thisMonthTime))")
-    //                Text(formatHoursAndMinutes(time: 10000))
-                        .font(.subheadline)
-                        .foregroundColor(.myBlue)
-                }
-                .frame(maxWidth: .infinity)
-            }
-            .modifier(CustomGlass())
+        
+        HStack(alignment: .center) {
+            OverviewLabel(label: "Today", time: data.todayTime)
+            OverviewLabel(label: "This Week", time: data.thisWeekTime)
+            OverviewLabel(label: "This Month", time: data.thisMonthTime)
         }
+        .modifier(CustomGlass())
     }
 }
 
 struct OverviewCard_Previews: PreviewProvider {
     static var previews: some View {
         OverviewCard(data: FlowData())
+    }
+}
+
+struct OverviewLabel: View {
+    var label: String
+    var time: Int
+    
+    var body: some View {
+        VStack(alignment: .center, spacing: 4) {
+            Text(label)
+                .foregroundColor(.gray)
+                .font(.footnote)
+            Text("\(formatHoursAndMinutes(time: time))")
+                .font(.subheadline)
+                .foregroundColor(.myBlue)
+        }
+        .frame(maxWidth: .infinity)
     }
 }

@@ -8,7 +8,6 @@ import SwiftUI
 
 struct CustomFlow: View {
     @Binding var flow: Flow
-    
     @State var draggingItem: Block?
     @State var isDragging = false // disables all textfields
     @State var edit = false
@@ -59,10 +58,8 @@ struct CustomFlow: View {
                 Menu {
                     Button { edit.toggle() }
                         label: { Text("Edit") }
-                    
                     Button { }
                         label: { Text("Default values") }
-                    
                 } label: {
                     Image(systemName: "ellipsis")
                         .foregroundColor(.myBlue)

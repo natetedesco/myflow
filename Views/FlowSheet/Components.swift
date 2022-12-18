@@ -6,6 +6,22 @@
 
 import SwiftUI
 
+struct AddButtonLabel: View {
+    var title: String
+    var color: Color
+
+    var body: some View {
+        HStack {
+            Image(systemName: "plus")
+                .font(.headline)
+                .font(.headline)
+                .padding()
+                .background(Circle().fill(.ultraThinMaterial))
+        }
+        .foregroundColor(color)
+    }
+}
+
 struct SheetCapsule: View {
     var body: some View {
         Capsule()

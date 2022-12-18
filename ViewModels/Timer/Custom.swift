@@ -30,7 +30,7 @@ extension FlowModel {
     func setBlock() {
         elapsedTime = 0 // reset elapsed time
         let flowBlock = flowList[selection].blocks[blocksCompleted].flow ? true : false
-        blockTime = flowList[selection].blocks[blocksCompleted].timeSelection
+        blockTime = flowList[selection].blocks[blocksCompleted].minuteSelection
 
         if flowBlock {
             setFlowTime(time: blockTime)

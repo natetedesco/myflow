@@ -4,7 +4,6 @@
 //  Created by Nate Tedesco on 10/10/22.
 //
 
-import Foundation
 import SwiftUI
 import Charts
 
@@ -20,17 +19,16 @@ struct MonthCard: View {
                     x: .value("Day", day.day, unit: .day),
                     y: .value("Views", Double(day.time) / 60)
                 )
-//                PointMark(
-//                    x: .value("Day", day.day, unit: .day),
-//                    y: .value("Views", day.time)
-//                )
+                PointMark(
+                    x: .value("Day", day.day, unit: .day),
+                    y: .value("Views", Double(day.time) / 60)
+                )
             }
             .accentColor(.myBlue)
             .frame(height: 120)
             .padding(.top, 8)
             .padding(8)
         }
-        .frame(minHeight: 130) // temporary
         .modifier(CustomGlass())
     }
 }

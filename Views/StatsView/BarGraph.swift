@@ -19,9 +19,8 @@ struct BarGraph: View {
                         .frame(width: 25, height: 60)
                         .foregroundColor(.myBlue.opacity(0.1))
                     
-                    Rectangle().frame(
-                        width: 25,
-                        height: min(CGFloat(self.value)/CGFloat(goalSelection), 60))
+                    Rectangle()
+                        .frame(width: 25, height: min(CGFloat(self.value)/CGFloat(goalSelection), 60))
                         .foregroundColor(.myBlue)
                 }
                 .cornerRadius(25)

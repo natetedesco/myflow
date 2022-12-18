@@ -15,9 +15,9 @@ struct FlowView: View {
         ZStack {
             
             if model.completed {
-                FlowCompletedLabel(model: model)
+                FlowCompleted(model: model)
             }
-            
+
             FlowMenu(model: model, selectedFlow: $selectedFlow)
             
             if model.flowMode == .Custom {
@@ -33,7 +33,6 @@ struct FlowView: View {
                 if model.mode != .breakRunning {
                     FlowCircle(model: model)
                 }
-                
                 if model.mode != .flowRunning {
                     BreakCircle(model: model)
                 }
@@ -64,15 +63,4 @@ struct FlowView_Previews: PreviewProvider {
     }
 }
 
-struct FlowCompletedLabel: View {
-    @ObservedObject var model: FlowModel
 
-    var body: some View {
-        Text("Flow Completed")
-            .padding(.bottom, 500)
-            .foregroundColor(.myBlue)
-            .onTapGesture {
-                model.completed = false
-            }
-    }
-}

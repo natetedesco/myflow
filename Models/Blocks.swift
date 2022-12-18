@@ -12,8 +12,9 @@ struct Block: Codable, Hashable, Identifiable {
     var flow: Bool = true
     
     var title: String = ""
-    var time = [Int](0...60)
-    var timeSelection = 0
+
+    var minuteSelection = 0
+    var secondSelection = 0
     
     var draggable = true
     var pickTime = false
