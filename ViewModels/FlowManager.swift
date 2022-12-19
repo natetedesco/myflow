@@ -31,6 +31,7 @@ extension FlowModel {
     // Delete Flow
     func deleteFlow(id: UUID) {
         if let index = flowList.firstIndex(where: { $0.id == id }) {
+            self.selection = 0 // select first in list when flow is deleted, avoid crash
             flowList.remove(at: index)
             save()
         }

@@ -9,21 +9,31 @@ import Foundation
 extension FlowModel {
     
     func startInput() {
-        switch mode {
-        case .Initial:
-            startFlowRunning()
-        case .flowStart:
-            startFlowRunning()
-        case .flowPaused:
-            startFlowRunning()
-        case .breakStart:
-            startBreakrunning()
-        case .breakPaused:
-            startBreakrunning()
-        case .flowRunning:
-            pauseFlow()
-        case .breakRunning:
-            pauseBreak()
+        if flowTime > 0 && breakTime > 0 {
+            mediumHaptic()
+            
+            switch mode {
+            case .Initial:
+                FlowRunning()
+                
+            case .flowStart:
+                FlowRunning()
+                
+            case .flowPaused:
+                FlowRunning()
+                
+            case .breakStart:
+                Breakrunning()
+                
+            case .breakPaused:
+                Breakrunning()
+                
+            case .flowRunning:
+                pauseFlow()
+                
+            case .breakRunning:
+                pauseBreak()
+            }
         }
     }
     
@@ -31,46 +41,31 @@ extension FlowModel {
         if flowMode == .Simple {
             startSimple(time: time)
         }
-        
         if flowMode == .Custom {
             startCustom(time: time)
         }
-        
     }
     
-    func startFlowRunning() {
-        mediumHaptic()
+    func FlowRunning() {
         mode = .flowRunning
         type = .Flow
         Start(time: flowTime)
     }
     
-    func startBreakrunning() {
-        mediumHaptic()
+    func Breakrunning() {
         mode = .breakRunning
         type = .Break
         Start(time: breakTime)
     }
     
     func pauseFlow() {
-        mediumHaptic()
         mode = .flowPaused
-        Pause(flow: mode == .flowRunning ? true : false)
+        Pause()
     }
     
     func pauseBreak() {
-        mediumHaptic()
         mode = .breakPaused
-        Pause(flow: mode == .flowRunning ? true : false)
-    }
-    
-    func setStartMode() {
-        if type == .Flow {
-            mode = .breakStart
-        }
-        if type == .Break {
-            mode = .flowStart
-        }
+        Pause()
     }
 }
 

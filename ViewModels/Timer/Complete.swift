@@ -18,7 +18,6 @@ extension FlowModel {
     func completeRound() -> Bool {
         if type == .Flow {
             self.roundsCompleted = roundsCompleted + 1
-            
             if roundsCompleted == flowList[selection].roundsSelection {
                 return true
             }
@@ -29,7 +28,6 @@ extension FlowModel {
     // Complete Block
     func completeBlock() -> Bool {
         blocksCompleted = blocksCompleted + 1
-        
         if blocksCompleted == flowList[selection].blocks.count {
             return true
         }
@@ -41,5 +39,4 @@ extension FlowModel {
         completed = true
         Reset()
     }
-    
 }

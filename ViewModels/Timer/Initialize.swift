@@ -10,7 +10,6 @@ extension FlowModel {
     
     func Initialize() {
         let selection = flowList[selection]
-//        let block = selection.blocks[blocksCompleted]
         mode = .Initial
         setFlowMode()
         
@@ -24,15 +23,21 @@ extension FlowModel {
         // Initialize Custom
         if flowMode == .Custom {
             mode = .Initial
-            if selection.blocks[0].flow {
-                setFlowTime(time: selection.flowMinuteSelection)
-                type = .Flow
+            if selection.blocks.indices.contains(0) {
+                if selection.blocks[0].flow {
+                    setFlowTime(time: selection.blocks[0].minuteSelection)
+                    type = .Flow
+                }
+                
+                if !selection.blocks[0].flow {
+                    setBreakTime(time: selection.blocks[0].minuteSelection)
+                    mode = .breakStart
+                    type = .Break
+                }
             }
-            
-            if !selection.blocks[0].flow {
-                setBreakTime(time: blockTime)
-                mode = .breakStart
-                type = .Break
+            else {
+                setFlowTime(time: 0)
+                type = .Flow
             }
         }
     }

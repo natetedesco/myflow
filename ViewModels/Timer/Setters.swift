@@ -41,5 +41,4 @@ extension FlowModel {
         let newTime = Int(abs(start.timeIntervalSinceNow))
         elapsedTime = elapsedTime + newTime
     }
-    
 }

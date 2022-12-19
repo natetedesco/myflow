@@ -8,7 +8,6 @@ import Foundation
 import SwiftUI
 
 class FlowModel: ObservableObject {
-    
     var notifications = NotificationManager()
     var data = FlowData()
     
@@ -25,11 +24,9 @@ class FlowModel: ObservableObject {
     @Published var flowTimeLeft: Int = 0
     @Published var breakTimeLeft: Int = 0
     
-    @Published var blockTime: Int = 0
-    @Published var blocksCompleted: Int = 0
-    
     @Published var roundsSet: Int = 0
     @Published var roundsCompleted: Int = 0
+    @Published var blocksCompleted: Int = 0
     
     @Published var animate: Int = 0
     @Published var completed = false

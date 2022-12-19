@@ -14,6 +14,7 @@ struct Controls: View {
             if model.mode == .breakStart {
                 ContinueButton()
             }
+            
             // Middle
             if      model.mode == .flowPaused || model.mode == .breakPaused {
                 HStack(spacing: 60) {
@@ -39,7 +40,7 @@ struct Controls: View {
                         ChevronButton(image: "chevron.right")
                     }
                 }
-                .padding(.bottom, 480)
+                .padding(.bottom, 500)
             }
         }
         
@@ -81,8 +82,9 @@ struct ContinueButton: View {
                 .font(.title2)
                 .fontWeight(.light)
                 .accentColor(.myBlue)
-                .frame(maxWidth: .infinity, alignment: .top)
-                .padding(.bottom, 500)
+                .frame(maxHeight: .infinity, alignment: .top)
+//                .padding(.bottom, 700)
+                .padding(.top)
         }
     }
 }

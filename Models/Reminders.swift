@@ -6,19 +6,22 @@
 
 import Foundation
 
-//struct Day {
-//    var day: String
-//    var isOn: Bool
-//}
-//
-//class Days: ObservableObject {
-//    @Published var days = [
-//        Day(day: "Monday", isOn: false),
-//        Day(day: "Tuesday", isOn: false),
-//        Day(day: "Wednesday", isOn: false),
-//        Day(day: "Thursday", isOn: false),
-//        Day(day: "Friday", isOn: false),
-//        Day(day: "Saturday", isOn: false),
-//        Day(day: "Sunday", isOn: false)
-//    ]
-//}
+struct DayReminder: Identifiable {
+    var id = UUID()
+    var day: String
+    var isOn: Bool
+}
+
+class Reminders: ObservableObject {
+    
+    @Published var days = [
+        DayReminder(day: "M", isOn: false),
+        DayReminder(day: "T", isOn: false),
+        DayReminder(day: "W", isOn: false),
+        DayReminder(day: "T", isOn: false),
+        DayReminder(day: "F", isOn: false),
+        DayReminder(day: "S", isOn: false),
+        DayReminder(day: "S", isOn: false)
+    ]
+    
+}

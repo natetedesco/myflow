@@ -9,8 +9,7 @@ import Foundation
 extension FlowModel {
     
     // Pause
-    func Pause(flow: Bool) {
-        mode = flow ? .flowPaused : .breakPaused
+    func Pause() {
         setElapsedTime()
         invalidateTimer()
     }

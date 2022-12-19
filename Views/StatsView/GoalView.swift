@@ -15,8 +15,9 @@ struct GoalView: View {
     var body: some View {
         ZStack {
             Color.clear
-                .background(.thinMaterial)
-                .onTapGesture { showGoal = false }
+                .background(.ultraThinMaterial)
+                .onTapGesture { showGoal = false
+                }
             VStack {
                     VStack {
                         Text("Daily Flow Time Goal")

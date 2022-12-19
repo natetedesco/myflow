@@ -34,7 +34,6 @@ struct WeekCard: View {
                 }
             }
         }
-        .frame(maxWidth: .infinity)
         .modifier(CustomGlass())
     }
 }

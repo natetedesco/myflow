@@ -8,6 +8,7 @@ import SwiftUI
 
 struct FlowSheet: View {
     @ObservedObject var flowModel: FlowModel
+    @ObservedObject var reminders = Reminders()
     @State var flow: Flow
     @FocusState var focusedField: Field?
     @Environment(\.dismiss) var dismiss
@@ -38,7 +39,12 @@ struct FlowSheet: View {
                         Reminder(flow: $flow)
                         if flow.reminder {
                             Divider()
-//                            DayPicker(flow: $flow) // Fix later
+                            HStack(spacing: 16) {
+                                ForEach(reminders.days) { day in
+                                    DayButton(day: day.day, isOn: day.isOn)
+                                }
+                            }
+                            .padding(.horizontal,8)
                         }
                     }
                     .modifier(CustomGlass())

@@ -30,8 +30,9 @@ extension FlowModel {
     func setNextTimer() {
         elapsedTime = 0 // reset elapsed time
         
-        setStartMode() // set mode to flow or break start
-        
+        // set mode to flow or break start
+        mode = type == .Flow ? .breakStart : .flowStart
+
         if type == .Break { // set initial values for labels(only break)
             setBothTimes(flowTime: flowTime, breakTime: breakTime)
         }

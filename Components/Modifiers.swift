@@ -11,6 +11,7 @@ struct CustomGlass: ViewModifier {
         content
             .padding()
             .background(.black.opacity(0.7))
+            .background(.regularMaterial)
             .cornerRadius(20.0)
             .padding(.horizontal)
     }

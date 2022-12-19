@@ -18,7 +18,9 @@ struct FlowView: View {
                 FlowCompleted(model: model)
             }
 
-            FlowMenu(model: model, selectedFlow: $selectedFlow)
+            if model.mode != .breakStart {
+                FlowMenu(model: model, selectedFlow: $selectedFlow)
+            }
             
             if model.flowMode == .Custom {
                 if model.type == .Flow {
