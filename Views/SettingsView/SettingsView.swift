@@ -12,104 +12,77 @@ struct SettingsView: View {
     @State var isOn = false
     
     var body: some View {
-        
         NavigationView {
-            ZStack {
-                AnimatedBlur()
-                ScrollView {
+            ScrollView {
+                // Flows
+                Headline(text: "Flow")
+                VStack {
+                    // Start Flow Automatically
+                    ToggleBar(text: "Start flow automatically", isOn: $isOn)
                     
-                    // Flows
-                    Headline(text: "Flow")
-                    VStack {
-                        // Start Flow Automatically
-                        ToggleBar(text: "Start flow automatically", isOn: $isOn)
-                            .padding(.top, 8)
-                        
-                        Divider().padding(.leading)
-                        
-                        // Start Break Automatically
-                        ToggleBar(text: "Start break automatically", isOn: $isOn)
-                            .padding(.bottom, 8)
-                    }
-                    .modifier(CustomGlassNoPadding())
+                    Div()
                     
-                    // Customization
-                    Headline(text: "Customization")
-                    VStack(alignment: .leading, spacing: 16) {
-                        
-                        // Theme
-                        NavigationLink {
-                            
-                        } label: {
-                            SettingsNavigationList(text: "Theme", icon: "paintpalette")
-                                .padding(.top)
-                        }
-
-                        Divider().padding(.leading)
-                        
-                        // Sound
-                        NavigationLink {
-                            
-                        } label: {
-                            SettingsNavigationList(text: "Sounds", icon: "speaker")
-                                .padding(.bottom)
-                        }
-                    }
-                    .modifier(CustomGlassNoPadding())
+                    // Start Break Automatically
+                    ToggleBar(text: "Start break automatically", isOn: $isOn)
+                }.modifier(CustomGlassNoHPadding())
+                
+                // Customization
+                Headline(text: "Customization")
+                VStack(spacing: 16) {
+                    // Theme
+                    NavigationLink { }
+                    label: { NavigationList(text: "Theme", icon: "paintpalette") }
                     
-                    // About
-                    Headline(text: "About")
-                    VStack(alignment: .leading, spacing: 16) {
-                        
-                        // About us
-                        NavigationLink {
-                            AboutUs()
-                        } label: {
-                            SettingsNavigation(text: "About us", icon: "info.circle")
-                                .padding(.top)
-                        }
-
-                        Divider().padding(.leading)
-                        
-                        // How it works
-                        NavigationLink {
-                            HowItWorks()
-                        } label: {
-                            SettingsNavigation(text: "How it works", icon: "questionmark.circle")
-                        }
-                        
-                        Divider().padding(.leading)
-                        
-                        // Rate the app
-                        NavigationLink {
-                            
-                        } label: {
-                            SettingsNavigation(text: "Rate the app", icon: "star")
-                        }
-                        
-                        Divider().padding(.leading)
-                        
-                        // Feedback and support
-                        NavigationLink {
-                            
-                        } label: {
-                            SettingsNavigation(text: "Feedback and support", icon: "message")
-                                .padding(.bottom)
-                        }
-                    }
-                    .modifier(CustomGlassNoPadding())
-
-                    // Version
-                    VersionNumber(text: "v2.0")
+                    Div()
+                    
+                    // Sound
+                    NavigationLink { }
+                    label: { NavigationList(text: "Sounds", icon: "speaker") }
+                }.modifier(CustomGlassNoHPadding())
+                
+                // About
+                Headline(text: "About")
+                VStack(spacing: 16) {
+                    // About us
+                    NavigationLink { AboutUs() }
+                    label: { NavigationLabel(text: "About us", icon: "info.circle") }
+                    
+                    Div()
+                    
+                    // How it works
+                    NavigationLink { HowItWorks() }
+                    label: { NavigationLabel(text: "How it works", icon: "questionmark.circle") }
+                    
+                    Div()
+                    
+                    // Rate the app
+                    NavigationLink { }
+                    label: { NavigationLabel(text: "Rate the app", icon: "star") }
+                    
+                    Div()
+                    
+                    // Feedback and support
+                    NavigationLink { }
+                    label: { NavigationLabel(text: "Feedback and support", icon: "message") }
                 }
-                .padding(.bottom, 80)
-                Toolbar(model: model)
+                .modifier(CustomGlassNoHPadding())
+                
+                // Version
+                VersionNumber(text: "v2.0")
+                    .frame(maxWidth: .infinity, alignment: .center)
             }
+            .padding(.bottom, 80)
             .navigationTitle("Settings")
-            .toolbar {
-                UpgradeButton()
-            }
-        }.accentColor(.myBlue)
+            .toolbar { UpgradeButton() }
+            .background(AnimatedBlur())
+        }
+        .accentColor(.myBlue)
     }
 }
 
+
+struct Div: View {
+    var body: some View {
+        Divider().padding(.leading)
+    }
+}

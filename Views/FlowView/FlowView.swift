@@ -13,49 +13,25 @@ struct FlowView: View {
     
     var body: some View {
         ZStack {
+            FlowMenu(model: model, selectedFlow: $selectedFlow)
+                .frame(maxHeight: .infinity, alignment: .top)
+                .padding(.top)
             
-            if model.completed {
-                FlowCompleted(model: model)
-            }
-
-            if model.mode != .breakStart {
-                FlowMenu(model: model, selectedFlow: $selectedFlow)
-            }
+            Controls(model: model)
+                .padding(.bottom, 500)
             
-            if model.flowMode == .Custom {
-                if model.type == .Flow {
-                    FlowCircle(model: model)
-                }
-                if model.type == .Break {
-                    BreakCircle(model: model)
-                }
-            }
+            ContinueButton(model: model)
+                .frame(maxHeight: .infinity, alignment: .top)
+                .padding(.top)
             
-            if model.flowMode == .Simple {
-                if model.mode != .breakRunning {
-                    FlowCircle(model: model)
-                }
-                if model.mode != .flowRunning {
-                    BreakCircle(model: model)
-                }
-            }
+            Circles(model: model)
             
             TimerLabels(model: model)
             
-            Controls(model: model)
-            
-            if model.flowMode == .Simple {
-                Rounds(model: model)
-            }
-            
+            Rounds(model: model)
+                .padding(.top, 110)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .sheet(item: $selectedFlow) { flow in
-            FlowSheet(flowModel: model, flow: flow)
-                .background(.black)
-                .presentationDetents([.large])
-                .preferredColorScheme(.dark)
-        }
+        .modifier(CustomSheet(model: model, selectedFlow: $selectedFlow))
     }
 }
 
@@ -65,4 +41,15 @@ struct FlowView_Previews: PreviewProvider {
     }
 }
 
+struct FlowCompleted: View {
+    @ObservedObject var model: FlowModel
 
+    var body: some View {
+        Text("Flow Completed")
+            .padding(.bottom, 500)
+            .foregroundColor(.myBlue)
+            .onTapGesture {
+                model.completed = false
+            }
+    }
+}

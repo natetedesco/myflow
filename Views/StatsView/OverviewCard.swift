@@ -11,19 +11,12 @@ struct OverviewCard: View {
     @ObservedObject var data: FlowData
     
     var body: some View {
-        
         HStack(alignment: .center) {
             OverviewLabel(label: "Today", time: data.todayTime)
             OverviewLabel(label: "This Week", time: data.thisWeekTime)
             OverviewLabel(label: "This Month", time: data.thisMonthTime)
         }
         .modifier(CustomGlass())
-    }
-}
-
-struct OverviewCard_Previews: PreviewProvider {
-    static var previews: some View {
-        OverviewCard(data: FlowData())
     }
 }
 
@@ -41,5 +34,11 @@ struct OverviewLabel: View {
                 .foregroundColor(.myBlue)
         }
         .frame(maxWidth: .infinity)
+    }
+}
+
+struct OverviewCard_Previews: PreviewProvider {
+    static var previews: some View {
+        OverviewCard(data: FlowData())
     }
 }

@@ -11,26 +11,28 @@ struct FlowMenu: View {
     @Binding var selectedFlow: Flow?
     
     var body: some View {
-        Menu {
-            
-            // Create Flow
-            Button(action: { self.selectedFlow = Flow(new: true)}) {
-                Label("Create Flow", systemImage: "plus")
+        if model.mode != .breakStart {
+            Menu {
+                // Create Flow
+                Button { selectedFlow = Flow(new: true) }
+                label: { Label("Create", systemImage: "plus") }
+                
+                // Edit Flow
+                Button { selectedFlow = model.flowList[model.selection] }
+                label: { Label("Edit", systemImage: "pencil") }
+                
+                // List
+                Picker(selection: $model.selection) {
+                    ForEach(0..<$model.flowList.count, id: \.self) { index in
+                        Text(model.flowList[index].title)
+                    }
+                }label:{} // Unused
             }
-            
-            // Edit Flow
-            Button(action: { self.selectedFlow = model.flowList[model.selection] }) {
-                Label("Edit Flow", systemImage: "pencil")
-            }
-            
-            // List
-            Picker(selection: $model.selection) {
-                ForEach(0..<self.$model.flowList.count, id: \.self) { index in
-                    Text(model.flowList[index].title)
-                }
-            }label: {} // Unused
+        label: { MenuLabel }
         }
-    label: { // Menu Label
+    }
+    
+    var MenuLabel: some View {
         Text(model.flowList[model.selection].title)
             .font(.title2)
             .fontWeight(.light)
@@ -40,8 +42,5 @@ struct FlowMenu: View {
             .background(.ultraThinMaterial.opacity(0.55))
             .cornerRadius(30)
             .animation(.easeInOut(duration: 0.15), value: model.flowList)
-    }
-    .frame(maxHeight: .infinity, alignment: .top)
-    .padding(.top)
     }
 }

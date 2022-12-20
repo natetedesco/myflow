@@ -16,26 +16,28 @@ struct ContentView: View {
                 
             case .home:
                 ZStack {
-                    FlowView(
-                        model: model
-                    )
-                    .background(AnimatedBlurOpaque())
-//                    if model.mode != .flowRunning {
-                        Toolbar(model: model)
-//                    }
+                    FlowView(model: model)
+                        .background(AnimatedBlurOpaque())
+                    Toolbar(model: model)
                 }
                 
             case .settings:
-                SettingsView(model: model)
+                ZStack {
+                    SettingsView(model: model)
+                    Toolbar(model: model)
+                }
                 
             case .data:
-                StatsView(model: model)
+                ZStack {
+                    StatsView(model: model)
+                    Toolbar(model: model)
+                }
                 
             case .welcome :
                 ZStack {
                     AnimatedBlurOpaque()
-                    FlowView(model: model
-                    ).blur(radius: 50)
+                    FlowView(model: model)
+                        .blur(radius: 50)
                     WelcomeScreen()
                 }
             }

@@ -13,7 +13,6 @@ struct DayReminder: Identifiable {
 }
 
 class Reminders: ObservableObject {
-    
     @Published var days = [
         DayReminder(day: "M", isOn: false),
         DayReminder(day: "T", isOn: false),
@@ -23,5 +22,4 @@ class Reminders: ObservableObject {
         DayReminder(day: "S", isOn: false),
         DayReminder(day: "S", isOn: false)
     ]
-    
 }

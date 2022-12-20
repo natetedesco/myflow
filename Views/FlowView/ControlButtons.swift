@@ -8,61 +8,42 @@ import SwiftUI
 
 struct Controls: View {
     @ObservedObject var model: FlowModel
-    
     var body: some View {
-        ZStack {
-            if model.mode == .breakStart {
-                ContinueButton()
-            }
-            
-            // Middle
-            if      model.mode == .flowPaused || model.mode == .breakPaused {
-                HStack(spacing: 60) {
-                    
-                    // Restart
-                    Button {
-                        model.Restart()
-                    } label: {
-                        ChevronButton(image: "chevron.left")
-                    }
-                    
-                    // Reset
-                    Button {
-                        model.Reset()
-                    } label: {
-                        ResetButton()
-                    }
-                    
-                    // Skip
-                    Button {
-                        model.Skip()
-                    } label: {
-                        ChevronButton(image: "chevron.right")
-                    }
-                }
-                .padding(.bottom, 500)
+        
+        if model.mode == .flowPaused || model.mode == .breakPaused {
+            HStack(spacing: 60) {
+                
+                // Restart
+                Button { model.Restart() }
+                label: { ChevronButton(image: "chevron.left") }
+                
+                // Reset
+                Button { model.Reset() }
+                label: { ResetButton }
+                
+                // Skip
+                Button { model.Skip() }
+                label: { ChevronButton(image: "chevron.right") }
             }
         }
         
-        // Top Right
+        // Top Right Reset
         if model.mode == .flowStart || model.mode == .breakStart {
-            Button(
-                action: model.Reset,
-                label: { ResetButton()
-                        .padding(.bottom, 700)
-                        .padding(.leading, 300)
-                })
+            Button { model.Reset() }
+            label: { ResetButton }
+                .frame(maxHeight: .infinity, alignment: .top)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .padding()
         }
     }
-}
-
-struct ResetButton: View {
-    var body: some View {
+    
+    var ResetButton: some View {
         Image(systemName: "gobackward")
             .foregroundColor(.myBlue)
             .font(Font.system(size: 25))
     }
 }
+
 
 struct ChevronButton: View {
     var image: String
@@ -75,16 +56,19 @@ struct ChevronButton: View {
 }
 
 struct ContinueButton: View {
+    @ObservedObject var model: FlowModel
+
     var body: some View {
-        Button {
-        } label: {
-            Text("Continue Flow")
-                .font(.title2)
-                .fontWeight(.light)
-                .accentColor(.myBlue)
-                .frame(maxHeight: .infinity, alignment: .top)
-//                .padding(.bottom, 700)
-                .padding(.top)
+        
+        if model.mode == .breakStart {
+            Button {
+                model.continueFlow()
+            } label: {
+                Text("Continue Flow")
+                    .font(.title2)
+                    .fontWeight(.light)
+                    .accentColor(.myBlue)
+            }
         }
     }
 }

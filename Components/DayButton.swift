@@ -8,7 +8,6 @@ import SwiftUI
 
 struct DayButton: View {
     @State var day: String
-//    @Binding var isOn: Bool
     @State var isOn: Bool = true
 
     var body: some View {

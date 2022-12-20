@@ -14,18 +14,7 @@ struct CustomFlow: View {
     
     var body: some View {
         VStack {
-            
-            // Done Button
-            if edit {
-                Button {
-                    edit = false
-                } label: {
-                    Text("Done")
-                        .foregroundColor(.myBlue)
-                        .frame(maxWidth: .infinity, alignment: .trailing)
-                        .padding(.bottom)
-                }
-            }
+            DoneButton
             
             // Flow Blocks
             VStack {
@@ -45,7 +34,7 @@ struct CustomFlow: View {
                     .onDrop(of: [.item], delegate: DropViewDelegate(currentItem: flow.blocks[index], items: $flow.blocks, draggingItem: $draggingItem, isDragging: $isDragging))
                 }
             }
-            .padding(.bottom, 15) // 1 from block
+            .padding(.bottom, 24)
             
             // Add Flow Button
             HStack {
@@ -53,19 +42,7 @@ struct CustomFlow: View {
                     label: { AddButtonLabel(title: "Flow", color: .myBlue) }
                 
                 Spacer()
-                
-                // Edit Button
-                Menu {
-                    Button { edit.toggle() }
-                        label: { Text("Edit") }
-                    Button { }
-                        label: { Text("Default values") }
-                } label: {
-                    Image(systemName: "ellipsis")
-                        .foregroundColor(.myBlue)
-                        .font(.title2)
-                        .frame(maxWidth: .infinity, alignment: .center)
-                }
+                EditButton
                 
                 // Add Break Button
                 Button { flow.addBreakBlock() }
@@ -75,8 +52,48 @@ struct CustomFlow: View {
         .animation(.easeInOut, value: flow.blocks) // adding blocks
         .animation(.default, value: edit) // editing blocks
     }
+    
     func delete(at offsets: IndexSet) {
         flow.blocks.remove(atOffsets: offsets)
+    }
+    
+    var EditButton: some View {
+        Button {
+            edit.toggle()
+        } label: {
+            Image(systemName: "ellipsis")
+                .foregroundColor(.myBlue)
+                .font(.title2)
+                .frame(maxWidth: .infinity, alignment: .center)
+        }
+    }
+    
+    @ViewBuilder var DoneButton: some View {
+        if edit {
+            Button { edit = false }
+            label: {
+                Text("Done")
+                    .foregroundColor(.myBlue)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                    .padding(.bottom)
+            }
+        }
+    }
+}
+
+struct AddButtonLabel: View {
+    var title: String
+    var color: Color
+
+    var body: some View {
+        HStack {
+            Image(systemName: "plus")
+                .font(.headline)
+                .font(.headline)
+                .padding()
+                .background(Circle().fill(.ultraThinMaterial))
+        }
+        .foregroundColor(color)
     }
 }
 

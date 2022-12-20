@@ -11,34 +11,31 @@ struct TimerLabels: View {
     
     var body: some View {
         ZStack {
+            // Custom
             if model.flowMode == .Custom {
                 TimerLabel(color: model.type == .Flow ? .myBlue : .gray,
-                           text: "\(formatTime(seconds: model.type == .Flow ? model.flowTimeLeft : model.breakTimeLeft))"
-                )
+                           text: formatTime(seconds: model.type == .Flow ? model.flowTimeLeft : model.breakTimeLeft))
                 .font(.system(size: 50))
-                .opacity(1.0)
-                .animation(.easeInOut(duration: 0.3), value: model.mode)
             }
             
+            // Simple
             if model.flowMode == .Simple {
                 // Flow Label
-                TimerLabel(color: .myBlue, text: "\(formatTime(seconds: model.flowTimeLeft))")
-                
+                TimerLabel(color: .myBlue, text: formatTime(seconds: model.flowTimeLeft))
                     .modifier(AnimatingFontSize(fontSize: model.mode == .flowRunning ? 50 : 30))
                     .scaleEffect(model.mode == .breakRunning ? 0.0 : 1.0)
                     .padding(.trailing, model.mode == .flowRunning ? 0 : 120)
                     .opacity(model.mode == .breakRunning ? 0.0 : 1.0)
-                    .animation(.easeInOut(duration: 0.3), value: model.mode)
                 
                 // Break Label
-                TimerLabel(color: .gray, text: "\(formatTime(seconds: model.breakTimeLeft))")
+                TimerLabel(color: .gray, text: formatTime(seconds: model.breakTimeLeft))
                     .modifier(AnimatingFontSize(fontSize: model.mode == .breakRunning ? 50 : 30))
                     .scaleEffect(model.mode == .flowRunning ? 0.0 : 1.0)
                     .padding(.leading, model.mode == .breakRunning ? 0 : 120)
                     .opacity(model.mode == .flowRunning ? 0.0 : 1.0)
-                    .animation(.easeInOut(duration: 0.3), value: model.mode)
             }
         }
+        .animation(.easeInOut(duration: 0.3), value: model.mode)
     }
 }
 

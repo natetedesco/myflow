@@ -6,7 +6,7 @@
 
 import SwiftUI
 
-struct SettingsNavigation: View {
+struct NavigationLabel: View {
     var text: String
     var icon: String
     
@@ -23,7 +23,7 @@ struct SettingsNavigation: View {
     }
 }
 
-struct SettingsNavigationList: View {
+struct NavigationList: View {
     var text: String
     var icon: String
     

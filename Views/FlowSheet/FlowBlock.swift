@@ -11,12 +11,9 @@ struct FlowBlock: View {
     @Binding var flow: Flow
     @Binding var edit: Bool
     @Binding var isDragging: Bool
-    
     @State var deleting = false
-    
     var minutes = [Int](0...60)
     var seconds = [Int](0...60)
-    
     var columns = [
         MultiComponentPicker.Column(label: "min", options: Array(0...60).map { MultiComponentPicker.Column.Option(text: "\($0)", tag: $0) }),
         MultiComponentPicker.Column(label: "sec", options: Array(0...59).map { MultiComponentPicker.Column.Option(text: "\($0)", tag: $0) }),
@@ -29,23 +26,20 @@ struct FlowBlock: View {
                 // Delete Minus Button
                 if edit {
                     Button { deleting.toggle() }
-                    label: { DeleteMinus() }
+                    label: { DeleteMinus }
                 }
                 
                 // Title
-                BlockTextField(block: $block, isDragging: $isDragging)
+                BlockTextField
                 
                 // Time
-                Button {
-                    block.draggable.toggle(); block.pickTime.toggle()
-                } label: {
-                    BlockTimeLabel(block: $block)
-                }
+                Button { block.draggable.toggle(); block.pickTime.toggle() }
+                label: { BlockTimeLabel }
                 
                 // Delete Button
                 if deleting {
                     Button { deleting.toggle(); flow.deleteBlock(id: block.id) }
-                    label: { DeleteSlideOverButton() }
+                    label: { DeleteSlideOverButton }
                 }
             }
             .animation(.default, value: deleting).animation(.default, value: edit).animation(.default, value: block) // make custom
@@ -63,32 +57,30 @@ struct FlowBlock: View {
         .mask(HStack { Rectangle().frame(width: 6); Spacer()}))
         .padding(.vertical, 1)
     }
-}
-
-struct DeleteMinus: View {
-    var body: some View {
+    
+    var DeleteMinus: some View {
         Image(systemName: "minus.circle.fill")
             .font(.headline)
             .foregroundColor(.red)
             .padding(.leading)
     }
-}
-
-struct BlockTextField: View {
-    @Binding var block: Block
-    @Binding var isDragging: Bool
-
-    var body: some View {
+    
+    var BlockTextField: some View {
         TextField("Title", text: $block.title)
             .foregroundColor(block.flow == true ? .myBlue : .gray)
             .font(.callout)
             .padding(.leading)
             .disabled(isDragging)
     }
-}
-
-struct DeleteSlideOverButton: View {
-    var body: some View {
+    
+    var BlockTimeLabel: some View {
+        Text(formatTime(seconds: (block.secondSelection) + (block.minuteSelection * 60)))
+            .foregroundColor(block.flow == true ? .myBlue : .gray)
+            .font(.footnote)
+            .padding(.trailing)
+    }
+    
+    var DeleteSlideOverButton: some View {
         Text("Delete")
             .foregroundColor(.white)
             .frame(maxHeight: .infinity)
@@ -97,13 +89,3 @@ struct DeleteSlideOverButton: View {
     }
 }
 
-struct BlockTimeLabel: View {
-    @Binding var block: Block
-
-    var body: some View {
-        Text(formatTime(seconds: (block.secondSelection) + (block.minuteSelection * 60)))
-            .foregroundColor(block.flow == true ? .myBlue : .gray)
-            .font(.footnote)
-            .padding(.trailing)
-    }
-}

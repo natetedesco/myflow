@@ -14,57 +14,55 @@ struct FlowSheet: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        ZStack {
-            AnimatedBlur()
-            ScrollView {
-                VStack(alignment: .leading, spacing: 16) {
-                    SheetCapsule()
-                    
-                    // Title and Save
-                    HStack {
-                        FlowTitle(flow: $flow, focusedField: _focusedField)
-                        SaveButton(flowModel: flowModel, flow: $flow)
-                    }
+        ScrollView {
+            VStack(alignment: .leading, spacing: 16) {
+                SheetCapsule
                 
-                    // Simple & Custom Flows
-                    VStack( alignment: .leading) {
-                        FlowModePicker(simple: $flow.simple)
-                        if flow.simple { SimpleFlow(flow: $flow) }
-                        else { CustomFlow(flow: $flow) }
-                    }
-                    .modifier(CustomGlass())
+                // Title and Save
+                HStack {
+                    FlowTitle
+                    SaveButton
+                }
                 
-                    // Goal & Reminder
-                    VStack(alignment: .leading) {
-                        Reminder(flow: $flow)
-                        if flow.reminder {
-                            Divider()
-                            HStack(spacing: 16) {
-                                ForEach(reminders.days) { day in
-                                    DayButton(day: day.day, isOn: day.isOn)
-                                }
+                // Simple & Custom Flows
+                VStack( alignment: .leading) {
+                    FlowModePicker
+                    FlowEditor
+                }
+                .modifier(CustomGlass())
+                
+                // Reminder
+                VStack(alignment: .leading) {
+                    Reminder
+                    if flow.reminder {
+                        Divider()
+                        HStack(spacing: 16) {
+                            ForEach(reminders.days) { day in
+                                DayButton(day: day.day, isOn: day.isOn)
                             }
-                            .padding(.horizontal,8)
                         }
-                    }
-                    .modifier(CustomGlass())
-                    
-                    if !flow.new {
-                        DeleteButton(flowModel: flowModel, flow: $flow)
+                        .padding(.horizontal,8)
                     }
                 }
+                .modifier(CustomGlass())
+                DeleteButton
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        .animation(.default, value: flow.simple)
         }
+        .background(AnimatedBlur())
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .animation(.default, value: flow.simple)
     }
-}
-
-struct FlowTitle: View {
-    @Binding var flow: Flow
-    @FocusState var focusedField: Field?
     
-    var body: some View {
+    var SheetCapsule: some View {
+        Capsule()
+            .fill(Color.secondary)
+            .opacity(0.5)
+            .frame(width: 35, height: 5)
+            .padding(.top, 8)
+            .frame(maxWidth: .infinity, alignment: .center)
+    }
+    
+    var FlowTitle: some View {
         TextField(flow.title, text: $flow.title)
             .font(.title)
             .foregroundColor(.gray)
@@ -76,14 +74,8 @@ struct FlowTitle: View {
             }
             .padding(.horizontal).padding(.bottom)
     }
-}
-
-struct SaveButton: View {
-    @ObservedObject var flowModel: FlowModel
-    @Binding var flow: Flow
-    @Environment(\.dismiss) var dismiss
     
-    var body: some View {
+    var SaveButton: some View {
         Button {
             dismiss()
             if flow.new {
@@ -99,12 +91,18 @@ struct SaveButton: View {
                 .padding(.horizontal).padding(.bottom)
         }
     }
-}
-
-struct Reminder: View {
-    @Binding var flow: Flow
     
-    var body: some View {
+        var FlowModePicker: some View {
+            Picker("", selection: $flow.simple, content: {
+                Text("Simple").tag(true)
+                Text("Custom").tag(false)
+            })
+            .pickerStyle(SegmentedPickerStyle())
+            .preferredColorScheme(.dark)
+            .padding(.bottom)
+        }
+    
+    var Reminder: some View {
         HStack {
             Text("Reminder")
                 .foregroundColor(.white)
@@ -115,22 +113,27 @@ struct Reminder: View {
             }.toggleStyle(SwitchToggleStyle(tint: Color.myBlue))
         }
     }
-}
-
-struct DeleteButton: View {
-    @ObservedObject var flowModel: FlowModel
-    @Binding var flow: Flow
-    @Environment(\.dismiss) var dismiss
     
-    var body: some View {
-        Button {
-            dismiss()
-            flowModel.deleteFlow(id: flow.id)
-        } label: {
-            Text("Delete Flow")
-                .padding(.top)
-                .foregroundColor(.red)
-                .frame(maxWidth: .infinity, alignment: .center)
+    @ViewBuilder var DeleteButton: some View {
+        if !flow.new {
+            Button {
+                dismiss()
+                flowModel.deleteFlow(id: flow.id)
+            } label: {
+                Text("Delete Flow")
+                    .padding(.top)
+                    .foregroundColor(.red)
+                    .frame(maxWidth: .infinity, alignment: .center)
+            }
+        }
+    }
+    
+    @ViewBuilder var FlowEditor: some View {
+        if flow.simple {
+            SimpleFlow(flow: $flow)
+        }
+        else {
+            CustomFlow(flow: $flow)
         }
     }
 }

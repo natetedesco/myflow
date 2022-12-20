@@ -8,6 +8,14 @@ import Foundation
 
 extension FlowModel {
     
+    func continueFlow() {
+        mode = .flowRunning
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [self] timer in
+            
+            flowTimeLeft = flowTimeLeft + 1
+        })
+    }
+    
     // Start
     func startSimple(time: Int) {
         let end = getEnd(time: time) // set end time

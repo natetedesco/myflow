@@ -11,11 +11,9 @@ struct SimpleFlow: View {
     @State var chooseFlow = false
     @State var chooseBreak = false
     @State var chooseRound = false
-    
     var minutes = [Int](0...60)
     var seconds = [Int](0...60)
     var rounds = [Int](0...10)
-    
     var columns = [
         MultiComponentPicker.Column(label: "min", options: Array(0...60).map { MultiComponentPicker.Column.Option(text: "\($0)", tag: $0) }),
         MultiComponentPicker.Column(label: "sec", options: Array(0...59).map { MultiComponentPicker.Column.Option(text: "\($0)", tag: $0) }),
@@ -25,63 +23,72 @@ struct SimpleFlow: View {
         VStack(alignment: .leading) {
             
             // Flow Time
-            Button {
-                chooseFlow.toggle(); chooseBreak = false; chooseRound = false
-            } label: {
-                PickerLabel(label: "Flow", minutes: flow.flowMinuteSelection, seconds: flow.flowSecondsSelection, color: .myBlue)
-            }
-            //Picker
+            
+            Button(action: toggleFlowPicker) { PickerLabel(flow: $flow, isFlow: true) }
             if chooseFlow {
-                MultiComponentPicker(columns: columns, selections: [$flow.flowMinuteSelection, $flow.flowSecondsSelection]).frame(height: 200).previewLayout(.sizeThatFits)
+                MultiComponentPicker(
+                    columns: columns,
+                    selections: [$flow.flowMinuteSelection, $flow.flowSecondsSelection])
             }
             Divider()
             
             // Break Time
-            VStack {
-                Button {
-                    chooseBreak.toggle(); chooseFlow = false; chooseRound = false
-                } label: {
-                    PickerLabel(label: "Break", minutes: flow.breakMinuteSelection, seconds: flow.breakSecondsSelection, color: .gray)
-                }
-                // Picker
-                if chooseBreak {
-                    MultiComponentPicker(columns: columns, selections: [$flow.breakMinuteSelection, $flow.breakSecondsSelection]).frame(height: 200).previewLayout(.sizeThatFits)
-                }
+            Button(action: toggleBreakPicker) { PickerLabel(flow: $flow, isFlow: false) }
+            if chooseBreak {
+                MultiComponentPicker(
+                    columns: columns,
+                    selections: [$flow.breakMinuteSelection, $flow.breakSecondsSelection])
             }
-        }
-        Divider()
-        
-        // Rounds
-        VStack {
-            Button {
-                chooseRound.toggle(); chooseFlow = false; chooseBreak = false
-                
-            } label: {
-                RoundsLabel(rounds: flow.roundsSelection)
-            }
+            Divider()
             
+            // Rounds
+            Button(action: toggleRoundsPicker) { RoundsLabel }
             if chooseRound {
-                PickerView(selection: $flow.roundsSelection, unit: rounds, label: "")
-                    .frame(maxWidth: .infinity, maxHeight: 170, alignment: .center)
+                PickerView(
+                    selection: $flow.roundsSelection,
+                    unit: rounds,
+                    label: "")
             }
         }
+    }
+    
+    var RoundsLabel: some View {
+        HStack {
+            Text("Rounds")
+                .foregroundColor(.white)
+            Text("\(flow.roundsSelection)")
+                .foregroundColor(.gray)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    func toggleFlowPicker() {
+        chooseFlow.toggle(); chooseBreak = false; chooseRound = false
+    }
+    
+    func toggleBreakPicker() {
+        chooseBreak.toggle(); chooseFlow = false; chooseRound = false
+    }
+    
+    func toggleRoundsPicker() {
+        chooseRound.toggle(); chooseFlow = false; chooseBreak = false
     }
 }
 
 struct PickerLabel: View {
-    var label: String
-    var minutes: Int
-    var seconds: Int
-    var color: Color
+    @Binding var flow: Flow
+    var isFlow: Bool
     
     var body: some View {
         HStack {
-            Text(label)
+            Text(isFlow ? "Flow" : "Break")
                 .foregroundColor(.white)
                 .font(.body)
-            Text(formatTime(seconds: (seconds) + (minutes * 60)))
-                .foregroundColor(color)
-                .font(.callout)
+            Text(formatTime(
+                seconds: (isFlow ? flow.flowSecondsSelection : flow.breakSecondsSelection) +
+                (isFlow ? flow.flowMinuteSelection * 60 : flow.breakMinuteSelection * 60)))
+            .foregroundColor(isFlow ? .myBlue : .gray)
+            .font(.callout)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
@@ -99,6 +106,7 @@ struct PickerView: View {
             }
         }
         .pickerStyle(.wheel)
+        .frame(height: 200).previewLayout(.sizeThatFits)
     }
 }
 
@@ -135,10 +143,10 @@ struct MultiComponentPicker<Tag: Hashable>: View  {
                         .frame(width: geometry.size.width / CGFloat(columns.count), height: geometry.size.height)
                         .clipped()
                     }
-                    
                 }
             }
         }
+        .frame(height: 200).previewLayout(.sizeThatFits)
     }
 }
 
@@ -158,22 +166,6 @@ private extension HorizontalAlignment {
     enum CustomCenter: AlignmentID {
         static func defaultValue(in context: ViewDimensions) -> CGFloat { context[HorizontalAlignment.center] }
     }
-    
     static let customCenter = Self(CustomCenter.self)
 }
 
-
-struct RoundsLabel: View {
-    var rounds: Int
-    
-    var body: some View {
-        HStack {
-            let rounds = "\(rounds)"
-            Text("Rounds")
-                .foregroundColor(.white)
-            Text(rounds)
-                .foregroundColor(.gray)
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-    }
-}
