@@ -20,7 +20,12 @@ extension FlowModel {
                 FlowRunning()
                 
             case .flowPaused:
-                FlowRunning()
+                if flowContinue {
+                    continueFlow()
+                }
+                else {
+                    FlowRunning()
+                }
                 
             case .breakStart:
                 Breakrunning()

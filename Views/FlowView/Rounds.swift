@@ -28,7 +28,9 @@ struct Rounds: View {
                         RoundCircleFull
                     }
                     if model.mode == .flowRunning || model.mode == .flowPaused {
-                        RoundCircleHalfFull
+                        if !model.flowContinue {
+                            RoundCircleHalfFull
+                        }
                     }
                 }
             }

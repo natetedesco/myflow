@@ -7,6 +7,7 @@
 import SwiftUI
 
 struct StatsView: View {
+    @AppStorage("ShowToolBar") var showToolBar = true
     @AppStorage("SelectedTab") var selectedTab: Tab = .home
     @ObservedObject var model: FlowModel
     @ObservedObject var data = FlowData()
@@ -31,9 +32,9 @@ struct StatsView: View {
                 MonthCard(data: data)
                 
             }
+            .padding(.bottom, 80)
             .navigationTitle("Statistics")
             .background(AnimatedBlur())
-            .padding(.bottom, 80)
             .toolbar{
                 Button { showGoal.toggle() }
                 label: { Image(systemName: "ellipsis")
@@ -48,7 +49,7 @@ struct StatsView: View {
     
     var GoalButton: some View {
         Button {
-            showGoal.toggle()
+            showGoal.toggle(); showToolBar = false
         } label: {
             Text("Goal")
                 .foregroundColor(.myBlue)

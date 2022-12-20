@@ -11,7 +11,7 @@ struct FlowMenu: View {
     @Binding var selectedFlow: Flow?
     
     var body: some View {
-        if model.mode != .breakStart {
+        if model.mode != .breakStart && !model.flowContinue {
             Menu {
                 // Create Flow
                 Button { selectedFlow = Flow(new: true) }
@@ -39,7 +39,7 @@ struct FlowMenu: View {
             .accentColor(.myBlue)
             .padding(.vertical, 8)
             .padding(.horizontal, 20)
-            .background(.ultraThinMaterial.opacity(0.55))
+            .background(.ultraThinMaterial.opacity(0.6))
             .cornerRadius(30)
             .animation(.easeInOut(duration: 0.15), value: model.flowList)
     }

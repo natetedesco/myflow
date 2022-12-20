@@ -10,7 +10,9 @@ extension FlowModel {
     
     // Pause
     func Pause() {
-        setElapsedTime()
+        if !flowContinue {
+            setElapsedTime()
+        }
         invalidateTimer()
     }
     
@@ -45,6 +47,7 @@ extension FlowModel {
         mediumHaptic()
         invalidateTimer()
         mode = .Initial
+        flowContinue = false
         elapsedTime = 0
         roundsCompleted = 0
         blocksCompleted = 0

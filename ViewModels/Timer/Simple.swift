@@ -8,11 +8,18 @@ import Foundation
 
 extension FlowModel {
     
+    func completeContinueFlow() {
+        timer.invalidate()
+        flowContinue = false
+        mode = .breakStart
+    }
+    
     func continueFlow() {
         mode = .flowRunning
+        flowContinue = true
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [self] timer in
-            
             flowTimeLeft = flowTimeLeft + 1
+            data.addTimeToDay()
         })
     }
     

@@ -36,9 +36,37 @@ struct CustomSheet: ViewModifier {
         content
             .sheet(item: $selectedFlow) { flow in
                 FlowSheet(flowModel: model, flow: flow)
-                    .background(.black)
+                    .background(.black.opacity(0.3))
+                    .clearModalBackground()
+                    .background(.ultraThinMaterial)
                     .presentationDetents([.large])
                     .preferredColorScheme(.dark)
             }
+    }
+}
+
+struct ClearBackgroundView: UIViewRepresentable {
+    func makeUIView(context: Context) -> some UIView {
+        let view = UIView()
+        DispatchQueue.main.async {
+            view.superview?.superview?.backgroundColor = .clear
+        }
+        return view
+    }
+    func updateUIView(_ uiView: UIViewType, context: Context) {
+    }
+}
+
+struct ClearBackgroundViewModifier: ViewModifier {
+    
+    func body(content: Content) -> some View {
+        content
+            .background(ClearBackgroundView())
+    }
+}
+
+extension View {
+    func clearModalBackground() -> some View {
+        self.modifier(ClearBackgroundViewModifier())
     }
 }

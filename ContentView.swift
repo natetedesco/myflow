@@ -7,6 +7,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @AppStorage("ShowToolBar") var showToolBar = true
     @AppStorage("SelectedTab") var selectedTab: Tab = .home
     @StateObject var model = FlowModel()
     
@@ -30,7 +31,9 @@ struct ContentView: View {
             case .data:
                 ZStack {
                     StatsView(model: model)
-                    Toolbar(model: model)
+                    if showToolBar {
+                        Toolbar(model: model)
+                    }
                 }
                 
             case .welcome :

@@ -10,7 +10,7 @@ struct Controls: View {
     @ObservedObject var model: FlowModel
     var body: some View {
         
-        if model.mode == .flowPaused || model.mode == .breakPaused {
+        if (model.mode == .flowPaused || model.mode == .breakPaused) && !model.flowContinue {
             HStack(spacing: 60) {
                 
                 // Restart
@@ -28,7 +28,7 @@ struct Controls: View {
         }
         
         // Top Right Reset
-        if model.mode == .flowStart || model.mode == .breakStart {
+        if (model.mode == .flowStart || model.mode == .breakStart) || (model.mode == .flowPaused && model.flowContinue ) {
             Button { model.Reset() }
             label: { ResetButton }
                 .frame(maxHeight: .infinity, alignment: .top)
@@ -68,6 +68,25 @@ struct ContinueButton: View {
                     .font(.title2)
                     .fontWeight(.light)
                     .accentColor(.myBlue)
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 20)
+                    .background(.ultraThinMaterial.opacity(0.6))
+                    .cornerRadius(30)
+            }
+        }
+        
+        if model.flowContinue {
+            Button {
+                model.completeContinueFlow()
+            } label: {
+                Text("Complete Flow")
+                    .font(.title2)
+                    .fontWeight(.light)
+                    .accentColor(.myBlue)
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 20)
+                    .background(.ultraThinMaterial.opacity(0.6))
+                    .cornerRadius(30)
             }
         }
     }

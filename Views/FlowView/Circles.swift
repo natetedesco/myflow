@@ -9,15 +9,6 @@ import SwiftUI
 struct Circles: View {
     @ObservedObject var model: FlowModel
     
-    var body: some View {
-        if (model.flowMode == .Custom && model.type == .Flow) || (model.flowMode == .Simple && model.mode != .breakRunning) {
-            FlowCircle
-        }
-        if (model.flowMode == .Custom && model.type == .Break) || (model.flowMode == .Simple && model.mode != .flowRunning) {
-            BreakCircle
-        }
-    }
-    
     var FlowCircle: some View {
         ZStack {
             // Stroke
@@ -63,8 +54,22 @@ struct Circles: View {
         }
     }
     
+    // Body
+    var body: some View {
+        
+        if (model.flowMode == .Custom && model.type == .Flow) || (model.flowMode == .Simple && model.mode != .breakRunning) {
+            FlowCircle
+        }
+        if (model.flowMode == .Custom && model.type == .Break) || (model.flowMode == .Simple && model.mode != .flowRunning) {
+            BreakCircle
+        }
+    }
+    
     var flowCircleFill: CGFloat {
         if model.mode == .Initial || model.mode == .flowStart {
+            return 1.0
+        }
+        if model.flowContinue {
             return 1.0
         }
         return 0.0 + formatProgress(time: model.flowTime, timeLeft: model.flowTimeLeft)

@@ -7,6 +7,7 @@
 import SwiftUI
 
 struct GoalView: View {
+    @AppStorage("ShowToolBar") var showToolBar = true
     @AppStorage("GoalTime") var goalSelection: Int = 0
     @Binding var showGoal: Bool
     var hours = [Int](0...12)
@@ -14,10 +15,9 @@ struct GoalView: View {
     
     var body: some View {
         ZStack {
-            Color.clear
+            Color.black.opacity(0.3).ignoresSafeArea()
                 .background(.ultraThinMaterial)
-                .onTapGesture { showGoal = false
-                }
+                .onTapGesture { showGoal = false; showToolBar = true }
             VStack {
                     VStack {
                         Text("Daily Flow Time Goal")

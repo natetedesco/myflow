@@ -48,7 +48,9 @@ struct FlowSheet: View {
                 DeleteButton
             }
         }
-        .background(AnimatedBlur())
+//        .background(AnimatedBlur())
+//        .background(.ultraThinMaterial)
+
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .animation(.default, value: flow.simple)
     }

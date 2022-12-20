@@ -30,6 +30,7 @@ class FlowModel: ObservableObject {
     
     @Published var animate: Int = 0
     @Published var completed = false
+    @Published var flowContinue = false
     
     init() {
         // if data
