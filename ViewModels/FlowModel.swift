@@ -11,6 +11,8 @@ class FlowModel: ObservableObject {
     var notifications = NotificationManager()
     var data = FlowData()
     
+    @Published var flow: Flow
+    
     var timer = Timer()
     var start = Date()
     var elapsedTime = 0
@@ -24,6 +26,8 @@ class FlowModel: ObservableObject {
     @Published var flowTimeLeft: Int = 0
     @Published var breakTimeLeft: Int = 0
     
+    @Published var totalFlowTime: Int = 0
+    
     @Published var roundsSet: Int = 0
     @Published var roundsCompleted: Int = 0
     @Published var blocksCompleted: Int = 0
@@ -32,11 +36,13 @@ class FlowModel: ObservableObject {
     @Published var completed = false
     @Published var flowContinue = false
     
+    
     init() {
         // if data
         if let data = UserDefaults.standard.data(forKey: "SavedData") {
             if let decoded = try? JSONDecoder().decode([Flow].self, from: data) {
                 flowList = decoded
+                flow = Flow()
                 Initialize()
                 return
             }
@@ -46,6 +52,7 @@ class FlowModel: ObservableObject {
             Flow(title: "Flow", flowMinuteSelection: 20, breakMinuteSelection: 5, roundsSelection: 5),
             Flow(title: "Study", flowMinuteSelection: 10, breakMinuteSelection: 10),
             Flow(title: "Exercise")]
+        flow = Flow()
     }
     
     @Published var flowList: [Flow] {

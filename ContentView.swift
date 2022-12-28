@@ -7,9 +7,11 @@
 import SwiftUI
 
 struct ContentView: View {
+    @AppStorage("welcomeScreenShown") var welcomeScreenShown: Bool = false
     @AppStorage("ShowToolBar") var showToolBar = true
     @AppStorage("SelectedTab") var selectedTab: Tab = .home
     @StateObject var model = FlowModel()
+    @State var showWelcome = true
     
     var body: some View {
         ZStack {
@@ -18,8 +20,14 @@ struct ContentView: View {
             case .home:
                 ZStack {
                     FlowView(model: model)
-                        .background(AnimatedBlurOpaque())
-                    Toolbar(model: model)
+                        .onTapGesture {
+                            welcomeScreenShown = false
+                        }
+                        
+                    if !welcomeScreenShown {
+                        MaterialBackGround()
+                        WelcomeScreen()
+                    }
                 }
                 
             case .settings:
@@ -34,14 +42,6 @@ struct ContentView: View {
                     if showToolBar {
                         Toolbar(model: model)
                     }
-                }
-                
-            case .welcome :
-                ZStack {
-                    AnimatedBlurOpaque()
-                    FlowView(model: model)
-                        .blur(radius: 50)
-                    WelcomeScreen()
                 }
             }
         }
@@ -63,5 +63,4 @@ enum Tab: String {
     case home
     case settings
     case data
-    case welcome
 }

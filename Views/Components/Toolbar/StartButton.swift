@@ -14,7 +14,9 @@ struct StartButton: View {
         
         if selectedTab == Tab.data || selectedTab == Tab.settings {
             Button { selectedTab = Tab.home }
-        label: { FlowButton() }
+        label: {
+            FlowButton()
+        }
             }
         
         if selectedTab == Tab.home {
@@ -22,29 +24,33 @@ struct StartButton: View {
         label: {
             switch model.mode {
             case .Initial:
-                Start(image: "play.circle.fill")
+                Start(image: "play.fill")
             case .flowRunning:
-                Start(image: "pause.circle.fill")
+                Start(image: "pause.fill")
             case .flowPaused:
-                Start(image: "play.circle.fill")
+                Start(image: "play.fill")
             case .breakStart:
                 StartNext(image: "play.fill",text: "Break ")
             case .breakRunning:
-                Start(image: "pause.circle.fill")
+                Start(image: "pause.fill")
             case .breakPaused:
-                Start(image: "play.circle.fill")
+                Start(image: "play.fill")
             case .flowStart:
                 StartNext(image: "play.fill",text: "Flow")
             }
         }}
     }
 }
+
 struct Start: View {
     var image: String
     var body: some View {
         Image(systemName: image)
             .foregroundColor(.myBlue)
-            .font(.system(size: 50))
+            .font(.system(size: 30))
+            .padding(16)
+            .background(.ultraThinMaterial.opacity(0.55))
+            .cornerRadius(50)
     }
 }
 
@@ -54,16 +60,16 @@ struct StartNext: View {
     var body: some View {
         HStack {
             Image(systemName: image)
-                .foregroundColor(.darkBackground)
-                .font(.system(size: 25))
+                .foregroundColor(.myBlue)
+                .font(.system(size: 30))
                 .padding(.trailing, 5)
             Text(text)
-                .font(.body)
-                .kerning(3.0)
+                .font(.title2)
+                .foregroundColor(.myBlue)
+//                .kerning(3.0)
         }
         .padding(13)
-        .foregroundColor(.darkBackground)
-        .background(Color.myBlue)
+        .background(.ultraThinMaterial.opacity(0.55))
         .cornerRadius(40)
     }
 }
@@ -72,13 +78,14 @@ struct FlowButton: View {
     var body: some View {
         ZStack {
             Circle()
-                .stroke(Color.myBlue,style: StrokeStyle(lineWidth: 4, lineCap: .round))
+                .stroke(Color.myBlue,style: StrokeStyle(lineWidth: 6, lineCap: .round))
                 .foregroundColor(.myBlue)
                 .frame(width: 90, height: 50)
             Circle()
-                .stroke(Color.gray.opacity(0.5),style: StrokeStyle(lineWidth: 3, lineCap: .round))
-                .foregroundColor(.gray.opacity(0.5))
-                .frame(width: 90, height: 35)
+                .stroke(Color.myBlue,style: StrokeStyle(lineWidth: 1, lineCap: .round))
+                .foregroundColor(.myBlue)
+                .frame(width: 90, height: 50)
+                .blur(radius: 5)
         }
     }
 }

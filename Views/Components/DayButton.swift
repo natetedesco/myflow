@@ -20,6 +20,7 @@ struct DayButton: View {
                     .foregroundColor(.black)
                     .opacity(0.4)
                 Text(day)
+                    .font(.callout)
                     .foregroundColor(isOn == true ? .myBlue : .gray)
             }
         }

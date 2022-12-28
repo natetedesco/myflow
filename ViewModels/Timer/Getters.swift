@@ -38,5 +38,4 @@ extension FlowModel {
         }
         return timeLeft
     }
-    
 }

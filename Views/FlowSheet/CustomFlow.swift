@@ -4,6 +4,8 @@
 //  Created by Nate Tedesco on 9/18/22.
 //
 
+// replace edit with done when editing
+
 import SwiftUI
 
 struct CustomFlow: View {
@@ -14,7 +16,6 @@ struct CustomFlow: View {
     
     var body: some View {
         VStack {
-            DoneButton
             
             // Flow Blocks
             VStack {
@@ -25,7 +26,7 @@ struct CustomFlow: View {
                         edit: $edit,
                         isDragging: $isDragging
                     )
-                    .mySwipeAction { flow.deleteBlock(id: $flow.blocks[index].id) }
+//                                        .mySwipeAction { flow.deleteBlock(id: $flow.blocks[index].id) }
                     .opacity(flow.blocks[index].id == draggingItem?.id && isDragging ? 0.01 : 1)
                     .drag(if: flow.blocks[index].draggable) {
                         draggingItem = flow.blocks[index]
@@ -34,19 +35,18 @@ struct CustomFlow: View {
                     .onDrop(of: [.item], delegate: DropViewDelegate(currentItem: flow.blocks[index], items: $flow.blocks, draggingItem: $draggingItem, isDragging: $isDragging))
                 }
             }
-            .padding(.bottom, 24)
+            .padding(.bottom)
             
-            // Add Flow Button
             HStack {
+                // Add Flow Button
                 Button { flow.addFlowBlock() }
-                    label: { AddButtonLabel(title: "Flow", color: .myBlue) }
+            label: { AddButtonLabel(title: "Flow", color: .myBlue) }
                 
-                Spacer()
                 EditButton
                 
                 // Add Break Button
                 Button { flow.addBreakBlock() }
-                    label: { AddButtonLabel(title: "Break", color: .gray) }
+            label: { AddButtonLabel(title: "Break", color: .gray) }
             }
         }
         .animation(.easeInOut, value: flow.blocks) // adding blocks
@@ -58,25 +58,11 @@ struct CustomFlow: View {
     }
     
     var EditButton: some View {
-        Button {
-            edit.toggle()
-        } label: {
-            Image(systemName: "ellipsis")
+        Button { edit.toggle() }
+        label: {
+            Text(edit == true ? "Done" : "Edit")
                 .foregroundColor(.myBlue)
-                .font(.title2)
-                .frame(maxWidth: .infinity, alignment: .center)
-        }
-    }
-    
-    @ViewBuilder var DoneButton: some View {
-        if edit {
-            Button { edit = false }
-            label: {
-                Text("Done")
-                    .foregroundColor(.myBlue)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-                    .padding(.bottom)
-            }
+                .frame(maxWidth: .infinity)
         }
     }
 }
@@ -84,16 +70,16 @@ struct CustomFlow: View {
 struct AddButtonLabel: View {
     var title: String
     var color: Color
-
+    
     var body: some View {
         HStack {
             Image(systemName: "plus")
-                .font(.headline)
-                .font(.headline)
-                .padding()
-                .background(Circle().fill(.ultraThinMaterial))
+                .font(.title3)
+                .padding(12)
+                .background(Circle().fill(.ultraThinMaterial.opacity(0.6)))
         }
         .foregroundColor(color)
+        .frame(maxWidth: .infinity)
     }
 }
 
@@ -106,7 +92,6 @@ struct DropViewDelegate: DropDelegate {
     
     func performDrop(info: DropInfo) -> Bool {
         isDragging = false
-        
         draggingItem.wrappedValue = nil // <- HERE
         return true
     }
@@ -123,7 +108,6 @@ struct DropViewDelegate: DropDelegate {
             }
         }
     }
-    
     func dropUpdated(info: DropInfo) -> DropProposal? {
         return DropProposal(operation: .move)
     }
@@ -149,4 +133,3 @@ extension View {
         self.modifier(Draggable(condition: condition, data: data))
     }
 }
-

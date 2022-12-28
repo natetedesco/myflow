@@ -9,18 +9,17 @@ import SwiftUI
 struct AnimatedBlur: View {
     var body: some View {
         ZStack {
-            FloatingClouds(size:1)
-                .opacity(0.2)
+            FloatingClouds(blur: 100, size:1)
+                .opacity(0.15)
         }
-        .background(.gray.opacity(0.05))
     }
 }
 
 struct AnimatedBlurOpaque: View {
     var body: some View {
         ZStack {
-            FloatingClouds(size:1)
-                .opacity(0.08)
+            FloatingClouds(blur: 200, size:1)
+                .opacity(0.05)
         }
     }
 }
@@ -50,7 +49,7 @@ struct Cloud: View {
 }
 
 struct FloatingClouds: View {
-    let blur: CGFloat = 150
+    let blur: CGFloat
     var size: CGFloat
     
     var body: some View {
@@ -73,7 +72,7 @@ class CloudProvider: ObservableObject {
     let frameHeightRatio: CGFloat
     
     init() {
-        frameHeightRatio = CGFloat.random(in: 0.7 ..< 1.4)
+        frameHeightRatio = CGFloat.random(in: 1.0 ..< 2.0)
         offset = CGSize(width: CGFloat.random(in: -150 ..< 150),
                         height: CGFloat.random(in: -150 ..< 150))
     }

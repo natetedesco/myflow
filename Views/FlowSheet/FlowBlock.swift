@@ -11,7 +11,6 @@ struct FlowBlock: View {
     @Binding var flow: Flow
     @Binding var edit: Bool
     @Binding var isDragging: Bool
-    @State var deleting = false
     var minutes = [Int](0...60)
     var seconds = [Int](0...60)
     var columns = [
@@ -25,7 +24,7 @@ struct FlowBlock: View {
                 
                 // Delete Minus Button
                 if edit {
-                    Button { deleting.toggle() }
+                    Button { flow.deleteBlock(id: block.id) }
                     label: { DeleteMinus }
                 }
                 
@@ -35,14 +34,8 @@ struct FlowBlock: View {
                 // Time
                 Button { block.draggable.toggle(); block.pickTime.toggle() }
                 label: { BlockTimeLabel }
-                
-                // Delete Button
-                if deleting {
-                    Button { deleting.toggle(); flow.deleteBlock(id: block.id) }
-                    label: { DeleteSlideOverButton }
-                }
             }
-            .animation(.default, value: deleting).animation(.default, value: edit).animation(.default, value: block) // make custom
+            .animation(.default, value: edit).animation(.default, value: block) // make custom
             .frame(maxWidth: .infinity, minHeight: block.flow == true ? 60 : 30)
             
             // Time Picker
@@ -78,14 +71,6 @@ struct FlowBlock: View {
             .foregroundColor(block.flow == true ? .myBlue : .gray)
             .font(.footnote)
             .padding(.trailing)
-    }
-    
-    var DeleteSlideOverButton: some View {
-        Text("Delete")
-            .foregroundColor(.white)
-            .frame(maxHeight: .infinity)
-            .padding(.horizontal)
-            .background(.red)
     }
 }
 

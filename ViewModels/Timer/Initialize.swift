@@ -15,9 +15,10 @@ extension FlowModel {
         
         // Initialize Simple
         if flowMode == .Simple {
-            setFlowTime(time: selection.flowMinuteSelection)
-            setBreakTime(time: selection.breakMinuteSelection)
+            setFlowTime(time: (selection.flowMinuteSelection * 60) + selection.flowSecondsSelection )
+            setBreakTime(time: (selection.breakMinuteSelection * 60) + selection.breakSecondsSelection)
             roundsSet = selection.roundsSelection // Add if rounds asp
+            totalFlowTime = (flowTime * roundsSet)
         }
         
         // Initialize Custom

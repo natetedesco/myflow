@@ -25,23 +25,17 @@
 		F02C1473270FA679002FE382 /* StartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C146A270FA679002FE382 /* StartButton.swift */; };
 		F03256432721308C009D3EFB /* AnimatedBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03256422721308C009D3EFB /* AnimatedBlur.swift */; };
 		F032564B272251A6009D3EFB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F032564A272251A5009D3EFB /* SettingsView.swift */; };
-		F03358F7294CE4A60020E5F3 /* GoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03358F6294CE4A60020E5F3 /* GoalView.swift */; };
 		F03358F9294CE8950020E5F3 /* DayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03358F8294CE8950020E5F3 /* DayButton.swift */; };
 		F0391314285EBF860074CF33 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0391313285EBF860074CF33 /* Format.swift */; };
 		F0391317285FA0990074CF33 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0391316285FA0990074CF33 /* Haptics.swift */; };
-		F045998D28E3810000573A0A /* SimpleFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F045998C28E3810000573A0A /* SimpleFlow.swift */; };
 		F04FFB4328FF2C890058E66D /* Blocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB4228FF2C890058E66D /* Blocks.swift */; };
 		F04FFB4728FF326E0058E66D /* Reminders.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB4628FF326E0058E66D /* Reminders.swift */; };
 		F04FFB4C28FF66B30058E66D /* FlowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB4B28FF66B30058E66D /* FlowModel.swift */; };
 		F04FFB4E28FF67140058E66D /* FlowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB4D28FF67140058E66D /* FlowManager.swift */; };
 		F04FFB5E29033EC70058E66D /* Controls.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB5D29033EC70058E66D /* Controls.swift */; };
-		F064AE0A28C45CA3005EE330 /* ControlButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = F064AE0928C45CA3005EE330 /* ControlButtons.swift */; };
 		F074D678271D100600CE1AB4 /* Circles.swift in Sources */ = {isa = PBXBuildFile; fileRef = F074D677271D100600CE1AB4 /* Circles.swift */; };
 		F074D67A271D124900CE1AB4 /* FlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F074D679271D124900CE1AB4 /* FlowView.swift */; };
-		F082B306271B690E002E238F /* Rounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = F082B305271B690E002E238F /* Rounds.swift */; };
 		F083152A2888A55100153CD7 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08315292888A55100153CD7 /* StatsView.swift */; };
-		F0899DE5292EA54F00A35D4D /* OverviewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0899DE4292EA54F00A35D4D /* OverviewCard.swift */; };
-		F0899DE7292EA57800A35D4D /* WeekCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0899DE6292EA57800A35D4D /* WeekCard.swift */; };
 		F0899DEB292EA83200A35D4D /* MyFlowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0899DEA292EA83200A35D4D /* MyFlowApp.swift */; };
 		F0948C1D26818EE100A5F48D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0948C1C26818EE100A5F48D /* Assets.xcassets */; };
 		F0948C2026818EE100A5F48D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0948C1F26818EE100A5F48D /* Preview Assets.xcassets */; };
@@ -53,17 +47,10 @@
 		F0A025CC2949020800AF723F /* Date extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A025CB2949020800AF723F /* Date extensions.swift */; };
 		F0BA1E1F28FB7FFB00FCB5A8 /* SwipeDelete.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BA1E1E28FB7FFB00FCB5A8 /* SwipeDelete.swift */; };
 		F0BA1E2128FCBA5900FCB5A8 /* FlowBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BA1E2028FCBA5800FCB5A8 /* FlowBlock.swift */; };
-		F0F7F4122903931300BC8E16 /* VersionNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F4112903931300BC8E16 /* VersionNumber.swift */; };
-		F0F7F416290399EF00BC8E16 /* ToggleBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F415290399EF00BC8E16 /* ToggleBar.swift */; };
-		F0F7F41829039A0B00BC8E16 /* NavigationLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F41729039A0B00BC8E16 /* NavigationLinks.swift */; };
-		F0F7F41A29039ADA00BC8E16 /* UpgradeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F41929039ADA00BC8E16 /* UpgradeButton.swift */; };
-		F0F7F41D29039B6F00BC8E16 /* About us.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F41C29039B6F00BC8E16 /* About us.swift */; };
-		F0F7F41F2904EAEF00BC8E16 /* FlowMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F41E2904EAEF00BC8E16 /* FlowMenu.swift */; };
 		F0F7F4232904F0A900BC8E16 /* Waves.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F4222904F0A900BC8E16 /* Waves.swift */; };
 		F0F7F428290E2DF400BC8E16 /* TimerNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F427290E2DF400BC8E16 /* TimerNotifications.swift */; };
 		F0F7F4302911C6CA00BC8E16 /* Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F42F2911C6CA00BC8E16 /* Custom.swift */; };
 		F0F7F4342911C96E00BC8E16 /* Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F4332911C96E00BC8E16 /* Flow.swift */; };
-		F0FB423728F5409300271BC6 /* MonthCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FB423628F5409300271BC6 /* MonthCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -107,24 +94,18 @@
 		F02C146A270FA679002FE382 /* StartButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartButton.swift; sourceTree = "<group>"; };
 		F03256422721308C009D3EFB /* AnimatedBlur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedBlur.swift; sourceTree = "<group>"; };
 		F032564A272251A5009D3EFB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		F03358F6294CE4A60020E5F3 /* GoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalView.swift; sourceTree = "<group>"; };
 		F03358F8294CE8950020E5F3 /* DayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayButton.swift; sourceTree = "<group>"; };
 		F0391313285EBF860074CF33 /* Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Format.swift; sourceTree = "<group>"; };
 		F0391316285FA0990074CF33 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
-		F045998C28E3810000573A0A /* SimpleFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleFlow.swift; sourceTree = "<group>"; };
 		F04FFB4228FF2C890058E66D /* Blocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blocks.swift; sourceTree = "<group>"; };
 		F04FFB4628FF326E0058E66D /* Reminders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminders.swift; sourceTree = "<group>"; };
 		F04FFB4B28FF66B30058E66D /* FlowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowModel.swift; sourceTree = "<group>"; };
 		F04FFB4D28FF67140058E66D /* FlowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowManager.swift; sourceTree = "<group>"; };
 		F04FFB5D29033EC70058E66D /* Controls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controls.swift; sourceTree = "<group>"; };
-		F064AE0928C45CA3005EE330 /* ControlButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlButtons.swift; sourceTree = "<group>"; };
 		F066923326FB9C3800DB905E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F074D677271D100600CE1AB4 /* Circles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Circles.swift; sourceTree = "<group>"; };
 		F074D679271D124900CE1AB4 /* FlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowView.swift; sourceTree = "<group>"; };
-		F082B305271B690E002E238F /* Rounds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rounds.swift; sourceTree = "<group>"; };
 		F08315292888A55100153CD7 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
-		F0899DE4292EA54F00A35D4D /* OverviewCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewCard.swift; sourceTree = "<group>"; };
-		F0899DE6292EA57800A35D4D /* WeekCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekCard.swift; sourceTree = "<group>"; };
 		F0899DEA292EA83200A35D4D /* MyFlowApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFlowApp.swift; sourceTree = "<group>"; };
 		F0948C1526818EE000A5F48D /* MyFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0948C1C26818EE100A5F48D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -139,17 +120,10 @@
 		F0BA1E1E28FB7FFB00FCB5A8 /* SwipeDelete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeDelete.swift; sourceTree = "<group>"; };
 		F0BA1E2028FCBA5800FCB5A8 /* FlowBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowBlock.swift; sourceTree = "<group>"; };
 		F0C6CE7426913C240026E415 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		F0F7F4112903931300BC8E16 /* VersionNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionNumber.swift; sourceTree = "<group>"; };
-		F0F7F415290399EF00BC8E16 /* ToggleBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleBar.swift; sourceTree = "<group>"; };
-		F0F7F41729039A0B00BC8E16 /* NavigationLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationLinks.swift; sourceTree = "<group>"; };
-		F0F7F41929039ADA00BC8E16 /* UpgradeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeButton.swift; sourceTree = "<group>"; };
-		F0F7F41C29039B6F00BC8E16 /* About us.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "About us.swift"; sourceTree = "<group>"; };
-		F0F7F41E2904EAEF00BC8E16 /* FlowMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowMenu.swift; sourceTree = "<group>"; };
 		F0F7F4222904F0A900BC8E16 /* Waves.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Waves.swift; sourceTree = "<group>"; };
 		F0F7F427290E2DF400BC8E16 /* TimerNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerNotifications.swift; sourceTree = "<group>"; };
 		F0F7F42F2911C6CA00BC8E16 /* Custom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Custom.swift; sourceTree = "<group>"; };
 		F0F7F4332911C96E00BC8E16 /* Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flow.swift; sourceTree = "<group>"; };
-		F0FB423628F5409300271BC6 /* MonthCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,7 +141,6 @@
 			isa = PBXGroup;
 			children = (
 				F001C23C28D3C59F00134EB5 /* FlowSheet.swift */,
-				F045998C28E3810000573A0A /* SimpleFlow.swift */,
 				F001C24128D7F24100134EB5 /* CustomFlow.swift */,
 				F0BA1E2028FCBA5800FCB5A8 /* FlowBlock.swift */,
 			);
@@ -182,6 +155,7 @@
 				F0A025C6294796A500AF723F /* FlowData.swift */,
 				F04FFB55290339000058E66D /* Timer */,
 				F0A025CA2949019A00AF723F /* Data */,
+				F0FD718728ECD7B9008D9DC1 /* Helpers */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -200,10 +174,12 @@
 		F028E6DE269D406A0022A555 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F074D679271D124900CE1AB4 /* FlowView.swift */,
+				F08315292888A55100153CD7 /* StatsView.swift */,
+				F032564A272251A5009D3EFB /* SettingsView.swift */,
+				F060E80C284548B600D69C92 /* Components */,
 				F04B500A2852F68C004269DD /* FlowView */,
 				F001C24028D7BE1A00134EB5 /* FlowSheet */,
-				F08B18072853DBA000D466ED /* StatsView */,
-				F08B18082853DBE600D466ED /* SettingsView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -211,12 +187,8 @@
 		F04B500A2852F68C004269DD /* FlowView */ = {
 			isa = PBXGroup;
 			children = (
-				F074D679271D124900CE1AB4 /* FlowView.swift */,
-				F0F7F41E2904EAEF00BC8E16 /* FlowMenu.swift */,
 				F074D677271D100600CE1AB4 /* Circles.swift */,
 				F02C1468270FA679002FE382 /* Labels.swift */,
-				F082B305271B690E002E238F /* Rounds.swift */,
-				F064AE0928C45CA3005EE330 /* ControlButtons.swift */,
 			);
 			path = FlowView;
 			sourceTree = "<group>";
@@ -224,10 +196,10 @@
 		F04FFB55290339000058E66D /* Timer */ = {
 			isa = PBXGroup;
 			children = (
-				F01962AC2931824200336821 /* Simple.swift */,
-				F0F7F42F2911C6CA00BC8E16 /* Custom.swift */,
 				F01962AA29317CE300336821 /* Initialize.swift */,
 				F01962B22931EBE700336821 /* Start.swift */,
+				F01962AC2931824200336821 /* Simple.swift */,
+				F0F7F42F2911C6CA00BC8E16 /* Custom.swift */,
 				F01962B0293184BD00336821 /* Run.swift */,
 				F01962B92931F06C00336821 /* Complete.swift */,
 				F04FFB5D29033EC70058E66D /* Controls.swift */,
@@ -240,9 +212,9 @@
 		F060E80C284548B600D69C92 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				F0948C1C26818EE100A5F48D /* Assets.xcassets */,
 				F093044A292D4F2300C8D2F8 /* Toolbar */,
 				F06FB4B7288BABD70068852B /* OtherViews */,
-				F0948C1C26818EE100A5F48D /* Assets.xcassets */,
 				F02C1469270FA679002FE382 /* UI Elements.swift */,
 				F03256422721308C009D3EFB /* AnimatedBlur.swift */,
 				F001C23828D3A12100134EB5 /* Modifiers.swift */,
@@ -268,31 +240,6 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		F08B18072853DBA000D466ED /* StatsView */ = {
-			isa = PBXGroup;
-			children = (
-				F08315292888A55100153CD7 /* StatsView.swift */,
-				F0899DE4292EA54F00A35D4D /* OverviewCard.swift */,
-				F0899DE6292EA57800A35D4D /* WeekCard.swift */,
-				F0FB423628F5409300271BC6 /* MonthCard.swift */,
-				F03358F6294CE4A60020E5F3 /* GoalView.swift */,
-			);
-			path = StatsView;
-			sourceTree = "<group>";
-		};
-		F08B18082853DBE600D466ED /* SettingsView */ = {
-			isa = PBXGroup;
-			children = (
-				F032564A272251A5009D3EFB /* SettingsView.swift */,
-				F0F7F415290399EF00BC8E16 /* ToggleBar.swift */,
-				F0F7F41729039A0B00BC8E16 /* NavigationLinks.swift */,
-				F0F7F4112903931300BC8E16 /* VersionNumber.swift */,
-				F0F7F41929039ADA00BC8E16 /* UpgradeButton.swift */,
-				F0F7F41B29039B3600BC8E16 /* Views */,
-			);
-			path = SettingsView;
-			sourceTree = "<group>";
-		};
 		F093044A292D4F2300C8D2F8 /* Toolbar */ = {
 			isa = PBXGroup;
 			children = (
@@ -308,11 +255,9 @@
 				F0948C1726818EE000A5F48D /* MyFlow */,
 				F0899DEA292EA83200A35D4D /* MyFlowApp.swift */,
 				F066923326FB9C3800DB905E /* ContentView.swift */,
+				F028E6DE269D406A0022A555 /* Views */,
 				F01C1D7B26A3874E00C40900 /* Models */,
 				F018B2B62928263E00FCD857 /* ViewModels */,
-				F028E6DE269D406A0022A555 /* Views */,
-				F0FD718728ECD7B9008D9DC1 /* Helpers */,
-				F060E80C284548B600D69C92 /* Components */,
 				F0948C1626818EE000A5F48D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -360,14 +305,6 @@
 				F09862002696C80E00A61B42 /* AquaSound.aif */,
 			);
 			path = Sounds;
-			sourceTree = "<group>";
-		};
-		F0F7F41B29039B3600BC8E16 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				F0F7F41C29039B6F00BC8E16 /* About us.swift */,
-			);
-			name = Views;
 			sourceTree = "<group>";
 		};
 		F0FD718728ECD7B9008D9DC1 /* Helpers */ = {
@@ -455,36 +392,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				F04FFB5E29033EC70058E66D /* Controls.swift in Sources */,
-				F0899DE5292EA54F00A35D4D /* OverviewCard.swift in Sources */,
 				F001C24228D7F24100134EB5 /* CustomFlow.swift in Sources */,
-				F045998D28E3810000573A0A /* SimpleFlow.swift in Sources */,
 				F0948C4C2681907A00A5F48D /* Notifications.swift in Sources */,
-				F0F7F41A29039ADA00BC8E16 /* UpgradeButton.swift in Sources */,
 				F01962B1293184BD00336821 /* Run.swift in Sources */,
 				F01962A12931255D00336821 /* Setters.swift in Sources */,
-				F0F7F4122903931300BC8E16 /* VersionNumber.swift in Sources */,
 				F01962B82931EF3400336821 /* Getters.swift in Sources */,
 				F0A025C7294796A500AF723F /* FlowData.swift in Sources */,
 				F03256432721308C009D3EFB /* AnimatedBlur.swift in Sources */,
 				F03358F9294CE8950020E5F3 /* DayButton.swift in Sources */,
 				F0BA1E1F28FB7FFB00FCB5A8 /* SwipeDelete.swift in Sources */,
-				F0FB423728F5409300271BC6 /* MonthCard.swift in Sources */,
 				F02C146F270FA679002FE382 /* Toolbar.swift in Sources */,
 				F074D67A271D124900CE1AB4 /* FlowView.swift in Sources */,
 				F04FFB4728FF326E0058E66D /* Reminders.swift in Sources */,
 				F02C1472270FA679002FE382 /* UI Elements.swift in Sources */,
 				F09861FF26968B4B00A61B42 /* WelcomeView.swift in Sources */,
-				F03358F7294CE4A60020E5F3 /* GoalView.swift in Sources */,
 				F0F7F4302911C6CA00BC8E16 /* Custom.swift in Sources */,
 				F04FFB4E28FF67140058E66D /* FlowManager.swift in Sources */,
 				F0F7F4232904F0A900BC8E16 /* Waves.swift in Sources */,
 				F0899DEB292EA83200A35D4D /* MyFlowApp.swift in Sources */,
-				F0899DE7292EA57800A35D4D /* WeekCard.swift in Sources */,
 				F0A025C92949014B00AF723F /* GetWeek.swift in Sources */,
 				F04FFB4C28FF66B30058E66D /* FlowModel.swift in Sources */,
-				F0F7F41D29039B6F00BC8E16 /* About us.swift in Sources */,
 				F01962AB29317CE300336821 /* Initialize.swift in Sources */,
-				F082B306271B690E002E238F /* Rounds.swift in Sources */,
 				F0F7F4342911C96E00BC8E16 /* Flow.swift in Sources */,
 				F074D678271D100600CE1AB4 /* Circles.swift in Sources */,
 				F02C1473270FA679002FE382 /* StartButton.swift in Sources */,
@@ -492,12 +420,9 @@
 				F014A05D293AA67300B9D7D4 /* Data.swift in Sources */,
 				F083152A2888A55100153CD7 /* StatsView.swift in Sources */,
 				F02C1471270FA679002FE382 /* Labels.swift in Sources */,
-				F0F7F41829039A0B00BC8E16 /* NavigationLinks.swift in Sources */,
 				F001C23D28D3C59F00134EB5 /* FlowSheet.swift in Sources */,
 				F04FFB4328FF2C890058E66D /* Blocks.swift in Sources */,
 				F0391317285FA0990074CF33 /* Haptics.swift in Sources */,
-				F064AE0A28C45CA3005EE330 /* ControlButtons.swift in Sources */,
-				F0F7F41F2904EAEF00BC8E16 /* FlowMenu.swift in Sources */,
 				F01962B32931EBE700336821 /* Start.swift in Sources */,
 				F018CF202864E11D002A17D7 /* ContentView.swift in Sources */,
 				F0391314285EBF860074CF33 /* Format.swift in Sources */,
@@ -507,7 +432,6 @@
 				F032564B272251A6009D3EFB /* SettingsView.swift in Sources */,
 				F0F7F428290E2DF400BC8E16 /* TimerNotifications.swift in Sources */,
 				F0A025CC2949020800AF723F /* Date extensions.swift in Sources */,
-				F0F7F416290399EF00BC8E16 /* ToggleBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

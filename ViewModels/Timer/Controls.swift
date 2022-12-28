@@ -45,6 +45,7 @@ extension FlowModel {
     // Reset
     func Reset() {
         mediumHaptic()
+        completed = false
         invalidateTimer()
         mode = .Initial
         flowContinue = false

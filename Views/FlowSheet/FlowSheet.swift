@@ -7,61 +7,128 @@
 import SwiftUI
 
 struct FlowSheet: View {
-    @ObservedObject var flowModel: FlowModel
-    @ObservedObject var reminders = Reminders()
-    @State var flow: Flow
+    @AppStorage("ShowToolBar") var showToolBar = true
+    @ObservedObject var model: FlowModel
+    @Binding var flow: Flow
+    
     @FocusState var focusedField: Field?
-    @Environment(\.dismiss) var dismiss
+    @Binding var showFlow: Bool
+    
+    @State var chooseFlow = false
+    @State var chooseBreak = false
+    @State var chooseRound = false
+    
+    var minutes = [Int](0...60)
+    var seconds = [Int](0...60)
+    var rounds = [Int](0...10)
+    var columns = [
+        MultiComponentPicker.Column(label: "min", options: Array(0...60).map { MultiComponentPicker.Column.Option(text: "\($0)", tag: $0) }),
+        MultiComponentPicker.Column(label: "sec", options: Array(0...59).map { MultiComponentPicker.Column.Option(text: "\($0)", tag: $0) }),
+    ]
     
     var body: some View {
-        ScrollView {
+        ZStack {
+            MaterialBackGround()
+                .onTapGesture { Save() }
+            
             VStack(alignment: .leading, spacing: 16) {
-                SheetCapsule
-                
-                // Title and Save
                 HStack {
                     FlowTitle
-                    SaveButton
-                }
-                
-                // Simple & Custom Flows
-                VStack( alignment: .leading) {
-                    FlowModePicker
-                    FlowEditor
-                }
-                .modifier(CustomGlass())
-                
-                // Reminder
-                VStack(alignment: .leading) {
-                    Reminder
-                    if flow.reminder {
-                        Divider()
-                        HStack(spacing: 16) {
-                            ForEach(reminders.days) { day in
-                                DayButton(day: day.day, isOn: day.isOn)
-                            }
-                        }
-                        .padding(.horizontal,8)
+                    Menu {
+                        Button(action: Delete) {
+                            Text("Delete") }
+                    } label: {
+                        Image(systemName: "ellipsis")
+                            .foregroundColor(.myBlue)
+                            .font(.title3)
+                            .padding(12)
+                            .background(Circle().fill(.ultraThinMaterial.opacity(0.55)))
                     }
                 }
-                .modifier(CustomGlass())
-                DeleteButton
+                FlowModePicker
+                
+                if flow.simple {
+                    // Flow Time
+                    Button(action: toggleFlowPicker) {
+                        VStack {
+                            PickerLabel(text: "Flow: ",
+                                        time: ((flow.flowMinuteSelection * 60) + flow.flowSecondsSelection),
+                                        color: .myBlue)
+                            if chooseFlow {
+                                MultiComponentPicker(
+                                    columns: columns,
+                                    selections: [$flow.flowMinuteSelection, $flow.flowSecondsSelection])
+                            }
+                        }
+                    }
+                    Divider()
+                    
+                    // Break Time
+                    Button(action: toggleBreakPicker) {
+                        VStack {
+                            PickerLabel(
+                                text: "Break:",
+                                time: ((flow.breakMinuteSelection * 60) + flow.breakSecondsSelection),
+                                color: .gray)
+                            if chooseBreak {
+                                MultiComponentPicker(
+                                    columns: columns,
+                                    selections: [$flow.breakMinuteSelection, $flow.breakSecondsSelection])
+                            }
+                        }
+                    }
+                    Divider()
+                    
+                    // Rounds
+                    Button(action: toggleRoundsPicker) {
+                        VStack {
+                            RoundsLabel
+                            if chooseRound {
+                                HStack {
+                                    PickerView(
+                                        selection: $flow.roundsSelection,
+                                        unit: rounds,
+                                        label: "")
+                                }
+                            }
+                        }
+                    }
+                    .padding(.bottom)
+                }
+                if !flow.simple {
+                    CustomFlow(flow: $flow)
+                }
             }
+            .modifier(CustomGlass())
         }
-//        .background(AnimatedBlur())
-//        .background(.ultraThinMaterial)
-
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        .animation(.default, value: flow.simple)
     }
     
-    var SheetCapsule: some View {
-        Capsule()
-            .fill(Color.secondary)
-            .opacity(0.5)
-            .frame(width: 35, height: 5)
-            .padding(.top, 8)
-            .frame(maxWidth: .infinity, alignment: .center)
+    func Delete() {
+        showFlow = false;
+        showToolBar = true
+        model.deleteFlow(id: flow.id)
+    }
+    
+    func toggleFlowPicker() {
+        chooseFlow.toggle()
+    }
+    func toggleBreakPicker() {
+        chooseBreak.toggle()
+    }
+    func toggleRoundsPicker() {
+        chooseRound.toggle()
+    }
+    
+    func Save() {
+        if !chooseFlow && !chooseBreak && !chooseRound {
+            showFlow = false;
+            showToolBar = true
+            if flow.new {
+                model.addFlow(flow: flow)
+            } else {
+                model.editFlow(id: flow.id, flow: flow)
+            }
+        }
     }
     
     var FlowTitle: some View {
@@ -74,81 +141,132 @@ struct FlowSheet: View {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { focusedField = .flowname }
                 }
             }
-            .padding(.horizontal).padding(.bottom)
     }
     
     var SaveButton: some View {
         Button {
-            dismiss()
-            if flow.new {
-                flowModel.addFlow(flow: flow)
-            } else {
-                flowModel.editFlow(id: flow.id, flow: flow)
-            }
+            Save()
         } label: {
             Text("Save")
-                .font(.subheadline)
                 .foregroundColor(.myBlue)
-                .frame(maxWidth: .infinity, alignment: .trailing)
-                .padding(.horizontal).padding(.bottom)
+                .frame(maxWidth: .infinity, alignment: .center)
         }
     }
     
-        var FlowModePicker: some View {
-            Picker("", selection: $flow.simple, content: {
-                Text("Simple").tag(true)
-                Text("Custom").tag(false)
-            })
-            .pickerStyle(SegmentedPickerStyle())
-            .preferredColorScheme(.dark)
-            .padding(.bottom)
-        }
+    var FlowModePicker: some View {
+        Picker("", selection: $flow.simple, content: {
+            Text("Simple").tag(true)
+            Text("Custom").tag(false)
+        })
+        .pickerStyle(SegmentedPickerStyle())
+        .padding(.vertical, 8)
+    }
     
-    var Reminder: some View {
+    var RoundsLabel: some View {
         HStack {
-            Text("Reminder")
-                .foregroundColor(.white)
-            Text("5:00pm")
-                .foregroundColor(.gray)
-            Spacer()
-            Toggle(isOn: $flow.reminder) {
-            }.toggleStyle(SwitchToggleStyle(tint: Color.myBlue))
+            Text("Rounds:")
+                .font(.headline)
+            Text("\(flow.roundsSelection)")
         }
+        .foregroundColor(.white.opacity(0.8))
     }
+}
+
+struct PickerLabel: View {
+    var text: String
+    var time: Int
+    var color: Color
     
-    @ViewBuilder var DeleteButton: some View {
-        if !flow.new {
-            Button {
-                dismiss()
-                flowModel.deleteFlow(id: flow.id)
-            } label: {
-                Text("Delete Flow")
-                    .padding(.top)
-                    .foregroundColor(.red)
-                    .frame(maxWidth: .infinity, alignment: .center)
+    var body: some View {
+        HStack {
+            Text(text)
+                .font(.headline)
+            Text(formatTime(seconds: time))
+
+        }
+        .foregroundColor(color)
+    }
+}
+
+struct PickerView: View {
+    @Binding var selection: Int
+    var unit: [Int]
+    var label: String
+    var body: some View {
+        
+        GeometryReader { geometry in
+            Picker(selection: $selection, label: Text("")) {
+                ForEach(0..<unit.count, id: \.self) {
+                    Text("\(unit[$0]) \(label)")
+                }
+            }
+            .pickerStyle(.wheel)
+            .frame(width: geometry.size.width, height: geometry.size.height)
+        }
+        .frame(height: 200)
+    }
+}
+
+struct MultiComponentPicker<Tag: Hashable>: View  {
+    let columns: [Column]
+    var selections: [Binding<Tag>]
+    
+    var body: some View {
+        GeometryReader { geometry in
+            HStack(spacing: 0) {
+                ForEach(0 ..< columns.count, id: \.self) { index in
+                    let column = columns[index]
+                    ZStack(alignment: Alignment.init(horizontal: .customCenter, vertical: .center)) {
+                        HStack {
+                            Text(verbatim: column.options.last!.text)
+                                .foregroundColor(.clear)
+                                .alignmentGuide(.customCenter) { $0[HorizontalAlignment.center] }
+                            Text(column.label)
+                                .foregroundColor(.gray)
+                        }
+                        Picker(column.label, selection: selections[index]) {
+                            ForEach(column.options, id: \.tag) { option in
+                                Text(verbatim: option.text).tag(option.tag)
+                            }
+                        }
+                        .pickerStyle(WheelPickerStyle())
+                        .frame(width: geometry.size.width / CGFloat(columns.count), height: geometry.size.height)
+                        .clipped()
+                    }
+                }
             }
         }
+        .frame(height: 200).previewLayout(.sizeThatFits)
     }
-    
-    @ViewBuilder var FlowEditor: some View {
-        if flow.simple {
-            SimpleFlow(flow: $flow)
+}
+
+extension MultiComponentPicker {
+    struct Column {
+        struct Option {
+            var text: String
+            var tag: Tag
         }
-        else {
-            CustomFlow(flow: $flow)
-        }
+        
+        var label: String
+        var options: [Option]
     }
+}
+
+private extension HorizontalAlignment {
+    enum CustomCenter: AlignmentID {
+        static func defaultValue(in context: ViewDimensions) -> CGFloat { context[HorizontalAlignment.center] }
+    }
+    static let customCenter = Self(CustomCenter.self)
 }
 
 enum Field: Hashable {
     case flowname
 }
 
-struct Previews_FlowSheet_Previews: PreviewProvider {
-    static var previews: some View {
-        ZStack {
-            AnimatedBlur()
-            FlowSheet(flowModel: FlowModel(), flow: Flow())
-        }
+struct MaterialBackGround: View {
+    var body: some View {
+        Toolbar(model: FlowModel())
+        Color.clear.opacity(0.0).ignoresSafeArea()
+            .background(.ultraThinMaterial)
     }
 }

@@ -13,8 +13,8 @@ struct TimerLabels: View {
         ZStack {
             // Custom
             if model.flowMode == .Custom {
-                TimerLabel(color: model.type == .Flow ? .myBlue : .gray,text: customLabel)
-                .font(.system(size: 50))
+                TimerLabel(color: model.type == .Flow ? .myBlue : .gray, text: customLabel)
+                    .font(.system(size: 50))
             }
             
             // Simple
@@ -32,9 +32,47 @@ struct TimerLabels: View {
                     .scaleEffect(model.mode == .flowRunning ? 0.0 : 1.0)
                     .padding(.leading, model.mode == .breakRunning ? 0 : 120)
                     .opacity(model.mode == .flowRunning ? 0.0 : 1.0)
+                
+                // Rounds
+                HStack {
+                    if model.mode == .Initial {
+                        ForEach(0 ..< model.roundsSet, id: \.self) {_ in
+                            RoundCircleFull
+                        }
+                    }
+                    
+                    if model.mode != .Initial {
+                        ForEach(0 ..< model.roundsCompleted, id: \.self) {_ in
+                            RoundCircleFull
+                        }
+                        if model.mode == .flowRunning || model.mode == .flowPaused {
+                            if !model.flowContinue {
+                                RoundCircleHalfFull
+                            }
+                        }
+                    }
+                }
+                .padding(.top, 100)
+                
             }
         }
         .animation(.easeInOut(duration: 0.3), value: model.mode)
+    }
+    
+    var RoundCircleFull: some View {
+        Circle()
+            .frame(width: 10, height: 10)
+            .foregroundColor(.gray.opacity(0.3))
+            .padding(1)
+    }
+    
+    var RoundCircleHalfFull: some View {
+        Circle()
+            .trim(from: 0, to: 0.5)
+            .rotationEffect(.degrees(90))
+            .frame(width: 10, height: 10)
+            .foregroundColor(.gray.opacity(0.3))
+            .padding(1)
     }
     
     var flowLabel: String {

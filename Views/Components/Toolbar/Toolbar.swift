@@ -18,7 +18,7 @@ struct Toolbar: View {
             label: { ToolBarButton(
                 image: "chart.bar.fill",
                 size: 25, padding: 5,
-                color: selectedTab == .data ? .myBlue : .gray.opacity(0.5))
+                selected: selectedTab == .data ? true : false)
             }
             
             Spacer()
@@ -34,7 +34,7 @@ struct Toolbar: View {
             label: { ToolBarButton(
                 image: "person.fill",
                 size: 30, padding: 5,
-                color: selectedTab == .settings ? .myBlue : .gray.opacity(0.5))
+                selected: selectedTab == .settings ? true : false)
             }
         }
         .padding([.leading, .trailing], 30.0)
@@ -47,16 +47,23 @@ struct ToolBarButton: View {
     var image: String
     var size: CGFloat
     var padding: CGFloat = 5.0
-    var color: Color
+    var selected: Bool
     
     var body: some View {
-        VStack {
+        if selected {
             Image(systemName: image)
                 .font(Font.system(size: size))
-        }
         .frame(width: 60, height: 20)
         .padding(.top, 40)
-        .foregroundColor(color)
+        .foregroundColor(.myBlue)
+    }
+        else {
+            Image(systemName: image)
+                .font(Font.system(size: size))
+        .frame(width: 60, height: 20)
+        .padding(.top, 40)
+        .foregroundStyle(.thinMaterial)
+        }
     }
 }
 

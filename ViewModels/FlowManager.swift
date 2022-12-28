@@ -56,10 +56,7 @@ extension FlowModel {
         flowSecondsSelection: flow.flowSecondsSelection,
         breakMinuteSelection: flow.breakMinuteSelection,
         breakSecondsSelection: flow.breakSecondsSelection,
-        
-        roundsSelection: flow.roundsSelection,
-        reminder: flow.reminder,
-        goal: flow.goal)
+        roundsSelection: flow.roundsSelection)
     
         return changedFlow
     }
