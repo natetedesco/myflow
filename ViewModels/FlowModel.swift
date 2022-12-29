@@ -11,11 +11,14 @@ class FlowModel: ObservableObject {
     var notifications = NotificationManager()
     var data = FlowData()
     
-    @Published var flow: Flow
+    @AppStorage("StartFlowAutomatically") var startFlowAutomatically: Bool = false
+    @AppStorage("StartBreakAutomatically") var startBreakAutomatically: Bool = false
     
     var timer = Timer()
     var start = Date()
     var elapsedTime = 0
+    
+    @Published var flow: Flow
     
     @Published var mode: TimerMode = .Initial
     @Published var type: FlowType = .Flow

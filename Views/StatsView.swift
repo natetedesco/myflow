@@ -32,9 +32,7 @@ struct StatsView: View {
                 MonthCard
                 
             }
-            .padding(.bottom, 85) // custom modifier
-            .navigationTitle("Statistics")
-            .background(AnimatedBlur())
+            .statisticsNavigationView()
             .toolbar{ GoalButton }
         }
         if showGoal {
@@ -50,7 +48,7 @@ struct StatsView: View {
     var GoalButton: some View {
         Button(action: showGoalCard) {
             Text("Goal")
-                .modifier(SmallButtonGlass())
+                .smallButtonGlass()
         }
     }
     
@@ -60,7 +58,7 @@ struct StatsView: View {
             OverviewLabel(label: "This Week", time: data.thisWeekTime)
             OverviewLabel(label: "This Month", time: data.thisMonthTime)
         }
-        .modifier(CardGlass())
+        .cardGlass()
     }
     
     var MonthCard: some View {
@@ -80,18 +78,16 @@ struct StatsView: View {
             .padding(.top, 8)
             .padding(.horizontal, 8)
         }
-        .modifier(CardGlass())
+        .cardGlass()
     }
     
     var days = ["M", "T", "W", "T", "F", "S", "S"]
     var WeekCard: some View {
         VStack(alignment: .center) {
             HStack {
-                Text("Daily Flow Time Goal:")
+                FootNote(text: "Daily Flow Time Goal")
                     .foregroundColor(.gray)
-                    .font(.footnote)
-                Text("\(goalSelection)h")
-                    .font(.subheadline)
+                SubHeadline(text: "\(goalSelection)h")
             }
             
             VStack {
@@ -117,16 +113,14 @@ struct StatsView: View {
                 }
                 HStack(alignment: .center, spacing: 16) {
                     ForEach(0..<self.data.thisWeekDays.count, id: \.self) { index in
-                        Text(days[index])
+                        FootNote(text: days[index])
                             .foregroundColor(index == data.dayOfTheWeek ? .myBlue : .gray)
-                            .font(.footnote)
                             .frame(width: 25)
                     }
                 }
             }
-            
         }
-        .modifier(CardGlass())
+        .cardGlass()
         .compositingGroup()
     }
     
@@ -137,8 +131,7 @@ struct StatsView: View {
             MaterialBackGround()
                 .onTapGesture { showGoal = false; showToolBar = true }
                 VStack {
-                    Text("Daily Flow Time Goal")
-                        .font(.title3)
+                    Title3(text: "Daily Flow Time Goal")
                         .padding()
                     
                     ZStack {
@@ -154,7 +147,7 @@ struct StatsView: View {
                     }
                     .frame(maxWidth: 200)
                 }
-                .modifier(CustomGlass())
+                .customGlass()
         }
     }
 }
@@ -165,11 +158,9 @@ struct OverviewLabel: View {
     
     var body: some View {
         VStack(alignment: .center, spacing: 4) {
-            Text(label)
+            FootNote(text: label)
                 .foregroundColor(.gray)
-                .font(.footnote)
-            Text("\(formatHoursAndMinutes(time: time))")
-                .font(.subheadline)
+            SubHeadline(text: "\(formatHoursAndMinutes(time: time))")
                 .foregroundColor(.myBlue)
         }
         .frame(maxWidth: .infinity)

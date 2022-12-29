@@ -42,6 +42,7 @@
 		F0948C4C2681907A00A5F48D /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0948C4B2681907A00A5F48D /* Notifications.swift */; };
 		F09861FF26968B4B00A61B42 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09861FE26968B4B00A61B42 /* WelcomeView.swift */; };
 		F09862012696C80E00A61B42 /* AquaSound.aif in Resources */ = {isa = PBXBuildFile; fileRef = F09862002696C80E00A61B42 /* AquaSound.aif */; };
+		F09E34F5295CCEC0005F2583 /* Global Variables.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09E34F4295CCEC0005F2583 /* Global Variables.swift */; };
 		F0A025C7294796A500AF723F /* FlowData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A025C6294796A500AF723F /* FlowData.swift */; };
 		F0A025C92949014B00AF723F /* GetWeek.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A025C82949014B00AF723F /* GetWeek.swift */; };
 		F0A025CC2949020800AF723F /* Date extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A025CB2949020800AF723F /* Date extensions.swift */; };
@@ -114,6 +115,7 @@
 		F0948C4B2681907A00A5F48D /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		F09861FE26968B4B00A61B42 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		F09862002696C80E00A61B42 /* AquaSound.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = AquaSound.aif; sourceTree = "<group>"; };
+		F09E34F4295CCEC0005F2583 /* Global Variables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Global Variables.swift"; sourceTree = "<group>"; };
 		F0A025C6294796A500AF723F /* FlowData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowData.swift; sourceTree = "<group>"; };
 		F0A025C82949014B00AF723F /* GetWeek.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetWeek.swift; sourceTree = "<group>"; };
 		F0A025CB2949020800AF723F /* Date extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date extensions.swift"; sourceTree = "<group>"; };
@@ -137,16 +139,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F001C24028D7BE1A00134EB5 /* FlowSheet */ = {
-			isa = PBXGroup;
-			children = (
-				F001C23C28D3C59F00134EB5 /* FlowSheet.swift */,
-				F001C24128D7F24100134EB5 /* CustomFlow.swift */,
-				F0BA1E2028FCBA5800FCB5A8 /* FlowBlock.swift */,
-			);
-			path = FlowSheet;
-			sourceTree = "<group>";
-		};
 		F018B2B62928263E00FCD857 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -177,9 +169,8 @@
 				F074D679271D124900CE1AB4 /* FlowView.swift */,
 				F08315292888A55100153CD7 /* StatsView.swift */,
 				F032564A272251A5009D3EFB /* SettingsView.swift */,
-				F060E80C284548B600D69C92 /* Components */,
 				F04B500A2852F68C004269DD /* FlowView */,
-				F001C24028D7BE1A00134EB5 /* FlowSheet */,
+				F060E80C284548B600D69C92 /* Components */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -189,6 +180,9 @@
 			children = (
 				F074D677271D100600CE1AB4 /* Circles.swift */,
 				F02C1468270FA679002FE382 /* Labels.swift */,
+				F001C23C28D3C59F00134EB5 /* FlowSheet.swift */,
+				F001C24128D7F24100134EB5 /* CustomFlow.swift */,
+				F0BA1E2028FCBA5800FCB5A8 /* FlowBlock.swift */,
 			);
 			path = FlowView;
 			sourceTree = "<group>";
@@ -213,12 +207,15 @@
 			isa = PBXGroup;
 			children = (
 				F0948C1C26818EE100A5F48D /* Assets.xcassets */,
-				F093044A292D4F2300C8D2F8 /* Toolbar */,
-				F06FB4B7288BABD70068852B /* OtherViews */,
+				F09E34F4295CCEC0005F2583 /* Global Variables.swift */,
 				F02C1469270FA679002FE382 /* UI Elements.swift */,
-				F03256422721308C009D3EFB /* AnimatedBlur.swift */,
 				F001C23828D3A12100134EB5 /* Modifiers.swift */,
+				F03256422721308C009D3EFB /* AnimatedBlur.swift */,
+				F02C1466270FA679002FE382 /* Toolbar.swift */,
+				F02C146A270FA679002FE382 /* StartButton.swift */,
 				F03358F8294CE8950020E5F3 /* DayButton.swift */,
+				F09861FE26968B4B00A61B42 /* WelcomeView.swift */,
+				F06FB4B7288BABD70068852B /* OtherViews */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -227,7 +224,6 @@
 			isa = PBXGroup;
 			children = (
 				F0F7F4222904F0A900BC8E16 /* Waves.swift */,
-				F09861FE26968B4B00A61B42 /* WelcomeView.swift */,
 			);
 			path = OtherViews;
 			sourceTree = "<group>";
@@ -238,15 +234,6 @@
 				F0948C1F26818EE100A5F48D /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		F093044A292D4F2300C8D2F8 /* Toolbar */ = {
-			isa = PBXGroup;
-			children = (
-				F02C1466270FA679002FE382 /* Toolbar.swift */,
-				F02C146A270FA679002FE382 /* StartButton.swift */,
-			);
-			path = Toolbar;
 			sourceTree = "<group>";
 		};
 		F0948C0C26818EE000A5F48D = {
@@ -420,6 +407,7 @@
 				F014A05D293AA67300B9D7D4 /* Data.swift in Sources */,
 				F083152A2888A55100153CD7 /* StatsView.swift in Sources */,
 				F02C1471270FA679002FE382 /* Labels.swift in Sources */,
+				F09E34F5295CCEC0005F2583 /* Global Variables.swift in Sources */,
 				F001C23D28D3C59F00134EB5 /* FlowSheet.swift in Sources */,
 				F04FFB4328FF2C890058E66D /* Blocks.swift in Sources */,
 				F0391317285FA0990074CF33 /* Haptics.swift in Sources */,

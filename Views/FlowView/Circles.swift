@@ -9,65 +9,48 @@ import SwiftUI
 struct Circles: View {
     @ObservedObject var model: FlowModel
     
-    var FlowCircle: some View {
+    // Body
+    var body: some View {
         ZStack {
-            
-            // Stroke
-            Circle()
-                .trim(from: 0, to: flowCircleFill)
-                .stroke(Color.myBlue,
-                        style: StrokeStyle(lineWidth: 5,lineCap: .round))
-                .rotationEffect(.degrees(-90))
-                .animation(.default.speed(0.20), value: model.animate)
-                .frame(width: 310)
-            
-            // Track
-            Circle()
-                .stroke(Color.myBlue.opacity(0.35),style: StrokeStyle(lineWidth: 4,lineCap: .round))
-                .frame(width: 310)
-                .blur(radius: 0.5)
-            
-            // Glow
+            if showFlowCircle {
+                
+                // Flow Circle
+                Circle()
+                    .trim(from: 0, to: flowCircleFill)
+                    .stroke(Color.myBlue,style: StrokeStyle(lineWidth: 5,lineCap: .round))
+                
                 Circle()
                     .trim(from: 0, to: flowCircleFill)
                     .stroke(Color.myBlue.opacity(0.1),style: StrokeStyle(lineWidth: 8,lineCap: .round))
-                    .rotationEffect(.degrees(-90))
-                    .animation(.default.speed(0.20), value: model.animate)
-                    .frame(width: 310)
-                .blur(radius: 10)
-            
-            
+                    .blur(radius: 10)
+                
+                Circle()
+                    .stroke(Color.myBlue.opacity(0.35),style: StrokeStyle(lineWidth: 4,lineCap: .round))
+                    .blur(radius: 0.5)
+            }
+            else {
+                
+                // Break Circle
+                Circle()
+                    .trim(from: 0, to: breakCircleFIll)
+                    .stroke(Color.gray.opacity(0.3), style: StrokeStyle(lineWidth: 5, lineCap: .round))
+                
+                Circle()
+                    .stroke(Color.gray.opacity(0.2), style: StrokeStyle(lineWidth: 4, lineCap: .round))
+                    .blur(radius: 0.5)
+            }
         }
+        .animation(.default.speed(0.20), value: model.animate)
+        .rotationEffect(.degrees(-90))
+        .frame(width: 310)
     }
     
-    var BreakCircle: some View {
-        ZStack {
-            // Stroke
-            Circle()
-                .trim(from: 0, to: breakCircleFIll)
-                .stroke(Color.gray.opacity(0.3), style: StrokeStyle(lineWidth: 5, lineCap: .round))
-                .rotationEffect(.degrees(-90))
-                .animation(.default.speed(0.20), value: model.animate)
-                .frame(width: 310)
-            
-            // Track
-            Circle()
-                .stroke(Color.gray.opacity(0.2), style: StrokeStyle(lineWidth: 4, lineCap: .round))
-                .frame(width: 310)
-                .blur(radius: 0.5)
-        }
-    }
-    
-    // Body
-    var body: some View {
-        
+    var showFlowCircle: Bool {
         if (model.flowMode == .Custom && model.type == .Flow) ||
             (model.flowMode == .Simple && (model.mode != .breakRunning && model.mode != .flowStart)) {
-            FlowCircle
+            return true
         }
-        else {
-            BreakCircle
-        }
+        return false
     }
     
     var flowCircleFill: CGFloat {

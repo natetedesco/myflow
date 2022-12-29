@@ -14,17 +14,57 @@ extension Color {
     static let myBlue = Color(#colorLiteral(red: 0, green: 0.8217858727, blue: 1, alpha: 1))
 }
 
-struct Title: View {
+struct LargeTitle: View {
     var text: String
     var body: some View {
         ZStack {
             Text(text)
                 .font(.largeTitle)
-                .fontWeight(.light)
+                .fontWeight(.bold)
                 .kerning(5.0)
                 .foregroundColor(.myBlue)
                 .frame(maxHeight: .infinity, alignment: .top)
         }
+    }
+}
+
+struct Title: View {
+    var text: String
+    var body: some View {
+        Text(text)
+            .font(.title)
+    }
+}
+
+struct Title2: View {
+    var text: String
+    var body: some View {
+        Text(text)
+            .font(.title2)
+    }
+}
+
+struct Title3: View {
+    var text: String
+    var body: some View {
+        Text(text)
+            .font(.title3)
+    }
+}
+
+struct FootNote: View {
+    var text: String
+    var body: some View {
+        Text(text)
+            .font(.footnote)
+    }
+}
+
+struct SubHeadline: View {
+    var text: String
+    var body: some View {
+        Text(text)
+            .font(.subheadline)
     }
 }
 

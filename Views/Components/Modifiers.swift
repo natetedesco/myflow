@@ -6,7 +6,42 @@
 
 import SwiftUI
 
-struct ButtonGlass: ViewModifier {
+extension View {
+    func buttonGlass() -> some View {
+        self.modifier(ButtonGlassViewModifier())
+    }
+    func smallButtonGlass() -> some View {
+        self.modifier(SmallButtonGlassViewModifier())
+    }
+    func customGlass() -> some View {
+        self.modifier(CustomGlassViewModifier())
+    }
+    func cardGlass() -> some View {
+        self.modifier(CardGlassViewModifier())
+    }
+    func cardGlassNP() -> some View {
+        self.modifier(CardGlassNPViewModifier())
+    }
+    func settingsNavigationView() -> some View {
+        self.modifier(NavigationViewModifier(title: "Settings"))
+    }
+    func statisticsNavigationView() -> some View {
+        self.modifier(NavigationViewModifier(title: "Statistics"))
+    }
+}
+
+struct NavigationViewModifier: ViewModifier {
+    var title: String
+    
+    func body(content: Content) -> some View {
+        content
+        .padding(.bottom, 85)
+        .background(AnimatedBlur())
+        .navigationTitle(title)
+    }
+}
+
+struct ButtonGlassViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
         .padding(.vertical, 8)
@@ -15,31 +50,29 @@ struct ButtonGlass: ViewModifier {
         .cornerRadius(30)
     }
 }
-
-struct SmallButtonGlass: ViewModifier {
+struct SmallButtonGlassViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-        .foregroundColor(.myBlue)
-        .padding(.horizontal, 12)
-        .padding(.vertical, 8)
-        .background(.ultraThinMaterial.opacity(0.55))
-        .cornerRadius(30)
+            .foregroundColor(.myBlue)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
+            .background(.ultraThinMaterial.opacity(0.55))
+            .cornerRadius(30)
     }
 }
 
-struct CustomGlass: ViewModifier {
+struct CustomGlassViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .frame(maxWidth: .infinity)
             .padding(24)
             .background(.black.opacity(0.7))
-//            .background(.thinMaterial)
             .cornerRadius(40)
             .padding(.horizontal, 32)
     }
 }
 
-struct CardGlass: ViewModifier {
+struct CardGlassViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .frame(maxWidth: .infinity)
@@ -51,7 +84,7 @@ struct CardGlass: ViewModifier {
     }
 }
 
-struct CardGlassNP: ViewModifier {
+struct CardGlassNPViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .padding(.vertical)
@@ -62,27 +95,4 @@ struct CardGlassNP: ViewModifier {
     }
 }
 
-struct ClearBackgroundView: UIViewRepresentable {
-    func makeUIView(context: Context) -> some UIView {
-        let view = UIView()
-        DispatchQueue.main.async {
-            view.superview?.superview?.backgroundColor = .clear
-        }
-        return view
-    }
-    func updateUIView(_ uiView: UIViewType, context: Context) {
-    }
-}
 
-struct ClearBackgroundViewModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .background(ClearBackgroundView())
-    }
-}
-
-extension View {
-    func clearModalBackground() -> some View {
-        self.modifier(ClearBackgroundViewModifier())
-    }
-}

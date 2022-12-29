@@ -11,7 +11,7 @@ import SwiftUI
 struct CustomFlow: View {
     @Binding var flow: Flow
     @State var draggingItem: Block?
-    @State var isDragging = false // disables all textfields
+    @State var dragging = false // disables all textfields
     @State var edit = false
     
     var body: some View {
@@ -20,37 +20,37 @@ struct CustomFlow: View {
             // Flow Blocks
             VStack {
                 ForEach(0..<self.$flow.blocks.count, id: \.self) { index in
-                    FlowBlock(
-                        block: $flow.blocks[index],
-                        flow: $flow,
-                        edit: $edit,
-                        isDragging: $isDragging
+                    FlowBlock(block: $flow.blocks[index], flow: $flow, edit: $edit, dragging: $dragging
                     )
-//                                        .mySwipeAction { flow.deleteBlock(id: $flow.blocks[index].id) }
-                    .opacity(flow.blocks[index].id == draggingItem?.id && isDragging ? 0.01 : 1)
+                    .opacity(flow.blocks[index].id == draggingItem?.id && dragging ? 0.01 : 1)
                     .drag(if: flow.blocks[index].draggable) {
                         draggingItem = flow.blocks[index]
                         return NSItemProvider(contentsOf: URL(string: "\(flow.blocks[index].id)"))!
                     }
-                    .onDrop(of: [.item], delegate: DropViewDelegate(currentItem: flow.blocks[index], items: $flow.blocks, draggingItem: $draggingItem, isDragging: $isDragging))
+                    .onDrop(of: [.item], delegate: DropViewDelegate(currentItem: flow.blocks[index], items: $flow.blocks, draggingItem: $draggingItem, dragging: $dragging))
                 }
             }
             .padding(.bottom)
             
+            // Edit Buttons
             HStack {
-                // Add Flow Button
-                Button { flow.addFlowBlock() }
-            label: { AddButtonLabel(title: "Flow", color: .myBlue) }
-                
+                Button(action: addFlowBlock) { AddButtonLabel(title: "Flow", color: .myBlue) }
+                Spacer()
                 EditButton
-                
-                // Add Break Button
-                Button { flow.addBreakBlock() }
-            label: { AddButtonLabel(title: "Break", color: .gray) }
+                Spacer()
+                Button(action: addBreakBlock) { AddButtonLabel(title: "Break", color: .gray) }
             }
         }
         .animation(.easeInOut, value: flow.blocks) // adding blocks
         .animation(.default, value: edit) // editing blocks
+    }
+    
+    func addFlowBlock() {
+        flow.addFlowBlock()
+    }
+    
+    func addBreakBlock() {
+        flow.addBreakBlock()
     }
     
     func delete(at offsets: IndexSet) {
@@ -60,9 +60,8 @@ struct CustomFlow: View {
     var EditButton: some View {
         Button { edit.toggle() }
         label: {
-            Text(edit == true ? "Done" : "Edit")
+            Text(edit ? "Done" : "Edit")
                 .foregroundColor(.myBlue)
-                .frame(maxWidth: .infinity)
         }
     }
 }
@@ -79,7 +78,6 @@ struct AddButtonLabel: View {
                 .background(Circle().fill(.ultraThinMaterial.opacity(0.6)))
         }
         .foregroundColor(color)
-        .frame(maxWidth: .infinity)
     }
 }
 
@@ -88,16 +86,16 @@ struct DropViewDelegate: DropDelegate {
     var currentItem: Block
     var items: Binding<[Block]>
     var draggingItem: Binding<Block?>
-    @Binding var isDragging: Bool
+    @Binding var dragging: Bool
     
     func performDrop(info: DropInfo) -> Bool {
-        isDragging = false
+        dragging = false
         draggingItem.wrappedValue = nil // <- HERE
         return true
     }
     
     func dropEntered(info: DropInfo) {
-        isDragging = true
+        dragging = true
         
         if currentItem.id != draggingItem.wrappedValue?.id {
             let from = items.wrappedValue.firstIndex(of: draggingItem.wrappedValue!)!

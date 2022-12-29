@@ -21,9 +21,20 @@ struct DayButton: View {
                     .opacity(0.4)
                 Text(day)
                     .font(.callout)
-                    .foregroundColor(isOn == true ? .myBlue : .gray)
+                    .foregroundColor(isOn ? .myBlue : .gray)
             }
         }
+    }
+}
+
+struct Chevron: View {
+    var image: String
+    
+    var body: some View {
+        Image(systemName: image)
+            .foregroundColor(.myBlue)
+            .font(Font.system(size: 20))
+            .padding(.horizontal, 4)
     }
 }
 

@@ -77,11 +77,3 @@ class CloudProvider: ObservableObject {
                         height: CGFloat.random(in: -150 ..< 150))
     }
 }
-
-
-struct AnimatedBackground_Previews: PreviewProvider {
-    static var previews: some View {
-        AnimatedBlur()
-        AnimatedBlurOpaque()
-    }
-}

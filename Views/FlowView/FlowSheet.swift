@@ -9,44 +9,28 @@ import SwiftUI
 struct FlowSheet: View {
     @AppStorage("ShowToolBar") var showToolBar = true
     @ObservedObject var model: FlowModel
-    @Binding var flow: Flow
-    
     @FocusState var focusedField: Field?
+    @Binding var flow: Flow
     @Binding var showFlow: Bool
-    
     @State var chooseFlow = false
     @State var chooseBreak = false
     @State var chooseRound = false
     
-    var minutes = [Int](0...60)
-    var seconds = [Int](0...60)
-    var rounds = [Int](0...10)
-    var columns = [
-        MultiComponentPicker.Column(label: "min", options: Array(0...60).map { MultiComponentPicker.Column.Option(text: "\($0)", tag: $0) }),
-        MultiComponentPicker.Column(label: "sec", options: Array(0...59).map { MultiComponentPicker.Column.Option(text: "\($0)", tag: $0) }),
-    ]
-    
     var body: some View {
         ZStack {
             MaterialBackGround()
-                .onTapGesture { Save() }
+                .onTapGesture {
+                    Save()
+                }
+                .disabled(flow.title.isEmpty)
             
             VStack(alignment: .leading, spacing: 16) {
                 HStack {
                     FlowTitle
-                    Menu {
-                        Button(action: Delete) {
-                            Text("Delete") }
-                    } label: {
-                        Image(systemName: "ellipsis")
-                            .foregroundColor(.myBlue)
-                            .font(.title3)
-                            .padding(12)
-                            .background(Circle().fill(.ultraThinMaterial.opacity(0.55)))
-                    }
+                    flowSheetMenu
                 }
-                FlowModePicker
                 
+                FlowModePicker
                 if flow.simple {
                     // Flow Time
                     Button(action: toggleFlowPicker) {
@@ -61,6 +45,7 @@ struct FlowSheet: View {
                             }
                         }
                     }
+                    
                     Divider()
                     
                     // Break Time
@@ -77,6 +62,7 @@ struct FlowSheet: View {
                             }
                         }
                     }
+                    
                     Divider()
                     
                     // Rounds
@@ -93,52 +79,38 @@ struct FlowSheet: View {
                             }
                         }
                     }
-                    .padding(.bottom)
+                    .padding(.bottom, 8)
                 }
                 if !flow.simple {
                     CustomFlow(flow: $flow)
                 }
             }
-            .modifier(CustomGlass())
+            .customGlass()
+            .frame(maxHeight: choose ? 600 : 290)
         }
     }
     
-    func Delete() {
-        showFlow = false;
-        showToolBar = true
-        model.deleteFlow(id: flow.id)
-    }
-    
-    func toggleFlowPicker() {
-        chooseFlow.toggle()
-    }
-    func toggleBreakPicker() {
-        chooseBreak.toggle()
-    }
-    func toggleRoundsPicker() {
-        chooseRound.toggle()
-    }
-    
-    func Save() {
-        if !chooseFlow && !chooseBreak && !chooseRound {
-            showFlow = false;
-            showToolBar = true
-            if flow.new {
-                model.addFlow(flow: flow)
-            } else {
-                model.editFlow(id: flow.id, flow: flow)
-            }
+    var flowSheetMenu: some View {
+        Menu {
+            Button(action: Delete) {
+                Text("Delete") }
+        } label: {
+            Image(systemName: "ellipsis")
+                .font(.title3)
+                .foregroundColor(.myBlue)
+                .padding(12)
+                .background(Circle().fill(.ultraThinMaterial.opacity(0.55)))
         }
     }
     
     var FlowTitle: some View {
-        TextField(flow.title, text: $flow.title)
-            .font(.title)
-            .foregroundColor(.gray)
-            .focused($focusedField, equals: .flowname)
+        TextField("Title", text: $flow.title)
+            .font(.largeTitle)
+            .foregroundColor(.white.opacity(0.5))
+            .focused($focusedField, equals: .flowName)
             .onAppear {
                 if flow.new {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { focusedField = .flowname }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { focusedField = .flowName }
                 }
             }
     }
@@ -169,6 +141,45 @@ struct FlowSheet: View {
             Text("\(flow.roundsSelection)")
         }
         .foregroundColor(.white.opacity(0.8))
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    var choose: Bool {
+        if chooseFlow || chooseBreak || chooseRound {
+            return true
+        }
+        return false
+    }
+    
+    func Delete() {
+        showFlow = false;
+        showToolBar = true
+        model.deleteFlow(id: flow.id)
+        
+    }
+    
+    func toggleFlowPicker() {
+        chooseFlow.toggle()
+    }
+    func toggleBreakPicker() {
+        chooseBreak.toggle()
+    }
+    func toggleRoundsPicker() {
+        chooseRound.toggle()
+    }
+    
+    func Save() {
+        if !chooseFlow && !chooseBreak && !chooseRound {
+            chooseFlow = false
+            showFlow = false;
+            showToolBar = true
+            if flow.new {
+                model.addFlow(flow: flow)
+                model.selection = (model.flowList.count - 1)
+            } else {
+                model.editFlow(id: flow.id, flow: flow)
+            }
+        }
     }
 }
 
@@ -182,9 +193,9 @@ struct PickerLabel: View {
             Text(text)
                 .font(.headline)
             Text(formatTime(seconds: time))
-
         }
         .foregroundColor(color)
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 
@@ -203,7 +214,7 @@ struct PickerView: View {
             .pickerStyle(.wheel)
             .frame(width: geometry.size.width, height: geometry.size.height)
         }
-        .frame(height: 200)
+        //        .frame(height: 200)
     }
 }
 
@@ -230,6 +241,7 @@ struct MultiComponentPicker<Tag: Hashable>: View  {
                             }
                         }
                         .pickerStyle(WheelPickerStyle())
+                        //                        .accentColor(.white)
                         .frame(width: geometry.size.width / CGFloat(columns.count), height: geometry.size.height)
                         .clipped()
                     }
@@ -260,7 +272,7 @@ private extension HorizontalAlignment {
 }
 
 enum Field: Hashable {
-    case flowname
+    case flowName
 }
 
 struct MaterialBackGround: View {

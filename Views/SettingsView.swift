@@ -7,70 +7,39 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @AppStorage("SelectedTab") var selectedTab: Tab = .home
     @ObservedObject var model: FlowModel
-    @State var startFlowAutomatically = false
-    @State var startBreakAutomatically = false
+    @AppStorage("SelectedTab") var selectedTab: Tab = .home
+    @AppStorage("StartFlowAutomatically") var startFlowAutomatically: Bool = false
+    @AppStorage("StartBreakAutomatically") var startBreakAutomatically: Bool = false
 
-    
     var body: some View {
         NavigationView {
             ScrollView {
+                
                 // Flows
                 Headline(text: "Flow")
                 VStack {
-                    // Start Flow Automatically
                     ToggleBar(text: "Start flow automatically", isOn: $startFlowAutomatically)
-                    
                     Div
-                    
-                    // Start Break Automatically
                     ToggleBar(text: "Start break automatically", isOn: $startBreakAutomatically)
                 }
-                .modifier(CardGlassNP())
-                
-                // Customization
-//                Headline(text: "Customization")
-//                VStack(spacing: 16) {
-//                    // Theme
-//                    NavigationLink { }
-//                label: { NavigationList(text: "Theme", icon: "paintpalette") }
-//                    Div
-//                    // Sound
-//                    NavigationLink { }
-//                label: { NavigationList(text: "Sounds", icon: "speaker") }
-//                }
-//                .modifier(CardGlassNP())
+                .cardGlassNP()
                 
                 // About
                 Headline(text: "About")
                 VStack(spacing: 16) {
-                    
-                    // About us
-                    NavigationLink(destination: AboutUs()) {
-                        NavigationLabel(text: "About us", icon: "info.circle") }
-
+                    NavigationLink(destination: AboutUs()) { NL(text: "About us", icon: "info.circle") }
                     Div
-                    
-                    // How it works
-                    NavigationLink(destination: HowItWorks()) {
-                        NavigationLabel(text: "How it works", icon: "questionmark.circle") }
-                    
+                    NavigationLink(destination: HowItWorks()) { NL(text: "How it works", icon: "questionmark.circle") }
                     Div
-                    
-                    // Feedback and support
-                    NavigationLink { }
-                label: { NavigationLabel(text: "Feedback and support", icon: "message") }
+                    NavigationLink(destination: HowItWorks()) { NL(text: "Feedback and support", icon: "message") }
                 }
-                .modifier(CardGlassNP())
+                .cardGlassNP()
                 
-                // Version
                 VersionNumber
             }
-            .padding(.bottom, 80)
-            .navigationTitle("Settings")
+            .settingsNavigationView()
             .toolbar { UpgradeButton }
-            .background(AnimatedBlur())
         }
         .accentColor(.myBlue)
     }
@@ -91,12 +60,12 @@ struct SettingsView: View {
         Button {
         } label: {
             Text("Upgrade")
-                .modifier(SmallButtonGlass())
+                .smallButtonGlass()
         }
     }
 }
 
-struct NavigationLabel: View {
+struct NL: View {
     var text: String
     var icon: String
     
@@ -104,12 +73,11 @@ struct NavigationLabel: View {
         HStack {
             Image(systemName: icon)
                 .frame(width: 20)
-                .foregroundColor(.white)
             Text(text)
-                .foregroundColor(.white)
             Spacer()
         }
         .padding(.horizontal)
+        .foregroundColor(.white)
     }
 }
 
@@ -121,13 +89,12 @@ struct NavigationList: View {
             HStack {
                 Image(systemName: icon)
                     .frame(width: 20)
-                    .foregroundColor(.white)
                 Text(text)
-                    .foregroundColor(.white)
                 Spacer()
                 Image(systemName: "chevron.right")
                     .foregroundColor(.gray.opacity(0.5))
             }
+            .foregroundColor(.white)
             .padding(.horizontal)
     }
 }
@@ -145,25 +112,6 @@ struct ToggleBar: View {
     }
 }
 
-struct SettingToggle: View {
-    var text: String
-    
-    var body: some View {
-        VStack {
-            Toggle(isOn: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Is On@*/.constant(true)/*@END_MENU_TOKEN@*/) { Text(text) }
-                .foregroundColor(.white)
-                .toggleStyle(SwitchToggleStyle(tint: Color.myBlue))
-            //                .padding(.horizontal, 30)
-        }
-        .padding()
-        .frame(maxWidth: .infinity, maxHeight: 180, alignment: .leading)
-        .background(.black.opacity(0.5))
-        .cornerRadius(25.0)
-        .padding(.horizontal)
-        .frame(maxHeight: .infinity)
-    }
-}
-
 struct AboutUs: View {
     var body: some View {
         ZStack {
@@ -173,14 +121,11 @@ struct AboutUs: View {
                     Image("Image")
                         .padding(.bottom)
                     
-                    Text("MyFlow")
-                        .font(.title)
-                        .fontWeight(.bold)
+                    LargeTitle(text: "MyFlow")
                     
                     Text("Encouraging a flow state of mind.")
                     
-                    Text("v2.0")
-                        .font(.footnote)
+                    FootNote(text: "v2.0")
                 }
                 .padding(.bottom, 32)
                 
@@ -234,3 +179,16 @@ struct HowItWorks: View {
         }
     }
 }
+
+// Customization
+//                Headline(text: "Customization")
+//                VStack(spacing: 16) {
+//                    // Theme
+//                    NavigationLink { }
+//                label: { NavigationList(text: "Theme", icon: "paintpalette") }
+//                    Div
+//                    // Sound
+//                    NavigationLink { }
+//                label: { NavigationList(text: "Sounds", icon: "speaker") }
+//                }
+

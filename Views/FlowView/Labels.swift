@@ -8,7 +8,7 @@ import SwiftUI
 
 struct TimerLabels: View {
     @ObservedObject var model: FlowModel
-    
+
     var body: some View {
         ZStack {
             // Custom
@@ -19,61 +19,51 @@ struct TimerLabels: View {
             
             // Simple
             if model.flowMode == .Simple {
-                // Flow Label
-                TimerLabel(color: .myBlue, text: flowLabel)
-                    .modifier(AnimatingFontSize(fontSize: model.mode == .flowRunning ? 50 : 30))
-                    .scaleEffect(model.mode == .breakRunning ? 0.0 : 1.0)
-                    .padding(.trailing, model.mode == .flowRunning ? 0 : 120)
-                    .opacity(model.mode == .breakRunning ? 0.0 : 1.0)
                 
-                // Break Label
-                TimerLabel(color: .gray, text: breakLabel)
-                    .modifier(AnimatingFontSize(fontSize: model.mode == .breakRunning ? 50 : 30))
-                    .scaleEffect(model.mode == .flowRunning ? 0.0 : 1.0)
-                    .padding(.leading, model.mode == .breakRunning ? 0 : 120)
-                    .opacity(model.mode == .flowRunning ? 0.0 : 1.0)
+                FlowLabel
+                
+                BreakLabel
                 
                 // Rounds
                 HStack {
                     if model.mode == .Initial {
                         ForEach(0 ..< model.roundsSet, id: \.self) {_ in
-                            RoundCircleFull
+                            RoundCircle()
                         }
                     }
-                    
                     if model.mode != .Initial {
                         ForEach(0 ..< model.roundsCompleted, id: \.self) {_ in
-                            RoundCircleFull
+                            RoundCircle()
                         }
                         if model.mode == .flowRunning || model.mode == .flowPaused {
                             if !model.flowContinue {
-                                RoundCircleHalfFull
+                                RoundCircle(half: true)
                             }
                         }
                     }
                 }
-                .padding(.top, 100)
-                
             }
         }
         .animation(.easeInOut(duration: 0.3), value: model.mode)
     }
     
-    var RoundCircleFull: some View {
-        Circle()
-            .frame(width: 10, height: 10)
-            .foregroundColor(.gray.opacity(0.3))
-            .padding(1)
+    
+    var BreakLabel: some View {
+        TimerLabel(color: .gray, text: breakLabel)
+            .modifier(AnimatingFontSize(fontSize: model.mode == .breakRunning ? 50 : 30))
+            .scaleEffect(model.mode == .flowRunning ? 0.0 : 1.0)
+            .padding(.leading, model.mode == .breakRunning ? 0 : 120)
+            .opacity(model.mode == .flowRunning ? 0.0 : 1.0)
     }
     
-    var RoundCircleHalfFull: some View {
-        Circle()
-            .trim(from: 0, to: 0.5)
-            .rotationEffect(.degrees(90))
-            .frame(width: 10, height: 10)
-            .foregroundColor(.gray.opacity(0.3))
-            .padding(1)
+    var FlowLabel: some View {
+        TimerLabel(color: .myBlue, text: flowLabel)
+            .modifier(AnimatingFontSize(fontSize: model.mode == .flowRunning ? 50 : 30))
+            .scaleEffect(model.mode == .breakRunning ? 0.0 : 1.0)
+            .padding(.trailing, model.mode == .flowRunning ? 0 : 120)
+            .opacity(model.mode == .breakRunning ? 0.0 : 1.0)
     }
+    
     
     var flowLabel: String {
         if model.flowContinue {
@@ -94,6 +84,19 @@ struct TimerLabels: View {
     }
 }
 
+struct RoundCircle: View {
+    var half: Bool = false
+    
+    var body: some View {
+        Circle()
+            .trim(from: 0, to: half ? 0.5 : 1.0)
+            .rotationEffect(.degrees(90))
+            .frame(width: 10, height: 10)
+            .foregroundColor(.gray.opacity(0.3))
+            .padding(1)
+            .padding(.top, 100)
+    }
+}
 
 struct TimerLabel: View {
     var color: Color

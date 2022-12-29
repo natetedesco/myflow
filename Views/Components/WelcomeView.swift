@@ -65,7 +65,7 @@ struct WelcomeScreen: View {
                 .padding(.top)
 
         }
-        .modifier(CustomGlass())
+        .customGlass()
     }
 }
 

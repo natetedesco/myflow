@@ -65,8 +65,8 @@ struct StartNext: View {
                 .padding(.trailing, 5)
             Text(text)
                 .font(.title2)
+                .fontWeight(.light)
                 .foregroundColor(.myBlue)
-//                .kerning(3.0)
         }
         .padding(13)
         .background(.ultraThinMaterial.opacity(0.55))

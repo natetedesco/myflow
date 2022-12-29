@@ -14,24 +14,24 @@ extension FlowModel {
             
             switch mode {
             case .Initial:
-                FlowRunning()
+                startFlow()
                 
             case .flowStart:
-                FlowRunning()
+                startFlow()
                 
             case .flowPaused:
                 if flowContinue {
                     continueFlow()
                 }
                 else {
-                    FlowRunning()
+                    startFlow()
                 }
                 
             case .breakStart:
-                Breakrunning()
+                startBreak()
                 
             case .breakPaused:
-                Breakrunning()
+                startBreak()
                 
             case .flowRunning:
                 pauseFlow()
@@ -42,6 +42,18 @@ extension FlowModel {
         }
     }
     
+    func startFlow() {
+        mode = .flowRunning
+        type = .Flow
+        Start(time: flowTime)
+    }
+    
+    func startBreak() {
+        mode = .breakRunning
+        type = .Break
+        Start(time: breakTime)
+    }
+    
     func Start(time: Int) {
         if flowMode == .Simple {
             startSimple(time: time)
@@ -49,18 +61,6 @@ extension FlowModel {
         if flowMode == .Custom {
             startCustom(time: time)
         }
-    }
-    
-    func FlowRunning() {
-        mode = .flowRunning
-        type = .Flow
-        Start(time: flowTime)
-    }
-    
-    func Breakrunning() {
-        mode = .breakRunning
-        type = .Break
-        Start(time: breakTime)
     }
     
     func pauseFlow() {

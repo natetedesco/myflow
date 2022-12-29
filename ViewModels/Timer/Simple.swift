@@ -8,22 +8,6 @@ import Foundation
 
 extension FlowModel {
     
-    func completeContinueFlow() {
-        timer.invalidate()
-        flowContinue = false
-        mode = .breakStart
-    }
-    
-    func continueFlow() {
-        mode = .flowRunning
-        flowContinue = true
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [self] timer in
-            flowTimeLeft = flowTimeLeft + 1
-            totalFlowTime = totalFlowTime + 1
-            data.addTimeToDay()
-        })
-    }
-    
     // Start
     func startSimple(time: Int) {
         let end = getEnd(time: time) // set end time
@@ -51,6 +35,33 @@ extension FlowModel {
 
         if type == .Break { // set initial values for labels(only break)
             setBothTimes(flowTime: flowTime, breakTime: breakTime)
+            if startFlowAutomatically {
+                startFlow()
+            }
+        }
+        if type == .Flow {
+            if startBreakAutomatically {
+                startBreak()
+            }
         }
     }
+    
+    func completeContinueFlow() {
+        timer.invalidate()
+        flowContinue = false
+        mode = .breakStart
+    }
+    
+    func continueFlow() {
+        mode = .flowRunning
+        flowContinue = true
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [self] timer in
+            flowTimeLeft = flowTimeLeft + 1
+            
+            totalFlowTime = totalFlowTime + 1
+            countFlowTime()
+
+        })
+    }
 }
+

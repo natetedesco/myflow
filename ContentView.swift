@@ -20,9 +20,9 @@ struct ContentView: View {
             case .home:
                 ZStack {
                     FlowView(model: model)
-                        .onTapGesture {
-                            welcomeScreenShown = false
-                        }
+//                        .onTapGesture {
+//                            welcomeScreenShown = false
+//                        }
                         
                     if !welcomeScreenShown {
                         MaterialBackGround()
@@ -34,6 +34,7 @@ struct ContentView: View {
                 ZStack {
                     SettingsView(model: model)
                     Toolbar(model: model)
+                        
                 }
                 
             case .data:
@@ -50,6 +51,12 @@ struct ContentView: View {
     }
 }
 
+enum Tab: String {
+    case home
+    case settings
+    case data
+}
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
@@ -57,10 +64,4 @@ struct ContentView_Previews: PreviewProvider {
                 .preferredColorScheme(.dark)
         }
     }
-}
-
-enum Tab: String {
-    case home
-    case settings
-    case data
 }

@@ -17,11 +17,13 @@ struct FlowView: View {
         ZStack {
             
             Button(action: editFlow) {
-                Circles(model: model) }
+                ZStack {
+                    Circles(model: model)
+                    TimerLabels(model: model)
+                }
+            }
             
             ControlBar
-            
-            TimerLabels(model: model)
             
             if model.completed {
                 FlowCompleted
@@ -35,44 +37,20 @@ struct FlowView: View {
             }
         }
         .background(AnimatedBlurOpaque())
+        .animation(.easeInOut.speed(1.5), value: showFlow)
     }
     
-    var FlowCompleted: some View {
-        ZStack {
-            MaterialBackGround()
-                .onTapGesture {
-                    model.Reset()
-                }
-            VStack(alignment: .center, spacing: 16) {
-                Text("Flow Completed")
-                    .font(.title)
-                
-                Text("Total Flow Time: ")
-                Text(formatHoursAndMinutes(time: model.totalFlowTime))
-                    .foregroundColor(.myBlue)
-            }
-            .modifier(CustomGlass())
-            .frame(maxWidth: .infinity)
-        }
-    }
-    
+    // Control Bar
     var ControlBar: some View {
-        
-        // Continue Button
         ZStack {
-            if model.mode == .breakStart || model.flowContinue {
-                ContinueButton(model: model)
+            if showContinueButton {
+                ContinueButton
             }
             
-            // Flow Menu
-            else if model.mode == .Initial || model.mode == .flowRunning || model.mode == .breakRunning && !model.flowContinue {
+            else if showFlowMenu {
                 Menu {
-                    Button(action: createFlow) {
-                        Label("Create", systemImage: "plus") }
-                    
-                    Button(action: editFlow) {
-                        Label("Edit", systemImage: "pencil") }
-                    
+                    Button(action: createFlow) { Label("Create", systemImage: "plus") }
+                    Button(action: editFlow) { Label("Edit", systemImage: "pencil") }
                     Picker(selection: $model.selection) {
                         ForEach(0..<$model.flowList.count, id: \.self) { index in
                             Text(model.flowList[index].title)
@@ -82,25 +60,61 @@ struct FlowView: View {
             label: { MenuLabel }
             }
             
-            // Control Bar
             else {
                 HStack(spacing: 60) {
-                    Button(action: model.Restart) {
-                        ChevronButton(image: "chevron.left") }
-                    
-                    Button(action: model.Reset) {
-                        ResetButton }
-                    
-                    Button(action: model.Skip) {
-                        ChevronButton(image: "chevron.right") }
+                    Button(action: model.Restart) { Chevron(image: "chevron.left") }
+                    Button(action: model.Reset) { ResetButton }
+                    Button(action: model.Skip) { Chevron(image: "chevron.right") }
                 }
+                .cornerRadius(30)
             }
         }
-        .modifier(ButtonGlass())
+        .buttonGlass()
         .frame(maxHeight: .infinity, alignment: .top)
         .padding(.top)
         .animation(.easeInOut(duration: 0.15), value: model.mode)
         .animation(.easeInOut(duration: 0.15), value: model.flowList)
+    }
+    
+    // Flow Completed
+    var FlowCompleted: some View {
+        ZStack {
+            MaterialBackGround()
+                .onTapGesture {
+                    model.Reset()
+                }
+            VStack(alignment: .center, spacing: 16) {
+                Title(text: "Flow Completed")
+                Text("Total Flow Time: ")
+                Text(formatHoursAndMinutes(time: model.totalFlowTime))
+                    .foregroundColor(.myBlue)
+            }
+            .customGlass()
+            .frame(maxWidth: .infinity)
+        }
+    }
+    
+    
+    var MenuLabel: some View {
+        Title2(text: model.flowList[model.selection].title)
+            .fontWeight(.light)
+            .accentColor(.myBlue)
+    }
+    
+    var ResetButton: some View {
+        Image(systemName: "gobackward")
+            .foregroundColor(.myBlue)
+            .font(Font.system(size: 20))
+    }
+    
+    var ContinueButton: some View {
+        Button {
+            model.mode == .breakStart ? model.continueFlow() : model.completeContinueFlow()
+        } label: {
+            Title2(text: model.mode == .breakStart ? "Continue Flow" : "Complete Flow")
+                .fontWeight(.light)
+                .accentColor(.myBlue)
+        }
     }
     
     func createFlow() {
@@ -115,55 +129,18 @@ struct FlowView: View {
         showToolBar = false
     }
     
-    var MenuLabel: some View {
-        Text(model.flowList[model.selection].title)
-            .font(.title2)
-            .fontWeight(.light)
-            .accentColor(.myBlue)
-    }
-    
-    var ResetButton: some View {
-        Image(systemName: "gobackward")
-            .foregroundColor(.myBlue)
-            .font(Font.system(size: 20))
-    }
-}
-
-struct ChevronButton: View {
-    var image: String
-    
-    var body: some View {
-        Image(systemName: image)
-            .foregroundColor(.myBlue)
-            .font(Font.system(size: 20))
-    }
-}
-
-struct ContinueButton: View {
-    @ObservedObject var model: FlowModel
-    
-    var body: some View {
-        if model.mode == .breakStart {
-            Button {
-                model.continueFlow()
-            } label: {
-                Text("Continue Flow")
-                    .font(.title2)
-                    .fontWeight(.light)
-                    .accentColor(.myBlue)
-            }
+    var showContinueButton: Bool {
+        if model.mode == .breakStart || model.flowContinue {
+            return true
         }
-        
-        else {
-            Button {
-                model.completeContinueFlow()
-            } label: {
-                Text("Complete Flow")
-                    .font(.title2)
-                    .fontWeight(.light)
-                    .accentColor(.myBlue)
-            }
+        return false
+    }
+    
+    var showFlowMenu: Bool {
+        if model.mode == .Initial || model.mode == .flowStart || model.mode == .flowRunning || model.mode == .breakRunning && !model.flowContinue {
+            return true
         }
+        return false
     }
 }
 

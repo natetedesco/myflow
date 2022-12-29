@@ -12,7 +12,7 @@ extension NotificationManager {
     func Set(flow: Bool, time: Int, elapsedTime: Int) {
         let content = UNMutableNotificationContent()
         
-        content.title = flow == true ? "Flow Completed" : "Break Completed"
+        content.title = flow ? "Flow Completed" : "Break Completed"
         content.sound = UNNotificationSound.init(named:UNNotificationSoundName(rawValue: "AquaSound.aif"))
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(time - elapsedTime), repeats: false)

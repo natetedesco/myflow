@@ -14,6 +14,12 @@ extension FlowModel {
         data.createDayStruct()
         
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [self] timer in
+            totalFlowTime = totalFlowTime + 1
+
+            countFlowTime()
+            
+            self.animate = animate + 1
+            
             if getTimeLeft(end: end) == 0 {
                 if flowMode == .Simple {
                     completeSimple()
@@ -23,5 +29,11 @@ extension FlowModel {
                 }
             }
         })
+    }
+    
+    func countFlowTime() {
+        if totalFlowTime % 60 == 0 {
+            data.addTimeToDay()
+        }
     }
 }
