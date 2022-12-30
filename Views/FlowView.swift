@@ -7,10 +7,8 @@
 import SwiftUI
 
 struct FlowView: View {
-    @AppStorage("ShowToolBar") var showToolBar = true
     @ObservedObject var model: FlowModel
     @State var showFlow = false
-    @State var showControls = false
     
     var body: some View {
         ZStack {
@@ -21,24 +19,19 @@ struct FlowView: View {
                 }
             }
             .disabled(model.mode != .Initial)
-
             
             ControlBar
+            
+            Toolbar(model: model)
             
             if model.completed {
                 FlowCompleted
             }
-            
             if showFlow {
                 FlowSheet(model: model, flow: $model.flow, showFlow: $showFlow)
             }
-            if showToolBar && !model.completed {
-                Toolbar(model: model)
-            }
         }
         .background(AnimatedBlurOpaque())
-        .animation(.easeInOut.speed(1.5), value: showFlow)
-        .animation(.easeInOut.speed(1.5), value: model.completed)
     }
     
     // Control Bar
@@ -52,10 +45,10 @@ struct FlowView: View {
                 Menu {
                     Button(action: createFlow) { Label("Create", systemImage: "plus") }
                         .disabled(model.mode != .Initial)
-
+                    
                     Button(action: editFlow) { Label("Edit", systemImage: "pencil") }
                         .disabled(model.mode != .Initial)
-
+                    
                     Picker(selection: $model.selection) {
                         ForEach(0..<$model.flowList.count, id: \.self) { index in
                             Text(model.flowList[index].title)
@@ -100,7 +93,6 @@ struct FlowView: View {
         }
     }
     
-    
     var MenuLabel: some View {
         Title2(text: model.flowList[model.selection].title)
             .fontWeight(.light)
@@ -126,13 +118,12 @@ struct FlowView: View {
     func createFlow() {
         model.flow = Flow(new: true)
         showFlow = true
-        showToolBar = false
     }
     
     func editFlow() {
         model.flow = model.flowList[model.selection]
         showFlow = true
-        showToolBar = false
+        //        showToolBar = false
     }
     
     var showContinueButton: Bool {

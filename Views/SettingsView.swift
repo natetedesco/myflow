@@ -13,34 +13,37 @@ struct SettingsView: View {
     @AppStorage("StartBreakAutomatically") var startBreakAutomatically: Bool = false
     
     var body: some View {
-        NavigationView {
-            ScrollView {
-                
-                // Flows
-                Headline(text: "Flow")
-                VStack {
-                    ToggleBar(text: "Start flow automatically", isOn: $startFlowAutomatically)
-                    Div
-                    ToggleBar(text: "Start break automatically", isOn: $startBreakAutomatically)
+        ZStack {
+            NavigationView {
+                ScrollView {
+                    
+                    // Flows
+                    CustomHeadline(text: "Flow")
+                    VStack {
+                        ToggleBar(text: "Start flow automatically", isOn: $startFlowAutomatically)
+                        Div
+                        ToggleBar(text: "Start break automatically", isOn: $startBreakAutomatically)
+                    }
+                    .cardGlassNP()
+                    
+                    // About
+                    CustomHeadline(text: "About")
+                    VStack(spacing: 16) {
+                        NavigationLink(destination: AboutUs()) { NL(text: "About us", icon: "info.circle") }
+                        Div
+                        NavigationLink(destination: HowItWorks()) { NL(text: "How it works", icon: "questionmark.circle") }
+                        Div
+                        NavigationLink(destination: Feedback()) { NL(text: "Feedback and support", icon: "message") }
+                    }
+                    .cardGlassNP()
+                    
+                    VersionNumber
                 }
-                .cardGlassNP()
-                
-                // About
-                Headline(text: "About")
-                VStack(spacing: 16) {
-                    NavigationLink(destination: AboutUs()) { NL(text: "About us", icon: "info.circle") }
-                    Div
-                    NavigationLink(destination: HowItWorks()) { NL(text: "How it works", icon: "questionmark.circle") }
-                    Div
-                    NavigationLink(destination: Feedback()) { NL(text: "Feedback and support", icon: "message") }
-                }
-                .cardGlassNP()
-                
-                VersionNumber
+                .settingsNavigationView()
             }
-            .settingsNavigationView()
+            .accentColor(.myBlue)
+            Toolbar(model: model)
         }
-        .accentColor(.myBlue)
     }
     
     var Div: some View {
@@ -67,7 +70,6 @@ struct SettingsView: View {
 struct NL: View {
     var text: String
     var icon: String
-    
     var body: some View {
         HStack {
             Image(systemName: icon)
@@ -83,7 +85,6 @@ struct NL: View {
 struct NavigationList: View {
     var text: String
     var icon: String
-    
     var body: some View {
         HStack {
             Image(systemName: icon)
@@ -101,7 +102,6 @@ struct NavigationList: View {
 struct ToggleBar: View {
     var text: String
     @Binding var isOn: Bool
-    
     var body: some View {
         Toggle(isOn: $isOn) {
             Text(text)

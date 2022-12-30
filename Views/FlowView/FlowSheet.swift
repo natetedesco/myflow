@@ -7,62 +7,60 @@
 import SwiftUI
 
 struct FlowSheet: View {
-    @AppStorage("ShowToolBar") var showToolBar = true
     @ObservedObject var model: FlowModel
-    @FocusState var focusedField: Field?
     @Binding var flow: Flow
     @Binding var showFlow: Bool
     @State var chooseFlow = false
     @State var chooseBreak = false
     @State var chooseRound = false
+    @FocusState var focusedField: Field?
+    @State var startAnimation = false
+    @State var endAnimation = false
     
     var body: some View {
+        let flowTime = (flow.flowMinutes * 60) + flow.flowSeconds
+        let breakTime = (flow.breakMinutes * 60) + flow.breakSeconds
+        let flowSelection = [$flow.flowMinutes, $flow.flowSeconds]
+        let breakSelection = [$flow.breakMinutes, $flow.breakSeconds]
+        
         ZStack {
+            
             MaterialBackGround()
-                .onTapGesture {
-                    Save()
-                }
+                .onTapGesture { Save() }
                 .disabled(flow.title.isEmpty)
+                .opacity(startAnimation ? 1.0 : 0.0)
+                .animation(.easeOut.speed(2.0), value: startAnimation)
+                .opacity(!endAnimation ? 1.0 : 0.0)
+                .animation(.easeIn.speed(1.0), value: endAnimation)
             
             VStack(alignment: .leading, spacing: 16) {
                 HStack {
                     FlowTitle
                     flowSheetMenu
                 }
-                
                 FlowModePicker
+                
                 if flow.simple {
                     // Flow Time
                     Button(action: toggleFlowPicker) {
                         VStack {
-                            PickerLabel(text: "Flow: ",
-                                        time: ((flow.flowMinutes * 60) + flow.flowSeconds),
-                                        color: .myBlue)
+                            PickerLabel(text: "Flow: ", time: flowTime, color: .myBlue)
                             if chooseFlow {
-                                MultiComponentPicker(
-                                    columns: columns,
-                                    selections: [$flow.flowMinutes, $flow.flowSeconds])
+                                MultiComponentPicker(columns: columns,selections: flowSelection)
                             }
                         }
                     }
-                    
                     Divider()
                     
                     // Break Time
                     Button(action: toggleBreakPicker) {
                         VStack {
-                            PickerLabel(
-                                text: "Break:",
-                                time: ((flow.breakMinutes * 60) + flow.breakSeconds),
-                                color: .gray)
+                            PickerLabel(text: "Break:", time: breakTime, color: .gray)
                             if chooseBreak {
-                                MultiComponentPicker(
-                                    columns: columns,
-                                    selections: [$flow.breakMinutes, $flow.breakSeconds])
+                                MultiComponentPicker(columns: columns,selections: breakSelection)
                             }
                         }
                     }
-                    
                     Divider()
                     
                     // Rounds
@@ -70,12 +68,7 @@ struct FlowSheet: View {
                         VStack {
                             RoundsLabel
                             if chooseRound {
-                                HStack {
-                                    PickerView(
-                                        selection: $flow.rounds,
-                                        unit: rounds,
-                                        label: "")
-                                }
+                                PickerView(selection: $flow.rounds, unit: rounds, label: "")
                             }
                         }
                     }
@@ -86,7 +79,15 @@ struct FlowSheet: View {
                 }
             }
             .customGlass()
-            .frame(maxHeight: choose ? 600 : 290)
+            .scaleEffect(startAnimation ? 1.0 : 0.97)
+            .opacity(startAnimation ? 1.0 : 0.0)
+            .animation(.default.speed(1.0), value: startAnimation)
+            .scaleEffect(!endAnimation ? 1.0 : 0.97)
+            .opacity(!endAnimation ? 1.0 : 0.0)
+            .animation(.default.speed(2.0), value: endAnimation)
+        }
+        .onAppear {
+            startAnimation.toggle()
         }
     }
     
@@ -110,7 +111,7 @@ struct FlowSheet: View {
             .focused($focusedField, equals: .flowName)
             .onAppear {
                 if flow.new {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { focusedField = .flowName }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { focusedField = .flowName }
                 }
             }
     }
@@ -144,18 +145,9 @@ struct FlowSheet: View {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
     
-    var choose: Bool {
-        if chooseFlow || chooseBreak || chooseRound {
-            return true
-        }
-        return false
-    }
-    
     func Delete() {
         showFlow = false;
-        showToolBar = true
         model.deleteFlow(id: flow.id)
-        
     }
     
     func toggleFlowPicker() {
@@ -170,14 +162,18 @@ struct FlowSheet: View {
     
     func Save() {
         if !chooseFlow && !chooseBreak && !chooseRound {
-            chooseFlow = false
-            showFlow = false;
-            showToolBar = true
-            if flow.new {
-                model.addFlow(flow: flow)
-                model.selection = (model.flowList.count - 1)
-            } else {
-                model.editFlow(id: flow.id, flow: flow)
+            //            startAnimation.toggle()
+            endAnimation.toggle()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                
+                chooseFlow = false
+                showFlow = false;
+                if flow.new {
+                    model.addFlow(flow: flow)
+                    model.selection = (model.flowList.count - 1)
+                } else {
+                    model.editFlow(id: flow.id, flow: flow)
+                }
             }
         }
     }
@@ -190,8 +186,7 @@ struct PickerLabel: View {
     
     var body: some View {
         HStack {
-            Text(text)
-                .font(.headline)
+            Headline(text: text)
             Text(formatTime(seconds: time))
         }
         .foregroundColor(color)
@@ -214,7 +209,7 @@ struct PickerView: View {
             .pickerStyle(.wheel)
             .frame(width: geometry.size.width, height: geometry.size.height)
         }
-                .frame(height: 150)
+        .frame(height: 150)
     }
 }
 
@@ -241,14 +236,13 @@ struct MultiComponentPicker<Tag: Hashable>: View  {
                             }
                         }
                         .pickerStyle(WheelPickerStyle())
-                        //                        .accentColor(.white)
                         .frame(width: geometry.size.width / CGFloat(columns.count), height: geometry.size.height)
                         .clipped()
                     }
                 }
             }
         }
-        .frame(height: 150).previewLayout(.sizeThatFits)
+        .frame(height: 150)
     }
 }
 

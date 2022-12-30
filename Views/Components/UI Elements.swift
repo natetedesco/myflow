@@ -51,13 +51,6 @@ struct Title3: View {
     }
 }
 
-struct FootNote: View {
-    var text: String
-    var body: some View {
-        Text(text)
-            .font(.footnote)
-    }
-}
 
 struct SubHeadline: View {
     var text: String
@@ -69,13 +62,30 @@ struct SubHeadline: View {
 
 struct Headline: View {
     var text: String
-    
     var body: some View {
         Text(text)
             .font(.headline)
+    }
+}
+
+struct CustomHeadline: View {
+    var text: String
+    var body: some View {
+        Text(text)
+            .font(.subheadline)
+            .foregroundColor(.white.opacity(0.9))
+            .fontWeight(.semibold)
             .padding(.leading)
             .padding(.top)
             .frame(maxWidth: .infinity, alignment: .leading)
+    }
+}
+
+struct FootNote: View {
+    var text: String
+    var body: some View {
+        Text(text)
+            .font(.footnote)
     }
 }
 

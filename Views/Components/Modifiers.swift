@@ -80,6 +80,10 @@ struct CardGlassViewModifier: ViewModifier {
             .background(.black.opacity(0.7))
             .background(.ultraThinMaterial.opacity(0.8))
             .cornerRadius(20.0)
+            .overlay(
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(.white.opacity(0.1), lineWidth: 0.2)
+                )
             .padding(.horizontal)
     }
 }

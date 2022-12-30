@@ -8,27 +8,23 @@ import SwiftUI
 import Charts
 
 struct StatsView: View {
-    @AppStorage("ShowToolBar") var showToolBar = true
     @AppStorage("SelectedTab") var selectedTab: Tab = .home
-    @AppStorage("GoalTime") var goalSelection: Int = 2
     @ObservedObject var model: FlowModel
     @ObservedObject var data = FlowData()
     @State var showGoal: Bool = false
     
     var body: some View {
+        ZStack {
             NavigationView {
                 ScrollView {
                     
-                    // Overview
-                    Headline(text: "Overview")
+                    CustomHeadline(text: "Overview")
                     OverviewCard
                     
-                    // This Week
-                    Headline(text: "Weekly")
+                    CustomHeadline(text: "Weekly")
                     WeekCard
                     
-                    // This Month
-                    Headline(text: "Monthly")
+                    CustomHeadline(text: "Monthly")
                     MonthCard
                     
                 }
@@ -36,59 +32,30 @@ struct StatsView: View {
                 .toolbar{ GoalButton }
                 .animation(.easeInOut.speed(2.5), value: showGoal)
             }
+            Toolbar(model: model)
             if showGoal {
                 GoalView
             }
-    }
-    
-    func showGoalCard() {
-        showGoal.toggle()
-        showToolBar = false
-    }
-    
-    var GoalButton: some View {
-        Button(action: showGoalCard) {
-            Text("Goal")
-                .smallButtonGlass()
         }
     }
     
+    // OverView Card
     var OverviewCard: some View {
-        HStack(alignment: .center) {
-            OverviewLabel(label: "Today", time: data.todayTime)
-            OverviewLabel(label: "This Week", time: data.thisWeekTime)
-            OverviewLabel(label: "This Month", time: data.thisMonthTime)
-        }
-        .cardGlass()
-    }
-    
-    var MonthCard: some View {
-        VStack {
-            Chart(data.thisMonthDays) { day in
-                LineMark(
-                    x: .value("Day", day.day, unit: .day),
-                    y: .value("Views", Double(day.time) / 60)
-                )
-                PointMark(
-                    x: .value("Day", day.day, unit: .day),
-                    y: .value("Views", Double(day.time) / 60)
-                )
+            HStack(alignment: .center) {
+                OverviewLabel(label: "Today", time: data.todayTime)
+                OverviewLabel(label: "This Week", time: data.thisWeekTime)
+                OverviewLabel(label: "This Month", time: data.thisMonthTime)
             }
-            .accentColor(.myBlue)
-            .frame(height: 120)
-            .padding(.top, 8)
-            .padding(.horizontal, 8)
-        }
         .cardGlass()
     }
     
+    // Week Card
     var days = ["M", "T", "W", "T", "F", "S", "S"]
     var WeekCard: some View {
-        VStack(alignment: .center) {
+        VStack(alignment: .center, spacing: 16) {
             HStack {
-                FootNote(text: "Daily Flow Time Goal")
-                    .foregroundColor(.gray)
-                SubHeadline(text: "\(goalSelection)h")
+                FootNote(text: "Daily flow time goal:")
+                FootNote(text: "\(data.goalSelection)h")
             }
             
             VStack {
@@ -125,31 +92,65 @@ struct StatsView: View {
         .compositingGroup()
     }
     
+    // Month Card
+    var MonthCard: some View {
+        VStack {
+            Chart(data.thisMonthDays) { day in
+                LineMark(
+                    x: .value("Day", day.day, unit: .day),
+                    y: .value("Views", Double(day.time) / 60)
+                )
+                PointMark(
+                    x: .value("Day", day.day, unit: .day),
+                    y: .value("Views", Double(day.time) / 60)
+                )
+            }
+            .accentColor(.myBlue)
+            .frame(height: 120)
+            .padding(.top, 8)
+            .padding(.horizontal, 8)
+        }
+        .cardGlass()
+    }
+    
+    
+    // Goal Button
+    var GoalButton: some View {
+        Button(action: showGoalCard) {
+            Text("Goal")
+                .smallButtonGlass()
+        }
+    }
+    
     // Goal View
     var hours = [Int](0...12)
     var GoalView: some View {
         ZStack {
             MaterialBackGround()
-                .onTapGesture { showGoal = false; showToolBar = true }
-                VStack {
-                    Title3(text: "Daily Flow Time Goal")
-                        .padding()
-                    
-                    ZStack {
-                        Picker(selection: $goalSelection, label: Text("")) {
-                            ForEach(0..<hours.count, id: \.self) {
-                                Text("\(hours[$0])")
-                            }
-                        }
-                        .pickerStyle(.wheel)
-                        
-                        Text("Hours")
-                            .padding(.leading, 80)
-                    }
-                    .frame(maxWidth: 200)
+                .onTapGesture { showGoal = false
                 }
-                .customGlass()
+            VStack {
+                Title3(text: "Daily Flow Time Goal")
+                    .padding()
+                
+                ZStack {
+                    Picker(selection: $data.goalSelection, label: Text("")) {
+                        ForEach(0..<hours.count, id: \.self) {
+                            Text("\(hours[$0])")
+                        }
+                    }
+                    .pickerStyle(.wheel)
+                    
+                    Text("Hours")
+                        .padding(.leading, 80)
+                }
+            }
+            .customGlass()
         }
+    }
+    
+    func showGoalCard() {
+        showGoal.toggle()
     }
 }
 
@@ -158,9 +159,8 @@ struct OverviewLabel: View {
     var time: Int
     
     var body: some View {
-        VStack(alignment: .center, spacing: 4) {
+        VStack(alignment: .center, spacing: 6) {
             FootNote(text: label)
-                .foregroundColor(.gray)
             SubHeadline(text: "\(formatHoursAndMinutes(time: time))")
                 .foregroundColor(.myBlue)
         }
@@ -190,6 +190,7 @@ struct BarGraph: View {
         }
     }
 }
+
 
 struct StatsView_Previews: PreviewProvider {
     static var previews: some View {

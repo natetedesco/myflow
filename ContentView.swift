@@ -36,19 +36,10 @@ struct ContentView: View {
                 }
                 
             case .settings:
-                ZStack {
                     SettingsView(model: model)
-                    Toolbar(model: model)
-                        
-                }
                 
             case .data:
-                ZStack {
                     StatsView(model: model)
-                    if showToolBar {
-                        Toolbar(model: model)
-                    }
-                }
             }
         }
         .onAppear { UNUserNotificationCenter.current()

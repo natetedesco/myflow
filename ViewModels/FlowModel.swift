@@ -10,10 +10,6 @@ import SwiftUI
 class FlowModel: ObservableObject {
     var notifications = NotificationManager()
     var data = FlowData()
-    
-    @AppStorage("StartFlowAutomatically") var startFlowAutomatically: Bool = false
-    @AppStorage("StartBreakAutomatically") var startBreakAutomatically: Bool = false
-    
     var timer = Timer()
     var start = Date()
     var elapsedTime = 0
@@ -26,16 +22,31 @@ class FlowModel: ObservableObject {
     
     @Published var flowTime: Int = 0
     @Published var breakTime: Int = 0
+    @Published var roundsSet: Int = 0
+    
     @Published var flowTimeLeft: Int = 0
     @Published var breakTimeLeft: Int = 0
     
-    @Published var roundsSet: Int = 0
     @Published var roundsCompleted: Int = 0
     @Published var blocksCompleted: Int = 0
-    
     @Published var totalFlowTime: Int = 0
     @Published var completed = false
     @Published var flowContinue = false
+    
+    @AppStorage("StartFlowAutomatically") var startFlowAutomatically: Bool = false
+    @AppStorage("StartBreakAutomatically") var startBreakAutomatically: Bool = false
+    
+    @Published var flowList: [Flow] {
+        didSet { // update values if a flow is modified
+            Initialize()
+        }
+    }
+    
+    @Published var selection = 0 {
+        didSet { // update values if selection changes
+            Initialize()
+        }
+    }
     
     init() {
         // if data
@@ -55,15 +66,41 @@ class FlowModel: ObservableObject {
         flow = Flow()
     }
     
-    @Published var flowList: [Flow] {
-        didSet { // update values if a flow is modified
-            Initialize()
+    func Initialize() {
+        let selection = flowList[selection]
+        elapsedTime = 0
+        roundsCompleted = 0
+        blocksCompleted = 0
+        
+        mode = .Initial
+        selection.simple ? setSimple() : setCustom()
+        
+        // Initialize Simple
+        if flowMode == .Simple {
+            setFlowTime(time: (selection.flowMinutes * 60) + selection.flowSeconds )
+            setBreakTime(time: (selection.breakMinutes * 60) + selection.breakSeconds)
+            roundsSet = selection.rounds // Add if rounds asp
         }
-    }
-    
-    @Published var selection = 0 {
-        didSet { // update values if selection changes
-            Initialize()
+        
+        // Initialize Custom
+        if flowMode == .Custom {
+            mode = .Initial
+            if selection.blocks.indices.contains(0) {
+                if selection.blocks[0].flow {
+                    setFlowTime(time: (selection.blocks[0].minutes * 60) + selection.blocks[0].seconds)
+                    type = .Flow
+                }
+                
+                if !selection.blocks[0].flow {
+                    setBreakTime(time: (selection.blocks[0].minutes * 60) + selection.blocks[0].seconds)
+                    mode = .breakStart
+                    type = .Break
+                }
+            }
+            else {
+                setFlowTime(time: 0)
+                type = .Flow
+            }
         }
     }
 }

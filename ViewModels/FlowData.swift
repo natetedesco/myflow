@@ -4,9 +4,25 @@
 //  Created by Nate Tedesco on 12/12/22.
 //
 
+import SwiftUI
 import Foundation
 
 class FlowData: ObservableObject {
+    @AppStorage("GoalTime") var goalSelection: Int = 2
+    @Published var days: [Day] = []
+    
+    let date = Date()
+    let firstDayOfTheWeek = Date().startOfWeek()
+    let calendar = Calendar.current
+    
+    var todayTime: Int { getTodayTime() }
+    var thisWeekTime: Int { getThisWeekTime() }
+    var thisMonthTime: Int { getThisMonthTime() }
+    
+    var dayOfTheWeek: Int { getDayOfTheWeek() }
+    var thisWeekDays: [Day] { getThisWeekDays() }
+    var thisMonthDays: [Day] { getThisMonthDays() }
+    
     init() {
         if let data = UserDefaults.standard.data(forKey: "SavedFlowData") {
             if let decoded = try? JSONDecoder().decode([Day].self, from: data) {
@@ -32,20 +48,6 @@ class FlowData: ObservableObject {
         ]
     }
     
-    @Published var days: [Day] = []
-    
-    let date = Date()
-    let firstDayOfTheWeek = Date().startOfWeek()
-    let calendar = Calendar.current
-    
-    var todayTime: Int { getTodayTime() }
-    var thisWeekTime: Int { getThisWeekTime() }
-    var thisMonthTime: Int { getThisMonthTime() }
-    
-    var dayOfTheWeek: Int { getDayOfTheWeek() }
-    var thisWeekDays: [Day] { getThisWeekDays() }
-    var thisMonthDays: [Day] { getThisMonthDays() }
-    
     // Get this month days
     func getThisMonthDays() -> [Day] {
         let firstDayOfMonth = Date().startOfMonth()
@@ -59,8 +61,8 @@ class FlowData: ObservableObject {
         var presentedDays: [Day] = []
         
         for i in 0...numDays {
-            // Add if day is less than or equal to today
             
+            // Add if day is less than or equal to today
             if days.indices.contains(counted) {
                 if days[counted].day == Date.from(year: comp.year!, month: comp.month!, day: (comp.day! + numDays) - i) {
                     presentedDays.insert(days[counted], at: 0)

@@ -8,7 +8,7 @@ import SwiftUI
 
 struct TimerLabels: View {
     @ObservedObject var model: FlowModel
-
+    
     var body: some View {
         ZStack {
             // Custom
@@ -25,18 +25,13 @@ struct TimerLabels: View {
                 // Rounds
                 HStack {
                     if model.mode == .Initial {
-                        ForEach(0 ..< model.roundsSet, id: \.self) {_ in
-                            RoundCircle()
-                        }
+                        ForEach(0 ..< model.roundsSet, id: \.self) {_ in RoundCircle() }
                     }
-                    if model.mode != .Initial {
-                        ForEach(0 ..< model.roundsCompleted, id: \.self) {_ in
-                            RoundCircle()
-                        }
-                        if model.mode == .flowRunning || model.mode == .flowPaused {
-                            if !model.flowContinue {
-                                RoundCircle(half: true)
-                            }
+                    else {
+                        ForEach(0 ..< model.roundsCompleted, id: \.self) {_ in RoundCircle() }
+                        
+                        if (model.mode == .flowRunning || model.mode == .flowPaused) && !model.flowContinue {
+                            RoundCircle(half: true)
                         }
                     }
                 }
@@ -44,7 +39,6 @@ struct TimerLabels: View {
         }
         .animation(.easeInOut(duration: 0.3), value: model.mode)
     }
-    
     
     var BreakLabel: some View {
         TimerLabel(color: .gray, text: breakLabel)
@@ -84,7 +78,6 @@ struct TimerLabels: View {
 
 struct RoundCircle: View {
     var half: Bool = false
-    
     var body: some View {
         Circle()
             .trim(from: 0, to: half ? 0.5 : 1.0)
