@@ -11,17 +11,17 @@ struct FlowView: View {
     @ObservedObject var model: FlowModel
     @State var showFlow = false
     @State var showControls = false
-    @State var showFlowCompleted = true
     
     var body: some View {
         ZStack {
-            
             Button(action: editFlow) {
                 ZStack {
                     Circles(model: model)
                     TimerLabels(model: model)
                 }
             }
+            .disabled(model.mode != .Initial)
+
             
             ControlBar
             
@@ -38,6 +38,7 @@ struct FlowView: View {
         }
         .background(AnimatedBlurOpaque())
         .animation(.easeInOut.speed(1.5), value: showFlow)
+        .animation(.easeInOut.speed(1.5), value: model.completed)
     }
     
     // Control Bar
@@ -50,12 +51,17 @@ struct FlowView: View {
             else if showFlowMenu {
                 Menu {
                     Button(action: createFlow) { Label("Create", systemImage: "plus") }
+                        .disabled(model.mode != .Initial)
+
                     Button(action: editFlow) { Label("Edit", systemImage: "pencil") }
+                        .disabled(model.mode != .Initial)
+
                     Picker(selection: $model.selection) {
                         ForEach(0..<$model.flowList.count, id: \.self) { index in
                             Text(model.flowList[index].title)
                         }
                     } label:{}
+                        .disabled(model.mode != .Initial)
                 }
             label: { MenuLabel }
             }
@@ -80,9 +86,6 @@ struct FlowView: View {
     var FlowCompleted: some View {
         ZStack {
             MaterialBackGround()
-                .onTapGesture {
-                    model.Reset()
-                }
             VStack(alignment: .center, spacing: 16) {
                 Title(text: "Flow Completed")
                 Text("Total Flow Time: ")
@@ -91,6 +94,9 @@ struct FlowView: View {
             }
             .customGlass()
             .frame(maxWidth: .infinity)
+        }
+        .onTapGesture {
+            model.dismissCompleted()
         }
     }
     

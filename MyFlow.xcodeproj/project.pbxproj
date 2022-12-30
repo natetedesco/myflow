@@ -12,13 +12,10 @@
 		F001C24228D7F24100134EB5 /* CustomFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F001C24128D7F24100134EB5 /* CustomFlow.swift */; };
 		F014A05D293AA67300B9D7D4 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = F014A05C293AA67200B9D7D4 /* Data.swift */; };
 		F018CF202864E11D002A17D7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066923326FB9C3800DB905E /* ContentView.swift */; };
-		F01962A12931255D00336821 /* Setters.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962A02931255D00336821 /* Setters.swift */; };
+		F01962A12931255D00336821 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962A02931255D00336821 /* Helpers.swift */; };
 		F01962AB29317CE300336821 /* Initialize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962AA29317CE300336821 /* Initialize.swift */; };
-		F01962AD2931824200336821 /* Simple.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962AC2931824200336821 /* Simple.swift */; };
 		F01962B1293184BD00336821 /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962B0293184BD00336821 /* Run.swift */; };
 		F01962B32931EBE700336821 /* Start.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962B22931EBE700336821 /* Start.swift */; };
-		F01962B82931EF3400336821 /* Getters.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962B72931EF3400336821 /* Getters.swift */; };
-		F01962BA2931F06C00336821 /* Complete.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962B92931F06C00336821 /* Complete.swift */; };
 		F02C146F270FA679002FE382 /* Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C1466270FA679002FE382 /* Toolbar.swift */; };
 		F02C1471270FA679002FE382 /* Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C1468270FA679002FE382 /* Labels.swift */; };
 		F02C1472270FA679002FE382 /* UI Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C1469270FA679002FE382 /* UI Elements.swift */; };
@@ -50,7 +47,7 @@
 		F0BA1E2128FCBA5900FCB5A8 /* FlowBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BA1E2028FCBA5800FCB5A8 /* FlowBlock.swift */; };
 		F0F7F4232904F0A900BC8E16 /* Waves.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F4222904F0A900BC8E16 /* Waves.swift */; };
 		F0F7F428290E2DF400BC8E16 /* TimerNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F427290E2DF400BC8E16 /* TimerNotifications.swift */; };
-		F0F7F4302911C6CA00BC8E16 /* Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F42F2911C6CA00BC8E16 /* Custom.swift */; };
+		F0F7F4302911C6CA00BC8E16 /* Complete.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F42F2911C6CA00BC8E16 /* Complete.swift */; };
 		F0F7F4342911C96E00BC8E16 /* Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F4332911C96E00BC8E16 /* Flow.swift */; };
 /* End PBXBuildFile section */
 
@@ -82,13 +79,10 @@
 		F001C23C28D3C59F00134EB5 /* FlowSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowSheet.swift; sourceTree = "<group>"; };
 		F001C24128D7F24100134EB5 /* CustomFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFlow.swift; sourceTree = "<group>"; };
 		F014A05C293AA67200B9D7D4 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
-		F01962A02931255D00336821 /* Setters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setters.swift; sourceTree = "<group>"; };
+		F01962A02931255D00336821 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		F01962AA29317CE300336821 /* Initialize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initialize.swift; sourceTree = "<group>"; };
-		F01962AC2931824200336821 /* Simple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Simple.swift; sourceTree = "<group>"; };
 		F01962B0293184BD00336821 /* Run.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Run.swift; sourceTree = "<group>"; };
 		F01962B22931EBE700336821 /* Start.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Start.swift; sourceTree = "<group>"; };
-		F01962B72931EF3400336821 /* Getters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Getters.swift; sourceTree = "<group>"; };
-		F01962B92931F06C00336821 /* Complete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Complete.swift; sourceTree = "<group>"; };
 		F02C1466270FA679002FE382 /* Toolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toolbar.swift; sourceTree = "<group>"; };
 		F02C1468270FA679002FE382 /* Labels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Labels.swift; sourceTree = "<group>"; };
 		F02C1469270FA679002FE382 /* UI Elements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UI Elements.swift"; sourceTree = "<group>"; };
@@ -124,7 +118,7 @@
 		F0C6CE7426913C240026E415 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		F0F7F4222904F0A900BC8E16 /* Waves.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Waves.swift; sourceTree = "<group>"; };
 		F0F7F427290E2DF400BC8E16 /* TimerNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerNotifications.swift; sourceTree = "<group>"; };
-		F0F7F42F2911C6CA00BC8E16 /* Custom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Custom.swift; sourceTree = "<group>"; };
+		F0F7F42F2911C6CA00BC8E16 /* Complete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Complete.swift; sourceTree = "<group>"; };
 		F0F7F4332911C96E00BC8E16 /* Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -192,13 +186,10 @@
 			children = (
 				F01962AA29317CE300336821 /* Initialize.swift */,
 				F01962B22931EBE700336821 /* Start.swift */,
-				F01962AC2931824200336821 /* Simple.swift */,
-				F0F7F42F2911C6CA00BC8E16 /* Custom.swift */,
 				F01962B0293184BD00336821 /* Run.swift */,
-				F01962B92931F06C00336821 /* Complete.swift */,
+				F0F7F42F2911C6CA00BC8E16 /* Complete.swift */,
 				F04FFB5D29033EC70058E66D /* Controls.swift */,
-				F01962A02931255D00336821 /* Setters.swift */,
-				F01962B72931EF3400336821 /* Getters.swift */,
+				F01962A02931255D00336821 /* Helpers.swift */,
 			);
 			path = Timer;
 			sourceTree = "<group>";
@@ -382,8 +373,7 @@
 				F001C24228D7F24100134EB5 /* CustomFlow.swift in Sources */,
 				F0948C4C2681907A00A5F48D /* Notifications.swift in Sources */,
 				F01962B1293184BD00336821 /* Run.swift in Sources */,
-				F01962A12931255D00336821 /* Setters.swift in Sources */,
-				F01962B82931EF3400336821 /* Getters.swift in Sources */,
+				F01962A12931255D00336821 /* Helpers.swift in Sources */,
 				F0A025C7294796A500AF723F /* FlowData.swift in Sources */,
 				F03256432721308C009D3EFB /* AnimatedBlur.swift in Sources */,
 				F03358F9294CE8950020E5F3 /* DayButton.swift in Sources */,
@@ -393,7 +383,7 @@
 				F04FFB4728FF326E0058E66D /* Reminders.swift in Sources */,
 				F02C1472270FA679002FE382 /* UI Elements.swift in Sources */,
 				F09861FF26968B4B00A61B42 /* WelcomeView.swift in Sources */,
-				F0F7F4302911C6CA00BC8E16 /* Custom.swift in Sources */,
+				F0F7F4302911C6CA00BC8E16 /* Complete.swift in Sources */,
 				F04FFB4E28FF67140058E66D /* FlowManager.swift in Sources */,
 				F0F7F4232904F0A900BC8E16 /* Waves.swift in Sources */,
 				F0899DEB292EA83200A35D4D /* MyFlowApp.swift in Sources */,
@@ -403,7 +393,6 @@
 				F0F7F4342911C96E00BC8E16 /* Flow.swift in Sources */,
 				F074D678271D100600CE1AB4 /* Circles.swift in Sources */,
 				F02C1473270FA679002FE382 /* StartButton.swift in Sources */,
-				F01962AD2931824200336821 /* Simple.swift in Sources */,
 				F014A05D293AA67300B9D7D4 /* Data.swift in Sources */,
 				F083152A2888A55100153CD7 /* StatsView.swift in Sources */,
 				F02C1471270FA679002FE382 /* Labels.swift in Sources */,
@@ -415,7 +404,6 @@
 				F018CF202864E11D002A17D7 /* ContentView.swift in Sources */,
 				F0391314285EBF860074CF33 /* Format.swift in Sources */,
 				F0BA1E2128FCBA5900FCB5A8 /* FlowBlock.swift in Sources */,
-				F01962BA2931F06C00336821 /* Complete.swift in Sources */,
 				F001C23928D3A12100134EB5 /* Modifiers.swift in Sources */,
 				F032564B272251A6009D3EFB /* SettingsView.swift in Sources */,
 				F0F7F428290E2DF400BC8E16 /* TimerNotifications.swift in Sources */,

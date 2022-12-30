@@ -36,12 +36,12 @@ struct FlowSheet: View {
                     Button(action: toggleFlowPicker) {
                         VStack {
                             PickerLabel(text: "Flow: ",
-                                        time: ((flow.flowMinuteSelection * 60) + flow.flowSecondsSelection),
+                                        time: ((flow.flowMinutes * 60) + flow.flowSeconds),
                                         color: .myBlue)
                             if chooseFlow {
                                 MultiComponentPicker(
                                     columns: columns,
-                                    selections: [$flow.flowMinuteSelection, $flow.flowSecondsSelection])
+                                    selections: [$flow.flowMinutes, $flow.flowSeconds])
                             }
                         }
                     }
@@ -53,12 +53,12 @@ struct FlowSheet: View {
                         VStack {
                             PickerLabel(
                                 text: "Break:",
-                                time: ((flow.breakMinuteSelection * 60) + flow.breakSecondsSelection),
+                                time: ((flow.breakMinutes * 60) + flow.breakSeconds),
                                 color: .gray)
                             if chooseBreak {
                                 MultiComponentPicker(
                                     columns: columns,
-                                    selections: [$flow.breakMinuteSelection, $flow.breakSecondsSelection])
+                                    selections: [$flow.breakMinutes, $flow.breakSeconds])
                             }
                         }
                     }
@@ -72,7 +72,7 @@ struct FlowSheet: View {
                             if chooseRound {
                                 HStack {
                                     PickerView(
-                                        selection: $flow.roundsSelection,
+                                        selection: $flow.rounds,
                                         unit: rounds,
                                         label: "")
                                 }
@@ -138,7 +138,7 @@ struct FlowSheet: View {
         HStack {
             Text("Rounds:")
                 .font(.headline)
-            Text("\(flow.roundsSelection)")
+            Text("\(flow.rounds)")
         }
         .foregroundColor(.white.opacity(0.8))
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -214,7 +214,7 @@ struct PickerView: View {
             .pickerStyle(.wheel)
             .frame(width: geometry.size.width, height: geometry.size.height)
         }
-        //        .frame(height: 200)
+                .frame(height: 150)
     }
 }
 
@@ -248,7 +248,7 @@ struct MultiComponentPicker<Tag: Hashable>: View  {
                 }
             }
         }
-        .frame(height: 200).previewLayout(.sizeThatFits)
+        .frame(height: 150).previewLayout(.sizeThatFits)
     }
 }
 

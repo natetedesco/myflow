@@ -52,11 +52,11 @@ extension FlowModel {
         simple: flow.simple,
         blocks: flow.blocks,
         
-        flowMinuteSelection: flow.flowMinuteSelection,
-        flowSecondsSelection: flow.flowSecondsSelection,
-        breakMinuteSelection: flow.breakMinuteSelection,
-        breakSecondsSelection: flow.breakSecondsSelection,
-        roundsSelection: flow.roundsSelection)
+        flowMinutes: flow.flowMinutes,
+        flowSeconds: flow.flowSeconds,
+        breakMinutes: flow.breakMinutes,
+        breakSeconds: flow.breakSeconds,
+        rounds: flow.rounds)
     
         return changedFlow
     }

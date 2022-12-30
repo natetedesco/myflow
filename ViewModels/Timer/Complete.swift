@@ -1,7 +1,7 @@
 //
-//  Helpers.swift
+//  Initialize.swift
 //  MyFlow
-//  Created by Nate Tedesco on 11/25/22.
+//  Created by Nate Tedesco on 11/1/22.
 //
 
 import Foundation
@@ -9,27 +9,39 @@ import Foundation
 extension FlowModel {
     
     // Complete Round
-    func completeRound() -> Bool {
+    func completeRound() {
+        mode = type == .Flow ? .breakStart : .flowStart
+        
         if type == .Flow {
-            self.roundsCompleted = roundsCompleted + 1
-            if roundsCompleted == flowList[selection].roundsSelection {
-                return true
+            roundsCompleted += 1
+            if roundsCompleted == roundsSet {
+                completeSession()
             }
         }
-        return false
+        else {
+            setBothTimes(flowTime: flowTime, breakTime: breakTime)
+        }
+        ifStartAutomatically()
     }
     
     // Complete Block
-    func completeBlock() -> Bool {
-        blocksCompleted = blocksCompleted + 1
+    func completeBlock() {
+        blocksCompleted += 1
         if blocksCompleted == flowList[selection].blocks.count {
-            return true
+            completeSession()
         }
-        return false
+        else {
+            let block = flowList[selection].blocks[blocksCompleted]
+            block.flow ? setFlowTime(time: (block.minutes * 60) + block.seconds) : setBreakTime(time: (block.minutes * 60) + block.seconds)
+            
+            block.flow ? setFlowStart() : setBreakStart()
+        }
     }
+    
     
     // Complete Session
     func completeSession() {
+        Initialize()
         completed = true
     }
     
@@ -37,5 +49,10 @@ extension FlowModel {
     func invalidateTimer() {
         timer.invalidate()
         notifications.removeAllPendingNotificationRequests()
+    }
+    
+    func dismissCompleted() {
+        totalFlowTime = 0
+        completed = false
     }
 }

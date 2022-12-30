@@ -19,9 +19,7 @@ struct TimerLabels: View {
             
             // Simple
             if model.flowMode == .Simple {
-                
                 FlowLabel
-                
                 BreakLabel
                 
                 // Rounds

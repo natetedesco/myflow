@@ -23,7 +23,6 @@ struct LargeTitle: View {
                 .fontWeight(.bold)
                 .kerning(5.0)
                 .foregroundColor(.myBlue)
-                .frame(maxHeight: .infinity, alignment: .top)
         }
     }
 }

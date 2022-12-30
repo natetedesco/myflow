@@ -29,16 +29,13 @@ class FlowModel: ObservableObject {
     @Published var flowTimeLeft: Int = 0
     @Published var breakTimeLeft: Int = 0
     
-    @Published var totalFlowTime: Int = 0
-    
     @Published var roundsSet: Int = 0
     @Published var roundsCompleted: Int = 0
     @Published var blocksCompleted: Int = 0
     
-    @Published var animate: Int = 0
+    @Published var totalFlowTime: Int = 0
     @Published var completed = false
     @Published var flowContinue = false
-    
     
     init() {
         // if data
@@ -52,8 +49,8 @@ class FlowModel: ObservableObject {
         }
         // if no data
         flowList = [
-            Flow(title: "Flow", flowMinuteSelection: 20, breakMinuteSelection: 5, roundsSelection: 5),
-            Flow(title: "Study", flowMinuteSelection: 10, breakMinuteSelection: 10),
+            Flow(title: "Flow", flowMinutes: 20, breakMinutes: 5, rounds: 5),
+            Flow(title: "Study", flowMinutes: 10, breakMinutes: 10),
             Flow(title: "Exercise")]
         flow = Flow()
     }
@@ -69,4 +66,24 @@ class FlowModel: ObservableObject {
             Initialize()
         }
     }
+}
+
+enum FlowType {
+    case Flow
+    case Break
+}
+
+enum FlowMode {
+    case Simple
+    case Custom
+}
+
+enum TimerMode {
+    case Initial
+    case flowStart
+    case flowRunning
+    case flowPaused
+    case breakStart
+    case breakRunning
+    case breakPaused
 }

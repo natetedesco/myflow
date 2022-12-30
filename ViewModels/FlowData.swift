@@ -15,7 +15,6 @@ class FlowData: ObservableObject {
             }
         }
         days = [
-//            Day(day: Date.from(year: 2022, month: 12, day: 16), time: 100),
             Day(day: Date.from(year: 2022, month: 12, day: 15), time: 90),
             Day(day: Date.from(year: 2022, month: 12, day: 14), time: 140),
             Day(day: Date.from(year: 2022, month: 12, day: 13), time: 100),
@@ -67,10 +66,6 @@ class FlowData: ObservableObject {
                     presentedDays.insert(days[counted], at: 0)
                     counted = counted + 1
                 }
-                // if whole month
-//                else {
-//                    presentedDays.insert(Day(day: Date.from(year: comp.year!, month: comp.month!, day: comp.day! + numDays - i), time: 0), at: 0)
-//                }
             }
             else {
                 presentedDays.insert(Day(day: Date.from(year: comp.year!, month: comp.month!, day: comp.day! + numDays - i), time: 0), at: 0)
@@ -87,8 +82,8 @@ class FlowData: ObservableObject {
     }
     
     // Add time to today
-    func addTimeToDay() {
-        days[0].time = days[0].time + 1
+    func addTimeToDay(time: Int) {
+        days[0].time = days[0].time + (time)
         save()
     }
     

@@ -13,6 +13,11 @@ struct ContentView: View {
     @StateObject var model = FlowModel()
     @State var showWelcome = true
     
+    init() {
+        showToolBar = true
+        selectedTab = .home
+    }
+    
     var body: some View {
         ZStack {
             switch selectedTab {

@@ -12,6 +12,8 @@ struct MyFlow: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+            
+            
         }
     }
 }

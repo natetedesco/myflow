@@ -8,13 +8,11 @@ import Foundation
 
 struct Block: Codable, Hashable, Identifiable {
     var id = UUID()
-    
     var flow: Bool = true
-    
     var title: String = ""
 
-    var minuteSelection = 0
-    var secondSelection = 0
+    var minutes = 0
+    var seconds = 0
     
     var draggable = true
     var pickTime = false

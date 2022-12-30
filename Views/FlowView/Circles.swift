@@ -40,14 +40,14 @@ struct Circles: View {
                     .blur(radius: 0.5)
             }
         }
-        .animation(.default.speed(0.20), value: model.animate)
+        .animation(.default.speed(0.20), value: model.flowTimeLeft)
+        .animation(.default.speed(0.20), value: model.breakTimeLeft)
         .rotationEffect(.degrees(-90))
         .frame(width: 310)
     }
     
     var showFlowCircle: Bool {
-        if (model.flowMode == .Custom && model.type == .Flow) ||
-            (model.flowMode == .Simple && (model.mode != .breakRunning && model.mode != .flowStart)) {
+        if model.mode != .breakRunning && model.mode != .flowStart {
             return true
         }
         return false

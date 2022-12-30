@@ -18,40 +18,49 @@ extension FlowModel {
     
     // Skip
     func Skip() {
-        if mode == .flowPaused {
-            flowTimeLeft = 0
-            completeSimple()
+        if type == .Flow {
+            data.addTimeToDay(time: flowTime - flowTimeLeft)
+            totalFlowTime = totalFlowTime + (flowTime - flowTimeLeft)
         }
         
-        if mode == .breakPaused {
-            breakTimeLeft = 0
-            completeSimple()
-        }
+        mode == .flowPaused ? setFlowTimeLeft(time: 0) : setBreakTimeLeft(time: 0)
+        endTimer()
     }
     
     // Restart
     func Restart() {
-        if mode == .flowPaused {
-            flowTimeLeft = flowTime
-            mode = .flowStart
-        }
-        if mode == .breakPaused {
-            breakTimeLeft = breakTime
-            mode = .breakStart
-        }
         elapsedTime = 0
+        mode == .flowPaused ? setFlowTimeLeft(time: flowTime) : setBreakTimeLeft(time: breakTime)
+        mode == .flowPaused ? setFlowStart() : setBreakStart()
     }
     
     // Reset
     func Reset() {
         mediumHaptic()
-        completed = false
+        if type == .Flow {
+            data.addTimeToDay(time: flowTime - flowTimeLeft)
+            totalFlowTime = totalFlowTime + (flowTime - flowTimeLeft)
+        }
         invalidateTimer()
-        mode = .Initial
+        completeSession()
+    }
+    
+    // Continue Flow
+    func continueFlow() {
+        mode = .flowRunning
+        flowContinue = true
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [self] timer in
+            flowTimeLeft += 1
+        })
+    }
+    
+    // Complete Continue Flow
+    func completeContinueFlow() {
+        timer.invalidate()
+        mode = .breakStart
+        
+        data.addTimeToDay(time: flowTimeLeft)
+        flowTimeLeft = flowTime
         flowContinue = false
-        elapsedTime = 0
-        roundsCompleted = 0
-        blocksCompleted = 0
-        Initialize()
     }
 }

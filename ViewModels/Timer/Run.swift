@@ -8,32 +8,41 @@ import Foundation
 
 extension FlowModel {
     
+    // Start
+    func startTimer(time: Int) {
+        start = Date()
+        let calendar = Calendar.current
+        let end = calendar.date(byAdding: .second, value: (time - elapsedTime), to: start)!
+        
+        runTimer(time: time, end: end)
+    }
+    
     // Run Timer
     func runTimer(time: Int, end: Date) {
         notifications.Set(flow: type == .Flow ? true : false, time: time, elapsedTime: elapsedTime)
         data.createDayStruct()
         
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [self] timer in
-            totalFlowTime = totalFlowTime + 1
-
-            countFlowTime()
+            var timeLeft = Calendar.current.dateComponents([.second], from: Date(), to: end + 1).second ?? 0
+            type == .Flow ? setFlowTimeLeft(time: timeLeft) : setBreakTimeLeft(time: timeLeft)
             
-            self.animate = animate + 1
-            
-            if getTimeLeft(end: end) == 0 {
-                if flowMode == .Simple {
-                    completeSimple()
+            if timeLeft <= 0 {
+                timeLeft = 0
+                type == .Flow ? setFlowTimeLeft(time: timeLeft) : setBreakTimeLeft(time: timeLeft)
+                if type == .Flow {
+                    data.addTimeToDay(time: time)
+                    totalFlowTime = totalFlowTime + time
                 }
-                if flowMode == .Custom {
-                    completeCustom()
-                }
+                endTimer()
             }
         })
     }
     
-    func countFlowTime() {
-        if totalFlowTime % 60 == 0 {
-            data.addTimeToDay()
-        }
+    // End Timer
+    func endTimer() {
+        invalidateTimer()
+        elapsedTime = 0
+        
+        flowMode == .Simple ? completeRound() : completeBlock()
     }
 }

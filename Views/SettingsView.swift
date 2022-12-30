@@ -11,7 +11,7 @@ struct SettingsView: View {
     @AppStorage("SelectedTab") var selectedTab: Tab = .home
     @AppStorage("StartFlowAutomatically") var startFlowAutomatically: Bool = false
     @AppStorage("StartBreakAutomatically") var startBreakAutomatically: Bool = false
-
+    
     var body: some View {
         NavigationView {
             ScrollView {
@@ -32,14 +32,13 @@ struct SettingsView: View {
                     Div
                     NavigationLink(destination: HowItWorks()) { NL(text: "How it works", icon: "questionmark.circle") }
                     Div
-                    NavigationLink(destination: HowItWorks()) { NL(text: "Feedback and support", icon: "message") }
+                    NavigationLink(destination: Feedback()) { NL(text: "Feedback and support", icon: "message") }
                 }
                 .cardGlassNP()
                 
                 VersionNumber
             }
             .settingsNavigationView()
-            .toolbar { UpgradeButton }
         }
         .accentColor(.myBlue)
     }
@@ -86,16 +85,16 @@ struct NavigationList: View {
     var icon: String
     
     var body: some View {
-            HStack {
-                Image(systemName: icon)
-                    .frame(width: 20)
-                Text(text)
-                Spacer()
-                Image(systemName: "chevron.right")
-                    .foregroundColor(.gray.opacity(0.5))
-            }
-            .foregroundColor(.white)
-            .padding(.horizontal)
+        HStack {
+            Image(systemName: icon)
+                .frame(width: 20)
+            Text(text)
+            Spacer()
+            Image(systemName: "chevron.right")
+                .foregroundColor(.gray.opacity(0.5))
+        }
+        .foregroundColor(.white)
+        .padding(.horizontal)
     }
 }
 
@@ -135,7 +134,6 @@ struct AboutUs: View {
                 Spacer()
             }
         }
-        
     }
 }
 
@@ -143,39 +141,52 @@ struct HowItWorks: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 32) {
             
-                HStack {
-                    Circle()
-                        .stroke(lineWidth: 3)
-                        .frame(width: 30)
-                        .foregroundColor(.myBlue)
-                        .padding(.trailing)
-                    DescriptionView(
-                        title: "Flow",
-                        text: "Time for productivity and focus")
-                }
-
-                HStack {
-                    Circle()
-                        .stroke(lineWidth: 3)
-                        .frame(width: 30)
-                        .foregroundColor(.gray)
-                        .padding(.trailing)
-                    DescriptionView(
-                        title: "Break",
-                        text: "Time to rest your body and mind")
-                }
-                
-
-                HStack {
-                    Image(systemName: "play.fill")
-                        .foregroundColor(.myBlue)
-                        .font(.system(size: 30))
-                        .padding(.trailing)
-                    DescriptionView(
-                        title: "Start",
-                        text: "Cycle between your flows and breaks")
-                }
+            HStack {
+                Circle()
+                    .stroke(lineWidth: 3)
+                    .frame(width: 30)
+                    .foregroundColor(.myBlue)
+                    .padding(.trailing)
+                DescriptionView(
+                    title: "Flow",
+                    text: "Time for productivity and focus")
+            }
+            
+            HStack {
+                Circle()
+                    .stroke(lineWidth: 3)
+                    .frame(width: 30)
+                    .foregroundColor(.gray)
+                    .padding(.trailing)
+                DescriptionView(
+                    title: "Break",
+                    text: "Time to rest your body and mind")
+            }
+            
+            
+            HStack {
+                Image(systemName: "play.fill")
+                    .foregroundColor(.myBlue)
+                    .font(.system(size: 30))
+                    .padding(.trailing)
+                DescriptionView(
+                    title: "Start",
+                    text: "Cycle between your flows and breaks")
+            }
             Spacer()
+        }
+    }
+}
+
+struct Feedback: View {
+    var body: some View {
+        ZStack {
+            AnimatedBlurOpaque()
+            Text("MyFlow is currently in the Alpha stage. Please email feedback or support to natetedesco@icloud.com ")
+                .padding(.horizontal, 32)
+                .frame(maxHeight: .infinity, alignment: .top)
+            
+//            Spacer()
         }
     }
 }

@@ -30,7 +30,7 @@ struct FlowBlock: View {
             if block.pickTime {
                 MultiComponentPicker(
                     columns: columns,
-                    selections: [$block.minuteSelection, $block.secondSelection])
+                    selections: [$block.minutes, $block.seconds])
                 .frame(height: 150).previewLayout(.sizeThatFits)
             }
         }
@@ -57,7 +57,7 @@ struct FlowBlock: View {
     }
     
     var BlockTimeLabel: some View {
-        FootNote(text: formatTime(seconds: (block.secondSelection) + (block.minuteSelection * 60)))
+        FootNote(text: formatTime(seconds: (block.seconds) + (block.minutes * 60)))
             .foregroundColor(block.flow ? .myBlue : .gray)
             .frame(maxWidth: .infinity, alignment: .trailing)
             .padding(.horizontal)

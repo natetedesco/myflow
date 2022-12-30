@@ -16,28 +16,29 @@ struct StatsView: View {
     @State var showGoal: Bool = false
     
     var body: some View {
-        NavigationView {
-            ScrollView {
-                
-                // Overview
-                Headline(text: "Overview")
-                OverviewCard
-                
-                // This Week
-                Headline(text: "Weekly")
-                WeekCard
-                
-                // This Month
-                Headline(text: "Monthly")
-                MonthCard
-                
+            NavigationView {
+                ScrollView {
+                    
+                    // Overview
+                    Headline(text: "Overview")
+                    OverviewCard
+                    
+                    // This Week
+                    Headline(text: "Weekly")
+                    WeekCard
+                    
+                    // This Month
+                    Headline(text: "Monthly")
+                    MonthCard
+                    
+                }
+                .statisticsNavigationView()
+                .toolbar{ GoalButton }
+                .animation(.easeInOut.speed(2.5), value: showGoal)
             }
-            .statisticsNavigationView()
-            .toolbar{ GoalButton }
-        }
-        if showGoal {
-            GoalView
-        }
+            if showGoal {
+                GoalView
+            }
     }
     
     func showGoalCard() {
