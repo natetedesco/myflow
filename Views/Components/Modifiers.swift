@@ -36,7 +36,9 @@ struct NavigationViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
         .padding(.bottom, 85)
-        .background(AnimatedBlur())
+        .background(.black.opacity(0.6))
+        .background(.ultraThinMaterial)
+        .background(AnimatedBlur(opacity: 0.3))
         .navigationTitle(title)
     }
 }
@@ -77,13 +79,8 @@ struct CardGlassViewModifier: ViewModifier {
         content
             .frame(maxWidth: .infinity)
             .padding()
-            .background(.black.opacity(0.7))
-            .background(.ultraThinMaterial.opacity(0.8))
-            .cornerRadius(20.0)
-            .overlay(
-                    RoundedRectangle(cornerRadius: 20)
-                        .stroke(.white.opacity(0.1), lineWidth: 0.2)
-                )
+            .background(.black.opacity(0.6))
+            .cornerRadius(25.0)
             .padding(.horizontal)
     }
 }
@@ -92,9 +89,8 @@ struct CardGlassNPViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .padding(.vertical)
-            .background(.black.opacity(0.7))
-            .background(.ultraThinMaterial.opacity(0.3))
-            .cornerRadius(20.0)
+            .background(.black.opacity(0.6))
+            .cornerRadius(25.0)
             .padding(.horizontal)
     }
 }

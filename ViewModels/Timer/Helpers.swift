@@ -8,6 +8,13 @@ import Foundation
 
 extension FlowModel {
     
+    func setSimple() {
+        flowMode = .Simple
+    }
+    func setCustom() {
+        flowMode = .Custom
+    }
+    
     // Set Flow Time
     func setFlowTime(time: Int) {
         flowTime = time

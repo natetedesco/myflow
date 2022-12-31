@@ -38,7 +38,6 @@ extension FlowModel {
         }
     }
     
-    
     // Complete Session
     func completeSession() {
         Initialize()

@@ -13,9 +13,11 @@ struct FlowSheet: View {
     @State var chooseFlow = false
     @State var chooseBreak = false
     @State var chooseRound = false
-    @FocusState var focusedField: Field?
     @State var startAnimation = false
     @State var endAnimation = false
+    @State var preventCrash = false
+    
+    @FocusState var focusedField: Field?
     
     var body: some View {
         let flowTime = (flow.flowMinutes * 60) + flow.flowSeconds
@@ -24,7 +26,6 @@ struct FlowSheet: View {
         let breakSelection = [$flow.breakMinutes, $flow.breakSeconds]
         
         ZStack {
-            
             MaterialBackGround()
                 .onTapGesture { Save() }
                 .disabled(flow.title.isEmpty)
@@ -38,10 +39,9 @@ struct FlowSheet: View {
                     FlowTitle
                     flowSheetMenu
                 }
-                FlowModePicker
+                SegmentedPicker
                 
                 if flow.simple {
-                    // Flow Time
                     Button(action: toggleFlowPicker) {
                         VStack {
                             PickerLabel(text: "Flow: ", time: flowTime, color: .myBlue)
@@ -49,10 +49,9 @@ struct FlowSheet: View {
                                 MultiComponentPicker(columns: columns,selections: flowSelection)
                             }
                         }
+                        .animation(.default.speed(chooseFlow ? 0.6 : 2.0), value: chooseFlow)
                     }
                     Divider()
-                    
-                    // Break Time
                     Button(action: toggleBreakPicker) {
                         VStack {
                             PickerLabel(text: "Break:", time: breakTime, color: .gray)
@@ -60,19 +59,13 @@ struct FlowSheet: View {
                                 MultiComponentPicker(columns: columns,selections: breakSelection)
                             }
                         }
+                        .animation(.default.speed(chooseBreak ? 0.6 : 2.0), value: chooseBreak)
+                        
                     }
                     Divider()
-                    
-                    // Rounds
-                    Button(action: toggleRoundsPicker) {
-                        VStack {
-                            RoundsLabel
-                            if chooseRound {
-                                PickerView(selection: $flow.rounds, unit: rounds, label: "")
-                            }
-                        }
-                    }
-                    .padding(.bottom, 8)
+                    Button(action: toggleRoundsPicker) { RoundsLabel }
+                        .animation(.default.speed(chooseRound ? 0.6 : 2.0), value: chooseRound)
+                        .padding(.bottom, 8)
                 }
                 if !flow.simple {
                     CustomFlow(flow: $flow)
@@ -85,6 +78,7 @@ struct FlowSheet: View {
             .scaleEffect(!endAnimation ? 1.0 : 0.97)
             .opacity(!endAnimation ? 1.0 : 0.0)
             .animation(.default.speed(2.0), value: endAnimation)
+            .animation(.default.speed(1.0), value: preventCrash)
         }
         .onAppear {
             startAnimation.toggle()
@@ -126,56 +120,110 @@ struct FlowSheet: View {
         }
     }
     
-    var FlowModePicker: some View {
-        Picker("", selection: $flow.simple, content: {
-            Text("Simple").tag(true)
-            Text("Custom").tag(false)
-        })
-        .pickerStyle(SegmentedPickerStyle())
-        .padding(.vertical, 8)
-    }
-    
     var RoundsLabel: some View {
-        HStack {
-            Text("Rounds:")
-                .font(.headline)
-            Text("\(flow.rounds)")
+        VStack {
+            HStack {
+                Text("Rounds:")
+                    .font(.headline)
+                Text("\(flow.rounds)")
+            }
+            .foregroundColor(.white.opacity(0.8))
+            .frame(maxWidth: .infinity, alignment: .leading)
+            if chooseRound {
+                PickerView(selection: $flow.rounds, unit: rounds, label: "")
+            }
         }
-        .foregroundColor(.white.opacity(0.8))
-        .frame(maxWidth: .infinity, alignment: .leading)
     }
     
     func Delete() {
         showFlow = false;
+        preventCrashFunc()
         model.deleteFlow(id: flow.id)
     }
     
     func toggleFlowPicker() {
         chooseFlow.toggle()
+        chooseBreak = false
+        chooseRound = false
+        preventCrash.toggle()
     }
     func toggleBreakPicker() {
         chooseBreak.toggle()
+        chooseFlow = false
+        chooseRound = false
+        preventCrash.toggle()
     }
     func toggleRoundsPicker() {
         chooseRound.toggle()
+        chooseFlow = false
+        chooseBreak = false
+        preventCrash.toggle()
     }
     
     func Save() {
-        if !chooseFlow && !chooseBreak && !chooseRound {
-            //            startAnimation.toggle()
-            endAnimation.toggle()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                
-                chooseFlow = false
-                showFlow = false;
-                if flow.new {
-                    model.addFlow(flow: flow)
-                    model.selection = (model.flowList.count - 1)
-                } else {
-                    model.editFlow(id: flow.id, flow: flow)
-                }
+        preventCrashFunc()
+        endAnimation.toggle()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            showFlow = false;
+            if flow.new {
+                model.addFlow(flow: flow)
+                model.selection = (model.flowList.count - 1)
+            } else {
+                model.editFlow(id: flow.id, flow: flow)
             }
         }
+    }
+    
+    func preventCrashFunc() {
+        chooseFlow = false
+        chooseBreak = false
+        chooseRound = false
+        preventCrash.toggle()
+    }
+    
+    @State var segmentSize: CGSize = .zero
+    let items = ["Simple", "Custom"]
+    
+    private var activeSegmentView: AnyView {
+        let isInitialized: Bool = segmentSize != .zero
+        if !isInitialized { return EmptyView().eraseToAnyView() }
+        return
+            RoundedRectangle(cornerRadius: 20)
+            .foregroundColor(.black.opacity(0.55))
+            .frame(width: self.segmentSize.width, height: self.segmentSize.height)
+            .offset(x: CGFloat(flow.simple ? 0 : 1) * (self.segmentSize.width + 16 / 2), y: 0)
+            .eraseToAnyView()
+    }
+    
+    var SegmentedPicker: some View {
+        ZStack(alignment: .leading) {
+            activeSegmentView
+            HStack {
+                FootNote(text: "Simple")
+                    .foregroundColor(flow.simple == true ? .white.opacity(0.95) : .gray)
+                    .padding(.vertical, 6)
+                    .frame(maxWidth: .infinity)
+                    .modifier(SizeAwareViewModifier(viewSize: self.$segmentSize))
+                    .onTapGesture {
+                        flow.simple = true;
+                        preventCrashFunc()
+                    }
+                FootNote(text: "Custom")
+                    .foregroundColor(flow.simple == false ? .white.opacity(0.95) : .gray)
+                    .padding(.vertical, 6)
+                    .frame(maxWidth: .infinity)
+                    .modifier(SizeAwareViewModifier(viewSize: self.$segmentSize))
+                    .onTapGesture {
+                        flow.simple = false
+                        preventCrashFunc()
+                    }
+            }
+        }
+        .animation(.easeOut(duration: 0.2), value: flow.simple)
+        .padding(3.0)
+        .background(.ultraThinMaterial.opacity(0.5))
+        .clipShape(RoundedRectangle(cornerRadius: 20))
+        .padding(.vertical, 8)
     }
 }
 
@@ -219,7 +267,7 @@ struct MultiComponentPicker<Tag: Hashable>: View  {
     
     var body: some View {
         GeometryReader { geometry in
-            HStack(spacing: 0) {
+            HStack {
                 ForEach(0 ..< columns.count, id: \.self) { index in
                     let column = columns[index]
                     ZStack(alignment: Alignment.init(horizontal: .customCenter, vertical: .center)) {
@@ -236,8 +284,8 @@ struct MultiComponentPicker<Tag: Hashable>: View  {
                             }
                         }
                         .pickerStyle(WheelPickerStyle())
-                        .frame(width: geometry.size.width / CGFloat(columns.count), height: geometry.size.height)
                         .clipped()
+                        .frame(width: geometry.size.width / CGFloat(columns.count), height: geometry.size.height)
                     }
                 }
             }
@@ -276,3 +324,38 @@ struct MaterialBackGround: View {
             .background(.ultraThinMaterial)
     }
 }
+
+extension View {
+    func eraseToAnyView() -> AnyView {
+        AnyView(self)
+    }
+}
+struct SizePreferenceKey: PreferenceKey {
+    typealias Value = CGSize
+    static var defaultValue: CGSize = .zero
+    static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
+        value = nextValue()
+    }
+}
+struct BackgroundGeometryReader: View {
+    var body: some View {
+        GeometryReader { geometry in
+            return Color
+                .clear
+                .preference(key: SizePreferenceKey.self, value: geometry.size)
+        }
+    }
+}
+struct SizeAwareViewModifier: ViewModifier {
+    @Binding var viewSize: CGSize
+    init(viewSize: Binding<CGSize>) {
+        self._viewSize = viewSize
+    }
+    
+    func body(content: Content) -> some View {
+        content
+            .background(BackgroundGeometryReader())
+            .onPreferenceChange(SizePreferenceKey.self, perform: { if self.viewSize != $0 { self.viewSize = $0 }})
+    }
+}
+

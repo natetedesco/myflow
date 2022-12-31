@@ -8,91 +8,69 @@ import Foundation
 import SwiftUI
 
 class FlowModel: ObservableObject {
+    @AppStorage("StartFlowAutomatically") var startFlowAutomatically: Bool = false
+    @AppStorage("StartBreakAutomatically") var startBreakAutomatically: Bool = false
     var notifications = NotificationManager()
     var data = FlowData()
-    var timer = Timer()
     var start = Date()
+    var timer = Timer()
+    
+    var flowTime: Int = 0
+    var breakTime: Int = 0
+    var roundsSet: Int = 0
     var elapsedTime = 0
+    var totalFlowTime: Int = 0
+    var roundsCompleted: Int = 0
+    var flowContinue = false
     
-    @Published var flow: Flow
-    
+    @Published var flow = Flow()
     @Published var mode: TimerMode = .Initial
     @Published var type: FlowType = .Flow
     @Published var flowMode: FlowMode = .Simple
-    
-    @Published var flowTime: Int = 0
-    @Published var breakTime: Int = 0
-    @Published var roundsSet: Int = 0
-    
     @Published var flowTimeLeft: Int = 0
     @Published var breakTimeLeft: Int = 0
-    
-    @Published var roundsCompleted: Int = 0
     @Published var blocksCompleted: Int = 0
-    @Published var totalFlowTime: Int = 0
     @Published var completed = false
-    @Published var flowContinue = false
     
-    @AppStorage("StartFlowAutomatically") var startFlowAutomatically: Bool = false
-    @AppStorage("StartBreakAutomatically") var startBreakAutomatically: Bool = false
-    
-    @Published var flowList: [Flow] {
-        didSet { // update values if a flow is modified
-            Initialize()
-        }
-    }
-    
-    @Published var selection = 0 {
-        didSet { // update values if selection changes
-            Initialize()
-        }
-    }
+    @Published var flowList: [Flow] { didSet { Initialize() } }
+    @Published var selection = 0 { didSet { Initialize() } }
     
     init() {
-        // if data
         if let data = UserDefaults.standard.data(forKey: "SavedData") {
             if let decoded = try? JSONDecoder().decode([Flow].self, from: data) {
                 flowList = decoded
-                flow = Flow()
                 Initialize()
                 return
             }
         }
-        // if no data
         flowList = [
             Flow(title: "Flow", flowMinutes: 20, breakMinutes: 5, rounds: 5),
             Flow(title: "Study", flowMinutes: 10, breakMinutes: 10),
             Flow(title: "Exercise")]
-        flow = Flow()
+        Initialize()
     }
     
     func Initialize() {
-        let selection = flowList[selection]
+        flow = flowList[selection]
+        mode = .Initial
+        flow.simple ? setSimple() : setCustom()
         elapsedTime = 0
         roundsCompleted = 0
         blocksCompleted = 0
         
-        mode = .Initial
-        selection.simple ? setSimple() : setCustom()
-        
-        // Initialize Simple
         if flowMode == .Simple {
-            setFlowTime(time: (selection.flowMinutes * 60) + selection.flowSeconds )
-            setBreakTime(time: (selection.breakMinutes * 60) + selection.breakSeconds)
-            roundsSet = selection.rounds // Add if rounds asp
+            setFlowTime(time: (flow.flowMinutes * 60) + flow.flowSeconds )
+            setBreakTime(time: (flow.breakMinutes * 60) + flow.breakSeconds)
+            roundsSet = flow.rounds // Add if rounds asp
         }
-        
-        // Initialize Custom
         if flowMode == .Custom {
-            mode = .Initial
-            if selection.blocks.indices.contains(0) {
-                if selection.blocks[0].flow {
-                    setFlowTime(time: (selection.blocks[0].minutes * 60) + selection.blocks[0].seconds)
+            if flow.blocks.indices.contains(0) {
+                if flow.blocks[0].flow {
+                    setFlowTime(time: (flow.blocks[0].minutes * 60) + flow.blocks[0].seconds)
                     type = .Flow
                 }
-                
-                if !selection.blocks[0].flow {
-                    setBreakTime(time: (selection.blocks[0].minutes * 60) + selection.blocks[0].seconds)
+                else {
+                    setBreakTime(time: (flow.blocks[0].minutes * 60) + flow.blocks[0].seconds)
                     mode = .breakStart
                     type = .Break
                 }

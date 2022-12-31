@@ -9,8 +9,10 @@ import SwiftUI
 struct FlowView: View {
     @ObservedObject var model: FlowModel
     @State var showFlow = false
+    @State var preselectedIndex = 0
     
     var body: some View {
+        
         ZStack {
             Button(action: editFlow) {
                 ZStack {
@@ -31,7 +33,10 @@ struct FlowView: View {
                 FlowSheet(model: model, flow: $model.flow, showFlow: $showFlow)
             }
         }
-        .background(AnimatedBlurOpaque())
+        .background(.black.opacity(0.8))
+        .background(.ultraThinMaterial)
+        .background(AnimatedBlur(opacity: 0.3))
+//        .background(AnimatedBlurOpaque())
     }
     
     // Control Bar

@@ -13,7 +13,6 @@
 		F014A05D293AA67300B9D7D4 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = F014A05C293AA67200B9D7D4 /* Data.swift */; };
 		F018CF202864E11D002A17D7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066923326FB9C3800DB905E /* ContentView.swift */; };
 		F01962A12931255D00336821 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962A02931255D00336821 /* Helpers.swift */; };
-		F01962AB29317CE300336821 /* Initialize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962AA29317CE300336821 /* Initialize.swift */; };
 		F01962B1293184BD00336821 /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962B0293184BD00336821 /* Run.swift */; };
 		F01962B32931EBE700336821 /* Start.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962B22931EBE700336821 /* Start.swift */; };
 		F02C146F270FA679002FE382 /* Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C1466270FA679002FE382 /* Toolbar.swift */; };
@@ -25,6 +24,7 @@
 		F03358F9294CE8950020E5F3 /* DayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03358F8294CE8950020E5F3 /* DayButton.swift */; };
 		F0391314285EBF860074CF33 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0391313285EBF860074CF33 /* Format.swift */; };
 		F0391317285FA0990074CF33 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0391316285FA0990074CF33 /* Haptics.swift */; };
+		F0391E68295FB95D00CBE03A /* Picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0391E67295FB95D00CBE03A /* Picker.swift */; };
 		F04FFB4328FF2C890058E66D /* Blocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB4228FF2C890058E66D /* Blocks.swift */; };
 		F04FFB4728FF326E0058E66D /* Reminders.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB4628FF326E0058E66D /* Reminders.swift */; };
 		F04FFB4C28FF66B30058E66D /* FlowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB4B28FF66B30058E66D /* FlowModel.swift */; };
@@ -80,7 +80,6 @@
 		F001C24128D7F24100134EB5 /* CustomFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFlow.swift; sourceTree = "<group>"; };
 		F014A05C293AA67200B9D7D4 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		F01962A02931255D00336821 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
-		F01962AA29317CE300336821 /* Initialize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initialize.swift; sourceTree = "<group>"; };
 		F01962B0293184BD00336821 /* Run.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Run.swift; sourceTree = "<group>"; };
 		F01962B22931EBE700336821 /* Start.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Start.swift; sourceTree = "<group>"; };
 		F02C1466270FA679002FE382 /* Toolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toolbar.swift; sourceTree = "<group>"; };
@@ -92,6 +91,7 @@
 		F03358F8294CE8950020E5F3 /* DayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayButton.swift; sourceTree = "<group>"; };
 		F0391313285EBF860074CF33 /* Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Format.swift; sourceTree = "<group>"; };
 		F0391316285FA0990074CF33 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
+		F0391E67295FB95D00CBE03A /* Picker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picker.swift; sourceTree = "<group>"; };
 		F04FFB4228FF2C890058E66D /* Blocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blocks.swift; sourceTree = "<group>"; };
 		F04FFB4628FF326E0058E66D /* Reminders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminders.swift; sourceTree = "<group>"; };
 		F04FFB4B28FF66B30058E66D /* FlowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowModel.swift; sourceTree = "<group>"; };
@@ -175,6 +175,7 @@
 				F074D677271D100600CE1AB4 /* Circles.swift */,
 				F02C1468270FA679002FE382 /* Labels.swift */,
 				F001C23C28D3C59F00134EB5 /* FlowSheet.swift */,
+				F0391E67295FB95D00CBE03A /* Picker.swift */,
 				F001C24128D7F24100134EB5 /* CustomFlow.swift */,
 				F0BA1E2028FCBA5800FCB5A8 /* FlowBlock.swift */,
 			);
@@ -184,7 +185,6 @@
 		F04FFB55290339000058E66D /* Timer */ = {
 			isa = PBXGroup;
 			children = (
-				F01962AA29317CE300336821 /* Initialize.swift */,
 				F01962B22931EBE700336821 /* Start.swift */,
 				F01962B0293184BD00336821 /* Run.swift */,
 				F0F7F42F2911C6CA00BC8E16 /* Complete.swift */,
@@ -389,9 +389,9 @@
 				F0899DEB292EA83200A35D4D /* MyFlowApp.swift in Sources */,
 				F0A025C92949014B00AF723F /* GetWeek.swift in Sources */,
 				F04FFB4C28FF66B30058E66D /* FlowModel.swift in Sources */,
-				F01962AB29317CE300336821 /* Initialize.swift in Sources */,
 				F0F7F4342911C96E00BC8E16 /* Flow.swift in Sources */,
 				F074D678271D100600CE1AB4 /* Circles.swift in Sources */,
+				F0391E68295FB95D00CBE03A /* Picker.swift in Sources */,
 				F02C1473270FA679002FE382 /* StartButton.swift in Sources */,
 				F014A05D293AA67300B9D7D4 /* Data.swift in Sources */,
 				F083152A2888A55100153CD7 /* StatsView.swift in Sources */,

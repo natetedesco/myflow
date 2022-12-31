@@ -7,10 +7,12 @@
 import SwiftUI
 
 struct AnimatedBlur: View {
+    var opacity: CGFloat
+    
     var body: some View {
         ZStack {
             FloatingClouds(blur: 100, size:1)
-                .opacity(0.15)
+                .opacity(opacity)
         }
     }
 }
@@ -57,8 +59,9 @@ struct FloatingClouds: View {
             ZStack {
                 ZStack {
                     Cloud(proxy: proxy, color: .myBlue, rotationStart: 0, duration: 60, size: size)
-                    Cloud(proxy: proxy, color: .myBlue, rotationStart: 120, duration: 80, size: size)
-                    Cloud(proxy: proxy, color: .gray, rotationStart: 180, duration: 100, size: size)
+                    Cloud(proxy: proxy, color: .myBlue, rotationStart: 90, duration: 80, size: size)
+                    Cloud(proxy: proxy, color: .myBlue, rotationStart: 180, duration: 80, size: size)
+//                    Cloud(proxy: proxy, color: .gray, rotationStart: 180, duration: 100, size: size)
                     Cloud(proxy: proxy, color: .myBlue, rotationStart: 360, duration: 120, size: size)
                 }
                 .blur(radius: blur)
