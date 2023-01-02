@@ -16,7 +16,6 @@ struct FlowSheet: View {
     @State var startAnimation = false
     @State var endAnimation = false
     @State var preventCrash = false
-    
     @FocusState var focusedField: Field?
     
     var body: some View {
@@ -65,7 +64,7 @@ struct FlowSheet: View {
                     Divider()
                     Button(action: toggleRoundsPicker) { RoundsLabel }
                         .animation(.default.speed(chooseRound ? 0.6 : 2.0), value: chooseRound)
-                        .padding(.bottom, 8)
+                        .padding(.bottom, 4)
                 }
                 if !flow.simple {
                     CustomFlow(flow: $flow)
@@ -93,14 +92,13 @@ struct FlowSheet: View {
             Image(systemName: "ellipsis")
                 .font(.title3)
                 .foregroundColor(.myBlue)
-                .padding(12)
-                .background(Circle().fill(.ultraThinMaterial.opacity(0.55)))
+                .CircularGlassButton()
         }
     }
     
     var FlowTitle: some View {
         TextField("Title", text: $flow.title)
-            .font(.largeTitle)
+            .font(.title)
             .foregroundColor(.white.opacity(0.5))
             .focused($focusedField, equals: .flowName)
             .onAppear {
@@ -200,7 +198,7 @@ struct FlowSheet: View {
             activeSegmentView
             HStack {
                 FootNote(text: "Simple")
-                    .foregroundColor(flow.simple == true ? .white.opacity(0.95) : .gray)
+                    .foregroundColor(flow.simple == true ? .white.opacity(0.95) : .white.opacity(0.95))
                     .padding(.vertical, 6)
                     .frame(maxWidth: .infinity)
                     .modifier(SizeAwareViewModifier(viewSize: self.$segmentSize))
@@ -209,7 +207,7 @@ struct FlowSheet: View {
                         preventCrashFunc()
                     }
                 FootNote(text: "Custom")
-                    .foregroundColor(flow.simple == false ? .white.opacity(0.95) : .gray)
+                    .foregroundColor(flow.simple == false ? .white.opacity(0.95) : .white.opacity(0.95))
                     .padding(.vertical, 6)
                     .frame(maxWidth: .infinity)
                     .modifier(SizeAwareViewModifier(viewSize: self.$segmentSize))
@@ -219,11 +217,11 @@ struct FlowSheet: View {
                     }
             }
         }
-        .animation(.easeOut(duration: 0.2), value: flow.simple)
+        .animation(.easeOut(duration: 0.3), value: flow.simple)
         .padding(3.0)
-        .background(.ultraThinMaterial.opacity(0.5))
+        .background(.ultraThinMaterial.opacity(0.55))
         .clipShape(RoundedRectangle(cornerRadius: 20))
-        .padding(.vertical, 8)
+        .padding(.bottom, 8)
     }
 }
 
@@ -255,9 +253,11 @@ struct PickerView: View {
                 }
             }
             .pickerStyle(.wheel)
-            .frame(width: geometry.size.width, height: geometry.size.height)
+//            .frame(width: geometry.size.width, height: geometry.size.height)
         }
         .frame(height: 150)
+        .padding(.vertical, -8)
+
     }
 }
 
@@ -285,7 +285,7 @@ struct MultiComponentPicker<Tag: Hashable>: View  {
                         }
                         .pickerStyle(WheelPickerStyle())
                         .clipped()
-                        .frame(width: geometry.size.width / CGFloat(columns.count), height: geometry.size.height)
+                        .padding(.vertical, -8)
                     }
                 }
             }

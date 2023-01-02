@@ -16,7 +16,6 @@ struct WelcomeScreen: View {
                 .font(.title).fontWeight(.bold)
                 .frame(maxWidth: .infinity, alignment: .center)
                 .padding(.bottom)
-//                .foregroundColor(.myBlue)
             
                 HStack {
                     Circle()
@@ -28,7 +27,6 @@ struct WelcomeScreen: View {
                         title: "Flow",
                         text: "Time for productivity and focus")
                 }
-
 
                 HStack {
                     Circle()

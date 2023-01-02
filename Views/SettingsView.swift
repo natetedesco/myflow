@@ -22,9 +22,14 @@ struct SettingsView: View {
                     VStack {
                         ToggleBar(text: "Start flow automatically", isOn: $startFlowAutomatically)
                         Div
+                            .padding(.vertical, 2)
                         ToggleBar(text: "Start break automatically", isOn: $startBreakAutomatically)
                     }
-                    .cardGlassNP()
+                    .padding(.vertical, 12)
+                    .background(.black.opacity(0.6))
+                    .cornerRadius(25.0)
+                    .padding(.horizontal)
+//                    .cardGlassNP()
                     
                     // About
                     CustomHeadline(text: "About")
@@ -47,7 +52,8 @@ struct SettingsView: View {
     }
     
     var Div: some View {
-        Divider().padding(.leading)
+        Divider()
+            .padding(.leading)
     }
     
     var VersionNumber: some View {
@@ -185,9 +191,14 @@ struct Feedback: View {
             Text("MyFlow is currently in the Alpha stage. Please email feedback or support to natetedesco@icloud.com ")
                 .padding(.horizontal, 32)
                 .frame(maxHeight: .infinity, alignment: .top)
-            
 //            Spacer()
         }
+    }
+}
+
+struct SettingsView_Previews: PreviewProvider {
+    static var previews: some View {
+        SettingsView(model: FlowModel())
     }
 }
 

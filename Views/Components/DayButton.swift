@@ -32,7 +32,6 @@ struct Chevron: View {
     
     var body: some View {
         Image(systemName: image)
-            .foregroundColor(.myBlue)
             .font(Font.system(size: 20))
             .padding(.horizontal, 4)
     }

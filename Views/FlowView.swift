@@ -36,7 +36,6 @@ struct FlowView: View {
         .background(.black.opacity(0.8))
         .background(.ultraThinMaterial)
         .background(AnimatedBlur(opacity: 0.3))
-//        .background(AnimatedBlurOpaque())
     }
     
     // Control Bar
@@ -86,12 +85,28 @@ struct FlowView: View {
             MaterialBackGround()
             VStack(alignment: .center, spacing: 16) {
                 Title(text: "Flow Completed")
-                Text("Total Flow Time: ")
+                HStack {
+                    Text("Total Flow Time: ")
+                        .font(.callout)
                 Text(formatHoursAndMinutes(time: model.totalFlowTime))
                     .foregroundColor(.myBlue)
+                    .font(.headline)
+                }
+                
+                Button {
+                    model.dismissCompleted()
+                } label: {
+                    Text("Continue")
+                        .foregroundColor(.myBlue)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical)
+                        .background(.ultraThinMaterial.opacity(0.55))
+                        .cornerRadius(30)
+                        .padding(.top, 16)
+                }
             }
             .customGlass()
-            .frame(maxWidth: .infinity)
+            .frame(maxWidth: 380)
         }
         .onTapGesture {
             model.dismissCompleted()
@@ -101,12 +116,10 @@ struct FlowView: View {
     var MenuLabel: some View {
         Title2(text: model.flowList[model.selection].title)
             .fontWeight(.light)
-            .accentColor(.myBlue)
     }
     
     var ResetButton: some View {
         Image(systemName: "gobackward")
-            .foregroundColor(.myBlue)
             .font(Font.system(size: 20))
     }
     
@@ -116,7 +129,6 @@ struct FlowView: View {
         } label: {
             Title2(text: model.mode == .breakStart ? "Continue Flow" : "Complete Flow")
                 .fontWeight(.light)
-                .accentColor(.myBlue)
         }
     }
     

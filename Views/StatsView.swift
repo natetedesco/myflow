@@ -54,8 +54,10 @@ struct StatsView: View {
     var WeekCard: some View {
         VStack(alignment: .center, spacing: 16) {
             HStack {
-                FootNote(text: "Daily flow time goal:")
-                FootNote(text: "\(data.goalSelection)h")
+                Text("Daily flow time goal:")
+                    .font(.callout)
+                Text("\(data.goalSelection)h")
+                    .font(.callout)
             }
             
             VStack {
@@ -92,6 +94,18 @@ struct StatsView: View {
         .compositingGroup()
     }
     
+    let curGradient = LinearGradient(
+        gradient: Gradient (
+            colors: [
+                .myBlue.opacity(0.5),
+                .myBlue.opacity(0.2),
+                .myBlue.opacity(0.05),
+           ]
+       ),
+       startPoint: .top,
+       endPoint: .bottom
+   )
+    
     // Month Card
     var MonthCard: some View {
         VStack {
@@ -100,10 +114,11 @@ struct StatsView: View {
                     x: .value("Day", day.day, unit: .day),
                     y: .value("Views", Double(day.time) / 60)
                 )
-                PointMark(
+                AreaMark(
                     x: .value("Day", day.day, unit: .day),
                     y: .value("Views", Double(day.time) / 60)
                 )
+                .foregroundStyle(curGradient)
             }
             .accentColor(.myBlue)
             .frame(height: 120)
@@ -130,8 +145,8 @@ struct StatsView: View {
                 .onTapGesture { showGoal = false
                 }
             VStack {
-                Title3(text: "Daily Flow Time Goal")
-                    .padding()
+                Title2(text: "Daily Flow Time Goal")
+                    
                 
                 ZStack {
                     Picker(selection: $data.goalSelection, label: Text("")) {
@@ -140,12 +155,14 @@ struct StatsView: View {
                         }
                     }
                     .pickerStyle(.wheel)
+                    .padding(-8)
                     
                     Text("Hours")
                         .padding(.leading, 80)
                 }
             }
             .customGlass()
+            .frame(maxWidth: 380)
         }
     }
     
@@ -195,6 +212,5 @@ struct BarGraph: View {
 struct StatsView_Previews: PreviewProvider {
     static var previews: some View {
         StatsView(model: FlowModel())
-            .preferredColorScheme(.dark)
     }
 }

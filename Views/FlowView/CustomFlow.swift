@@ -41,8 +41,9 @@ struct CustomFlow: View {
                 Button(action: addBreakBlock) { AddButtonLabel(title: "Break", color: .gray) }
             }
         }
-        .animation(.easeInOut, value: flow.blocks) // adding blocks
-        .animation(.default, value: edit) // editing blocks
+        .animation(.easeOut.speed(0.5), value: edit) // adding blocks
+//        .animation(.easeOut.speed(0.5), value: edit) // editing blocks
+        
     }
     
     func addFlowBlock() {
@@ -58,7 +59,9 @@ struct CustomFlow: View {
     }
     
     var EditButton: some View {
-        Button { edit.toggle() }
+        Button {
+            edit.toggle()
+        }
         label: {
             Text(edit ? "Done" : "Edit")
                 .foregroundColor(.myBlue)
@@ -73,9 +76,7 @@ struct AddButtonLabel: View {
     var body: some View {
         HStack {
             Image(systemName: "plus")
-                .font(.title3)
-                .padding(12)
-                .background(Circle().fill(.ultraThinMaterial.opacity(0.6)))
+                .CircularGlassButton()
         }
         .foregroundColor(color)
     }

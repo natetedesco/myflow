@@ -42,7 +42,7 @@ struct TimerLabels: View {
     
     var BreakLabel: some View {
         TimerLabel(color: .gray, text: breakLabel)
-            .modifier(AnimatingFontSize(fontSize: model.mode == .breakRunning ? 50 : 30))
+            .modifier(AnimatingFontSize(fontSize: model.mode == .breakRunning ? 60 : 35))
             .scaleEffect(model.mode == .flowRunning ? 0.0 : 1.0)
             .padding(.leading, model.mode == .breakRunning ? 0 : 120)
             .opacity(model.mode == .flowRunning ? 0.0 : 1.0)
@@ -50,7 +50,7 @@ struct TimerLabels: View {
     
     var FlowLabel: some View {
         TimerLabel(color: .myBlue, text: flowLabel)
-            .modifier(AnimatingFontSize(fontSize: model.mode == .flowRunning ? 50 : 30))
+            .modifier(AnimatingFontSize(fontSize: model.mode == .flowRunning ? 60 : 35))
             .scaleEffect(model.mode == .breakRunning ? 0.0 : 1.0)
             .padding(.trailing, model.mode == .flowRunning ? 0 : 120)
             .opacity(model.mode == .breakRunning ? 0.0 : 1.0)

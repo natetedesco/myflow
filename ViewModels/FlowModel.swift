@@ -71,7 +71,6 @@ class FlowModel: ObservableObject {
                 }
                 else {
                     setBreakTime(time: (flow.blocks[0].minutes * 60) + flow.blocks[0].seconds)
-                    mode = .breakStart
                     type = .Break
                 }
             }

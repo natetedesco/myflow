@@ -6,33 +6,8 @@
 
 import SwiftUI
 
-extension View {
-    func buttonGlass() -> some View {
-        self.modifier(ButtonGlassViewModifier())
-    }
-    func smallButtonGlass() -> some View {
-        self.modifier(SmallButtonGlassViewModifier())
-    }
-    func customGlass() -> some View {
-        self.modifier(CustomGlassViewModifier())
-    }
-    func cardGlass() -> some View {
-        self.modifier(CardGlassViewModifier())
-    }
-    func cardGlassNP() -> some View {
-        self.modifier(CardGlassNPViewModifier())
-    }
-    func settingsNavigationView() -> some View {
-        self.modifier(NavigationViewModifier(title: "Settings"))
-    }
-    func statisticsNavigationView() -> some View {
-        self.modifier(NavigationViewModifier(title: "Statistics"))
-    }
-}
-
 struct NavigationViewModifier: ViewModifier {
     var title: String
-    
     func body(content: Content) -> some View {
         content
         .padding(.bottom, 85)
@@ -43,15 +18,27 @@ struct NavigationViewModifier: ViewModifier {
     }
 }
 
+struct CircularGlassButtonViewModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.title3)
+            .padding(12)
+            .background(Circle()
+                .fill(.ultraThinMaterial.opacity(0.55)))
+    }
+}
+
 struct ButtonGlassViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
+        .foregroundColor(.myBlue)
         .padding(.vertical, 8)
         .padding(.horizontal, 12)
         .background(.ultraThinMaterial.opacity(0.55))
         .cornerRadius(30)
     }
 }
+
 struct SmallButtonGlassViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
@@ -95,4 +82,29 @@ struct CardGlassNPViewModifier: ViewModifier {
     }
 }
 
-
+extension View {
+    func buttonGlass() -> some View {
+        self.modifier(ButtonGlassViewModifier())
+    }
+    func smallButtonGlass() -> some View {
+        self.modifier(SmallButtonGlassViewModifier())
+    }
+    func customGlass() -> some View {
+        self.modifier(CustomGlassViewModifier())
+    }
+    func cardGlass() -> some View {
+        self.modifier(CardGlassViewModifier())
+    }
+    func cardGlassNP() -> some View {
+        self.modifier(CardGlassNPViewModifier())
+    }
+    func settingsNavigationView() -> some View {
+        self.modifier(NavigationViewModifier(title: "Settings"))
+    }
+    func statisticsNavigationView() -> some View {
+        self.modifier(NavigationViewModifier(title: "Statistics"))
+    }
+    func CircularGlassButton() -> some View {
+        self.modifier(CircularGlassButtonViewModifier())
+    }
+}
