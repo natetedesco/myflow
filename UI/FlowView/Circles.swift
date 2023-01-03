@@ -40,8 +40,7 @@ struct Circles: View {
                     .blur(radius: 0.5)
             }
         }
-        .animation(.default.speed(0.20), value: model.flowTimeLeft)
-        .animation(.default.speed(0.20), value: model.breakTimeLeft)
+        .animation(.default.speed(0.20), value: [model.flowTimeLeft, model.breakTimeLeft])
         .rotationEffect(.degrees(-90))
         .frame(width: 310)
     }

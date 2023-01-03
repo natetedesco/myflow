@@ -8,10 +8,7 @@ import SwiftUI
 import Charts
 
 struct StatsView: View {
-    @AppStorage("SelectedTab") var selectedTab: Tab = .home
-    @ObservedObject var model: FlowModel
-    @ObservedObject var data = FlowData()
-    @State var showGoal: Bool = false
+    @StateObject var data = FlowData()
     
     var body: some View {
         ZStack {
@@ -30,10 +27,10 @@ struct StatsView: View {
                 }
                 .statisticsNavigationView()
                 .toolbar{ GoalButton }
-                .animation(.easeInOut.speed(2.5), value: showGoal)
+                .animation(.easeInOut.speed(2.5), value: data.showGoal)
             }
-            Toolbar(model: model)
-            if showGoal {
+            Toolbar()
+            if data.showGoal {
                 GoalView
             }
         }
@@ -54,16 +51,14 @@ struct StatsView: View {
     var WeekCard: some View {
         VStack(alignment: .center, spacing: 16) {
             HStack {
-                Text("Daily flow time goal:")
-                    .font(.callout)
-                Text("\(data.goalSelection)h")
-                    .font(.callout)
+                Callout(text: "Daily flow time goal:")
+                Callout(text: "\(data.goalSelection)h")
             }
             
             VStack {
-                ZStack { // make spacing adaptive for larger screens
+                ZStack {
                     HStack(alignment: .center, spacing: 16) {
-                        ForEach(0..<self.data.thisWeekDays.count, id: \.self) { index in
+                        ForEach(data.thisWeekDays) {_ in
                             Rectangle()
                                 .frame(width: 25, height: 60)
                                 .foregroundColor(.white)
@@ -72,19 +67,15 @@ struct StatsView: View {
                     }
                     .blendMode(.destinationOut)
                     HStack(alignment: .center, spacing: 16) {
-                        ForEach(0..<self.data.thisWeekDays.count, id: \.self) { index in
-                            BarGraph(
-                                text: days[index],
-                                color: index == data.dayOfTheWeek ? .myBlue : .gray,
-                                value: (CGFloat(data.thisWeekDays[index].time))
-                            )
+                        ForEach(data.thisWeekDays) { day in
+                            BarGraph(value: (CGFloat(day.time/data.goalSelection)))
                         }
                     }
                 }
                 HStack(alignment: .center, spacing: 16) {
-                    ForEach(0..<self.data.thisWeekDays.count, id: \.self) { index in
-                        FootNote(text: days[index])
-                            .foregroundColor(index == data.dayOfTheWeek ? .myBlue : .gray)
+                    ForEach(0..<self.data.thisWeekDays.count, id: \.self) { i in
+                        FootNote(text: days[i])
+                            .foregroundColor(i == data.dayOfTheWeek ? .myBlue : .gray)
                             .frame(width: 25)
                     }
                 }
@@ -94,17 +85,12 @@ struct StatsView: View {
         .compositingGroup()
     }
     
-    let curGradient = LinearGradient(
-        gradient: Gradient (
-            colors: [
-                .myBlue.opacity(0.5),
-                .myBlue.opacity(0.2),
-                .myBlue.opacity(0.05),
-           ]
-       ),
-       startPoint: .top,
-       endPoint: .bottom
-   )
+    var ClearRectangle: some View {
+        Rectangle()
+            .frame(width: 25, height: 60)
+            .foregroundColor(.white)
+            .cornerRadius(25)
+    }
     
     // Month Card
     var MonthCard: some View {
@@ -128,6 +114,18 @@ struct StatsView: View {
         .cardGlass()
     }
     
+    let curGradient = LinearGradient(
+        gradient: Gradient (
+            colors: [
+                .myBlue.opacity(0.5),
+                .myBlue.opacity(0.2),
+                .myBlue.opacity(0.05),
+           ]
+       ),
+       startPoint: .top,
+       endPoint: .bottom
+   )
+    
     
     // Goal Button
     var GoalButton: some View {
@@ -142,21 +140,18 @@ struct StatsView: View {
     var GoalView: some View {
         ZStack {
             MaterialBackGround()
-                .onTapGesture { showGoal = false
+                .onTapGesture { data.showGoal = false
                 }
             VStack {
                 Title2(text: "Daily Flow Time Goal")
-                    
-                
                 ZStack {
                     Picker(selection: $data.goalSelection, label: Text("")) {
-                        ForEach(0..<hours.count, id: \.self) {
+                        ForEach(1..<hours.count, id: \.self) {
                             Text("\(hours[$0])")
                         }
                     }
                     .pickerStyle(.wheel)
                     .padding(-8)
-                    
                     Text("Hours")
                         .padding(.leading, 80)
                 }
@@ -167,7 +162,7 @@ struct StatsView: View {
     }
     
     func showGoalCard() {
-        showGoal.toggle()
+        data.showGoal.toggle()
     }
 }
 
@@ -186,10 +181,7 @@ struct OverviewLabel: View {
 }
 
 struct BarGraph: View {
-    var text: String = "D"
-    var color: Color = .gray
-    @State var value: CGFloat = 0
-    @AppStorage("GoalTime") var goalSelection: Int = 2
+    var value: CGFloat = 0
     
     var body: some View {
         VStack {
@@ -200,7 +192,7 @@ struct BarGraph: View {
                     .background(.ultraThinMaterial.opacity(0.3))
                 
                 Rectangle()
-                    .frame(width: 25, height: min(CGFloat(self.value)/CGFloat(goalSelection), 60))
+                    .frame(width: 25, height: min(value, 60))
                     .foregroundColor(.myBlue)
             }
             .cornerRadius(25)
@@ -211,6 +203,6 @@ struct BarGraph: View {
 
 struct StatsView_Previews: PreviewProvider {
     static var previews: some View {
-        StatsView(model: FlowModel())
+        StatsView()
     }
 }

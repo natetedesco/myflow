@@ -15,6 +15,7 @@
 		F01962A12931255D00336821 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962A02931255D00336821 /* Helpers.swift */; };
 		F01962B1293184BD00336821 /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962B0293184BD00336821 /* Run.swift */; };
 		F01962B32931EBE700336821 /* Start.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962B22931EBE700336821 /* Start.swift */; };
+		F01CFFDF2964BCEC005C1F2A /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01CFFDE2964BCEC005C1F2A /* Settings.swift */; };
 		F02C146F270FA679002FE382 /* Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C1466270FA679002FE382 /* Toolbar.swift */; };
 		F02C1471270FA679002FE382 /* Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C1468270FA679002FE382 /* Labels.swift */; };
 		F02C1472270FA679002FE382 /* UI Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C1469270FA679002FE382 /* UI Elements.swift */; };
@@ -45,6 +46,7 @@
 		F0A025CC2949020800AF723F /* Date extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A025CB2949020800AF723F /* Date extensions.swift */; };
 		F0BA1E1F28FB7FFB00FCB5A8 /* SwipeDelete.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BA1E1E28FB7FFB00FCB5A8 /* SwipeDelete.swift */; };
 		F0BA1E2128FCBA5900FCB5A8 /* FlowBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BA1E2028FCBA5800FCB5A8 /* FlowBlock.swift */; };
+		F0F510672963953D00CFE3C7 /* FlowDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F0F510652963953D00CFE3C7 /* FlowDataModel.xcdatamodeld */; };
 		F0F7F4232904F0A900BC8E16 /* Waves.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F4222904F0A900BC8E16 /* Waves.swift */; };
 		F0F7F428290E2DF400BC8E16 /* TimerNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F427290E2DF400BC8E16 /* TimerNotifications.swift */; };
 		F0F7F4302911C6CA00BC8E16 /* Complete.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F42F2911C6CA00BC8E16 /* Complete.swift */; };
@@ -82,6 +84,7 @@
 		F01962A02931255D00336821 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		F01962B0293184BD00336821 /* Run.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Run.swift; sourceTree = "<group>"; };
 		F01962B22931EBE700336821 /* Start.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Start.swift; sourceTree = "<group>"; };
+		F01CFFDE2964BCEC005C1F2A /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		F02C1466270FA679002FE382 /* Toolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toolbar.swift; sourceTree = "<group>"; };
 		F02C1468270FA679002FE382 /* Labels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Labels.swift; sourceTree = "<group>"; };
 		F02C1469270FA679002FE382 /* UI Elements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UI Elements.swift"; sourceTree = "<group>"; };
@@ -116,6 +119,8 @@
 		F0BA1E1E28FB7FFB00FCB5A8 /* SwipeDelete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeDelete.swift; sourceTree = "<group>"; };
 		F0BA1E2028FCBA5800FCB5A8 /* FlowBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowBlock.swift; sourceTree = "<group>"; };
 		F0C6CE7426913C240026E415 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		F0F510642963518C00CFE3C7 /* MyFlow.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyFlow.entitlements; sourceTree = "<group>"; };
+		F0F510662963953D00CFE3C7 /* FlowDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FlowDataModel.xcdatamodel; sourceTree = "<group>"; };
 		F0F7F4222904F0A900BC8E16 /* Waves.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Waves.swift; sourceTree = "<group>"; };
 		F0F7F427290E2DF400BC8E16 /* TimerNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerNotifications.swift; sourceTree = "<group>"; };
 		F0F7F42F2911C6CA00BC8E16 /* Complete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Complete.swift; sourceTree = "<group>"; };
@@ -139,6 +144,8 @@
 				F04FFB4B28FF66B30058E66D /* FlowModel.swift */,
 				F04FFB4D28FF67140058E66D /* FlowManager.swift */,
 				F0A025C6294796A500AF723F /* FlowData.swift */,
+				F01CFFDE2964BCEC005C1F2A /* Settings.swift */,
+				F01962A02931255D00336821 /* Helpers.swift */,
 				F04FFB55290339000058E66D /* Timer */,
 				F0A025CA2949019A00AF723F /* Data */,
 				F0FD718728ECD7B9008D9DC1 /* Helpers */,
@@ -149,6 +156,7 @@
 		F01C1D7B26A3874E00C40900 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F0F510652963953D00CFE3C7 /* FlowDataModel.xcdatamodeld */,
 				F0F7F4332911C96E00BC8E16 /* Flow.swift */,
 				F04FFB4228FF2C890058E66D /* Blocks.swift */,
 				F04FFB4628FF326E0058E66D /* Reminders.swift */,
@@ -157,16 +165,13 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		F028E6DE269D406A0022A555 /* Views */ = {
+		F028E6DE269D406A0022A555 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				F074D679271D124900CE1AB4 /* FlowView.swift */,
-				F08315292888A55100153CD7 /* StatsView.swift */,
-				F032564A272251A5009D3EFB /* SettingsView.swift */,
 				F04B500A2852F68C004269DD /* FlowView */,
 				F060E80C284548B600D69C92 /* Components */,
 			);
-			path = Views;
+			path = UI;
 			sourceTree = "<group>";
 		};
 		F04B500A2852F68C004269DD /* FlowView */ = {
@@ -174,7 +179,6 @@
 			children = (
 				F074D677271D100600CE1AB4 /* Circles.swift */,
 				F02C1468270FA679002FE382 /* Labels.swift */,
-				F001C23C28D3C59F00134EB5 /* FlowSheet.swift */,
 				F0391E67295FB95D00CBE03A /* Picker.swift */,
 				F001C24128D7F24100134EB5 /* CustomFlow.swift */,
 				F0BA1E2028FCBA5800FCB5A8 /* FlowBlock.swift */,
@@ -189,7 +193,6 @@
 				F01962B0293184BD00336821 /* Run.swift */,
 				F0F7F42F2911C6CA00BC8E16 /* Complete.swift */,
 				F04FFB5D29033EC70058E66D /* Controls.swift */,
-				F01962A02931255D00336821 /* Helpers.swift */,
 			);
 			path = Timer;
 			sourceTree = "<group>";
@@ -206,17 +209,9 @@
 				F02C146A270FA679002FE382 /* StartButton.swift */,
 				F03358F8294CE8950020E5F3 /* DayButton.swift */,
 				F09861FE26968B4B00A61B42 /* WelcomeView.swift */,
-				F06FB4B7288BABD70068852B /* OtherViews */,
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
-		F06FB4B7288BABD70068852B /* OtherViews */ = {
-			isa = PBXGroup;
-			children = (
 				F0F7F4222904F0A900BC8E16 /* Waves.swift */,
 			);
-			path = OtherViews;
+			path = Components;
 			sourceTree = "<group>";
 		};
 		F0732D0526B63DDD00BA05CF /* Preview Content */ = {
@@ -233,7 +228,11 @@
 				F0948C1726818EE000A5F48D /* MyFlow */,
 				F0899DEA292EA83200A35D4D /* MyFlowApp.swift */,
 				F066923326FB9C3800DB905E /* ContentView.swift */,
-				F028E6DE269D406A0022A555 /* Views */,
+				F074D679271D124900CE1AB4 /* FlowView.swift */,
+				F08315292888A55100153CD7 /* StatsView.swift */,
+				F032564A272251A5009D3EFB /* SettingsView.swift */,
+				F001C23C28D3C59F00134EB5 /* FlowSheet.swift */,
+				F028E6DE269D406A0022A555 /* UI */,
 				F01C1D7B26A3874E00C40900 /* Models */,
 				F018B2B62928263E00FCD857 /* ViewModels */,
 				F0948C1626818EE000A5F48D /* Products */,
@@ -251,6 +250,7 @@
 		F0948C1726818EE000A5F48D /* MyFlow */ = {
 			isa = PBXGroup;
 			children = (
+				F0F510642963518C00CFE3C7 /* MyFlow.entitlements */,
 				F0C6CE7126913C240026E415 /* Frameworks */,
 				F0732D0526B63DDD00BA05CF /* Preview Content */,
 				F0D276FF268D351B008F0002 /* Sounds */,
@@ -388,6 +388,7 @@
 				F0F7F4232904F0A900BC8E16 /* Waves.swift in Sources */,
 				F0899DEB292EA83200A35D4D /* MyFlowApp.swift in Sources */,
 				F0A025C92949014B00AF723F /* GetWeek.swift in Sources */,
+				F01CFFDF2964BCEC005C1F2A /* Settings.swift in Sources */,
 				F04FFB4C28FF66B30058E66D /* FlowModel.swift in Sources */,
 				F0F7F4342911C96E00BC8E16 /* Flow.swift in Sources */,
 				F074D678271D100600CE1AB4 /* Circles.swift in Sources */,
@@ -406,6 +407,7 @@
 				F0BA1E2128FCBA5900FCB5A8 /* FlowBlock.swift in Sources */,
 				F001C23928D3A12100134EB5 /* Modifiers.swift in Sources */,
 				F032564B272251A6009D3EFB /* SettingsView.swift in Sources */,
+				F0F510672963953D00CFE3C7 /* FlowDataModel.xcdatamodeld in Sources */,
 				F0F7F428290E2DF400BC8E16 /* TimerNotifications.swift in Sources */,
 				F0A025CC2949020800AF723F /* Date extensions.swift in Sources */,
 			);
@@ -537,6 +539,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MyFlow/MyFlow.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"MyFlow/Preview Content\"";
 				DEVELOPMENT_TEAM = AMU2LP62W2;
@@ -559,6 +562,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MyFlow/MyFlow.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"MyFlow/Preview Content\"";
 				DEVELOPMENT_TEAM = AMU2LP62W2;
@@ -598,6 +602,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		F0F510652963953D00CFE3C7 /* FlowDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F0F510662963953D00CFE3C7 /* FlowDataModel.xcdatamodel */,
+			);
+			currentVersion = F0F510662963953D00CFE3C7 /* FlowDataModel.xcdatamodel */;
+			path = FlowDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = F0948C0D26818EE000A5F48D /* Project object */;
 }

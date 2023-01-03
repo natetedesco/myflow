@@ -7,14 +7,9 @@
 import SwiftUI
 
 struct ContentView: View {
-    @AppStorage("welcomeScreenShown") var welcomeScreenShown: Bool = false
-    @AppStorage("ShowToolBar") var showToolBar = true
     @AppStorage("SelectedTab") var selectedTab: Tab = .home
-    @StateObject var model = FlowModel()
-    @State var showWelcome = true
     
     init() {
-        showToolBar = true
         selectedTab = .home
     }
     
@@ -23,23 +18,13 @@ struct ContentView: View {
             switch selectedTab {
                 
             case .home:
-                ZStack {
-                    FlowView(model: model)
-//                        .onTapGesture {
-//                            welcomeScreenShown = false
-//                        }
-                        
-                    if !welcomeScreenShown {
-                        MaterialBackGround()
-                        WelcomeScreen()
-                    }
-                }
+                FlowView()
                 
             case .settings:
-                    SettingsView(model: model)
+                SettingsView()
                 
             case .data:
-                    StatsView(model: model)
+                StatsView()
             }
         }
         .onAppear { UNUserNotificationCenter.current()

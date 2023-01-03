@@ -14,20 +14,19 @@ struct CustomFlow: View {
     @State var dragging = false // disables all textfields
     @State var edit = false
     
+    @Binding var pickTime: Bool
+    
     var body: some View {
         VStack {
             
             // Flow Blocks
             VStack {
-                ForEach(0..<self.$flow.blocks.count, id: \.self) { index in
-                    FlowBlock(block: $flow.blocks[index], flow: $flow, edit: $edit, dragging: $dragging
-                    )
-                    .opacity(flow.blocks[index].id == draggingItem?.id && dragging ? 0.01 : 1)
-                    .drag(if: flow.blocks[index].draggable) {
-                        draggingItem = flow.blocks[index]
-                        return NSItemProvider(contentsOf: URL(string: "\(flow.blocks[index].id)"))!
-                    }
-                    .onDrop(of: [.item], delegate: DropViewDelegate(currentItem: flow.blocks[index], items: $flow.blocks, draggingItem: $draggingItem, dragging: $dragging))
+                ForEach($flow.blocks) { $block in
+                    FlowBlock(block: $block, flow: $flow, edit: $edit, dragging: $dragging, pickTime: $pickTime)
+                    .opacity(block.id == draggingItem?.id && dragging ? 0.01 : 1)
+                    .drag(if: block.draggable) { draggingItem = block
+                        return NSItemProvider(contentsOf: URL(string: "\(block.id)"))!}
+                    .onDrop(of: [.item], delegate: DropViewDelegate(currentItem: block, items: $flow.blocks, draggingItem: $draggingItem, dragging: $dragging))
                 }
             }
             .padding(.bottom)
@@ -41,9 +40,8 @@ struct CustomFlow: View {
                 Button(action: addBreakBlock) { AddButtonLabel(title: "Break", color: .gray) }
             }
         }
-        .animation(.easeOut.speed(0.5), value: edit) // adding blocks
-//        .animation(.easeOut.speed(0.5), value: edit) // editing blocks
-        
+        .animation(.easeOut.speed(1.0), value: edit) // adding blocks
+        .animation(.easeOut.speed(1.5), value: pickTime) // make custom
     }
     
     func addFlowBlock() {

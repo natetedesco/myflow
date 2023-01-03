@@ -4,9 +4,13 @@
 //  Created by Nate Tedesco on 11/1/22.
 //
 
+import Foundation
 import SwiftUI
+import CloudKit
 
-struct Flow: Codable, Hashable, Identifiable {
+
+struct Flow: Codable, Equatable {
+    
     var id = UUID()
     var new = false
     var title: String = ""

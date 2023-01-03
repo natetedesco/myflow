@@ -89,6 +89,14 @@ struct FootNote: View {
     }
 }
 
+struct Callout: View {
+    var text: String
+    var body: some View {
+        Text(text)
+            .font(.callout)
+    }
+}
+
 struct BackGround: View {
     var body: some View {
         LinearGradient(gradient: Gradient(colors: [Color.darkBackground, Color.darkBackground]), startPoint:

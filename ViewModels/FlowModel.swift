@@ -6,12 +6,12 @@
 
 import Foundation
 import SwiftUI
+import CoreData
 
 class FlowModel: ObservableObject {
-    @AppStorage("StartFlowAutomatically") var startFlowAutomatically: Bool = false
-    @AppStorage("StartBreakAutomatically") var startBreakAutomatically: Bool = false
-    var notifications = NotificationManager()
     var data = FlowData()
+    var settings = Settings()
+    var notifications = NotificationManager()
     var start = Date()
     var timer = Timer()
     
@@ -31,6 +31,7 @@ class FlowModel: ObservableObject {
     @Published var breakTimeLeft: Int = 0
     @Published var blocksCompleted: Int = 0
     @Published var completed = false
+    @Published var showFlow = false
     
     @Published var flowList: [Flow] { didSet { Initialize() } }
     @Published var selection = 0 { didSet { Initialize() } }
@@ -45,23 +46,65 @@ class FlowModel: ObservableObject {
         }
         flowList = [
             Flow(title: "Flow", flowMinutes: 20, breakMinutes: 5, rounds: 5),
-            Flow(title: "Study", flowMinutes: 10, breakMinutes: 10),
-            Flow(title: "Exercise")]
+            Flow(title: "Workout", flowMinutes: 1, breakSeconds: 10)]
         Initialize()
     }
     
+    // Add Flow
+    func addFlow(flow: Flow) {
+        flowList.append(updateFlow(flow: flow))
+        save()
+    }
+
+    // Edit Flow
+    func editFlow(id: UUID, flow: Flow) {
+        if let updatedFlow = flowList.first(where: {$0.id == id}) {
+            let index = flowList.firstIndex(of: updatedFlow)
+            flowList[index!] = updateFlow(flow: flow)
+        }
+        save()
+    }
+    
+    // Delete Flow
+    func deleteFlow(id: UUID) {
+        if let index = flowList.firstIndex(where: { $0.id == id }) {
+            self.selection = 0 // select first in list
+                flowList.remove(at: index)
+                save()
+        }
+    }
+    
+    // Save
+    func save() {
+        if let encoded = try? JSONEncoder().encode(flowList) {
+            UserDefaults.standard.set(encoded, forKey: "SavedData")
+        }
+    }
+    
+    // update Flow
+    func updateFlow(flow: Flow) -> Flow {
+        let changedFlow = Flow(
+            
+        title: flow.title,
+        simple: flow.simple,
+        blocks: flow.blocks,
+        
+        flowMinutes: flow.flowMinutes,
+        flowSeconds: flow.flowSeconds,
+        breakMinutes: flow.breakMinutes,
+        breakSeconds: flow.breakSeconds,
+        rounds: flow.rounds)
+    
+        return changedFlow
+    }
+    
     func Initialize() {
-        flow = flowList[selection]
         mode = .Initial
-        flow.simple ? setSimple() : setCustom()
-        elapsedTime = 0
-        roundsCompleted = 0
-        blocksCompleted = 0
+        setFlow()
+        setMode()
         
         if flowMode == .Simple {
-            setFlowTime(time: (flow.flowMinutes * 60) + flow.flowSeconds )
-            setBreakTime(time: (flow.breakMinutes * 60) + flow.breakSeconds)
-            roundsSet = flow.rounds // Add if rounds asp
+            setSimpleFlow()
         }
         if flowMode == .Custom {
             if flow.blocks.indices.contains(0) {
@@ -79,6 +122,9 @@ class FlowModel: ObservableObject {
                 type = .Flow
             }
         }
+        elapsedTime = 0
+        roundsCompleted = 0
+        blocksCompleted = 0
     }
 }
 

@@ -6,15 +6,24 @@
 
 import SwiftUI
 
+struct FlowViewBackGroundModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .background(.black.opacity(0.8))
+            .background(.ultraThinMaterial)
+            .background(AnimatedBlur(opacity: 0.3))
+    }
+}
+
 struct NavigationViewModifier: ViewModifier {
     var title: String
     func body(content: Content) -> some View {
         content
-        .padding(.bottom, 85)
-        .background(.black.opacity(0.6))
-        .background(.ultraThinMaterial)
-        .background(AnimatedBlur(opacity: 0.3))
-        .navigationTitle(title)
+            .padding(.bottom, 85)
+            .background(.black.opacity(0.6))
+            .background(.ultraThinMaterial)
+            .background(AnimatedBlur(opacity: 0.3))
+            .navigationTitle(title)
     }
 }
 
@@ -31,11 +40,11 @@ struct CircularGlassButtonViewModifier: ViewModifier {
 struct ButtonGlassViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-        .foregroundColor(.myBlue)
-        .padding(.vertical, 8)
-        .padding(.horizontal, 12)
-        .background(.ultraThinMaterial.opacity(0.55))
-        .cornerRadius(30)
+            .foregroundColor(.myBlue)
+            .padding(.vertical, 8)
+            .padding(.horizontal, 12)
+            .background(.ultraThinMaterial.opacity(0.55))
+            .cornerRadius(30)
     }
 }
 
@@ -89,6 +98,10 @@ extension View {
     func smallButtonGlass() -> some View {
         self.modifier(SmallButtonGlassViewModifier())
     }
+    func CircularGlassButton() -> some View {
+        self.modifier(CircularGlassButtonViewModifier())
+    }
+    
     func customGlass() -> some View {
         self.modifier(CustomGlassViewModifier())
     }
@@ -98,13 +111,15 @@ extension View {
     func cardGlassNP() -> some View {
         self.modifier(CardGlassNPViewModifier())
     }
+    
     func settingsNavigationView() -> some View {
         self.modifier(NavigationViewModifier(title: "Settings"))
     }
     func statisticsNavigationView() -> some View {
         self.modifier(NavigationViewModifier(title: "Statistics"))
     }
-    func CircularGlassButton() -> some View {
-        self.modifier(CircularGlassButtonViewModifier())
+    
+    func FlowViewBackGround() -> some View {
+        self.modifier(FlowViewBackGroundModifier())
     }
 }

@@ -7,20 +7,12 @@
 import SwiftUI
 
 struct FlowView: View {
-    @ObservedObject var model: FlowModel
-    @State var showFlow = false
-    @State var preselectedIndex = 0
+    @StateObject var model = FlowModel()
+    @State var disable = false
     
     var body: some View {
-        
         ZStack {
-            Button(action: editFlow) {
-                ZStack {
-                    Circles(model: model)
-                    TimerLabels(model: model)
-                }
-            }
-            .disabled(model.mode != .Initial)
+            FlowCenter
             
             ControlBar
             
@@ -29,47 +21,52 @@ struct FlowView: View {
             if model.completed {
                 FlowCompleted
             }
-            if showFlow {
-                FlowSheet(model: model, flow: $model.flow, showFlow: $showFlow)
+            if model.showFlow {
+                FlowSheet(model: model, flow: $model.flow)
             }
         }
-        .background(.black.opacity(0.8))
-        .background(.ultraThinMaterial)
-        .background(AnimatedBlur(opacity: 0.3))
+        .FlowViewBackGround()
+    }
+    
+    var FlowList: some View {
+        Picker("", selection: $model.selection) {
+            ForEach(0..<$model.flowList.count, id: \.self) { i in
+                Text(model.flowList[i].title)
+            }
+        }
+    }
+    
+    var FlowCenter: some View {
+        Button(action: editFlow) {
+            ZStack {
+                Circles(model: model)
+                TimerLabels(model: model)
+            }
+        }
+        .disabled(model.mode != .Initial)
+        .disabled(disable)
     }
     
     // Control Bar
     var ControlBar: some View {
         ZStack {
-            if showContinueButton {
+            if Continue {
                 ContinueButton
-            }
-            
-            else if showFlowMenu {
+            } else if showFlowMenu {
                 Menu {
-                    Button(action: createFlow) { Label("Create", systemImage: "plus") }
-                        .disabled(model.mode != .Initial)
-                    
-                    Button(action: editFlow) { Label("Edit", systemImage: "pencil") }
-                        .disabled(model.mode != .Initial)
-                    
-                    Picker(selection: $model.selection) {
-                        ForEach(0..<$model.flowList.count, id: \.self) { index in
-                            Text(model.flowList[index].title)
-                        }
-                    } label:{}
-                        .disabled(model.mode != .Initial)
+                    CreateFlowButton
+                    EditFlowButton
+                    FlowList
                 }
-            label: { MenuLabel }
-            }
-            
-            else {
+            label: {
+                MenuLabel
+            }} else {
+                // Control Bar
                 HStack(spacing: 60) {
                     Button(action: model.Restart) { Chevron(image: "chevron.left") }
-                    Button(action: model.Reset) { ResetButton }
+                    ResetButton
                     Button(action: model.Skip) { Chevron(image: "chevron.right") }
                 }
-                .cornerRadius(30)
             }
         }
         .buttonGlass()
@@ -77,6 +74,11 @@ struct FlowView: View {
         .padding(.top)
         .animation(.easeInOut(duration: 0.15), value: model.mode)
         .animation(.easeInOut(duration: 0.15), value: model.flowList)
+    }
+    
+    var MenuLabel: some View {
+        Title2(text: model.flow.title)
+            .fontWeight(.light)
     }
     
     // Flow Completed
@@ -113,14 +115,23 @@ struct FlowView: View {
         }
     }
     
-    var MenuLabel: some View {
-        Title2(text: model.flowList[model.selection].title)
-            .fontWeight(.light)
+    var CreateFlowButton: some View {
+        Button(action: createFlow) {
+            Label("Create", systemImage: "plus")
+        }
+    }
+    
+    var EditFlowButton: some View {
+        Button(action: editFlow) {
+            Label("Edit", systemImage: "pencil")
+        }
     }
     
     var ResetButton: some View {
+        Button(action: model.Reset) {
         Image(systemName: "gobackward")
             .font(Font.system(size: 20))
+        }
     }
     
     var ContinueButton: some View {
@@ -134,16 +145,14 @@ struct FlowView: View {
     
     func createFlow() {
         model.flow = Flow(new: true)
-        showFlow = true
+        model.showFlow = true
     }
     
     func editFlow() {
-        model.flow = model.flowList[model.selection]
-        showFlow = true
-        //        showToolBar = false
+        model.showFlow = true
     }
     
-    var showContinueButton: Bool {
+    var Continue: Bool {
         if model.mode == .breakStart || model.flowContinue {
             return true
         }

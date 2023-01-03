@@ -8,11 +8,26 @@ import Foundation
 
 extension FlowModel {
     
-    func setSimple() {
-        flowMode = .Simple
+    func setFlow() {
+        if flowList.count != 0 {
+            self.flow = flowList[selection]
+        } else {
+            self.flow = Flow(new: true, title: "Flow")
+        }
     }
-    func setCustom() {
-        flowMode = .Custom
+    
+    func setMode() {
+        if flow.simple {
+            flowMode = .Simple
+        } else {
+            flowMode = .Custom
+        }
+    }
+    
+    func setSimpleFlow() {
+        setFlowTime(time: (flow.flowMinutes * 60) + flow.flowSeconds )
+        setBreakTime(time: (flow.breakMinutes * 60) + flow.breakSeconds)
+        roundsSet = flow.rounds // Add if rounds asp
     }
     
     // Set Flow Time
@@ -60,10 +75,10 @@ extension FlowModel {
     // Start Automatically
     func ifStartAutomatically() {
         if type == .Break { // set initial values for labels(only break)
-            if startFlowAutomatically { startFlow() }
+            if settings.startFlowAutomatically { startFlow() }
         }
         if type == .Flow {
-            if startBreakAutomatically { startBreak() }
+            if settings.startBreakAutomatically { startBreak() }
         }
     }
     

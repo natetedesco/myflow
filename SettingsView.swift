@@ -7,11 +7,8 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @ObservedObject var model: FlowModel
-    @AppStorage("SelectedTab") var selectedTab: Tab = .home
-    @AppStorage("StartFlowAutomatically") var startFlowAutomatically: Bool = false
-    @AppStorage("StartBreakAutomatically") var startBreakAutomatically: Bool = false
-    
+    @StateObject var settings = Settings()
+
     var body: some View {
         ZStack {
             NavigationView {
@@ -20,16 +17,15 @@ struct SettingsView: View {
                     // Flows
                     CustomHeadline(text: "Flow")
                     VStack {
-                        ToggleBar(text: "Start flow automatically", isOn: $startFlowAutomatically)
+                        ToggleBar(text: "Start flow automatically", isOn: $settings.startFlowAutomatically)
                         Div
                             .padding(.vertical, 2)
-                        ToggleBar(text: "Start break automatically", isOn: $startBreakAutomatically)
+                        ToggleBar(text: "Start break automatically", isOn: $settings.startBreakAutomatically)
                     }
                     .padding(.vertical, 12)
                     .background(.black.opacity(0.6))
                     .cornerRadius(25.0)
                     .padding(.horizontal)
-//                    .cardGlassNP()
                     
                     // About
                     CustomHeadline(text: "About")
@@ -47,7 +43,7 @@ struct SettingsView: View {
                 .settingsNavigationView()
             }
             .accentColor(.myBlue)
-            Toolbar(model: model)
+            Toolbar()
         }
     }
     
@@ -198,7 +194,7 @@ struct Feedback: View {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView(model: FlowModel())
+        SettingsView()
     }
 }
 

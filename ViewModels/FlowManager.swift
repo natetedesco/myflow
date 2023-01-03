@@ -5,59 +5,34 @@
 //
 
 import Foundation
+import CloudKit
 
-extension FlowModel {
+class TimerManager: ObservableObject {
+    var data = FlowData()
+    var settings = Settings()
+    var notifications = NotificationManager()
     
-    // Add Flow
-    func addFlow(flow: Flow) {
-        flowList.append(updateFlow(flow: flow))
-        save()
-    }
+    var start = Date()
+    var timer = Timer()
+    @Published var flow = Flow()
     
-    // Edit Flow
-    func editFlow(id: UUID, flow: Flow) {
-        if let updatedFlow = flowList.first(where: {$0.id == id}) {
-            let index = flowList.firstIndex(of: updatedFlow)
-            flowList[index!] = updateFlow(flow: flow)
-        }
-        save()
-    }
+    @Published var flowTime: Int = 0
+    @Published var flowTimeLeft: Int = 0
     
-    // Move Flow
-    func moveFlow(from source : IndexSet, to destination : Int) {
-        flowList.move(fromOffsets: source, toOffset: destination)
-    }
+    @Published var breakTime: Int = 0
+    @Published var breakTimeLeft: Int = 0
     
-    // Delete Flow
-    func deleteFlow(id: UUID) {
-        if let index = flowList.firstIndex(where: { $0.id == id }) {
-            self.selection = 0 // select first in list when flow is deleted, avoid crash
-            flowList.remove(at: index)
-            save()
-        }
-    }
+    @Published var roundsSet: Int = 0
+    @Published var roundsCompleted: Int = 0
+    @Published var blocksCompleted: Int = 0
     
-    // Save
-    func save() {
-        if let encoded = try? JSONEncoder().encode(flowList) {
-            UserDefaults.standard.set(encoded, forKey: "SavedData")
-        }
-    }
+    @Published var elapsedTime = 0
+    @Published var totalFlowTime: Int = 0
+    @Published var flowContinue = false
+    @Published var completed = false
+    @Published var showFlow = false
     
-    // update Flow
-    func updateFlow(flow: Flow) -> Flow {
-        let changedFlow = Flow(
-            
-        title: flow.title,
-        simple: flow.simple,
-        blocks: flow.blocks,
-        
-        flowMinutes: flow.flowMinutes,
-        flowSeconds: flow.flowSeconds,
-        breakMinutes: flow.breakMinutes,
-        breakSeconds: flow.breakSeconds,
-        rounds: flow.rounds)
-    
-        return changedFlow
-    }
+    @Published var mode: TimerMode = .Initial
+    @Published var type: FlowType = .Flow
+    @Published var flowMode: FlowMode = .Simple
 }

@@ -9,6 +9,8 @@ import Foundation
 
 class FlowData: ObservableObject {
     @AppStorage("GoalTime") var goalSelection: Int = 2
+    @Published var showGoal: Bool = false
+    
     @Published var days: [Day] = []
     
     let date = Date()

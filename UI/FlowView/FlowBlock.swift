@@ -11,18 +11,17 @@ struct FlowBlock: View {
     @Binding var flow: Flow
     @Binding var edit: Bool
     @Binding var dragging: Bool
+    @Binding var pickTime: Bool
     
     var body: some View {
         let blockTime = [$block.minutes, $block.seconds]
         
         ZStack {
-            
             Button {
-                selectTime()
+                block.pickTime.toggle()
+                pickTime.toggle()
             } label: {
-                VStack {
-            
-                }
+                VStack {}
                 .frame(maxWidth: .infinity, minHeight: (block.flow ? 70 : 35) + (block.pickTime ? 150 : 0))
                 .background(block.flow ? Color.myBlue.opacity(0.15) : Color.gray.opacity(0.15))
                 .cornerRadius(10)
@@ -30,24 +29,19 @@ struct FlowBlock: View {
                     .fill(block.flow ? Color.myBlue.opacity(0.75) : Color.gray.opacity(0.75))
                     .mask(HStack { Rectangle().frame(width: 6); Spacer()}))
             }
-            
             VStack {
                 HStack {
                     BlockTextField
-                    
                     BlockTimeLabel
-
                     DeleteButton
                 }
                 if block.pickTime {
                     MultiComponentPicker(columns: columns, selections: blockTime)
                 }
             }
+            .animation(.easeOut.speed(1.5), value: block.pickTime) // make custom
         }
-        .animation(.easeInOut.speed(0.1), value: block.pickTime) // make custom
     }
-    
-    // stuck on these animations
     
     var BlockTextField: some View {
             TextField(block.flow ? "Flow" : "Break", text: $block.title)
@@ -84,8 +78,6 @@ struct FlowBlock: View {
     }
     
     func selectTime() {
-        block.draggable.toggle()
-        block.pickTime.toggle()
     }
 }
 

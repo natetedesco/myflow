@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct Toolbar: View {
-    @ObservedObject var model: FlowModel
+    @ObservedObject var model: FlowModel = FlowModel()
     @AppStorage("SelectedTab") var selectedTab: Tab = .home
     
     var body: some View {

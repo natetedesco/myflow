@@ -8,15 +8,17 @@ import SwiftUI
 
 struct FlowSheet: View {
     @ObservedObject var model: FlowModel
+    @FocusState var focusedField: Field?
+    @State var pickTime = false
     @Binding var flow: Flow
-    @Binding var showFlow: Bool
-    @State var chooseFlow = false
-    @State var chooseBreak = false
-    @State var chooseRound = false
     @State var startAnimation = false
     @State var endAnimation = false
     @State var preventCrash = false
-    @FocusState var focusedField: Field?
+    
+    @State var chooseFlow = false
+    @State var chooseBreak = false
+    @State var chooseRound = false
+    
     
     var body: some View {
         let flowTime = (flow.flowMinutes * 60) + flow.flowSeconds
@@ -67,7 +69,7 @@ struct FlowSheet: View {
                         .padding(.bottom, 4)
                 }
                 if !flow.simple {
-                    CustomFlow(flow: $flow)
+                    CustomFlow(flow: $flow, pickTime: $pickTime)
                 }
             }
             .customGlass()
@@ -78,6 +80,7 @@ struct FlowSheet: View {
             .opacity(!endAnimation ? 1.0 : 0.0)
             .animation(.default.speed(2.0), value: endAnimation)
             .animation(.default.speed(1.0), value: preventCrash)
+            .animation(.easeOut.speed(1.5), value: pickTime) // make custom
         }
         .onAppear {
             startAnimation.toggle()
@@ -134,7 +137,7 @@ struct FlowSheet: View {
     }
     
     func Delete() {
-        showFlow = false;
+        model.showFlow = false;
         preventCrashFunc()
         model.deleteFlow(id: flow.id)
     }
@@ -162,7 +165,7 @@ struct FlowSheet: View {
         preventCrashFunc()
         endAnimation.toggle()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            showFlow = false;
+            model.showFlow = false;
             if flow.new {
                 model.addFlow(flow: flow)
                 model.selection = (model.flowList.count - 1)
@@ -248,9 +251,12 @@ struct PickerView: View {
         
         GeometryReader { geometry in
             Picker(selection: $selection, label: Text("")) {
-                ForEach(0..<unit.count, id: \.self) {
-                    Text("\(unit[$0]) \(label)")
+                ForEach(unit, id: \.self) { unit in
+                    Text("\(unit) \(label)")
                 }
+//                ForEach(0..<unit.count, id: \.self) {
+//                    Text("\(unit[$0]) \(label)")
+//                }
             }
             .pickerStyle(.wheel)
 //            .frame(width: geometry.size.width, height: geometry.size.height)
@@ -334,7 +340,7 @@ struct SizePreferenceKey: PreferenceKey {
     typealias Value = CGSize
     static var defaultValue: CGSize = .zero
     static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
-        value = nextValue()
+//        value = nextValue()
     }
 }
 struct BackgroundGeometryReader: View {
