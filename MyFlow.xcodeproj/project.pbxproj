@@ -25,7 +25,6 @@
 		F03358F9294CE8950020E5F3 /* DayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03358F8294CE8950020E5F3 /* DayButton.swift */; };
 		F0391314285EBF860074CF33 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0391313285EBF860074CF33 /* Format.swift */; };
 		F0391317285FA0990074CF33 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0391316285FA0990074CF33 /* Haptics.swift */; };
-		F0391E68295FB95D00CBE03A /* Picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0391E67295FB95D00CBE03A /* Picker.swift */; };
 		F04FFB4328FF2C890058E66D /* Blocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB4228FF2C890058E66D /* Blocks.swift */; };
 		F04FFB4728FF326E0058E66D /* Reminders.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB4628FF326E0058E66D /* Reminders.swift */; };
 		F04FFB4C28FF66B30058E66D /* FlowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB4B28FF66B30058E66D /* FlowModel.swift */; };
@@ -93,7 +92,6 @@
 		F03358F8294CE8950020E5F3 /* DayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayButton.swift; sourceTree = "<group>"; };
 		F0391313285EBF860074CF33 /* Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Format.swift; sourceTree = "<group>"; };
 		F0391316285FA0990074CF33 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
-		F0391E67295FB95D00CBE03A /* Picker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picker.swift; sourceTree = "<group>"; };
 		F04FFB4228FF2C890058E66D /* Blocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blocks.swift; sourceTree = "<group>"; };
 		F04FFB4628FF326E0058E66D /* Reminders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminders.swift; sourceTree = "<group>"; };
 		F04FFB4B28FF66B30058E66D /* FlowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowModel.swift; sourceTree = "<group>"; };
@@ -176,7 +174,6 @@
 			children = (
 				F074D677271D100600CE1AB4 /* Circles.swift */,
 				F02C1468270FA679002FE382 /* Labels.swift */,
-				F0391E67295FB95D00CBE03A /* Picker.swift */,
 				F001C24128D7F24100134EB5 /* CustomFlow.swift */,
 				F0BA1E2028FCBA5800FCB5A8 /* FlowBlock.swift */,
 			);
@@ -388,7 +385,6 @@
 				F04FFB4C28FF66B30058E66D /* FlowModel.swift in Sources */,
 				F0F7F4342911C96E00BC8E16 /* Flow.swift in Sources */,
 				F074D678271D100600CE1AB4 /* Circles.swift in Sources */,
-				F0391E68295FB95D00CBE03A /* Picker.swift in Sources */,
 				F02C1473270FA679002FE382 /* StartButton.swift in Sources */,
 				F014A05D293AA67300B9D7D4 /* Data.swift in Sources */,
 				F083152A2888A55100153CD7 /* StatsView.swift in Sources */,

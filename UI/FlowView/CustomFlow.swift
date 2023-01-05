@@ -11,7 +11,6 @@ struct CustomFlow: View {
     @State var draggingItem: Block?
     @State var dragging = false
     @State var edit = false
-    @Binding var pickTime: Bool
     
     var body: some View {
         VStack {
@@ -19,12 +18,12 @@ struct CustomFlow: View {
             // Blocks
             VStack {
                 ForEach($flow.blocks) { $block in
-                    FlowBlock(block: $block, flow: $flow, edit: $edit, dragging: $dragging, pickTime: $pickTime)
+                    FlowBlock(block: $block, flow: $flow, edit: $edit, dragging: $dragging)
                     .opacity(block.id == draggingItem?.id && dragging ? 0.01 : 1)
                     .drag(if: block.draggable) { draggingItem = block
                         return NSItemProvider(contentsOf: URL(string: "\(block.id)"))!}
                     .onDrop(of: [.item], delegate: DropViewDelegate(currentItem: block, items: $flow.blocks, draggingItem: $draggingItem, dragging: $dragging))
-                    .animation(.easeOut.speed(1.5), value: pickTime) // make custom
+                    .padding(.vertical, -1)
                 }
             }
             .padding(.bottom)
@@ -38,7 +37,6 @@ struct CustomFlow: View {
                 Button(action: addBreakBlock) { AddButtonLabel(title: "Break", color: .gray) }
             }
         }
-        .animation(.easeOut.speed(1.5), value: pickTime) // make custom
         .animation(.easeOut.speed(1.0), value: edit) // adding blocks
     }
     

@@ -20,19 +20,24 @@ struct TimerLabels: View {
             
             // Simple
             if model.flowMode == .Simple {
-                HStack {
+                HStack(alignment: .center) {
                     if model.mode != .breakRunning {
                         FlowLabel
+                            .frame(maxWidth: 110)
+//                            .padding(.trailing, 16)
                     }
                     if model.mode == .Initial || model.mode == .flowPaused || model.mode == .breakPaused
                         || model.mode == .flowStart || model.mode == .breakStart {
                         Spacer()
-                            .frame(width: 40)
+                            .frame(width: 28)
                     }
                     if model.mode != .flowRunning {
                         BreakLabel
+                            .frame(maxWidth: 110)
+//                            .padding(.leading, 16)
+
                     }
-                }
+                }.frame(maxWidth: .infinity)
                 
                 // Rounds
                 HStack {
@@ -47,6 +52,7 @@ struct TimerLabels: View {
                         }
                     }
                 }
+                .padding(.top, 100)
             }
         }
         .animation(.easeInOut(duration: 0.3), value: model.mode)
@@ -95,7 +101,6 @@ struct RoundCircle: View {
             .frame(width: 10, height: 10)
             .foregroundColor(.gray.opacity(0.3))
             .padding(1)
-            .padding(.top, 100)
     }
 }
 
@@ -123,4 +128,17 @@ struct AnimatingFontSize: AnimatableModifier {
     func body(content: Self.Content) -> some View {
         content.font(.system(size: self.fontSize))
     }
+}
+
+extension HorizontalAlignment {
+
+    // A custom horizontal alignment to custom align views horizontally
+    private struct CustomHorizontalAlignment: AlignmentID {
+        static func defaultValue(in context: ViewDimensions) -> CGFloat {
+            // Default to center alignment if no guides are set
+            context[VerticalAlignment.center]
+        }
+    }
+
+    static let customHorizontalAlignment = HorizontalAlignment(CustomHorizontalAlignment.self)
 }

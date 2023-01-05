@@ -37,15 +37,15 @@ class FlowModel: ObservableObject {
     @Published var selection = 0 { didSet { Initialize() } }
     
     init() {
-        if let data = UserDefaults.standard.data(forKey: "SavedData") {
-            if let decoded = try? JSONDecoder().decode([Flow].self, from: data) {
-                flowList = decoded
-                Initialize()
-                return
-            }
-        }
+//        if let data = UserDefaults.standard.data(forKey: "SavedData") {
+//            if let decoded = try? JSONDecoder().decode([Flow].self, from: data) {
+//                flowList = decoded
+//                Initialize()
+//                return
+//            }
+//        }
         flowList = [
-            Flow(title: "Flow", flowMinutes: 20, breakMinutes: 5, rounds: 5),
+            Flow(title: "Flow", flowSeconds: 5, breakSeconds: 5, rounds: 5),
             Flow(title: "Workout", flowMinutes: 1, breakSeconds: 10)]
         Initialize()
     }

@@ -85,8 +85,8 @@ struct StatsView: View {
     var WeekCard: some View {
         VStack(alignment: .center, spacing: 16) {
             HStack {
-                Callout(text: "Daily flow time goal:")
-                Callout(text: "\(data.goalSelection)h")
+                FootNote(text: "Daily flow time goal:")
+                SubHeadline(text: "\(data.goalSelection)h")
             }
             
             VStack {
@@ -141,7 +141,7 @@ struct StatsView: View {
                 .foregroundStyle(curGradient)
             }
             .accentColor(.myBlue)
-            .frame(height: 120)
+            .frame(height: 130)
             .padding(.top, 8)
             .padding(.horizontal, 8)
         }
