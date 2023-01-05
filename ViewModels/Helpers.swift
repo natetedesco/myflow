@@ -72,15 +72,7 @@ extension FlowModel {
         return "custom"
     }
     
-    // Start Automatically
-    func ifStartAutomatically() {
-        if type == .Break { // set initial values for labels(only break)
-            if settings.startFlowAutomatically { startFlow() }
-        }
-        if type == .Flow {
-            if settings.startBreakAutomatically { startBreak() }
-        }
-    }
+
     
     // Set Modes
     func setFlowStart() {

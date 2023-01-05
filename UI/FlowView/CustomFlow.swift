@@ -4,22 +4,19 @@
 //  Created by Nate Tedesco on 9/18/22.
 //
 
-// replace edit with done when editing
-
 import SwiftUI
 
 struct CustomFlow: View {
     @Binding var flow: Flow
     @State var draggingItem: Block?
-    @State var dragging = false // disables all textfields
+    @State var dragging = false
     @State var edit = false
-    
     @Binding var pickTime: Bool
     
     var body: some View {
         VStack {
             
-            // Flow Blocks
+            // Blocks
             VStack {
                 ForEach($flow.blocks) { $block in
                     FlowBlock(block: $block, flow: $flow, edit: $edit, dragging: $dragging, pickTime: $pickTime)
@@ -27,11 +24,12 @@ struct CustomFlow: View {
                     .drag(if: block.draggable) { draggingItem = block
                         return NSItemProvider(contentsOf: URL(string: "\(block.id)"))!}
                     .onDrop(of: [.item], delegate: DropViewDelegate(currentItem: block, items: $flow.blocks, draggingItem: $draggingItem, dragging: $dragging))
+                    .animation(.easeOut.speed(1.5), value: pickTime) // make custom
                 }
             }
             .padding(.bottom)
             
-            // Edit Buttons
+            // Edit
             HStack {
                 Button(action: addFlowBlock) { AddButtonLabel(title: "Flow", color: .myBlue) }
                 Spacer()
@@ -40,8 +38,8 @@ struct CustomFlow: View {
                 Button(action: addBreakBlock) { AddButtonLabel(title: "Break", color: .gray) }
             }
         }
-        .animation(.easeOut.speed(1.0), value: edit) // adding blocks
         .animation(.easeOut.speed(1.5), value: pickTime) // make custom
+        .animation(.easeOut.speed(1.0), value: edit) // adding blocks
     }
     
     func addFlowBlock() {

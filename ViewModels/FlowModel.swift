@@ -18,12 +18,12 @@ class FlowModel: ObservableObject {
     var flowTime: Int = 0
     var breakTime: Int = 0
     var roundsSet: Int = 0
-    var elapsedTime = 0
+    var elapsedTime: Int = 0
     var totalFlowTime: Int = 0
     var roundsCompleted: Int = 0
     var flowContinue = false
     
-    @Published var flow = Flow()
+    @Published var flow: Flow = Flow()
     @Published var mode: TimerMode = .Initial
     @Published var type: FlowType = .Flow
     @Published var flowMode: FlowMode = .Simple
@@ -83,48 +83,18 @@ class FlowModel: ObservableObject {
     
     // update Flow
     func updateFlow(flow: Flow) -> Flow {
-        let changedFlow = Flow(
-            
+        let changedFlow =
+        Flow(
         title: flow.title,
         simple: flow.simple,
         blocks: flow.blocks,
-        
         flowMinutes: flow.flowMinutes,
         flowSeconds: flow.flowSeconds,
         breakMinutes: flow.breakMinutes,
         breakSeconds: flow.breakSeconds,
-        rounds: flow.rounds)
-    
+        rounds: flow.rounds
+        )
         return changedFlow
-    }
-    
-    func Initialize() {
-        mode = .Initial
-        setFlow()
-        setMode()
-        
-        if flowMode == .Simple {
-            setSimpleFlow()
-        }
-        if flowMode == .Custom {
-            if flow.blocks.indices.contains(0) {
-                if flow.blocks[0].flow {
-                    setFlowTime(time: (flow.blocks[0].minutes * 60) + flow.blocks[0].seconds)
-                    type = .Flow
-                }
-                else {
-                    setBreakTime(time: (flow.blocks[0].minutes * 60) + flow.blocks[0].seconds)
-                    type = .Break
-                }
-            }
-            else {
-                setFlowTime(time: 0)
-                type = .Flow
-            }
-        }
-        elapsedTime = 0
-        roundsCompleted = 0
-        blocksCompleted = 0
     }
 }
 

@@ -8,20 +8,38 @@ import Foundation
 
 extension FlowModel {
     
-    // Complete Round
-    func completeRound() {
-        mode = type == .Flow ? .breakStart : .flowStart
-        
-        if type == .Flow {
-            roundsCompleted += 1
-            if roundsCompleted == roundsSet {
-                completeSession()
+    // Start Automatically
+    func startAutomatically() -> Bool {
+        if type == .Break { // set initial values for labels(only break)
+            if settings.startFlowAutomatically {
+                startFlow()
+                return true
             }
         }
-        else {
-            setBothTimes(flowTime: flowTime, breakTime: breakTime)
+        if type == .Flow {
+            if settings.startBreakAutomatically {
+                startBreak()
+                return true
+            }
         }
-        ifStartAutomatically()
+        return false
+    }
+    
+    
+    // Complete Round
+    func completeRound() {
+            if type == .Flow {
+                roundsCompleted += 1
+                if roundsCompleted == roundsSet {
+                    completeSession()
+                }
+            }
+            else {
+                setBothTimes(flowTime: flowTime, breakTime: breakTime)
+            }
+        if !startAutomatically() {
+            mode = type == .Flow ? .breakStart : .flowStart
+        }
     }
     
     // Complete Block
@@ -32,9 +50,13 @@ extension FlowModel {
         }
         else {
             let block = flowList[selection].blocks[blocksCompleted]
-            block.flow ? setFlowTime(time: (block.minutes * 60) + block.seconds) : setBreakTime(time: (block.minutes * 60) + block.seconds)
-            
-            block.flow ? setFlowStart() : setBreakStart()
+            if block.flow {
+                setFlowTime(time: (block.minutes * 60) + block.seconds)
+                setFlowStart()
+            } else {
+                setBreakTime(time: (block.minutes * 60) + block.seconds)
+                setBreakStart()
+            }
         }
     }
     

@@ -8,7 +8,8 @@ import SwiftUI
 
 struct ContentView: View {
     @AppStorage("SelectedTab") var selectedTab: Tab = .home
-    
+    @StateObject var model = FlowModel()
+
     init() {
         selectedTab = .home
     }
@@ -18,7 +19,7 @@ struct ContentView: View {
             switch selectedTab {
                 
             case .home:
-                FlowView()
+                FlowView(model: model)
                 
             case .settings:
                 SettingsView()
@@ -31,6 +32,8 @@ struct ContentView: View {
             .requestAuthorization(options:[.badge,.sound,.alert]) { (_, _) in }}
     }
 }
+
+
 
 enum Tab: String {
     case home

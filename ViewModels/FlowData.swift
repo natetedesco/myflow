@@ -11,7 +11,7 @@ class FlowData: ObservableObject {
     @AppStorage("GoalTime") var goalSelection: Int = 2
     @Published var showGoal: Bool = false
     
-    @Published var days: [Day] = []
+    @Published var days: [Day]
     
     let date = Date()
     let firstDayOfTheWeek = Date().startOfWeek()
@@ -32,22 +32,7 @@ class FlowData: ObservableObject {
                 return
             }
         }
-        days = [
-            Day(day: Date.from(year: 2022, month: 12, day: 15), time: 90),
-            Day(day: Date.from(year: 2022, month: 12, day: 14), time: 140),
-            Day(day: Date.from(year: 2022, month: 12, day: 13), time: 100),
-            Day(day: Date.from(year: 2022, month: 12, day: 12), time: 100),
-            Day(day: Date.from(year: 2022, month: 12, day: 11), time: 120),
-            Day(day: Date.from(year: 2022, month: 12, day: 10), time: 60),
-            Day(day: Date.from(year: 2022, month: 12, day: 9), time: 80),
-            Day(day: Date.from(year: 2022, month: 12, day: 8), time: 100),
-            Day(day: Date.from(year: 2022, month: 12, day: 7), time: 120),
-            Day(day: Date.from(year: 2022, month: 12, day: 6), time: 140),
-            Day(day: Date.from(year: 2022, month: 12, day: 5), time: 90),
-            Day(day: Date.from(year: 2022, month: 12, day: 4), time: 70),
-            Day(day: Date.from(year: 2022, month: 12, day: 3), time: 80),
-            Day(day: Date.from(year: 2022, month: 12, day: 1), time: 60),
-        ]
+        days = []
     }
     
     // Get this month days
@@ -96,7 +81,14 @@ class FlowData: ObservableObject {
         let comp = calendar.dateComponents([.year, .month, .day], from: date)
         
         //if day exists
-        if days[0].day != Date.from(year: comp.year!, month: comp.month!, day: comp.day!) {
+        if days.indices.contains(0) {
+            if days[0].day != Date.from(year: comp.year!, month: comp.month!, day: comp.day!) {
+                days.insert(Day(
+                    day: Date.from(year: comp.year!, month: comp.month!, day: comp.day!),
+                    time: 1), at: 0)
+                save()
+            }
+        } else {
             days.insert(Day(
                 day: Date.from(year: comp.year!, month: comp.month!, day: comp.day!),
                 time: 1), at: 0)

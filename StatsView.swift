@@ -12,37 +12,71 @@ struct StatsView: View {
     
     var body: some View {
         ZStack {
-            NavigationView {
-                ScrollView {
-                    
-                    CustomHeadline(text: "Overview")
-                    OverviewCard
-                    
-                    CustomHeadline(text: "Weekly")
-                    WeekCard
-                    
-                    CustomHeadline(text: "Monthly")
-                    MonthCard
-                    
+            ZStack {
+                NavigationView {
+                    ScrollView {
+                        
+                        CustomHeadline(text: "Overview")
+                        OverviewCard
+                        
+                        CustomHeadline(text: "Weekly")
+                        WeekCard
+                        
+                        CustomHeadline(text: "Monthly")
+                        MonthCard
+                        
+                    }
+                    .statisticsNavigationView()
+                    .toolbar{ GoalButton }
                 }
-                .statisticsNavigationView()
-                .toolbar{ GoalButton }
-                .animation(.easeInOut.speed(2.5), value: data.showGoal)
+                Toolbar()
             }
-            Toolbar()
-            if data.showGoal {
-                GoalView
+//            .blur(radius: data.showGoal ? 10 : 0) // Fucks up view
+            .animation(.default, value: data.showGoal)
+            
+            GoalView
+        }
+    }
+    
+    // Goal View
+    var hours = [Int](0...12)
+    var GoalView: some View {
+        ZStack {
+            MaterialBackGround()
+                .onTapGesture {
+                    data.showGoal = false
+                }
+                .opacity(data.showGoal ? 1.0 : 0.0)
+                .animation(.default.speed(data.showGoal ? 2.0 : 1.0), value: data.showGoal)
+            VStack {
+                Title2(text: "Daily Flow Time Goal")
+                ZStack {
+                    Picker(selection: $data.goalSelection, label: Text("")) {
+                        ForEach(1..<hours.count, id: \.self) {
+                            Text("\(hours[$0])")
+                        }
+                    }
+                    .pickerStyle(.wheel)
+                    .padding(-8)
+                    Text("Hours")
+                        .padding(.leading, 80)
+                }
             }
+            .customGlass()
+            .frame(maxWidth: 380)
+            .opacity(data.showGoal ? 1.0 : 0.0)
+            .scaleEffect(data.showGoal ? 1.0 : 0.97)
+            .animation(.default.speed(data.showGoal ? 1.0 : 2.0), value: data.showGoal)
         }
     }
     
     // OverView Card
     var OverviewCard: some View {
-            HStack(alignment: .center) {
-                OverviewLabel(label: "Today", time: data.todayTime)
-                OverviewLabel(label: "This Week", time: data.thisWeekTime)
-                OverviewLabel(label: "This Month", time: data.thisMonthTime)
-            }
+        HStack(alignment: .center) {
+            OverviewLabel(label: "Today", time: data.todayTime)
+            OverviewLabel(label: "This Week", time: data.thisWeekTime)
+            OverviewLabel(label: "This Month", time: data.thisMonthTime)
+        }
         .cardGlass()
     }
     
@@ -120,11 +154,11 @@ struct StatsView: View {
                 .myBlue.opacity(0.5),
                 .myBlue.opacity(0.2),
                 .myBlue.opacity(0.05),
-           ]
-       ),
-       startPoint: .top,
-       endPoint: .bottom
-   )
+            ]
+        ),
+        startPoint: .top,
+        endPoint: .bottom
+    )
     
     
     // Goal Button
@@ -132,32 +166,6 @@ struct StatsView: View {
         Button(action: showGoalCard) {
             Text("Goal")
                 .smallButtonGlass()
-        }
-    }
-    
-    // Goal View
-    var hours = [Int](0...12)
-    var GoalView: some View {
-        ZStack {
-            MaterialBackGround()
-                .onTapGesture { data.showGoal = false
-                }
-            VStack {
-                Title2(text: "Daily Flow Time Goal")
-                ZStack {
-                    Picker(selection: $data.goalSelection, label: Text("")) {
-                        ForEach(1..<hours.count, id: \.self) {
-                            Text("\(hours[$0])")
-                        }
-                    }
-                    .pickerStyle(.wheel)
-                    .padding(-8)
-                    Text("Hours")
-                        .padding(.leading, 80)
-                }
-            }
-            .customGlass()
-            .frame(maxWidth: 380)
         }
     }
     

@@ -20,8 +20,19 @@ struct TimerLabels: View {
             
             // Simple
             if model.flowMode == .Simple {
-                FlowLabel
-                BreakLabel
+                HStack {
+                    if model.mode != .breakRunning {
+                        FlowLabel
+                    }
+                    if model.mode == .Initial || model.mode == .flowPaused || model.mode == .breakPaused
+                        || model.mode == .flowStart || model.mode == .breakStart {
+                        Spacer()
+                            .frame(width: 40)
+                    }
+                    if model.mode != .flowRunning {
+                        BreakLabel
+                    }
+                }
                 
                 // Rounds
                 HStack {
@@ -45,7 +56,6 @@ struct TimerLabels: View {
         TimerLabel(color: .gray, text: breakLabel)
             .modifier(AnimatingFontSize(fontSize: model.mode == .breakRunning ? 60 : 35))
             .scaleEffect(model.mode == .flowRunning ? 0.0 : 1.0)
-            .padding(.leading, model.mode == .breakRunning ? 0 : 120)
             .opacity(model.mode == .flowRunning ? 0.0 : 1.0)
     }
     
@@ -53,7 +63,6 @@ struct TimerLabels: View {
         TimerLabel(color: .myBlue, text: flowLabel)
             .modifier(AnimatingFontSize(fontSize: model.mode == .flowRunning ? 60 : 35))
             .scaleEffect(model.mode == .breakRunning ? 0.0 : 1.0)
-            .padding(.trailing, model.mode == .flowRunning ? 0 : 120)
             .opacity(model.mode == .breakRunning ? 0.0 : 1.0)
     }
     

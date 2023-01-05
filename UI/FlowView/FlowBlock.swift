@@ -12,22 +12,20 @@ struct FlowBlock: View {
     @Binding var edit: Bool
     @Binding var dragging: Bool
     @Binding var pickTime: Bool
+    @FocusState var titleIsFocused: Bool
     
     var body: some View {
         let blockTime = [$block.minutes, $block.seconds]
         
         ZStack {
             Button {
-                block.pickTime.toggle()
-                pickTime.toggle()
+                togglePickTime()
             } label: {
                 VStack {}
                 .frame(maxWidth: .infinity, minHeight: (block.flow ? 70 : 35) + (block.pickTime ? 150 : 0))
                 .background(block.flow ? Color.myBlue.opacity(0.15) : Color.gray.opacity(0.15))
                 .cornerRadius(10)
-                .background(RoundedRectangle(cornerRadius: 10)
-                    .fill(block.flow ? Color.myBlue.opacity(0.75) : Color.gray.opacity(0.75))
-                    .mask(HStack { Rectangle().frame(width: 6); Spacer()}))
+                .background(blockSideBar)
             }
             VStack {
                 HStack {
@@ -35,28 +33,39 @@ struct FlowBlock: View {
                     BlockTimeLabel
                     DeleteButton
                 }
+                .padding(.horizontal)
+
                 if block.pickTime {
                     MultiComponentPicker(columns: columns, selections: blockTime)
                 }
             }
-            .animation(.easeOut.speed(1.5), value: block.pickTime) // make custom
+            .animation(.easeOut.speed(block.pickTime ? 1.0 : 2.0), value: block.pickTime) // make custom
         }
+        .padding(.bottom, block.pickTime ? 4 : 0)
+    }
+    
+    var blockSideBar: some View {
+        RoundedRectangle(cornerRadius: 10)
+        .fill(block.flow ? Color.myBlue.opacity(0.75) : Color.gray.opacity(0.75))
+        .mask(
+            HStack {
+                Rectangle().frame(width: 6)
+                Spacer()
+            })
     }
     
     var BlockTextField: some View {
             TextField(block.flow ? "Flow" : "Break", text: $block.title)
                 .font(.headline)
                 .foregroundColor(block.flow ? .myBlue : .gray)
-                .padding(.leading)
                 .disabled(dragging)
+                .frame(maxWidth: 100)
     }
     
     var BlockTimeLabel: some View {
         Text(formatTime(seconds: (block.seconds) + (block.minutes * 60)))
-            .font(.callout)
+            .font(.subheadline)
             .foregroundColor(block.flow ? .myBlue : .gray)
-            .padding(.horizontal)
-            .padding(.vertical, 8)
             .frame(maxWidth: .infinity, alignment: .trailing)
     }
     
@@ -67,17 +76,22 @@ struct FlowBlock: View {
             } label: {
                 Image(systemName: "minus.circle.fill")
                     .foregroundColor(.red.opacity(0.8))
-                    .padding(.trailing)
-                    .padding(.vertical, 8)
+                    .padding(.leading)
             }
         }
+    }
+    
+    func togglePickTime() {
+        if !block.pickTime{
+            flow.blocks.indices.forEach {
+                flow.blocks[$0].pickTime = false
+            }
+        }
+        block.pickTime.toggle()
+        pickTime.toggle()
     }
     
     func deleteBlock() {
         flow.deleteBlock(id: block.id)
     }
-    
-    func selectTime() {
-    }
 }
-

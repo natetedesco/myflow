@@ -7,25 +7,27 @@
 import SwiftUI
 
 struct FlowView: View {
-    @StateObject var model = FlowModel()
+    @ObservedObject var model: FlowModel
     @State var disable = false
     
     var body: some View {
-        ZStack {
-            FlowCenter
-            
-            ControlBar
-            
-            Toolbar(model: model)
-            
-            if model.completed {
+//        ZStack {
+            ZStack {
+                ZStack {
+                    FlowCenter
+                    
+                    ControlBar
+                    
+                    Toolbar(model: model)
+                }
+                .blur(radius: model.showFlow ? 10 : 0)
+                .animation(.default, value: [model.showFlow, model.completed])
+                    
                 FlowCompleted
-            }
-            if model.showFlow {
                 FlowSheet(model: model, flow: $model.flow)
             }
-        }
-        .FlowViewBackGround()
+            .FlowViewBackGround()
+//        }
     }
     
     var FlowList: some View {
@@ -60,7 +62,9 @@ struct FlowView: View {
                 }
             label: {
                 MenuLabel
-            }} else {
+            }
+            .disabled(model.mode != .Initial)
+            } else {
                 // Control Bar
                 HStack(spacing: 60) {
                     Button(action: model.Restart) { Chevron(image: "chevron.left") }
@@ -85,30 +89,23 @@ struct FlowView: View {
     var FlowCompleted: some View {
         ZStack {
             MaterialBackGround()
+                .opacity(model.completed ? 1.0 : 0.0)
+                .animation(.default.speed(model.completed ? 2.0 : 1.0), value: model.completed)
             VStack(alignment: .center, spacing: 16) {
-                Title(text: "Flow Completed")
+                Title3(text: "Flow Completed")
                 HStack {
-                    Text("Total Flow Time: ")
+                    Text("Time: ")
                         .font(.callout)
                 Text(formatHoursAndMinutes(time: model.totalFlowTime))
                     .foregroundColor(.myBlue)
-                    .font(.headline)
-                }
-                
-                Button {
-                    model.dismissCompleted()
-                } label: {
-                    Text("Continue")
-                        .foregroundColor(.myBlue)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical)
-                        .background(.ultraThinMaterial.opacity(0.55))
-                        .cornerRadius(30)
-                        .padding(.top, 16)
+                    .font(.subheadline)
                 }
             }
             .customGlass()
             .frame(maxWidth: 380)
+            .opacity(model.completed ? 1.0 : 0.0)
+            .scaleEffect(model.completed ? 1.0 : 0.97)
+            .animation(.default.speed(model.completed ? 1.0 : 2.0), value: model.completed)
         }
         .onTapGesture {
             model.dismissCompleted()

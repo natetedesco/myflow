@@ -9,31 +9,21 @@ import SwiftUI
 struct FlowSheet: View {
     @ObservedObject var model: FlowModel
     @FocusState var focusedField: Field?
-    @State var pickTime = false
     @Binding var flow: Flow
-    @State var startAnimation = false
-    @State var endAnimation = false
+    @State var pickTime = false
     @State var preventCrash = false
-    
     @State var chooseFlow = false
     @State var chooseBreak = false
     @State var chooseRound = false
     
-    
     var body: some View {
-        let flowTime = (flow.flowMinutes * 60) + flow.flowSeconds
-        let breakTime = (flow.breakMinutes * 60) + flow.breakSeconds
-        let flowSelection = [$flow.flowMinutes, $flow.flowSeconds]
-        let breakSelection = [$flow.breakMinutes, $flow.breakSeconds]
         
         ZStack {
             MaterialBackGround()
                 .onTapGesture { Save() }
                 .disabled(flow.title.isEmpty)
-                .opacity(startAnimation ? 1.0 : 0.0)
-                .animation(.easeOut.speed(2.0), value: startAnimation)
-                .opacity(!endAnimation ? 1.0 : 0.0)
-                .animation(.easeIn.speed(1.0), value: endAnimation)
+                .opacity(model.showFlow ? 1.0 : 0.0)
+                .animation(.default.speed(model.showFlow ? 2.0 : 1.0), value: model.showFlow)
             
             VStack(alignment: .leading, spacing: 16) {
                 HStack {
@@ -41,50 +31,53 @@ struct FlowSheet: View {
                     flowSheetMenu
                 }
                 SegmentedPicker
-                
                 if flow.simple {
-                    Button(action: toggleFlowPicker) {
-                        VStack {
-                            PickerLabel(text: "Flow: ", time: flowTime, color: .myBlue)
-                            if chooseFlow {
-                                MultiComponentPicker(columns: columns,selections: flowSelection)
-                            }
-                        }
-                        .animation(.default.speed(chooseFlow ? 0.6 : 2.0), value: chooseFlow)
-                    }
+                    FlowPicker
                     Divider()
-                    Button(action: toggleBreakPicker) {
-                        VStack {
-                            PickerLabel(text: "Break:", time: breakTime, color: .gray)
-                            if chooseBreak {
-                                MultiComponentPicker(columns: columns,selections: breakSelection)
-                            }
-                        }
-                        .animation(.default.speed(chooseBreak ? 0.6 : 2.0), value: chooseBreak)
-                        
-                    }
+                    BreakPicker
                     Divider()
-                    Button(action: toggleRoundsPicker) { RoundsLabel }
-                        .animation(.default.speed(chooseRound ? 0.6 : 2.0), value: chooseRound)
-                        .padding(.bottom, 4)
+                    RoundsPicker
                 }
                 if !flow.simple {
                     CustomFlow(flow: $flow, pickTime: $pickTime)
                 }
             }
             .customGlass()
-            .scaleEffect(startAnimation ? 1.0 : 0.97)
-            .opacity(startAnimation ? 1.0 : 0.0)
-            .animation(.default.speed(1.0), value: startAnimation)
-            .scaleEffect(!endAnimation ? 1.0 : 0.97)
-            .opacity(!endAnimation ? 1.0 : 0.0)
-            .animation(.default.speed(2.0), value: endAnimation)
+            .opacity(model.showFlow ? 1.0 : 0.0)
+            .scaleEffect(model.showFlow ? 1.0 : 0.97)
+            .animation(.default.speed(model.showFlow ? 1.0 : 2.0), value: model.showFlow)
             .animation(.default.speed(1.0), value: preventCrash)
-            .animation(.easeOut.speed(1.5), value: pickTime) // make custom
         }
-        .onAppear {
-            startAnimation.toggle()
+    }
+    
+    var FlowPicker: some View {
+        Button(action: toggleFlowPicker) {
+            VStack {
+                PickerLabel(text: "Flow: ", time: (flow.flowMinutes * 60) + flow.flowSeconds, color: .myBlue)
+                if chooseFlow {
+                    MultiComponentPicker(columns: columns,selections: [$flow.flowMinutes, $flow.flowSeconds])
+                }
+            }
+            .animation(.default.speed(chooseFlow ? 0.6 : 2.0), value: chooseFlow)
         }
+    }
+    
+    var BreakPicker: some View {
+        Button(action: toggleBreakPicker) {
+            VStack {
+                PickerLabel(text: "Break:", time: (flow.breakMinutes * 60) + flow.breakSeconds, color: .gray)
+                if chooseBreak {
+                    MultiComponentPicker(columns: columns,selections: [$flow.breakMinutes, $flow.breakSeconds])
+                }
+            }
+            .animation(.default.speed(chooseBreak ? 0.6 : 2.0), value: chooseBreak)
+        }
+    }
+    
+    var RoundsPicker: some View {
+        Button(action: toggleRoundsPicker) { RoundsLabel }
+            .animation(.default.speed(chooseRound ? 0.6 : 2.0), value: chooseRound)
+            .padding(.bottom, 4)
     }
     
     var flowSheetMenu: some View {
@@ -163,8 +156,6 @@ struct FlowSheet: View {
     
     func Save() {
         preventCrashFunc()
-        endAnimation.toggle()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             model.showFlow = false;
             if flow.new {
                 model.addFlow(flow: flow)
@@ -172,13 +163,15 @@ struct FlowSheet: View {
             } else {
                 model.editFlow(id: flow.id, flow: flow)
             }
-        }
     }
     
     func preventCrashFunc() {
         chooseFlow = false
         chooseBreak = false
         chooseRound = false
+        flow.blocks.indices.forEach {
+            flow.blocks[$0].pickTime = false
+        }
         preventCrash.toggle()
     }
     
@@ -254,16 +247,11 @@ struct PickerView: View {
                 ForEach(unit, id: \.self) { unit in
                     Text("\(unit) \(label)")
                 }
-//                ForEach(0..<unit.count, id: \.self) {
-//                    Text("\(unit[$0]) \(label)")
-//                }
             }
             .pickerStyle(.wheel)
-//            .frame(width: geometry.size.width, height: geometry.size.height)
         }
         .frame(height: 150)
         .padding(.vertical, -8)
-
     }
 }
 
@@ -340,7 +328,6 @@ struct SizePreferenceKey: PreferenceKey {
     typealias Value = CGSize
     static var defaultValue: CGSize = .zero
     static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
-//        value = nextValue()
     }
 }
 struct BackgroundGeometryReader: View {
