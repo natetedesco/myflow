@@ -16,13 +16,14 @@ struct FlowBlock: View {
     
     var body: some View {
         let blockTime = [$block.minutes, $block.seconds]
+        let extraSize: CGFloat = block.flow ? 150 : 175
         
         ZStack {
             Button {
                 togglePickTime()
             } label: {
                 VStack {}
-                .frame(maxWidth: .infinity, minHeight: (block.flow ? 70 : 35) + (block.pickTime ? 150 : 0))
+                .frame(maxWidth: .infinity, minHeight: (block.flow ? 70 : 35) + (block.pickTime ? extraSize : 0))
                 .background(block.flow ? Color.myBlue.opacity(0.15) : Color.gray.opacity(0.15))
                 .cornerRadius(10)
                 .background(blockSideBar)
@@ -34,6 +35,7 @@ struct FlowBlock: View {
                     DeleteButton
                 }
                 .padding(.horizontal)
+                .padding(.top, block.pickTime ? 8 : 0)
 
                 if block.pickTime {
                     MultiComponentPicker(columns: columns, selections: blockTime)

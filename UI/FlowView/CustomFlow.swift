@@ -43,10 +43,16 @@ struct CustomFlow: View {
     }
     
     func addFlowBlock() {
+        flow.blocks.indices.forEach {
+            flow.blocks[$0].pickTime = false
+        }
         flow.addFlowBlock()
     }
     
     func addBreakBlock() {
+        flow.blocks.indices.forEach {
+            flow.blocks[$0].pickTime = false
+        }
         flow.addBreakBlock()
     }
     
@@ -56,6 +62,9 @@ struct CustomFlow: View {
     
     var EditButton: some View {
         Button {
+            flow.blocks.indices.forEach {
+                flow.blocks[$0].pickTime = false
+            }
             edit.toggle()
         }
         label: {

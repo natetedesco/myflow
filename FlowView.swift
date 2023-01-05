@@ -11,23 +11,21 @@ struct FlowView: View {
     @State var disable = false
     
     var body: some View {
-//        ZStack {
+        ZStack {
             ZStack {
-                ZStack {
-                    FlowCenter
-                    
-                    ControlBar
-                    
-                    Toolbar(model: model)
-                }
-                .blur(radius: model.showFlow ? 10 : 0)
-                .animation(.default, value: [model.showFlow, model.completed])
-                    
-                FlowCompleted
-                FlowSheet(model: model, flow: $model.flow)
+                FlowCenter
+                
+                ControlBar
+                
+                Toolbar(model: model)
             }
-            .FlowViewBackGround()
-//        }
+            .blur(radius: model.showFlow ? 10 : 0)
+            .animation(.default, value: [model.showFlow, model.completed])
+            
+            FlowCompleted
+            FlowSheet(model: model, flow: $model.flow)
+        }
+        .FlowViewBackGround()
     }
     
     var FlowList: some View {
@@ -39,7 +37,10 @@ struct FlowView: View {
     }
     
     var FlowCenter: some View {
-        Button(action: editFlow) {
+        Button {
+            editFlow()
+            mediumHaptic()
+        } label: {
             ZStack {
                 Circles(model: model)
                 TimerLabels(model: model)
@@ -96,9 +97,9 @@ struct FlowView: View {
                 HStack {
                     Text("Time: ")
                         .font(.callout)
-                Text(formatHoursAndMinutes(time: model.totalFlowTime))
-                    .foregroundColor(.myBlue)
-                    .font(.subheadline)
+                    Text(formatHoursAndMinutes(time: model.totalFlowTime))
+                        .foregroundColor(.myBlue)
+                        .font(.subheadline)
                 }
             }
             .customGlass()
@@ -126,8 +127,8 @@ struct FlowView: View {
     
     var ResetButton: some View {
         Button(action: model.Reset) {
-        Image(systemName: "gobackward")
-            .font(Font.system(size: 20))
+            Image(systemName: "gobackward")
+                .font(Font.system(size: 20))
         }
     }
     
