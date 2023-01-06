@@ -11,11 +11,12 @@ struct FlowView: View {
     @State var disable = false
     
     var body: some View {
+        
         ZStack {
             ZStack {
                 FlowCenter
                 
-                ControlBar
+                Controls
                 
                 Toolbar(model: model)
             }
@@ -39,7 +40,6 @@ struct FlowView: View {
     var FlowCenter: some View {
         Button {
             editFlow()
-            mediumHaptic()
         } label: {
             ZStack {
                 Circles(model: model)
@@ -50,21 +50,36 @@ struct FlowView: View {
         .disabled(disable)
     }
     
+    @ViewBuilder var Controls: some View {
+        // Menu must be reloaded or else doesnt update properly
+        if model.showFlow == false {
+            ControlBar
+        }
+        if model.showFlow == true {
+            Text(model.flow.title)
+                .buttonGlass()
+        }
+    }
+    
     // Control Bar
     var ControlBar: some View {
         ZStack {
             if Continue {
                 ContinueButton
             } else if showFlowMenu {
-                Menu {
-                    CreateFlowButton
-                    EditFlowButton
-                    FlowList
+                ZStack {
+                    MenuLabel
+                    Menu {
+                        CreateFlowButton
+                        EditFlowButton
+                        FlowList
+                    }
+                label: {
+                    MenuLabel
+                        .foregroundColor(.clear)
                 }
-            label: {
-                MenuLabel
-            }
-            .disabled(model.mode != .Initial)
+                }
+                .disabled(model.mode != .Initial)
             } else {
                 // Control Bar
                 HStack(spacing: 60) {
@@ -78,12 +93,17 @@ struct FlowView: View {
         .frame(maxHeight: .infinity, alignment: .top)
         .padding(.top)
         .animation(.easeInOut(duration: 0.15), value: model.mode)
-        .animation(.easeInOut(duration: 0.15), value: model.flowList)
+        .animation(.easeInOut(duration: 0.25), value: model.selection)
     }
     
     var MenuLabel: some View {
-        Title2(text: model.flow.title)
+        Title2(text: label)
             .fontWeight(.light)
+    }
+    
+    var label: String {
+        let label = model.flow.title
+        return label
     }
     
     // Flow Completed
@@ -102,11 +122,16 @@ struct FlowView: View {
                         .font(.subheadline)
                 }
             }
-            .customGlass()
-            .frame(maxWidth: 380)
+            .frame(maxWidth: .infinity)
+            .padding(24)
+            .background(.black.opacity(0.7))
+            .cornerRadius(40)
+            .padding(.horizontal, 48)
             .opacity(model.completed ? 1.0 : 0.0)
             .scaleEffect(model.completed ? 1.0 : 0.97)
             .animation(.default.speed(model.completed ? 1.0 : 2.0), value: model.completed)
+            .animation(.default.speed(model.completed ? 1.0 : 2.0), value: model.flowContinue)
+
         }
         .onTapGesture {
             model.dismissCompleted()
@@ -136,7 +161,7 @@ struct FlowView: View {
         Button {
             model.mode == .breakStart ? model.continueFlow() : model.completeContinueFlow()
         } label: {
-            Title2(text: model.mode == .breakStart ? "Continue Flow" : "Complete Flow")
+            Title3(text: model.mode == .breakStart ? "Continue Flow" : "Complete Flow")
                 .fontWeight(.light)
         }
     }

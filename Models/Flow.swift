@@ -16,7 +16,11 @@ struct Flow: Codable, Equatable {
     var title: String = ""
     
     var simple = true
-    var blocks = [Block(flow: true), Block(flow: false)]
+    var blocks = [
+        Block(flow: true, title: "Brainstorm", seconds: 600),
+        Block(flow: false, title: "Break", seconds: 300),
+        Block(flow: true, title: "Creative Writing", seconds: 1200),
+        Block(flow: false, title: "Break", seconds: 300)]
     
     var flowMinutes: Int = 0
     var flowSeconds: Int = 0

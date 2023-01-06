@@ -4,7 +4,6 @@
 //  Created by Nate Tedesco on 9/22/21.
 //
 
-
 import SwiftUI
 
 struct TimerLabels: View {
@@ -14,30 +13,31 @@ struct TimerLabels: View {
         ZStack {
             // Custom
             if model.flowMode == .Custom {
-                TimerLabel(color: model.type == .Flow ? .myBlue : .gray, text: customLabel)
-                    .font(.system(size: 50))
+                    Text(model.flow.blocks[model.blocksCompleted].title)
+                        .foregroundColor(model.flow.blocks[model.blocksCompleted].flow ? .myBlue.opacity(0.6) : .gray.opacity(0.6))
+                        .font(.title3)
+                        .padding(.top, 90)
+                    
+                    TimerLabel(color: model.type == .Flow ? .myBlue : .gray, text: customLabel)
+                        .font(.system(size: 50))
             }
             
             // Simple
             if model.flowMode == .Simple {
                 HStack(alignment: .center) {
-                    if model.mode != .breakRunning {
+                    
+                    if showFlowLabel {
                         FlowLabel
-                            .frame(maxWidth: 110)
-//                            .padding(.trailing, 16)
                     }
-                    if model.mode == .Initial || model.mode == .flowPaused || model.mode == .breakPaused
-                        || model.mode == .flowStart || model.mode == .breakStart {
+                    if showSpacer {
                         Spacer()
-                            .frame(width: 28)
+                            .frame(width: 44)
                     }
-                    if model.mode != .flowRunning {
+                    if showBreakLabel {
                         BreakLabel
-                            .frame(maxWidth: 110)
-//                            .padding(.leading, 16)
-
                     }
-                }.frame(maxWidth: .infinity)
+                }
+                .frame(maxWidth: .infinity)
                 
                 // Rounds
                 HStack {
@@ -60,18 +60,22 @@ struct TimerLabels: View {
     
     var BreakLabel: some View {
         TimerLabel(color: .gray, text: breakLabel)
-            .modifier(AnimatingFontSize(fontSize: model.mode == .breakRunning ? 60 : 35))
-            .scaleEffect(model.mode == .flowRunning ? 0.0 : 1.0)
-            .opacity(model.mode == .flowRunning ? 0.0 : 1.0)
+            .modifier(AnimatingFontSize(fontSize: model.mode == .breakRunning || model.mode == .breakStart ? 60 : 35))
+            .scaleEffect(model.mode == .flowRunning || model.mode == .flowStart ? 0.0 : 1.0)
     }
     
     var FlowLabel: some View {
         TimerLabel(color: .myBlue, text: flowLabel)
-            .modifier(AnimatingFontSize(fontSize: model.mode == .flowRunning ? 60 : 35))
-            .scaleEffect(model.mode == .breakRunning ? 0.0 : 1.0)
-            .opacity(model.mode == .breakRunning ? 0.0 : 1.0)
+            .modifier(AnimatingFontSize(fontSize: model.mode == .flowRunning || model.mode == .flowStart ? 60 : 35))
+            .scaleEffect(model.mode == .breakRunning || model.mode == .breakStart ? 0.0 : 1.0)
     }
     
+    var showSpacer: Bool {
+        if model.mode == .Initial || model.mode == .flowPaused || model.mode == .breakPaused {
+        return true
+        }
+        return false
+    }
     
     var flowLabel: String {
         if model.flowContinue {
@@ -89,6 +93,20 @@ struct TimerLabels: View {
             return formatTime(seconds: model.flowTimeLeft)
         }
         return formatTime(seconds: model.breakTimeLeft)
+    }
+    
+    var showFlowLabel: Bool {
+        if model.mode == .Initial || model.mode == .flowStart || model.mode == .flowRunning || model.mode == .breakPaused || model.mode == .flowPaused {
+            return true
+        }
+        return false
+    }
+    
+    var showBreakLabel: Bool {
+        if model.mode == .Initial || model.mode == .breakStart || model.mode == .breakRunning || model.mode == .breakPaused || model.mode == .flowPaused {
+            return true
+        }
+        return false
     }
 }
 

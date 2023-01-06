@@ -15,7 +15,7 @@ struct FlowBlock: View {
     
     var body: some View {
         let blockTime = [$block.minutes, $block.seconds]
-        let blockSize: CGFloat = (block.flow ? 70 : 35) + (block.pickTime ? (block.flow ? 150 : 175) : 0)
+        let blockSize: CGFloat = (block.flow ? 60 : 30) + (block.pickTime ? (block.flow ? 140 : 170) : 0)
         let blockColor = block.flow ? Color.myBlue.opacity(0.15) : Color.gray.opacity(0.15)
         
         ZStack {
@@ -24,9 +24,13 @@ struct FlowBlock: View {
                     BlockTextField
                     Button(action: togglePickTime) {
                         BlockTimeLabel
+
                     }
                     DeleteButton
                 }
+                .padding(.top, block.pickTime ? block.flow ? 18 : 6 : 0)
+//                .frame(maxHeight: .infinity, alignment: .top)
+                
                 if block.pickTime {
                     MultiComponentPicker(columns: columns, selections: blockTime)
                         .padding(.leading, 6)
@@ -34,7 +38,7 @@ struct FlowBlock: View {
             }
             .animation(.easeOut.speed(block.pickTime ? 0.6 : 2.0), value: block.pickTime)
         }
-        .frame(maxWidth: .infinity, minHeight: blockSize)
+        .frame(maxWidth: .infinity, maxHeight: blockSize)
         .background(blockColor)
         .cornerRadius(10)
         .background(blockSideBar)
@@ -52,18 +56,22 @@ struct FlowBlock: View {
     
     var BlockTextField: some View {
         TextField(block.flow ? "Flow" : "Break", text: $block.title)
+            .font(block.flow ? .callout : .footnote)
             .foregroundColor(block.flow ? .myBlue : .gray)
+            .opacity(0.9)
             .disabled(dragging)
-            .frame(maxWidth: 100)
-            .padding(.leading, 18)
+            .fixedSize()
+            .padding(.leading, 12)
+
     }
     
     var BlockTimeLabel: some View {
         Text(formatTime(seconds: (block.seconds) + (block.minutes * 60)))
-            .font(.callout)
+            .font(block.flow ? .caption : .caption2)
             .foregroundColor(block.flow ? .myBlue : .gray)
+            .opacity(0.9)
             .frame(maxWidth: .infinity, alignment: .trailing)
-            .padding(.trailing)
+            .padding(.trailing, 12)
     }
     
     @ViewBuilder var DeleteButton: some View { // custom circle button
@@ -73,7 +81,7 @@ struct FlowBlock: View {
             } label: {
                 Image(systemName: "minus.circle.fill")
                     .foregroundColor(.red.opacity(0.8))
-                    .padding(.trailing)
+                    .padding(.trailing, 12)
             }
         }
     }

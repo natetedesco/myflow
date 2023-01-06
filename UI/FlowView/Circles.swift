@@ -40,36 +40,45 @@ struct Circles: View {
                     .blur(radius: 0.5)
             }
         }
-        .animation(.default.speed(0.20), value: [model.flowTimeLeft, model.breakTimeLeft])
+        .animation(.default.speed(0.2), value: [model.flowTimeLeft, model.breakTimeLeft])
         .rotationEffect(.degrees(-90))
         .frame(width: 310)
     }
     
     var showFlowCircle: Bool {
-        if model.mode != .breakRunning && model.mode != .flowStart {
+        if model.mode != .breakRunning && model.mode != .breakStart {
             return true
         }
         return false
     }
     
     var flowCircleFill: CGFloat {
-        if model.mode == .Initial || model.mode == .flowStart {
+        if model.mode == .Initial {
             return 1.0
+        }
+        if model.mode == .flowStart {
+            return 0.0
         }
         if model.flowContinue {
             return 1.0
         }
-        if model.mode == .breakStart {
-            return 1.0
+        if model.flowTime - model.flowTimeLeft == 0 {
+            return 0
         }
-        return 0.0 + formatProgress(time: model.flowTime, timeLeft: model.flowTimeLeft)
+        return formatProgress(time: model.flowTime, timeLeft: model.flowTimeLeft - 1)
     }
     
     var breakCircleFIll: CGFloat {
-        if model.mode == .Initial || model.mode == .flowStart {
+        if model.mode == .Initial {
             return 1.0
         }
-        return 0.0 + formatProgress(time: model.breakTime, timeLeft: model.breakTimeLeft)
+        if model.mode == .breakStart {
+            return 0.0
+        }
+        if model.breakTime - model.breakTimeLeft == 0 {
+            return 0
+        }
+        return formatProgress(time: model.breakTime, timeLeft: model.breakTimeLeft - 1)
     }
 }
 

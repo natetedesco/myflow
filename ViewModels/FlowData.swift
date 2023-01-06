@@ -145,7 +145,6 @@ class FlowData: ObservableObject {
     func getThisMonthDays() -> [Day] {
         let firstDayOfMonth = Date().startOfMonth()
         let comp = calendar.dateComponents([.year, .month, .day], from: firstDayOfMonth)
-        let date = calendar.date(from: comp)!
         
         // This Month
         let diffInDays = Calendar.current.dateComponents([.day], from: firstDayOfMonth, to: Date()).day
@@ -153,6 +152,7 @@ class FlowData: ObservableObject {
         var counted = 0
         
         // Last 30 days
+        //        let date = calendar.date(from: comp)!
 //        let range = calendar.range(of: .day, in: .month, for: date)!
 //        let numDays = range.count
         

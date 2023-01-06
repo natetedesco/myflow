@@ -19,10 +19,10 @@ struct StatsView: View {
                         CustomHeadline(text: "Overview")
                         OverviewCard
                         
-                        CustomHeadline(text: "Weekly")
+                        CustomHeadline(text: "This Week")
                         WeekCard
                         
-                        CustomHeadline(text: "Monthly")
+                        CustomHeadline(text: "This Month")
                         MonthCard
                         
                     }
@@ -50,6 +50,7 @@ struct StatsView: View {
                 .animation(.default.speed(data.showGoal ? 2.0 : 1.0), value: data.showGoal)
             VStack {
                 Title2(text: "Daily Flow Time Goal")
+                    .padding(.bottom, 12)
                 ZStack {
                     Picker(selection: $data.goalSelection, label: Text("")) {
                         ForEach(1..<hours.count, id: \.self) {
@@ -58,12 +59,15 @@ struct StatsView: View {
                     }
                     .pickerStyle(.wheel)
                     .padding(-8)
+                    .padding(.vertical, -16)
                     Text("Hours")
                         .padding(.leading, 80)
                 }
             }
-            .customGlass()
-            .frame(maxWidth: 380)
+            .padding(24)
+            .background(.black.opacity(0.7))
+            .cornerRadius(40)
+            .padding(.horizontal, 48)
             .opacity(data.showGoal ? 1.0 : 0.0)
             .scaleEffect(data.showGoal ? 1.0 : 0.97)
             .animation(.default.speed(data.showGoal ? 1.0 : 2.0), value: data.showGoal)

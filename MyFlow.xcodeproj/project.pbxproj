@@ -44,7 +44,6 @@
 		F0A025CC2949020800AF723F /* Date extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A025CB2949020800AF723F /* Date extensions.swift */; };
 		F0BA1E1F28FB7FFB00FCB5A8 /* SwipeDelete.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BA1E1E28FB7FFB00FCB5A8 /* SwipeDelete.swift */; };
 		F0BA1E2128FCBA5900FCB5A8 /* FlowBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BA1E2028FCBA5800FCB5A8 /* FlowBlock.swift */; };
-		F0F510672963953D00CFE3C7 /* FlowDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F0F510652963953D00CFE3C7 /* FlowDataModel.xcdatamodeld */; };
 		F0F7F4232904F0A900BC8E16 /* Waves.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F4222904F0A900BC8E16 /* Waves.swift */; };
 		F0F7F428290E2DF400BC8E16 /* TimerNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F427290E2DF400BC8E16 /* TimerNotifications.swift */; };
 		F0F7F4302911C6CA00BC8E16 /* Complete.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F42F2911C6CA00BC8E16 /* Complete.swift */; };
@@ -116,7 +115,6 @@
 		F0BA1E2028FCBA5800FCB5A8 /* FlowBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowBlock.swift; sourceTree = "<group>"; };
 		F0C6CE7426913C240026E415 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		F0F510642963518C00CFE3C7 /* MyFlow.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyFlow.entitlements; sourceTree = "<group>"; };
-		F0F510662963953D00CFE3C7 /* FlowDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FlowDataModel.xcdatamodel; sourceTree = "<group>"; };
 		F0F7F4222904F0A900BC8E16 /* Waves.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Waves.swift; sourceTree = "<group>"; };
 		F0F7F427290E2DF400BC8E16 /* TimerNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerNotifications.swift; sourceTree = "<group>"; };
 		F0F7F42F2911C6CA00BC8E16 /* Complete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Complete.swift; sourceTree = "<group>"; };
@@ -151,7 +149,6 @@
 		F01C1D7B26A3874E00C40900 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				F0F510652963953D00CFE3C7 /* FlowDataModel.xcdatamodeld */,
 				F0F7F4332911C96E00BC8E16 /* Flow.swift */,
 				F04FFB4228FF2C890058E66D /* Blocks.swift */,
 				F04FFB4628FF326E0058E66D /* Reminders.swift */,
@@ -399,7 +396,6 @@
 				F0BA1E2128FCBA5900FCB5A8 /* FlowBlock.swift in Sources */,
 				F001C23928D3A12100134EB5 /* Modifiers.swift in Sources */,
 				F032564B272251A6009D3EFB /* SettingsView.swift in Sources */,
-				F0F510672963953D00CFE3C7 /* FlowDataModel.xcdatamodeld in Sources */,
 				F0F7F428290E2DF400BC8E16 /* TimerNotifications.swift in Sources */,
 				F0A025CC2949020800AF723F /* Date extensions.swift in Sources */,
 			);
@@ -594,19 +590,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		F0F510652963953D00CFE3C7 /* FlowDataModel.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				F0F510662963953D00CFE3C7 /* FlowDataModel.xcdatamodel */,
-			);
-			currentVersion = F0F510662963953D00CFE3C7 /* FlowDataModel.xcdatamodel */;
-			path = FlowDataModel.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = F0948C0D26818EE000A5F48D /* Project object */;
 }

@@ -64,7 +64,7 @@ struct StartNext: View {
                 .font(.system(size: 30))
                 .padding(.trailing, 5)
             Text(text)
-                .font(.title2)
+                .font(.title3)
                 .fontWeight(.light)
                 .foregroundColor(.myBlue)
         }
