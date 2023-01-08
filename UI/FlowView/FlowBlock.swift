@@ -56,7 +56,7 @@ struct FlowBlock: View {
     
     var BlockTextField: some View {
         TextField(block.flow ? "Flow" : "Break", text: $block.title)
-            .font(block.flow ? .callout : .footnote)
+            .font(block.flow ? .subheadline : .caption)
             .foregroundColor(block.flow ? .myBlue : .gray)
             .opacity(0.9)
             .disabled(dragging)
@@ -67,7 +67,7 @@ struct FlowBlock: View {
     
     var BlockTimeLabel: some View {
         Text(formatTime(seconds: (block.seconds) + (block.minutes * 60)))
-            .font(block.flow ? .caption : .caption2)
+            .font(.caption)
             .foregroundColor(block.flow ? .myBlue : .gray)
             .opacity(0.9)
             .frame(maxWidth: .infinity, alignment: .trailing)

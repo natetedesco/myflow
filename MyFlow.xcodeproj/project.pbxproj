@@ -33,6 +33,7 @@
 		F074D67A271D124900CE1AB4 /* FlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F074D679271D124900CE1AB4 /* FlowView.swift */; };
 		F083152A2888A55100153CD7 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08315292888A55100153CD7 /* StatsView.swift */; };
 		F0899DEB292EA83200A35D4D /* MyFlowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0899DEA292EA83200A35D4D /* MyFlowApp.swift */; };
+		F08D41DE296B4EA8001772BF /* ExampleFlows.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08D41DD296B4EA8001772BF /* ExampleFlows.swift */; };
 		F0948C1D26818EE100A5F48D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0948C1C26818EE100A5F48D /* Assets.xcassets */; };
 		F0948C2026818EE100A5F48D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0948C1F26818EE100A5F48D /* Preview Assets.xcassets */; };
 		F0948C4C2681907A00A5F48D /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0948C4B2681907A00A5F48D /* Notifications.swift */; };
@@ -100,6 +101,7 @@
 		F074D679271D124900CE1AB4 /* FlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowView.swift; sourceTree = "<group>"; };
 		F08315292888A55100153CD7 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		F0899DEA292EA83200A35D4D /* MyFlowApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFlowApp.swift; sourceTree = "<group>"; };
+		F08D41DD296B4EA8001772BF /* ExampleFlows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleFlows.swift; sourceTree = "<group>"; };
 		F0948C1526818EE000A5F48D /* MyFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0948C1C26818EE100A5F48D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F0948C1F26818EE100A5F48D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				F0A025C6294796A500AF723F /* FlowData.swift */,
 				F01CFFDE2964BCEC005C1F2A /* Settings.swift */,
 				F01962A02931255D00336821 /* Helpers.swift */,
+				F08D41DD296B4EA8001772BF /* ExampleFlows.swift */,
 				F04FFB55290339000058E66D /* Timer */,
 				F0A025CA2949019A00AF723F /* Data */,
 				F0FD718728ECD7B9008D9DC1 /* Helpers */,
@@ -382,6 +385,7 @@
 				F04FFB4C28FF66B30058E66D /* FlowModel.swift in Sources */,
 				F0F7F4342911C96E00BC8E16 /* Flow.swift in Sources */,
 				F074D678271D100600CE1AB4 /* Circles.swift in Sources */,
+				F08D41DE296B4EA8001772BF /* ExampleFlows.swift in Sources */,
 				F02C1473270FA679002FE382 /* StartButton.swift in Sources */,
 				F014A05D293AA67300B9D7D4 /* Data.swift in Sources */,
 				F083152A2888A55100153CD7 /* StatsView.swift in Sources */,
@@ -533,11 +537,13 @@
 				DEVELOPMENT_TEAM = AMU2LP62W2;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = MyFlow/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MyFlow;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -556,11 +562,13 @@
 				DEVELOPMENT_TEAM = AMU2LP62W2;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = MyFlow/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MyFlow;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

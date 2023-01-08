@@ -37,16 +37,14 @@ class FlowModel: ObservableObject {
     @Published var selection = 0 { didSet { Initialize() } }
     
     init() {
-//        if let data = UserDefaults.standard.data(forKey: "SavedData") {
-//            if let decoded = try? JSONDecoder().decode([Flow].self, from: data) {
-//                flowList = decoded
-//                Initialize()
-//                return
-//            }
-//        }
-        flowList = [
-            Flow(title: "Flow", flowSeconds: 5, breakSeconds: 5, rounds: 5),
-            Flow(title: "Workout", flowMinutes: 1, breakSeconds: 10)]
+        //        if let data = UserDefaults.standard.data(forKey: "SavedData") {
+        //            if let decoded = try? JSONDecoder().decode([Flow].self, from: data) {
+        //                flowList = decoded
+        //                Initialize()
+        //                return
+        //            }
+        //        }
+        flowList = exampleFlows
         Initialize()
     }
     
@@ -55,7 +53,7 @@ class FlowModel: ObservableObject {
         flowList.append(updateFlow(flow: flow))
         save()
     }
-
+    
     // Edit Flow
     func editFlow(id: UUID, flow: Flow) {
         if let updatedFlow = flowList.first(where: {$0.id == id}) {
@@ -69,8 +67,8 @@ class FlowModel: ObservableObject {
     func deleteFlow(id: UUID) {
         if let index = flowList.firstIndex(where: { $0.id == id }) {
             self.selection = 0 // select first in list
-                flowList.remove(at: index)
-                save()
+            flowList.remove(at: index)
+            save()
         }
     }
     
@@ -85,14 +83,14 @@ class FlowModel: ObservableObject {
     func updateFlow(flow: Flow) -> Flow {
         let changedFlow =
         Flow(
-        title: flow.title,
-        simple: flow.simple,
-        blocks: flow.blocks,
-        flowMinutes: flow.flowMinutes,
-        flowSeconds: flow.flowSeconds,
-        breakMinutes: flow.breakMinutes,
-        breakSeconds: flow.breakSeconds,
-        rounds: flow.rounds
+            title: flow.title,
+            simple: flow.simple,
+            flowMinutes: flow.flowMinutes,
+            flowSeconds: flow.flowSeconds,
+            breakMinutes: flow.breakMinutes,
+            breakSeconds: flow.breakSeconds,
+            rounds: flow.rounds,
+            blocks: flow.blocks
         )
         return changedFlow
     }
