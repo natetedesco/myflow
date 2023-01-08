@@ -22,5 +22,5 @@ struct Flow: Codable, Equatable {
     var breakSeconds: Int = 0
     var rounds: Int = 0
     
-    var blocks: [Block] = []
+    var blocks = [Block(flow: true), Block(flow: false)]
 }
