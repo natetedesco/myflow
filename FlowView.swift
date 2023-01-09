@@ -38,6 +38,8 @@ struct FlowView: View {
             FlowSheet(model: model, flow: $model.flow)
         }
         .FlowViewBackGround()
+        .background(AnimatedBlur(opacity: moreBlur ? 1.0 : 0.0))
+        .animation(.default.speed(1.5), value: moreBlur)
     }
     
     var FlowList: some View {
@@ -46,6 +48,13 @@ struct FlowView: View {
                 Text(model.flowList[i].title)
             }
         }
+    }
+    
+    var moreBlur: Bool {
+        if model.showFlow || model.completed || showWelcome {
+            return true
+        }
+        return false
     }
     
     var FlowCenter: some View {
@@ -136,7 +145,7 @@ struct FlowView: View {
                 HStack {
                     Text("Time: ")
                         .font(.callout)
-                    Text(formatHoursAndMinutes(time: model.totalFlowTime))
+                    Text(formatHoursAndMinutes(time: model.totalFlowTime/60))
                         .foregroundColor(.myBlue)
                         .font(.subheadline)
                 }

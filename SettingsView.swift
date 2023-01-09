@@ -8,10 +8,11 @@ import SwiftUI
 
 struct SettingsView: View {
     @StateObject var settings = Settings()
+    @State var hideToolBar = false
 
     var body: some View {
-        ZStack {
             NavigationView {
+                ZStack {
                 ScrollView {
                     
                     // Flows
@@ -41,10 +42,10 @@ struct SettingsView: View {
                     VersionNumber
                 }
                 .settingsNavigationView()
+                    Toolbar()
             }
-            .accentColor(.myBlue)
-            Toolbar()
         }
+            .accentColor(.myBlue)
     }
     
     var Div: some View {
@@ -122,16 +123,22 @@ struct AboutUs: View {
                     Image("Image")
                         .padding(.bottom)
                     
-                    LargeTitle(text: "MyFlow")
+                    Text("MyFlow")
+                        .foregroundColor(.myBlue)
+                        .font(.largeTitle)
+                        .fontWeight(.ultraLight)
+                        .kerning(3.0)
                     
-                    Text("Encouraging a flow state of mind.")
+                    Text("Focus on what matters.")
+                        .font(.footnote)
                     
                     FootNote(text: "v2.0")
                 }
                 .padding(.bottom, 32)
                 
-                Text("A simple but powerful tool to improve focus, performance, creativity. Create flows, routines, and personalized time management systems to stay on track and track your progress. ")
+                Text("How can we make better use of our time? In a world full of distractions how can we create an environment to just focus? Focus on the things that really matter. Because we owe that to ourselves. We deserve to realize our dreams, stay true to our passions. Motivation fuels us but consistency moves us forward. That is the idea that created MyFlow.")
                     .padding(.horizontal, 32)
+                    .fontWeight(.light)
                 
                 Spacer()
             }
@@ -141,53 +148,75 @@ struct AboutUs: View {
 
 struct HowItWorks: View {
     var body: some View {
-        VStack(alignment: .leading, spacing: 32) {
-            
-            HStack {
-                Circle()
-                    .stroke(lineWidth: 3)
-                    .frame(width: 30)
-                    .foregroundColor(.myBlue)
-                    .padding(.trailing)
-                DescriptionView(
-                    title: "Flow",
-                    text: "Time for productivity and focus")
-            }
-            
-            HStack {
-                Circle()
-                    .stroke(lineWidth: 3)
-                    .frame(width: 30)
-                    .foregroundColor(.gray)
-                    .padding(.trailing)
-                DescriptionView(
-                    title: "Break",
-                    text: "Time to rest your body and mind")
-            }
-            
-            
-            HStack {
-                Image(systemName: "play.fill")
-                    .foregroundColor(.myBlue)
-                    .font(.system(size: 30))
-                    .padding(.trailing)
-                DescriptionView(
-                    title: "Start",
-                    text: "Cycle between your flows and breaks")
-            }
-            Spacer()
+            VStack(alignment: .leading, spacing: 0) {
+                
+                HStack {
+                    Image(systemName: "circle")
+                        .foregroundColor(.myBlue)
+                        .font(.largeTitle)
+                        .padding(4)
+                        .background(Circle()
+                            .fill(.ultraThinMaterial.opacity(0.55)))
+//                                .padding(4)
+
+                    VStack {
+                        Text("Create Flows")
+                            .font(.headline)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        Text("With Interval or time blocking technique")
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .font(.footnote)
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                
+                HStack {
+                    Image(systemName: "chart.bar")
+                        .foregroundColor(.myBlue)
+                        .CircularGlassButton()
+                        .padding(.leading, -4) // no idea
+                    VStack {
+                        Text("Visualize progress")
+                            .font(.headline)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        Text("Set a goal and track your progress")
+                            .font(.footnote)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.top, 32)
+
+
+                HStack {
+                    Image(systemName: "bell")
+                        .foregroundColor(.myBlue)
+                        .CircularGlassButton()
+                    VStack {
+                        Text("Allow Notifications")
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .font(.headline)
+                        Text("Required for app functionality")
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .font(.footnote)
+                    }
+
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.bottom, 32)
+                .padding(.top, 32)
+                Spacer()
         }
+            .padding()
     }
 }
 
 struct Feedback: View {
     var body: some View {
         ZStack {
-            AnimatedBlurOpaque()
-            Text("MyFlow is currently in the Alpha stage. Please email feedback or support to natetedesco@icloud.com ")
+            Text("MyFlow is currently in the Beta stage. Please email feedback or support to natetedesco@icloud.com ")
                 .padding(.horizontal, 32)
                 .frame(maxHeight: .infinity, alignment: .top)
-//            Spacer()
         }
     }
 }

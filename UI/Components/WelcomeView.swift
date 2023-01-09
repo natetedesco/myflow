@@ -98,7 +98,7 @@ struct WelcomeScreen: View {
 //            .frame(height: 400)
             .customGlass()
         }
-        .background(AnimatedBlur(opacity: 0.1))
+//        .background(AnimatedBlur(opacity: 0.1))
     }
 }
 

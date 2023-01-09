@@ -39,7 +39,7 @@ struct FlowSheet: View {
             }
             .customGlass()
             .opacity(model.showFlow ? 1.0 : 0.0)
-            .scaleEffect(model.showFlow ? 1.0 : 0.97)
+            .scaleEffect(model.showFlow ? 1.0 : 0.96)
             .animation(.default.speed(model.showFlow ? 1.0 : 2.0), value: model.showFlow)
             .animation(.default.speed(1.0), value: chooseFlow)
             .animation(.default.speed(1.0), value: chooseBreak)

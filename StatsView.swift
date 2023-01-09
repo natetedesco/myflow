@@ -27,16 +27,24 @@ struct StatsView: View {
                         
                     }
                     .statisticsNavigationView()
+                    .background(AnimatedBlur(opacity: moreBlur ? 0.5 : 0.0))
+                    .animation(.default.speed(1.5), value: moreBlur)
                     .toolbar{ GoalButton }
                 }
                 Toolbar()
             }
 //            .blur(radius: data.showGoal ? 10 : 0) // Fucks up view
-            .animation(.default, value: data.showGoal)
-            
             GoalView
         }
     }
+    
+    var moreBlur: Bool {
+        if data.showGoal {
+            return true
+        }
+        return false
+    }
+    
     
     // Goal View
     var hours = [Int](0...12)

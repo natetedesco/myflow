@@ -44,7 +44,7 @@ class FlowData: ObservableObject {
     
     // Add time to today
     func addTimeToDay(time: Int) {
-        days[0].time = days[0].time + (time)
+        days[0].time = days[0].time + (time/60)
         save()
     }
     
@@ -57,13 +57,13 @@ class FlowData: ObservableObject {
             if days[0].day != Date.from(year: comp.year!, month: comp.month!, day: comp.day!) {
                 days.insert(Day(
                     day: Date.from(year: comp.year!, month: comp.month!, day: comp.day!),
-                    time: 1), at: 0)
+                    time: 0), at: 0)
                 save()
             }
         } else {
             days.insert(Day(
                 day: Date.from(year: comp.year!, month: comp.month!, day: comp.day!),
-                time: 1), at: 0)
+                time: 0), at: 0)
             save()
         }
     }
