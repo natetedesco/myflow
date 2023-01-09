@@ -66,7 +66,7 @@ struct FlowView: View {
                 if showCreateFlow {
                     Text("Tap to create your first flow or select from the menu above")
                         .foregroundColor(.myBlue)
-                        .padding(.horizontal, 90)
+                        .padding(.horizontal, 70)
                 } else {
                     TimerLabels(model: model)
                 }
