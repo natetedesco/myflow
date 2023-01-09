@@ -57,7 +57,7 @@ struct FlowBlock: View {
     var BlockTextField: some View {
         TextField(block.flow ? "Flow" : "Break", text: $block.title)
 //            .font(block.flow ? .subheadline : .caption)
-            .font(.caption)
+            .font(.footnote)
             .foregroundColor(block.flow ? .myBlue : .gray)
             .opacity(0.9)
             .disabled(dragging)
