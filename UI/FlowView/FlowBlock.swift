@@ -15,7 +15,7 @@ struct FlowBlock: View {
     
     var body: some View {
         let blockTime = [$block.minutes, $block.seconds]
-        let blockSize: CGFloat = (block.flow ? 60 : 30) + (block.pickTime ? (block.flow ? 140 : 170) : 0)
+        let blockSize: CGFloat = (block.flow ? 50 : 25) + (block.pickTime ? (block.flow ? 140 : 170) : 0)
         let blockColor = block.flow ? Color.myBlue.opacity(0.15) : Color.gray.opacity(0.15)
         
         ZStack {
@@ -56,7 +56,8 @@ struct FlowBlock: View {
     
     var BlockTextField: some View {
         TextField(block.flow ? "Flow" : "Break", text: $block.title)
-            .font(block.flow ? .subheadline : .caption)
+//            .font(block.flow ? .subheadline : .caption)
+            .font(.caption)
             .foregroundColor(block.flow ? .myBlue : .gray)
             .opacity(0.9)
             .disabled(dragging)

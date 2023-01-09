@@ -11,7 +11,6 @@ struct FlowView: View {
     @State var disable = false
     @AppStorage("showWelcome") var showWelcome: Bool = true
     @AppStorage("showCreateFlow") var showCreateFlow: Bool = true
-    
     init(model: FlowModel) {
         self.model = model
         self.showCreateFlow = false

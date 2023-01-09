@@ -28,9 +28,13 @@ var exampleFlows = [
 ]
 
 var exampleDays = [
-    Day(day: Date.from(year: 2023, month: 1, day: 5), time: 100),
-    Day(day: Date.from(year: 2023, month: 1, day: 4), time: 50),
+    Day(day: Date.from(year: 2023, month: 1, day: 8), time: 135),
+    Day(day: Date.from(year: 2023, month: 1, day: 7), time: 80),
+    Day(day: Date.from(year: 2023, month: 1, day: 6), time: 115),
+    Day(day: Date.from(year: 2023, month: 1, day: 5), time: 95),
+    Day(day: Date.from(year: 2023, month: 1, day: 4), time: 39),
     Day(day: Date.from(year: 2023, month: 1, day: 3), time: 75),
+    Day(day: Date.from(year: 2023, month: 1, day: 2), time: 90),
     Day(day: Date.from(year: 2023, month: 1, day: 1), time: 50)
 ]
 

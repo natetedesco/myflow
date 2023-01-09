@@ -26,13 +26,14 @@ class FlowData: ObservableObject {
     var thisMonthDays: [Day] { getThisMonthDays() }
     
     init() {
-        if let data = UserDefaults.standard.data(forKey: "SavedFlowData") {
-            if let decoded = try? JSONDecoder().decode([Day].self, from: data) {
-                days = decoded
-                return
-            }
-        }
-        days = []
+//        if let data = UserDefaults.standard.data(forKey: "SavedFlowData") {
+//            if let decoded = try? JSONDecoder().decode([Day].self, from: data) {
+//                days = decoded
+//                return
+//            }
+//        }
+        //        days = []
+        days = exampleDays
     }
     
     // Save
