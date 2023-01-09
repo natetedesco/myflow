@@ -11,12 +11,7 @@ class FlowData: ObservableObject {
     @AppStorage("GoalTime") var goalSelection: Int = 2
     @Published var showGoal: Bool = false
     
-    @Published var days: [Day] = [
-        Day(day: Date.from(year: 2023, month: 1, day: 5), time: 100),
-        Day(day: Date.from(year: 2023, month: 1, day: 4), time: 50),
-        Day(day: Date.from(year: 2023, month: 1, day: 3), time: 75),
-        Day(day: Date.from(year: 2023, month: 1, day: 1), time: 50)
-    ]
+    @Published var days: [Day]
     
     let date = Date()
     let firstDayOfTheWeek = Date().startOfWeek()
@@ -30,15 +25,15 @@ class FlowData: ObservableObject {
     var thisWeekDays: [Day] { getThisWeekDays() }
     var thisMonthDays: [Day] { getThisMonthDays() }
     
-//    init() {
-//        if let data = UserDefaults.standard.data(forKey: "SavedFlowData") {
-//            if let decoded = try? JSONDecoder().decode([Day].self, from: data) {
-//                days = decoded
-//                return
-//            }
-//        }
-//        days = []
-//    }
+    init() {
+        if let data = UserDefaults.standard.data(forKey: "SavedFlowData") {
+            if let decoded = try? JSONDecoder().decode([Day].self, from: data) {
+                days = decoded
+                return
+            }
+        }
+        days = []
+    }
     
     // Save
     func save() {
@@ -77,8 +72,10 @@ class FlowData: ObservableObject {
     func getTodayTime() -> Int {
         let comp = calendar.dateComponents([.year, .month, .day], from: date)
         var time = 0
-        if days[0].day == Date.from(year: comp.year!, month: comp.month!, day: comp.day!) {
-            time = days[0].time
+        if days.indices.contains(0) {
+            if days[0].day == Date.from(year: comp.year!, month: comp.month!, day: comp.day!) {
+                time = days[0].time
+            }
         }
         return time
     }

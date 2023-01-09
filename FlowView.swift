@@ -9,10 +9,18 @@ import SwiftUI
 struct FlowView: View {
     @ObservedObject var model: FlowModel
     @State var disable = false
+    @AppStorage("showWelcome") var showWelcome: Bool = true
+    @AppStorage("showCreateFlow") var showCreateFlow: Bool = true
+    
+    init(model: FlowModel) {
+        self.model = model
+        self.showCreateFlow = false
+    }
     
     var body: some View {
         
         ZStack {
+            
             ZStack {
                 FlowCenter
                 
@@ -23,6 +31,9 @@ struct FlowView: View {
             .blur(radius: model.showFlow ? 10 : 0)
             .animation(.default, value: [model.showFlow, model.completed])
             
+            if showWelcome {
+                WelcomeScreen()
+            }
             FlowCompleted
             FlowSheet(model: model, flow: $model.flow)
         }
@@ -43,7 +54,13 @@ struct FlowView: View {
         } label: {
             ZStack {
                 Circles(model: model)
-                TimerLabels(model: model)
+                if showCreateFlow {
+                    Text("Tap to create your first flow or select from the menu above")
+                        .foregroundColor(.myBlue)
+                        .padding(.horizontal, 90)
+                } else {
+                    TimerLabels(model: model)
+                }
             }
         }
         .disabled(model.mode != .Initial)
@@ -58,6 +75,8 @@ struct FlowView: View {
         if model.showFlow == true {
             Text(model.flow.title)
                 .buttonGlass()
+                .frame(maxHeight: .infinity, alignment: .top)
+                .padding(.top)
         }
     }
     

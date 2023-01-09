@@ -9,8 +9,7 @@ import Foundation
 var exampleFlows = [
     
     Flow(
-        title: "Flow", flowMinutes: 20, breakMinutes: 5, rounds: 5
-        ),
+        title: "Flow"),
     
     Flow(
         title: "Workout", simple: false, blocks: [
@@ -26,5 +25,12 @@ var exampleFlows = [
             Block(flow: true, title: "Creative Writing", minutes: 30),
             Block(flow: false, title: "Break", minutes: 5),
             Block(flow: true, title: "Revision", minutes: 15)])
-    
 ]
+
+var exampleDays = [
+    Day(day: Date.from(year: 2023, month: 1, day: 5), time: 100),
+    Day(day: Date.from(year: 2023, month: 1, day: 4), time: 50),
+    Day(day: Date.from(year: 2023, month: 1, day: 3), time: 75),
+    Day(day: Date.from(year: 2023, month: 1, day: 1), time: 50)
+]
+

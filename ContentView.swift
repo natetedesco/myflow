@@ -28,8 +28,10 @@ struct ContentView: View {
                 StatsView()
             }
         }
-        .onAppear { UNUserNotificationCenter.current()
-            .requestAuthorization(options:[.badge,.sound,.alert]) { (_, _) in }}
+//        .onAppear { UNUserNotificationCenter.current()
+//            .requestAuthorization(options:[.badge,.sound,.alert]) { (_, _) in }
+            
+//        }
     }
 }
 

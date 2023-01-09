@@ -119,15 +119,21 @@ struct FlowSheet: View {
     }
     
     var FlowTitle: some View {
-        TextField("Title", text: $flow.title)
-            .font(.title)
-            .foregroundColor(.white.opacity(0.5))
-            .focused($focusedField, equals: .flowName)
-            .onAppear {
-                if flow.new {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { focusedField = .flowName }
-                }
+        ZStack {
+            TextField("Title", text: $flow.title)
+                .font(.title)
+                .foregroundColor(.white.opacity(0.5))
+                .focused($focusedField, equals: .flowName)
+            if model.showFlow {
+                Text("")
+                    .foregroundColor(.clear)
+                    .onAppear {
+                        if flow.new {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { focusedField = .flowName }
+                        }
+                    }
             }
+        }
     }
     
     var SaveButton: some View {
