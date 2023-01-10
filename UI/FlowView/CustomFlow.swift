@@ -19,11 +19,11 @@ struct CustomFlow: View {
             VStack {
                 ForEach($flow.blocks) { $block in
                     FlowBlock(block: $block, flow: $flow, edit: $edit, dragging: $dragging)
-                    .opacity(block.id == draggingItem?.id && dragging ? 0.01 : 1)
-                    .drag(if: block.draggable) { draggingItem = block
-                        return NSItemProvider(contentsOf: URL(string: "\(block.id)"))!}
-                    .onDrop(of: [.item], delegate: DropViewDelegate(currentItem: block, items: $flow.blocks, draggingItem: $draggingItem, dragging: $dragging))
-                    .padding(.vertical, -1)
+                        .opacity(block.id == draggingItem?.id && dragging ? 0.01 : 1)
+                        .drag(if: block.draggable) { draggingItem = block
+                            return NSItemProvider(contentsOf: URL(string: "\(block.id)"))!}
+                        .onDrop(of: [.item], delegate: DropViewDelegate(currentItem: block, items: $flow.blocks, draggingItem: $draggingItem, dragging: $dragging))
+                        .padding(.vertical, -1)
                 }
             }
             .padding(.bottom)
@@ -54,9 +54,9 @@ struct CustomFlow: View {
         flow.addBreakBlock()
     }
     
-    func delete(at offsets: IndexSet) {
-        flow.blocks.remove(atOffsets: offsets)
-    }
+//    func delete(at offsets: IndexSet) {
+//        flow.blocks.remove(atOffsets: offsets)
+//    }
     
     var EditButton: some View {
         Button {
@@ -65,10 +65,10 @@ struct CustomFlow: View {
             }
             edit.toggle()
         }
-        label: {
-            Text(edit ? "Done" : "Edit")
-                .foregroundColor(.myBlue)
-        }
+    label: {
+        Text(edit ? "Done" : "Edit")
+            .foregroundColor(.myBlue)
+    }
     }
 }
 

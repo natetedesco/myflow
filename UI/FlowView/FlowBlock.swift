@@ -94,10 +94,11 @@ struct FlowBlock: View {
             }
         }
         block.pickTime.toggle()
-        //        pickTime.toggle()
     }
     
     func deleteBlock() {
-        flow.deleteBlock(id: block.id)
+        if !(flow.blocks.count == 1) {
+            flow.deleteBlock(id: block.id)
+        }
     }
 }

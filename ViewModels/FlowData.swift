@@ -26,14 +26,13 @@ class FlowData: ObservableObject {
     var thisMonthDays: [Day] { getThisMonthDays() }
     
     init() {
-//        if let data = UserDefaults.standard.data(forKey: "SavedFlowData") {
-//            if let decoded = try? JSONDecoder().decode([Day].self, from: data) {
-//                days = decoded
-//                return
-//            }
-//        }
-        //        days = []
-        days = exampleDays
+        if let data = UserDefaults.standard.data(forKey: "SavedFlowData") {
+            if let decoded = try? JSONDecoder().decode([Day].self, from: data) {
+                days = decoded
+                return
+            }
+        }
+        days = []
     }
     
     // Save
@@ -151,8 +150,8 @@ class FlowData: ObservableObject {
         
         // Last 30 days
         //        let date = calendar.date(from: comp)!
-//        let range = calendar.range(of: .day, in: .month, for: date)!
-//        let numDays = range.count
+        //        let range = calendar.range(of: .day, in: .month, for: date)!
+        //        let numDays = range.count
         
         var presentedDays: [Day] = []
         

@@ -58,7 +58,7 @@ struct FlowView: View {
     
     var FlowCenter: some View {
         Button {
-            editFlow()
+            model.editFlow()
         } label: {
             ZStack {
                 Circles(model: model)
@@ -166,13 +166,13 @@ struct FlowView: View {
     }
     
     var CreateFlowButton: some View {
-        Button(action: createFlow) {
+        Button(action: model.createFlow) {
             Label("Create", systemImage: "plus")
         }
     }
     
     var EditFlowButton: some View {
-        Button(action: editFlow) {
+        Button(action: model.editFlow) {
             Label("Edit", systemImage: "pencil")
         }
     }
@@ -191,15 +191,6 @@ struct FlowView: View {
             Title3(text: model.mode == .breakStart ? "Continue Flow" : "Complete Flow")
                 .fontWeight(.light)
         }
-    }
-    
-    func createFlow() {
-        model.flow = Flow(new: true)
-        model.showFlow = true
-    }
-    
-    func editFlow() {
-        model.showFlow = true
     }
     
     var Continue: Bool {

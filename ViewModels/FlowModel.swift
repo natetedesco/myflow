@@ -37,15 +37,24 @@ class FlowModel: ObservableObject {
     @Published var selection = 0 { didSet { Initialize() } }
     
     init() {
-                if let data = UserDefaults.standard.data(forKey: "SavedData") {
-                    if let decoded = try? JSONDecoder().decode([Flow].self, from: data) {
-                        flowList = decoded
-                        Initialize()
-                        return
-                    }
-                }
+        if let data = UserDefaults.standard.data(forKey: "SavedData") {
+            if let decoded = try? JSONDecoder().decode([Flow].self, from: data) {
+                flowList = decoded
+                Initialize()
+                return
+            }
+        }
         flowList = exampleFlows
         Initialize()
+    }
+    
+    func createFlow() {
+        flow = Flow(new: true)
+        showFlow = true
+    }
+    
+    func editFlow() {
+        showFlow = true
     }
     
     // Add Flow

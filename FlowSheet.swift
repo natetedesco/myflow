@@ -150,6 +150,20 @@ struct FlowSheet: View {
         model.showFlow = false;
         preventCrashFunc()
         model.deleteFlow(id: flow.id)
+        if flow.new {
+            model.selection = 0 // selects next flow
+        }
+    }
+    
+    func Save() {
+        preventCrashFunc()
+            model.showFlow = false;
+            if flow.new {
+                model.addFlow(flow: flow)
+                model.selection = (model.flowList.count - 1) // selects next flow
+            } else {
+                model.editFlow(id: flow.id, flow: flow)
+            }
     }
     
     func toggleFlowPicker() {
@@ -166,17 +180,6 @@ struct FlowSheet: View {
         chooseRound.toggle()
         chooseFlow = false
         chooseBreak = false
-    }
-    
-    func Save() {
-        preventCrashFunc()
-            model.showFlow = false;
-            if flow.new {
-                model.addFlow(flow: flow)
-                model.selection = (model.flowList.count - 1)
-            } else {
-                model.editFlow(id: flow.id, flow: flow)
-            }
     }
     
     func preventCrashFunc() {
