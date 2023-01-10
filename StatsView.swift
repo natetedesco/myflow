@@ -202,6 +202,17 @@ struct OverviewLabel: View {
 
 struct BarGraph: View {
     var value: CGFloat = 0
+    let curGradient = LinearGradient(
+        gradient: Gradient (
+            colors: [
+                .myBlue.opacity(1.0),
+//                .myBlue.opacity(0.2),
+                .myBlue.opacity(0.5),
+            ]
+        ),
+        startPoint: .top,
+        endPoint: .bottom
+    )
     
     var body: some View {
         VStack {
@@ -214,6 +225,7 @@ struct BarGraph: View {
                 Rectangle()
                     .frame(width: 25, height: min(value, 60))
                     .foregroundColor(.myBlue)
+//                    .foregroundStyle(curGradient)
             }
             .cornerRadius(25)
         }

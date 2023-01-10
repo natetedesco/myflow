@@ -5,6 +5,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 extension FlowModel {
     
@@ -94,4 +95,9 @@ extension FlowModel {
         mode = .breakStart
         type = .Break
     }
+}
+
+class Settings: ObservableObject {
+    @AppStorage("StartFlowAutomatically") var startFlowAutomatically: Bool = false
+    @AppStorage("StartBreakAutomatically") var startBreakAutomatically: Bool = false
 }

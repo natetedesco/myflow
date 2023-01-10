@@ -15,7 +15,6 @@
 		F01962A12931255D00336821 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962A02931255D00336821 /* Helpers.swift */; };
 		F01962B1293184BD00336821 /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962B0293184BD00336821 /* Run.swift */; };
 		F01962B32931EBE700336821 /* Start.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962B22931EBE700336821 /* Start.swift */; };
-		F01CFFDF2964BCEC005C1F2A /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01CFFDE2964BCEC005C1F2A /* Settings.swift */; };
 		F02C146F270FA679002FE382 /* Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C1466270FA679002FE382 /* Toolbar.swift */; };
 		F02C1471270FA679002FE382 /* Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C1468270FA679002FE382 /* Labels.swift */; };
 		F02C1472270FA679002FE382 /* UI Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C1469270FA679002FE382 /* UI Elements.swift */; };
@@ -82,7 +81,6 @@
 		F01962A02931255D00336821 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		F01962B0293184BD00336821 /* Run.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Run.swift; sourceTree = "<group>"; };
 		F01962B22931EBE700336821 /* Start.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Start.swift; sourceTree = "<group>"; };
-		F01CFFDE2964BCEC005C1F2A /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		F02C1466270FA679002FE382 /* Toolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toolbar.swift; sourceTree = "<group>"; };
 		F02C1468270FA679002FE382 /* Labels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Labels.swift; sourceTree = "<group>"; };
 		F02C1469270FA679002FE382 /* UI Elements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UI Elements.swift"; sourceTree = "<group>"; };
@@ -139,7 +137,6 @@
 			children = (
 				F04FFB4B28FF66B30058E66D /* FlowModel.swift */,
 				F0A025C6294796A500AF723F /* FlowData.swift */,
-				F01CFFDE2964BCEC005C1F2A /* Settings.swift */,
 				F01962A02931255D00336821 /* Helpers.swift */,
 				F08D41DD296B4EA8001772BF /* ExampleFlows.swift */,
 				F04FFB55290339000058E66D /* Timer */,
@@ -381,7 +378,6 @@
 				F0F7F4232904F0A900BC8E16 /* Waves.swift in Sources */,
 				F0899DEB292EA83200A35D4D /* MyFlowApp.swift in Sources */,
 				F0A025C92949014B00AF723F /* GetWeek.swift in Sources */,
-				F01CFFDF2964BCEC005C1F2A /* Settings.swift in Sources */,
 				F04FFB4C28FF66B30058E66D /* FlowModel.swift in Sources */,
 				F0F7F4342911C96E00BC8E16 /* Flow.swift in Sources */,
 				F074D678271D100600CE1AB4 /* Circles.swift in Sources */,

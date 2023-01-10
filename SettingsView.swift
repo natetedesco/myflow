@@ -132,7 +132,7 @@ struct AboutUs: View {
                     Text("Focus on what matters.")
                         .font(.footnote)
                     
-                    FootNote(text: "v2.0")
+                    FootNote(text: "2.0")
                 }
                 .padding(.bottom, 32)
                 
