@@ -11,9 +11,7 @@ extension FlowModel {
     // Start
     func startTimer(time: Int) {
         start = Date()
-        let calendar = Calendar.current
-        let end = calendar.date(byAdding: .second, value: (time - elapsedTime), to: start)!
-        
+        let end = Calendar.current.date(byAdding: .second, value: (time - elapsedTime), to: start)!
         runTimer(time: time, end: end)
     }
     
