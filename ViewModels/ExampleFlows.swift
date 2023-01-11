@@ -19,10 +19,10 @@ var exampleFlows = [
         ]),
     
     Flow(
-        title: "Creative Writing", simple: false, blocks: [
+        title: "Creativity", simple: false, blocks: [
             Block(flow: true, title: "Brainstorm", minutes: 15),
             Block(flow: false, title: "Break", minutes: 5),
-            Block(flow: true, title: "Creative Writing", minutes: 30),
+            Block(flow: true, title: "Create", minutes: 30),
             Block(flow: false, title: "Break", minutes: 5),
             Block(flow: true, title: "Revision", minutes: 15)])
 ]

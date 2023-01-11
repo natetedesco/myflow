@@ -63,7 +63,7 @@ struct FlowView: View {
             ZStack {
                 Circles(model: model)
                 if showCreateFlow {
-                    Text("Tap to create your first flow or select from the menu above")
+                    Text("Tap to edit your flow or select from the menu above")
                         .foregroundColor(.myBlue)
                         .padding(.horizontal, 70)
                 } else {

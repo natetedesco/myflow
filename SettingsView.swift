@@ -9,10 +9,10 @@ import SwiftUI
 struct SettingsView: View {
     @StateObject var settings = Settings()
     @State var hideToolBar = false
-
+    
     var body: some View {
-            NavigationView {
-                ZStack {
+        NavigationView {
+            ZStack {
                 ScrollView {
                     
                     // Flows
@@ -42,10 +42,10 @@ struct SettingsView: View {
                     VersionNumber
                 }
                 .settingsNavigationView()
-                    Toolbar()
+                Toolbar()
             }
         }
-            .accentColor(.myBlue)
+        .accentColor(.myBlue)
     }
     
     var Div: some View {
@@ -56,7 +56,7 @@ struct SettingsView: View {
     var VersionNumber: some View {
         Text("v2.0")
             .foregroundColor(.myBlue)
-            .padding(32)
+            .padding(16)
             .kerning(2.0)
             .frame(maxWidth: .infinity, alignment: .center)
     }
@@ -116,105 +116,102 @@ struct ToggleBar: View {
 
 struct AboutUs: View {
     var body: some View {
-        ZStack {
-            AnimatedBlurOpaque()
-            VStack() {
-                VStack(spacing: 8) {
-                    Image("Image")
-                        .padding(.bottom)
-                    
-                    Text("MyFlow")
-                        .foregroundColor(.myBlue)
-                        .font(.largeTitle)
-                        .fontWeight(.ultraLight)
-                        .kerning(3.0)
-                    
-                    Text("Focus on what matters.")
-                        .font(.footnote)
-                    
-                    FootNote(text: "2.0")
-                }
-                .padding(.bottom, 32)
+        VStack() {
+            VStack(spacing: 8) {
+                Image("Image")
+                    .padding(.bottom)
                 
-                Text("How can we make better use of our time? In a world full of distractions how can we create an environment to just focus? Focus on the things that really matter. Because we owe that to ourselves. We deserve to realize our dreams, stay true to our passions. Motivation fuels us but consistency moves us forward. That is the idea that created MyFlow.")
-                    .padding(.horizontal, 32)
-                    .fontWeight(.light)
+                Text("MyFlow")
+                    .foregroundColor(.myBlue)
+                    .font(.largeTitle)
+                    .fontWeight(.ultraLight)
+                    .kerning(3.0)
                 
-                Spacer()
+                Text("Focus on what matters.")
+                    .font(.footnote)
+                
+                FootNote(text: "2.0")
             }
+            .padding(.bottom, 32)
+            
+            Text("How can we make better use of our time? In a world full of distractions how can we create an environment to just focus? Focus on the things that really matter. Because we owe that to ourselves. We deserve to realize our dreams and stay true to our passions. Motivation fuels us but consistency moves us forward. That is the idea that created MyFlow.")
+                .fontWeight(.light)
+            
+            Spacer()
         }
+        .padding(.horizontal, 32)
+        .background(AnimatedBlur(opacity: 0.01))
     }
 }
 
 struct HowItWorks: View {
     var body: some View {
-            VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: .leading, spacing: 64) {
+            
+            HStack {
+                Image(systemName: "circle")
+                    .foregroundColor(.myBlue)
+                    .font(.largeTitle)
+                    .padding(.trailing, 4)
+                    .background(Circle()
+                        .fill(.ultraThinMaterial.opacity(0.55)))
+                //                                .padding(4)
                 
-                HStack {
-                    Image(systemName: "circle")
-                        .foregroundColor(.myBlue)
-                        .font(.largeTitle)
-                        .padding(4)
-                        .background(Circle()
-                            .fill(.ultraThinMaterial.opacity(0.55)))
-//                                .padding(4)
-
-                    VStack {
-                        Text("Create Flows")
-                            .font(.headline)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        Text("With Interval or time blocking technique")
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .font(.footnote)
-                    }
+                VStack {
+                    Text("Create Flows")
+                        .font(.headline)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    Text("Using time blocks or intervals")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .font(.footnote)
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            
+            HStack {
+                Image(systemName: "chart.bar")
+                    .foregroundColor(.myBlue)
+                    .CircularGlassButton()
+                    .padding(.leading, -4) // no idea
+                VStack {
+                    Text("Visualize progress")
+                        .font(.headline)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    Text("Using time blocks or intervals")
+                        .font(.footnote)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            
+            
+            HStack {
+                Image(systemName: "bell")
+                    .foregroundColor(.myBlue)
+                    .CircularGlassButton()
+                VStack {
+                    Text("Allow Notifications")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .font(.headline)
+                    Text("Required for app functionality")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .font(.footnote)
+                }
                 
-                HStack {
-                    Image(systemName: "chart.bar")
-                        .foregroundColor(.myBlue)
-                        .CircularGlassButton()
-                        .padding(.leading, -4) // no idea
-                    VStack {
-                        Text("Visualize progress")
-                            .font(.headline)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        Text("Set a goal and track your progress")
-                            .font(.footnote)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.top, 32)
-
-
-                HStack {
-                    Image(systemName: "bell")
-                        .foregroundColor(.myBlue)
-                        .CircularGlassButton()
-                    VStack {
-                        Text("Allow Notifications")
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .font(.headline)
-                        Text("Required for app functionality")
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .font(.footnote)
-                    }
-
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.bottom, 32)
-                .padding(.top, 32)
-                Spacer()
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            
+            Spacer()
         }
-            .padding()
+        .padding(.horizontal, 32)
+        .background(AnimatedBlur(opacity: 0.01))
     }
 }
 
 struct Feedback: View {
     var body: some View {
         ZStack {
-            Text("MyFlow is currently in the Beta stage. Please email feedback or support to natetedesco@icloud.com ")
+            Text("Please email feedback or support to natetedesco@icloud.com ")
                 .padding(.horizontal, 32)
                 .frame(maxHeight: .infinity, alignment: .top)
         }

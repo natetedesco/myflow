@@ -29,13 +29,12 @@ struct WelcomeScreen: View {
                                 .padding(4)
                                 .background(Circle()
                                     .fill(.ultraThinMaterial.opacity(0.55)))
-//                                .padding(4)
 
                             VStack {
                                 Text("Create Flows")
                                     .font(.headline)
                                     .frame(maxWidth: .infinity, alignment: .leading)
-                                Text("With Interval or time blocking technique")
+                                Text("Using time blocks or intervals")
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .font(.footnote)
                             }
@@ -98,7 +97,6 @@ struct WelcomeScreen: View {
 //            .frame(height: 400)
             .customGlass()
         }
-//        .background(AnimatedBlur(opacity: 0.1))
     }
 }
 
