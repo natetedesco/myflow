@@ -55,7 +55,7 @@ struct ToolBarButton: View {
                 .font(Font.system(size: size))
         .frame(width: 60, height: 20)
         .padding(.top, 40)
-        .foregroundColor(.myBlue)
+        .myBlue()
     }
         else {
             Image(systemName: image)

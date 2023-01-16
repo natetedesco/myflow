@@ -29,7 +29,7 @@ struct FlowBlock: View {
                     DeleteButton
                 }
                 .padding(.top, block.pickTime ? block.flow ? 18 : 6 : 0)
-//                .frame(maxHeight: .infinity, alignment: .top)
+//                .top()
                 
                 if block.pickTime {
                     MultiComponentPicker(columns: columns, selections: blockTime)

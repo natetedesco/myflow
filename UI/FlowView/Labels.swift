@@ -37,7 +37,7 @@ struct TimerLabels: View {
                         BreakLabel
                     }
                 }
-                .frame(maxWidth: .infinity)
+                .maxWidth()
                 
                 // Rounds
                 HStack {

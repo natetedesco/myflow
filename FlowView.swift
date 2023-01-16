@@ -64,7 +64,7 @@ struct FlowView: View {
                 Circles(model: model)
                 if showCreateFlow {
                     Text("Tap to edit your flow or select from the menu above")
-                        .foregroundColor(.myBlue)
+                        .myBlue()
                         .padding(.horizontal, 70)
                 } else {
                     TimerLabels(model: model)
@@ -83,7 +83,7 @@ struct FlowView: View {
         if model.showFlow == true {
             Text(model.flow.title)
                 .buttonGlass()
-                .frame(maxHeight: .infinity, alignment: .top)
+                .top()
                 .padding(.top)
         }
     }
@@ -117,7 +117,7 @@ struct FlowView: View {
             }
         }
         .buttonGlass()
-        .frame(maxHeight: .infinity, alignment: .top)
+        .top()
         .padding(.top)
         .animation(.easeInOut(duration: 0.15), value: model.mode)
         .animation(.easeInOut(duration: 0.25), value: model.selection)
@@ -145,11 +145,11 @@ struct FlowView: View {
                     Text("Time: ")
                         .font(.callout)
                     Text(formatHoursAndMinutes(time: model.totalFlowTime/60))
-                        .foregroundColor(.myBlue)
+                        .myBlue()
                         .font(.subheadline)
                 }
             }
-            .frame(maxWidth: .infinity)
+            .maxWidth()
             .padding(24)
             .background(.black.opacity(0.7))
             .cornerRadius(40)

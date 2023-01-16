@@ -11,41 +11,37 @@ struct SettingsView: View {
     @State var hideToolBar = false
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                ScrollView {
-                    
-                    // Flows
-                    CustomHeadline(text: "Flow")
-                    VStack {
-                        ToggleBar(text: "Start flow automatically", isOn: $settings.startFlowAutomatically)
-                        Div
-                            .padding(.vertical, 2)
-                        ToggleBar(text: "Start break automatically", isOn: $settings.startBreakAutomatically)
-                    }
-                    .padding(.vertical, 12)
-                    .background(.black.opacity(0.6))
-                    .cornerRadius(25.0)
-                    .padding(.horizontal)
-                    
-                    // About
-                    CustomHeadline(text: "About")
-                    VStack(spacing: 16) {
-                        NavigationLink(destination: AboutUs()) { NL(text: "About us", icon: "info.circle") }
-                        Div
-                        NavigationLink(destination: HowItWorks()) { NL(text: "How it works", icon: "questionmark.circle") }
-                        Div
-                        NavigationLink(destination: Feedback()) { NL(text: "Feedback and support", icon: "message") }
-                    }
-                    .cardGlassNP()
-                    
-                    VersionNumber
+        ZStack {
+            ScrollView {
+                // Flows
+                CustomHeadline(text: "Flow")
+                VStack {
+                    ToggleBar(text: "Start flow automatically", isOn: $settings.startFlowAutomatically)
+                    Div
+                        .padding(.vertical, 2)
+                    ToggleBar(text: "Start break automatically", isOn: $settings.startBreakAutomatically)
                 }
-                .settingsNavigationView()
-                Toolbar()
+                .padding(.vertical, 12)
+                .background(.black.opacity(0.6))
+                .cornerRadius(25.0)
+                .padding(.horizontal)
+                
+                // About
+                CustomHeadline(text: "About")
+                VStack(spacing: 16) {
+                    NavigationLink(destination: AboutUs()) { NL(text: "About us", icon: "info.circle") }
+                    Div
+                    NavigationLink(destination: HowItWorks()) { NL(text: "How it works", icon: "questionmark.circle") }
+                    Div
+                    NavigationLink(destination: Feedback()) { NL(text: "Feedback and support", icon: "message") }
+                }
+                .cardGlassNP()
+                
+                VersionNumber
             }
+            .navigationView(title: "Settings")
+            Toolbar()
         }
-        .accentColor(.myBlue)
     }
     
     var Div: some View {
@@ -55,10 +51,10 @@ struct SettingsView: View {
     
     var VersionNumber: some View {
         Text("v2.0")
-            .foregroundColor(.myBlue)
+            .myBlue()
             .padding(16)
             .kerning(2.0)
-            .frame(maxWidth: .infinity, alignment: .center)
+            .centered()
     }
     
     var UpgradeButton: some View {
@@ -122,7 +118,7 @@ struct AboutUs: View {
                     .padding(.bottom)
                 
                 Text("MyFlow")
-                    .foregroundColor(.myBlue)
+                    .myBlue()
                     .font(.largeTitle)
                     .fontWeight(.ultraLight)
                     .kerning(3.0)
@@ -150,7 +146,7 @@ struct HowItWorks: View {
             
             HStack {
                 Image(systemName: "circle")
-                    .foregroundColor(.myBlue)
+                    .myBlue()
                     .font(.largeTitle)
                     .padding(.trailing, 4)
                     .background(Circle()
@@ -160,46 +156,46 @@ struct HowItWorks: View {
                 VStack {
                     Text("Create Flows")
                         .font(.headline)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .leading()
                     Text("Using time blocks or intervals")
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .leading()
                         .font(.footnote)
                 }
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
+            .leading()
             
             HStack {
                 Image(systemName: "chart.bar")
-                    .foregroundColor(.myBlue)
+                    .myBlue()
                     .CircularGlassButton()
                     .padding(.leading, -4) // no idea
                 VStack {
                     Text("Visualize progress")
                         .font(.headline)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .leading()
                     Text("Using time blocks or intervals")
                         .font(.footnote)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .leading()
                 }
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
+            .leading()
             
             
             HStack {
                 Image(systemName: "bell")
-                    .foregroundColor(.myBlue)
+                    .myBlue()
                     .CircularGlassButton()
                 VStack {
                     Text("Allow Notifications")
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .leading()
                         .font(.headline)
                     Text("Required for app functionality")
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .leading()
                         .font(.footnote)
                 }
                 
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
+            .leading()
             
             Spacer()
         }
@@ -213,7 +209,7 @@ struct Feedback: View {
         ZStack {
             Text("Please email feedback or support to natetedesco@icloud.com ")
                 .padding(.horizontal, 32)
-                .frame(maxHeight: .infinity, alignment: .top)
+                .top()
         }
     }
 }

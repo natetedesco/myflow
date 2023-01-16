@@ -26,7 +26,8 @@ struct CustomFlow: View {
                         .padding(.vertical, -1)
                 }
             }
-            .padding(.bottom)
+            .padding(.top, -8)
+            .padding(.bottom, 8)
             
             // Edit
             HStack {
@@ -67,7 +68,7 @@ struct CustomFlow: View {
         }
     label: {
         Text(edit ? "Done" : "Edit")
-            .foregroundColor(.myBlue)
+            .myBlue()
     }
     }
 }

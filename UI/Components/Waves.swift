@@ -19,7 +19,7 @@
 //            getSinWave(interval: universalSize.width,
 //                       amplitude: 100,
 //                       baseline: universalSize.height/1.4)
-//            .foregroundColor(.myBlue)
+//            .myBlue
 //
 //            .opacity(0.2)
 //            .offset(x: isAnimated ? -1*universalSize.width: 0)
@@ -29,7 +29,7 @@
 //            getSinWave(interval: universalSize.width*1.2,
 //                       amplitude: 160,
 //                       baseline: 50 + universalSize.height/1.7)
-//            .foregroundColor(.myBlue)
+//            .myBlue
 //            .opacity(0.2)
 //            .offset(x: isAnimated ? -1*universalSize.width*1.2: 0)
 //            .animation(Animation.linear(duration: 12)
@@ -38,7 +38,7 @@
 //            getSinWave(interval: universalSize.width*1.5,
 //                       amplitude: 130,
 //                       baseline: 50 + universalSize.height/1.8)
-//            .foregroundColor(.myBlue)
+//            .myBlue
 //            .opacity(0.2)
 //            .offset(x: isAnimated ? -1*universalSize.width*1.5: 0)
 //            .animation(Animation.linear(duration: 15)

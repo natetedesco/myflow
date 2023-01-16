@@ -22,7 +22,7 @@ struct LargeTitle: View {
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .kerning(5.0)
-                .foregroundColor(.myBlue)
+                .myBlue()
         }
     }
 }
@@ -77,7 +77,7 @@ struct CustomHeadline: View {
             .fontWeight(.semibold)
             .padding(.leading)
             .padding(.top)
-            .frame(maxWidth: .infinity, alignment: .leading)
+            .leading()
     }
 }
 

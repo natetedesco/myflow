@@ -87,7 +87,7 @@ struct FlowSheet: View {
                         .frame(maxHeight: 10)
                 }
                 .foregroundColor(.white.opacity(0.8))
-                .frame(maxWidth: .infinity, alignment: .leading)
+                .leading()
                 if chooseRound {
                     GeometryReader { geometry in
                         Picker(selection: $flow.rounds, label: Text("")) {
@@ -113,7 +113,7 @@ struct FlowSheet: View {
         } label: {
             Image(systemName: "ellipsis")
                 .font(.title3)
-                .foregroundColor(.myBlue)
+                .myBlue()
                 .CircularGlassButton()
         }
     }
@@ -141,8 +141,8 @@ struct FlowSheet: View {
             Save()
         } label: {
             Text("Save")
-                .foregroundColor(.myBlue)
-                .frame(maxWidth: .infinity, alignment: .center)
+                .myBlue()
+                .centered()
         }
     }
     
@@ -210,7 +210,7 @@ struct FlowSheet: View {
                 FootNote(text: "Simple")
                     .foregroundColor(.white.opacity(0.95))
                     .padding(.vertical, 6)
-                    .frame(maxWidth: .infinity)
+                    .maxWidth()
                     .modifier(SizeAwareViewModifier(viewSize: self.$segmentSize))
                     .onTapGesture {
                         flow.simple = true
@@ -219,7 +219,7 @@ struct FlowSheet: View {
                 FootNote(text: "Custom")
                     .foregroundColor(.white.opacity(0.95))
                     .padding(.vertical, 6)
-                    .frame(maxWidth: .infinity)
+                    .maxWidth()
                     .modifier(SizeAwareViewModifier(viewSize: self.$segmentSize))
                     .onTapGesture {
                         flow.simple = false
@@ -246,7 +246,7 @@ struct PickerLabel: View {
             Text(formatTime(seconds: time))
         }
         .foregroundColor(color)
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .leading()
     }
 }
 

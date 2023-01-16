@@ -13,27 +13,25 @@ struct StatsView: View {
     var body: some View {
         ZStack {
             ZStack {
-                NavigationView {
-                    ScrollView {
-                        
-                        CustomHeadline(text: "Overview")
-                        OverviewCard
-                        
-                        CustomHeadline(text: "This Week")
-                        WeekCard
-                        
-                        CustomHeadline(text: "This Month")
-                        MonthCard
-                        
-                    }
-                    .statisticsNavigationView()
-                    .background(AnimatedBlur(opacity: moreBlur ? 0.5 : 0.0))
-                    .animation(.default.speed(1.5), value: moreBlur)
-                    .toolbar{ GoalButton }
+                ScrollView {
+                    
+                    CustomHeadline(text: "Overview")
+                    OverviewCard
+                    
+                    CustomHeadline(text: "This Week")
+                    WeekCard
+                    
+                    CustomHeadline(text: "This Month")
+                    MonthCard
+                    
                 }
+                .navigationView(title: "Statistics")
+                .background(AnimatedBlur(opacity: moreBlur ? 0.5 : 0.0))
+                .animation(.default.speed(1.5), value: moreBlur)
+                .toolbar{ GoalButton }
                 Toolbar()
             }
-//            .blur(radius: data.showGoal ? 10 : 0) // Fucks up view
+            //            .blur(radius: data.showGoal ? 10 : 0) // Fucks up view
             GoalView
         }
     }
@@ -44,7 +42,6 @@ struct StatsView: View {
         }
         return false
     }
-    
     
     // Goal View
     var hours = [Int](0...12)
@@ -131,13 +128,6 @@ struct StatsView: View {
         .compositingGroup()
     }
     
-    var ClearRectangle: some View {
-        Rectangle()
-            .frame(width: 25, height: 60)
-            .foregroundColor(.white)
-            .cornerRadius(25)
-    }
-    
     // Month Card
     var MonthCard: some View {
         VStack {
@@ -194,9 +184,9 @@ struct OverviewLabel: View {
         VStack(alignment: .center, spacing: 6) {
             FootNote(text: label)
             SubHeadline(text: "\(formatHoursAndMinutes(time: time))")
-                .foregroundColor(.myBlue)
+                .myBlue()
         }
-        .frame(maxWidth: .infinity)
+        .maxWidth()
     }
 }
 
@@ -206,7 +196,6 @@ struct BarGraph: View {
         gradient: Gradient (
             colors: [
                 .myBlue.opacity(1.0),
-//                .myBlue.opacity(0.2),
                 .myBlue.opacity(0.5),
             ]
         ),
@@ -224,8 +213,7 @@ struct BarGraph: View {
                 
                 Rectangle()
                     .frame(width: 25, height: min(value, 60))
-                    .foregroundColor(.myBlue)
-//                    .foregroundStyle(curGradient)
+                    .myBlue()
             }
             .cornerRadius(25)
         }

@@ -6,120 +6,106 @@
 
 import SwiftUI
 
-struct FlowViewBackGroundModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .background(.black.opacity(0.8))
-            .background(.ultraThinMaterial)
-            .background(AnimatedBlur(opacity: 0.3))
+extension View {
+    func buttonGlass() -> some View {
+        self
+            .myBlue()
+            .padding(.vertical, 8)
+            .padding(.horizontal, 12)
+            .background(.ultraThinMaterial.opacity(0.55))
+            .cornerRadius(30)
     }
-}
-
-struct NavigationViewModifier: ViewModifier {
-    var title: String
-    func body(content: Content) -> some View {
-        content
-            .padding(.bottom, 85)
-            .background(.black.opacity(0.6))
-            .background(.ultraThinMaterial)
-            .background(AnimatedBlur(opacity: 0.3))
-            .navigationTitle(title)
+    
+    func smallButtonGlass() -> some View {
+        self
+            .myBlue()
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
+            .background(.ultraThinMaterial.opacity(0.55))
+            .cornerRadius(30)
     }
-}
-
-struct CircularGlassButtonViewModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content
+    
+    func CircularGlassButton() -> some View {
+        self
             .font(.title3)
             .padding(12)
             .background(Circle()
                 .fill(.ultraThinMaterial.opacity(0.55)))
     }
-}
-
-struct ButtonGlassViewModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .foregroundColor(.myBlue)
-            .padding(.vertical, 8)
-            .padding(.horizontal, 12)
-            .background(.ultraThinMaterial.opacity(0.55))
-            .cornerRadius(30)
-    }
-}
-
-struct SmallButtonGlassViewModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .foregroundColor(.myBlue)
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
-            .background(.ultraThinMaterial.opacity(0.55))
-            .cornerRadius(30)
-    }
-}
-
-struct CustomGlassViewModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .frame(maxWidth: .infinity)
+    
+    func customGlass() -> some View {
+        self
+            .maxWidth()
             .padding(24)
             .background(.black.opacity(0.7))
             .cornerRadius(40)
             .padding(.horizontal, 32)
     }
-}
-
-struct CardGlassViewModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .frame(maxWidth: .infinity)
+    
+    func cardGlass() -> some View {
+        self
+            .maxWidth()
             .padding()
             .background(.black.opacity(0.6))
             .cornerRadius(25.0)
             .padding(.horizontal)
     }
-}
-
-struct CardGlassNPViewModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content
+    
+    func cardGlassNP() -> some View {
+        self
             .padding(.vertical)
             .background(.black.opacity(0.6))
             .cornerRadius(25.0)
             .padding(.horizontal)
     }
-}
-
-extension View {
-    func buttonGlass() -> some View {
-        self.modifier(ButtonGlassViewModifier())
-    }
-    func smallButtonGlass() -> some View {
-        self.modifier(SmallButtonGlassViewModifier())
-    }
-    func CircularGlassButton() -> some View {
-        self.modifier(CircularGlassButtonViewModifier())
-    }
-    
-    func customGlass() -> some View {
-        self.modifier(CustomGlassViewModifier())
-    }
-    func cardGlass() -> some View {
-        self.modifier(CardGlassViewModifier())
-    }
-    func cardGlassNP() -> some View {
-        self.modifier(CardGlassNPViewModifier())
-    }
-    
-    func settingsNavigationView() -> some View {
-        self.modifier(NavigationViewModifier(title: "Settings"))
-    }
-    func statisticsNavigationView() -> some View {
-        self.modifier(NavigationViewModifier(title: "Statistics"))
-    }
     
     func FlowViewBackGround() -> some View {
-        self.modifier(FlowViewBackGroundModifier())
+        self
+            .background(.black.opacity(0.8))
+            .background(.ultraThinMaterial)
+            .background(AnimatedBlur(opacity: 0.3))
+    }
+    
+    func navigationView(title: String) -> some View {
+        NavigationView {
+        self
+            .padding(.bottom, 85)
+            .background(.black.opacity(0.6))
+            .background(.ultraThinMaterial)
+            .background(AnimatedBlur(opacity: 0.3))
+            .navigationTitle(title)
+        }
+        .navigationViewStyle(StackNavigationViewStyle())
+        .accentColor(.myBlue)
+    }
+    
+    func myBlue() -> some View {
+        self
+            .foregroundColor(.myBlue)
+    }
+    
+    func gray() -> some View {
+        self
+            .foregroundColor(.gray)
+    }
+    
+    func maxWidth() -> some View {
+        self
+            .frame(maxWidth: .infinity)
+    }
+    
+    func centered() -> some View {
+        self
+            .frame(maxWidth: .infinity, alignment: .center)
+    }
+    
+    func leading() -> some View {
+        self
+            .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    func top() -> some View {
+        self
+            .frame(maxHeight: .infinity, alignment: .top)
     }
 }

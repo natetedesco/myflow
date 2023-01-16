@@ -19,12 +19,12 @@ struct WelcomeScreen: View {
 
                             Text("Welcome to MyFlow")
                                 .font(.title).fontWeight(.bold)
-                                .frame(maxWidth: .infinity, alignment: .center)
+                                .centered()
                             .padding(.bottom, 32)
                         
                         HStack {
                             Image(systemName: "circle")
-                                .foregroundColor(.myBlue)
+                                .myBlue()
                                 .font(.largeTitle)
                                 .padding(4)
                                 .background(Circle()
@@ -33,47 +33,47 @@ struct WelcomeScreen: View {
                             VStack {
                                 Text("Create Flows")
                                     .font(.headline)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .leading()
                                 Text("Using time blocks or intervals")
-                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .leading()
                                     .font(.footnote)
                             }
                         }
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .leading()
                         
                         HStack {
                             Image(systemName: "chart.bar")
-                                .foregroundColor(.myBlue)
+                                .myBlue()
                                 .CircularGlassButton()
                                 .padding(.leading, -4) // no idea
                             VStack {
                                 Text("Visualize progress")
                                     .font(.headline)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .leading()
                                 Text("Set a goal and track your progress")
                                     .font(.footnote)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .leading()
                             }
                         }
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .leading()
                         .padding(.top, 32)
 
 
                         HStack {
                             Image(systemName: "bell")
-                                .foregroundColor(.myBlue)
+                                .myBlue()
                                 .CircularGlassButton()
                             VStack {
                                 Text("Allow Notifications")
-                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .leading()
                                     .font(.headline)
                                 Text("Required for app functionality")
-                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .leading()
                                     .font(.footnote)
                             }
 
                         }
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .leading()
                         .padding(.bottom, 32)
                         .padding(.top, 32)
 
@@ -86,8 +86,8 @@ struct WelcomeScreen: View {
                         },
                                label: {
                             Text("Continue")
-                                .foregroundColor(.myBlue)
-                                .frame(maxWidth: .infinity)
+                                .myBlue()
+                                .maxWidth()
                                 .padding(.vertical)
                                 .background(.ultraThinMaterial.opacity(0.55))
                                 .cornerRadius(30)
@@ -129,7 +129,7 @@ struct DescriptionView: View {
 //    Circle()
 //        .stroke(lineWidth: 3)
 //        .frame(width: 30)
-//        .foregroundColor(.myBlue)
+//        .myBlue
 //        .padding(.trailing)
 //    DescriptionView(
 //        title: "Flow",
@@ -150,7 +150,7 @@ struct DescriptionView: View {
 //
 //HStack {
 //    Image(systemName: "play.fill")
-//        .foregroundColor(.myBlue)
+//        .myBlue
 //        .font(.system(size: 30))
 //        .padding(.trailing)
 //    DescriptionView(
@@ -162,8 +162,8 @@ struct DescriptionView: View {
 //    welcomeScreenShown = true },
 //       label: {
 //    Text("Continue")
-//        .foregroundColor(.myBlue)
-//        .frame(maxWidth: .infinity)
+//        .myBlue
+//        .maxWidth()
 //        .padding(.vertical)
 //        .background(.ultraThinMaterial.opacity(0.55))
 //        .cornerRadius(30)

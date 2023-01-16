@@ -46,7 +46,7 @@ struct Start: View {
     var image: String
     var body: some View {
         Image(systemName: image)
-            .foregroundColor(.myBlue)
+            .myBlue()
             .font(.system(size: 30))
             .padding(16)
             .background(.ultraThinMaterial.opacity(0.55))
@@ -60,13 +60,13 @@ struct StartNext: View {
     var body: some View {
         HStack {
             Image(systemName: image)
-                .foregroundColor(.myBlue)
+                .myBlue()
                 .font(.system(size: 30))
                 .padding(.trailing, 5)
             Text(text)
                 .font(.title3)
                 .fontWeight(.light)
-                .foregroundColor(.myBlue)
+                .myBlue()
         }
         .padding(13)
         .background(.ultraThinMaterial.opacity(0.55))
@@ -79,11 +79,11 @@ struct FlowButton: View {
         ZStack {
             Circle()
                 .stroke(Color.myBlue,style: StrokeStyle(lineWidth: 6, lineCap: .round))
-                .foregroundColor(.myBlue)
+                .myBlue()
                 .frame(width: 90, height: 50)
             Circle()
                 .stroke(Color.myBlue,style: StrokeStyle(lineWidth: 1, lineCap: .round))
-                .foregroundColor(.myBlue)
+                .myBlue()
                 .frame(width: 90, height: 50)
                 .blur(radius: 5)
         }

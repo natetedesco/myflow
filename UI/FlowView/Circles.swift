@@ -25,7 +25,7 @@ struct Circles: View {
                     .blur(radius: 10)
                 
                 Circle()
-                    .stroke(Color.myBlue.opacity(0.35),style: StrokeStyle(lineWidth: 4,lineCap: .round))
+                    .stroke(Color.myBlue.opacity(0.3),style: StrokeStyle(lineWidth: 4,lineCap: .round))
                     .blur(radius: 0.5)
             }
             else {
@@ -33,10 +33,10 @@ struct Circles: View {
                 // Break Circle
                 Circle()
                     .trim(from: 0, to: breakCircleFIll)
-                    .stroke(Color.gray.opacity(0.3), style: StrokeStyle(lineWidth: 5, lineCap: .round))
+                    .stroke(Color.gray.opacity(0.5), style: StrokeStyle(lineWidth: 5, lineCap: .round))
                 
                 Circle()
-                    .stroke(Color.gray.opacity(0.2), style: StrokeStyle(lineWidth: 4, lineCap: .round))
+                    .stroke(Color.gray.opacity(0.3), style: StrokeStyle(lineWidth: 4, lineCap: .round))
                     .blur(radius: 0.5)
             }
         }
