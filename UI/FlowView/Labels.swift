@@ -13,6 +13,16 @@ struct TimerLabels: View {
         ZStack {
             // Custom
             if model.flowMode == .Custom {
+                if model.flowContinue {
+                    Text(model.flow.blocks[model.blocksCompleted - 1].title)
+                        .foregroundColor(.myBlue.opacity(0.6))
+                        .font(.title3)
+                        .padding(.top, 90)
+                    
+                    TimerLabel(color: .myBlue, text: ("+\(formatTime(seconds: model.flowTimeLeft))"))
+                        .font(.system(size: 50))
+                }
+                else {
                     Text(model.flow.blocks[model.blocksCompleted].title)
                         .foregroundColor(model.flow.blocks[model.blocksCompleted].flow ? .myBlue.opacity(0.6) : .gray.opacity(0.6))
                         .font(.title3)
@@ -20,12 +30,12 @@ struct TimerLabels: View {
                     
                     TimerLabel(color: model.type == .Flow ? .myBlue : .gray, text: customLabel)
                         .font(.system(size: 50))
+                }
             }
             
             // Simple
             if model.flowMode == .Simple {
                 HStack(alignment: .center) {
-                    
                     if showFlowLabel {
                         FlowLabel
                     }

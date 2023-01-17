@@ -10,27 +10,42 @@ extension FlowModel {
     
     // Pause
     func Pause() {
-//        if !flowContinue {
-            setElapsedTime()
-//        }
+        setElapsedTime()
         invalidateTimer()
     }
     
     // Skip
     func Skip() {
-        if type == .Flow {
-            data.addTimeToDay(time: flowTime - flowTimeLeft)
-            totalFlowTime = totalFlowTime + (flowTime - flowTimeLeft)
+        if mode == .breakStart {
+            mode = .flowStart
+            flowTimeLeft = flowTime
         }
-        mode == .flowPaused ? setFlowTimeLeft(time: 0) : setBreakTimeLeft(time: 0)
-        endTimer()
+        else {
+            if type == .Flow {
+                data.addTimeToDay(time: flowTime - flowTimeLeft)
+                totalFlowTime = totalFlowTime + (flowTime - flowTimeLeft)
+            }
+            mode == .flowPaused ? setFlowTimeLeft(time: 0) : setBreakTimeLeft(time: 0)
+            endTimer()
+        }
     }
     
     // Restart
     func Restart() {
         elapsedTime = 0
-        mode == .flowPaused ? setFlowTimeLeft(time: flowTime) : setBreakTimeLeft(time: breakTime)
-        mode == .flowPaused ? setFlowStart() : setBreakStart()
+        if mode == .flowPaused {
+            setFlowTimeLeft(time: flowTime)
+            setFlowStart()
+        }
+        if mode == .breakPaused || mode == .flowStart {
+            setBreakTimeLeft(time: breakTime)
+            setBreakStart()
+        }
+        if mode == .breakStart {
+            setFlowTimeLeft(time: flowTime)
+            setFlowStart()
+            roundsCompleted = roundsCompleted - 1
+        }
     }
     
     // Reset

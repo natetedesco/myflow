@@ -12,7 +12,6 @@ struct FlowSheet: View {
     @FocusState var focusedField: Field?
     
     var body: some View {
-        
         ZStack {
             MaterialBackGround()
                 .onTapGesture { Save() }
@@ -323,6 +322,8 @@ private extension HorizontalAlignment {
 
 enum Field: Hashable {
     case flowName
+    case blockName
+    case time
 }
 
 struct MaterialBackGround: View {

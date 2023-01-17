@@ -66,6 +66,7 @@ struct FlowView: View {
                     Text("Tap to edit your flow or select from the menu above")
                         .myBlue()
                         .padding(.horizontal, 70)
+                        .frame(maxWidth: 400)
                 } else {
                     TimerLabels(model: model)
                 }
@@ -92,7 +93,9 @@ struct FlowView: View {
     var ControlBar: some View {
         ZStack {
             if Continue {
+                
                 ContinueButton
+                
             } else if showFlowMenu {
                 ZStack {
                     MenuLabel
@@ -158,7 +161,7 @@ struct FlowView: View {
             .scaleEffect(model.completed ? 1.0 : 0.97)
             .animation(.default.speed(model.completed ? 1.0 : 2.0), value: model.completed)
             .animation(.default.speed(model.completed ? 1.0 : 2.0), value: model.flowContinue)
-
+            
         }
         .onTapGesture {
             model.dismissCompleted()
@@ -184,12 +187,28 @@ struct FlowView: View {
         }
     }
     
-    var ContinueButton: some View {
-        Button {
-            model.mode == .breakStart ? model.continueFlow() : model.completeContinueFlow()
-        } label: {
-            Title3(text: model.mode == .breakStart ? "Continue Flow" : "Complete Flow")
-                .fontWeight(.light)
+    @ViewBuilder var ContinueButton: some View {
+        
+        if model.mode == .breakStart {
+            
+            HStack(spacing: 30) {
+                Button(action: model.Restart) { Chevron(image: "chevron.left") }
+                Button {
+                    model.continueFlow()
+                } label: {
+                    Title3(text: "Continue")
+                        .fontWeight(.light)
+                }
+                Button(action: model.Skip) { Chevron(image: "chevron.right") }
+            }
+        }
+        else {
+            Button {
+                model.mode == .breakStart ? model.continueFlow() : model.completeContinueFlow()
+            } label: {
+                Title3(text: model.mode == .breakStart ? "Continue" : "Complete")
+                    .fontWeight(.light)
+            }
         }
     }
     

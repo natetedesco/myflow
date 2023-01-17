@@ -11,6 +11,7 @@ struct CustomFlow: View {
     @State var draggingItem: Block?
     @State var dragging = false
     @State var edit = false
+    @FocusState var focusedField: Field?
     
     var body: some View {
         VStack {
@@ -55,10 +56,6 @@ struct CustomFlow: View {
         flow.addBreakBlock()
     }
     
-//    func delete(at offsets: IndexSet) {
-//        flow.blocks.remove(atOffsets: offsets)
-//    }
-    
     var EditButton: some View {
         Button {
             flow.blocks.indices.forEach {
@@ -94,14 +91,15 @@ struct DropViewDelegate: DropDelegate {
     @Binding var dragging: Bool
     
     func performDrop(info: DropInfo) -> Bool {
+        print("dragging off")
         dragging = false
-        draggingItem.wrappedValue = nil // <- HERE
+        draggingItem.wrappedValue = nil
         return true
     }
     
     func dropEntered(info: DropInfo) {
+        print("dragging on")
         dragging = true
-        
         if currentItem.id != draggingItem.wrappedValue?.id {
             let from = items.wrappedValue.firstIndex(of: draggingItem.wrappedValue!)!
             let to = items.wrappedValue.firstIndex(of: currentItem)!
@@ -136,3 +134,7 @@ extension View {
         self.modifier(Draggable(condition: condition, data: data))
     }
 }
+
+//    func delete(at offsets: IndexSet) {
+//        flow.blocks.remove(atOffsets: offsets)
+//    }

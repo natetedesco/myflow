@@ -11,7 +11,7 @@ struct FlowBlock: View {
     @Binding var flow: Flow
     @Binding var edit: Bool
     @Binding var dragging: Bool
-    @FocusState var titleIsFocused: Bool
+    @FocusState var focusedField: Field?
     
     var body: some View {
         let blockTime = [$block.minutes, $block.seconds]
@@ -24,12 +24,11 @@ struct FlowBlock: View {
                     BlockTextField
                     Button(action: togglePickTime) {
                         BlockTimeLabel
-
+                        
                     }
                     DeleteButton
                 }
                 .padding(.top, block.pickTime ? block.flow ? 18 : 6 : 0)
-//                .top()
                 
                 if block.pickTime {
                     MultiComponentPicker(columns: columns, selections: blockTime)
@@ -55,15 +54,28 @@ struct FlowBlock: View {
     }
     
     var BlockTextField: some View {
-        TextField(block.flow ? "Flow" : "Break", text: $block.title)
-//            .font(block.flow ? .subheadline : .caption)
-            .font(.footnote)
-            .foregroundColor(block.flow ? .myBlue : .gray)
-            .opacity(0.9)
-            .disabled(dragging)
-            .fixedSize()
-            .padding(.leading, 12)
-
+        ZStack {
+            TextField(block.flow ? "Flow" : "Break", text: $block.title)
+                .font(.footnote)
+                .foregroundColor(block.flow ? .myBlue : .gray)
+                .opacity(0.9)
+                .disabled(dragging)
+                .fixedSize()
+                .focused($focusedField, equals: .blockName)
+                .padding(.leading, 12)
+            // Solves keyboard glitch when selecting blockname after time
+                .overlay {
+                    Rectangle()
+                        .foregroundColor(.white.opacity(0.0001))
+                        .frame(maxWidth: .infinity)
+                        .onTapGesture {
+                            flow.blocks.indices.forEach {
+                                flow.blocks[$0].pickTime = false
+                            }
+                            focusedField = .blockName
+                        }
+                }
+        }
     }
     
     var BlockTimeLabel: some View {
