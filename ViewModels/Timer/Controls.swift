@@ -16,17 +16,23 @@ extension FlowModel {
     
     // Skip
     func Skip() {
-        if mode == .breakStart {
-            mode = .flowStart
-            flowTimeLeft = flowTime
+        if flowMode == .Custom {
+            completeBlock()
         }
         else {
-            if type == .Flow {
-                data.addTimeToDay(time: flowTime - flowTimeLeft)
-                totalFlowTime = totalFlowTime + (flowTime - flowTimeLeft)
+            
+            if mode == .breakStart {
+                mode = .flowStart
+                flowTimeLeft = flowTime
             }
-            mode == .flowPaused ? setFlowTimeLeft(time: 0) : setBreakTimeLeft(time: 0)
-            endTimer()
+            else {
+                if type == .Flow {
+                    data.addTimeToDay(time: flowTime - flowTimeLeft)
+                    totalFlowTime = totalFlowTime + (flowTime - flowTimeLeft)
+                }
+                mode == .flowPaused ? setFlowTimeLeft(time: 0) : setBreakTimeLeft(time: 0)
+                endTimer()
+            }
         }
     }
     
@@ -34,17 +40,28 @@ extension FlowModel {
     func Restart() {
         elapsedTime = 0
         if mode == .flowPaused {
-            setFlowTimeLeft(time: flowTime)
-            setFlowStart()
+            if flowMode == .Simple {
+                setFlowTimeLeft(time: flowTime)
+                setFlowStart()
+            } else {
+                setFlowTime(time: (flowList[selection].blocks[blocksCompleted].minutes * 60) + flowList[selection].blocks[blocksCompleted].seconds)
+                setFlowStart()
+            }
         }
-        if mode == .breakPaused || mode == .flowStart {
+        else if mode == .breakPaused || mode == .flowStart {
             setBreakTimeLeft(time: breakTime)
             setBreakStart()
         }
-        if mode == .breakStart {
-            setFlowTimeLeft(time: flowTime)
-            setFlowStart()
-            roundsCompleted = roundsCompleted - 1
+        else if mode == .breakStart {
+            if flowMode == .Simple {
+                setFlowTimeLeft(time: flowTime)
+                setFlowStart()
+                roundsCompleted = roundsCompleted - 1
+            } else {
+                blocksCompleted = blocksCompleted - 1
+                setFlowTime(time: (flowList[selection].blocks[blocksCompleted].minutes * 60) + flowList[selection].blocks[blocksCompleted].seconds)
+                setFlowStart()
+            }
         }
     }
     
