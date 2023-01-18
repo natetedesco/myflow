@@ -19,7 +19,10 @@ struct ContentView: View {
             switch selectedTab {
                 
             case .home:
-                FlowView(model: model)
+                ZStack {
+                    FlowView(model: model)
+                    FlowSheet(model: model, flow: $model.flow)
+                }
                 
             case .settings:
                 SettingsView()

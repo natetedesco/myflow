@@ -18,6 +18,7 @@ struct FlowSheet: View {
                 .disabled(flow.title.isEmpty)
                 .opacity(model.showFlow ? 1.0 : 0.0)
                 .animation(.default.speed(model.showFlow ? 2.0 : 1.0), value: model.showFlow)
+                .ignoresSafeArea(.keyboard)
             
             VStack(alignment: .leading, spacing: 16) {
                 HStack {

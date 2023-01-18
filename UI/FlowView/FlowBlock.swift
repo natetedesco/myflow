@@ -60,9 +60,10 @@ struct FlowBlock: View {
                 .foregroundColor(block.flow ? .myBlue : .gray)
                 .opacity(0.9)
                 .disabled(dragging)
-                .fixedSize()
+//                .maxWidth()
                 .focused($focusedField, equals: .blockName)
                 .padding(.leading, 12)
+            
             // Solves keyboard glitch when selecting blockname after time
                 .overlay {
                     Rectangle()
@@ -83,7 +84,7 @@ struct FlowBlock: View {
             .font(.caption)
             .foregroundColor(block.flow ? .myBlue : .gray)
             .opacity(0.9)
-            .frame(maxWidth: .infinity, alignment: .trailing)
+//            .frame(maxWidth: .infinity, alignment: .trailing)
             .padding(.trailing, 12)
     }
     

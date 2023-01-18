@@ -34,11 +34,12 @@ struct FlowView: View {
                 WelcomeScreen()
             }
             FlowCompleted
-            FlowSheet(model: model, flow: $model.flow)
+//            FlowSheet(model: model, flow: $model.flow)
         }
         .FlowViewBackGround()
         .background(AnimatedBlur(opacity: moreBlur ? 1.0 : 0.0))
         .animation(.default.speed(1.5), value: moreBlur)
+        .ignoresSafeArea(.keyboard)
     }
     
     var FlowList: some View {
