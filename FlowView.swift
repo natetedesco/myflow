@@ -113,7 +113,7 @@ struct FlowView: View {
                 .disabled(model.mode != .Initial)
             } else {
                 // Control Bar
-                HStack(spacing: 60) {
+                HStack(spacing: 48) {
                     Button(action: model.Restart) { Chevron(image: "chevron.left") }
                     ResetButton
                     Button(action: model.Skip) { Chevron(image: "chevron.right") }
@@ -192,7 +192,7 @@ struct FlowView: View {
         
         if model.mode == .breakStart {
             
-            HStack(spacing: 30) {
+            HStack(spacing: 20) {
                 Button(action: model.Restart) { Chevron(image: "chevron.left") }
                 Button {
                     model.continueFlow()
