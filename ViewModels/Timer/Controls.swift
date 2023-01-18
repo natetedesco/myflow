@@ -17,10 +17,9 @@ extension FlowModel {
     // Skip
     func Skip() {
         if flowMode == .Custom {
-            completeBlock()
+            endTimer()
         }
         else {
-            
             if mode == .breakStart {
                 mode = .flowStart
                 flowTimeLeft = flowTime
@@ -97,5 +96,6 @@ extension FlowModel {
         totalFlowTime = totalFlowTime + flowTimeLeft
         flowTimeLeft = flowTime
         flowContinue = false
+        elapsedTime = 0
     }
 }

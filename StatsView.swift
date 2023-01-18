@@ -25,10 +25,10 @@ struct StatsView: View {
                     MonthCard
                     
                 }
-                .navigationView(title: "Statistics")
+                .navigationView(title: "Statistics", button: GoalButton)
+                .toolbar{ GoalButton }
                 .background(AnimatedBlur(opacity: moreBlur ? 0.5 : 0.0))
                 .animation(.default.speed(1.5), value: moreBlur)
-                .toolbar{ GoalButton }
                 Toolbar()
             }
             //            .blur(radius: data.showGoal ? 10 : 0) // Fucks up view

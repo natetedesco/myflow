@@ -66,7 +66,7 @@ extension View {
             .background(AnimatedBlur(opacity: 0.3))
     }
     
-    func navigationView(title: String) -> some View {
+    func navigationView(title: String, button: some View = EmptyView()) -> some View {
         NavigationView {
         self
             .padding(.bottom, 85)
@@ -74,6 +74,7 @@ extension View {
             .background(.ultraThinMaterial)
             .background(AnimatedBlur(opacity: 0.3))
             .navigationTitle(title)
+            .toolbar{ button }
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .accentColor(.myBlue)
