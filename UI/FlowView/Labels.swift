@@ -8,6 +8,7 @@ import SwiftUI
 
 struct TimerLabels: View {
     @ObservedObject var model: FlowModel
+    @Binding var mode: TimerMode
     
     var body: some View {
         ZStack {
@@ -51,13 +52,13 @@ struct TimerLabels: View {
                 
                 // Rounds
                 HStack {
-                    if model.mode == .Initial {
+                    if mode == .Initial {
                         ForEach(0 ..< model.roundsSet, id: \.self) {_ in RoundCircle() }
                     }
                     else {
                         ForEach(0 ..< model.roundsCompleted, id: \.self) {_ in RoundCircle() }
                         
-                        if (model.mode == .flowRunning || model.mode == .flowPaused) && !model.flowContinue {
+                        if (mode == .flowRunning || mode == .flowPaused) && !model.flowContinue {
                             RoundCircle(half: true)
                         }
                     }
@@ -65,23 +66,23 @@ struct TimerLabels: View {
                 .padding(.top, 100)
             }
         }
-        .animation(.easeInOut(duration: 0.3), value: model.mode)
+        .animation(.easeInOut(duration: 0.3), value: mode)
     }
     
     var BreakLabel: some View {
         TimerLabel(color: .gray, text: breakLabel)
-            .modifier(AnimatingFontSize(fontSize: model.mode == .breakRunning || model.mode == .breakStart ? 60 : 35))
-            .scaleEffect(model.mode == .flowRunning || model.mode == .flowStart ? 0.0 : 1.0)
+            .modifier(AnimatingFontSize(fontSize: mode == .breakRunning || mode == .breakStart ? 60 : 35))
+            .scaleEffect(mode == .flowRunning || mode == .flowStart ? 0.0 : 1.0)
     }
     
     var FlowLabel: some View {
         TimerLabel(color: .myBlue, text: flowLabel)
-            .modifier(AnimatingFontSize(fontSize: model.mode == .flowRunning || model.mode == .flowStart ? 60 : 35))
-            .scaleEffect(model.mode == .breakRunning || model.mode == .breakStart ? 0.0 : 1.0)
+            .modifier(AnimatingFontSize(fontSize: mode == .flowRunning || mode == .flowStart ? 60 : 35))
+            .scaleEffect(mode == .breakRunning || mode == .breakStart ? 0.0 : 1.0)
     }
     
     var showSpacer: Bool {
-        if model.mode == .Initial || model.mode == .flowPaused || model.mode == .breakPaused {
+        if mode == .Initial || mode == .flowPaused || mode == .breakPaused {
         return true
         }
         return false
@@ -106,14 +107,14 @@ struct TimerLabels: View {
     }
     
     var showFlowLabel: Bool {
-        if model.mode == .Initial || model.mode == .flowStart || model.mode == .flowRunning || model.mode == .breakPaused || model.mode == .flowPaused {
+        if mode == .Initial || mode == .flowStart || mode == .flowRunning || mode == .breakPaused || mode == .flowPaused {
             return true
         }
         return false
     }
     
     var showBreakLabel: Bool {
-        if model.mode == .Initial || model.mode == .breakStart || model.mode == .breakRunning || model.mode == .breakPaused || model.mode == .flowPaused {
+        if mode == .Initial || mode == .breakStart || mode == .breakRunning || mode == .breakPaused || mode == .flowPaused {
             return true
         }
         return false

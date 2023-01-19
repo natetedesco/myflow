@@ -17,36 +17,24 @@ struct FlowView: View {
     }
     
     var body: some View {
-        
         ZStack {
-            
             ZStack {
                 FlowCenter
-                
                 Controls
-                
                 Toolbar(model: model)
             }
+            .FlowViewBackGround()
+            .background(AnimatedBlur(opacity: moreBlur ? 1.0 : 0.0))
+            .animation(.default.speed(1.5), value: moreBlur)
             .blur(radius: model.showFlow ? 10 : 0)
             .animation(.default, value: [model.showFlow, model.completed])
+            .ignoresSafeArea(.keyboard)
             
             if showWelcome {
                 WelcomeScreen()
             }
-            FlowCompleted
-//            FlowSheet(model: model, flow: $model.flow)
-        }
-        .FlowViewBackGround()
-        .background(AnimatedBlur(opacity: moreBlur ? 1.0 : 0.0))
-        .animation(.default.speed(1.5), value: moreBlur)
-        .ignoresSafeArea(.keyboard)
-    }
-    
-    var FlowList: some View {
-        Picker("", selection: $model.selection) {
-            ForEach(0..<$model.flowList.count, id: \.self) { i in
-                Text(model.flowList[i].title)
-            }
+            FlowCompleted(model: model, show: $model.completed)
+            FlowSheet(model: model, flow: $model.flow, show: $model.showFlow, simple: $model.flow.simple)
         }
     }
     
@@ -69,7 +57,7 @@ struct FlowView: View {
                         .padding(.horizontal, 70)
                         .frame(maxWidth: 400)
                 } else {
-                    TimerLabels(model: model)
+                    TimerLabels(model: model, mode: $model.mode)
                 }
             }
         }
@@ -80,7 +68,7 @@ struct FlowView: View {
     @ViewBuilder var Controls: some View {
         // Menu must be reloaded or else doesnt update properly
         if model.showFlow == false {
-            ControlBar
+            ControlBar(model: model, mode: $model.mode)
         }
         if model.showFlow == true {
             Text(model.flow.title)
@@ -89,148 +77,10 @@ struct FlowView: View {
                 .padding(.top)
         }
     }
-    
-    // Control Bar
-    var ControlBar: some View {
-        ZStack {
-            if Continue {
-                
-                ContinueButton
-                
-            } else if showFlowMenu {
-                ZStack {
-                    MenuLabel
-                    Menu {
-                        CreateFlowButton
-                        EditFlowButton
-                        FlowList
-                    }
-                label: {
-                    MenuLabel
-                        .foregroundColor(.clear)
-                }
-                }
-                .disabled(model.mode != .Initial)
-            } else {
-                // Control Bar
-                HStack(spacing: 48) {
-                    Button(action: model.Restart) { Chevron(image: "chevron.left") }
-                    ResetButton
-                    Button(action: model.Skip) { Chevron(image: "chevron.right") }
-                }
-            }
-        }
-        .buttonGlass()
-        .top()
-        .padding(.top)
-        .animation(.easeInOut(duration: 0.15), value: model.mode)
-        .animation(.easeInOut(duration: 0.25), value: model.selection)
-    }
-    
-    var MenuLabel: some View {
-        Title2(text: label)
-            .fontWeight(.light)
-    }
-    
-    var label: String {
-        let label = model.flow.title
-        return label
-    }
-    
-    // Flow Completed
-    var FlowCompleted: some View {
-        ZStack {
-            MaterialBackGround()
-                .opacity(model.completed ? 1.0 : 0.0)
-                .animation(.default.speed(model.completed ? 2.0 : 1.0), value: model.completed)
-            VStack(alignment: .center, spacing: 16) {
-                Title3(text: "Flow Completed")
-                HStack {
-                    Text("Time: ")
-                        .font(.callout)
-                    Text(formatHoursAndMinutes(time: model.totalFlowTime/60))
-                        .myBlue()
-                        .font(.subheadline)
-                }
-            }
-            .maxWidth()
-            .padding(24)
-            .background(.black.opacity(0.7))
-            .cornerRadius(40)
-            .padding(.horizontal, 48)
-            .opacity(model.completed ? 1.0 : 0.0)
-            .scaleEffect(model.completed ? 1.0 : 0.97)
-            .animation(.default.speed(model.completed ? 1.0 : 2.0), value: model.completed)
-            .animation(.default.speed(model.completed ? 1.0 : 2.0), value: model.flowContinue)
-            
-        }
-        .onTapGesture {
-            model.dismissCompleted()
-        }
-    }
-    
-    var CreateFlowButton: some View {
-        Button(action: model.createFlow) {
-            Label("Create", systemImage: "plus")
-        }
-    }
-    
-    var EditFlowButton: some View {
-        Button(action: model.editFlow) {
-            Label("Edit", systemImage: "pencil")
-        }
-    }
-    
-    var ResetButton: some View {
-        Button(action: model.Reset) {
-            Image(systemName: "gobackward")
-                .font(Font.system(size: 20))
-        }
-    }
-    
-    @ViewBuilder var ContinueButton: some View {
-        
-        if model.mode == .breakStart {
-            
-            HStack(spacing: 20) {
-                Button(action: model.Restart) { Chevron(image: "chevron.left") }
-                Button {
-                    model.continueFlow()
-                } label: {
-                    Title3(text: "Continue")
-                        .fontWeight(.light)
-                }
-                Button(action: model.Skip) { Chevron(image: "chevron.right") }
-            }
-        }
-        else {
-            Button {
-                model.mode == .breakStart ? model.continueFlow() : model.completeContinueFlow()
-            } label: {
-                Title3(text: model.mode == .breakStart ? "Continue" : "Complete")
-                    .fontWeight(.light)
-            }
-        }
-    }
-    
-    var Continue: Bool {
-        if model.mode == .breakStart || model.flowContinue {
-            return true
-        }
-        return false
-    }
-    
-    var showFlowMenu: Bool {
-        if model.mode == .Initial || model.mode == .flowStart || model.mode == .flowRunning || model.mode == .breakRunning && !model.flowContinue {
-            return true
-        }
-        return false
-    }
 }
-
+    
 struct FlowView_Previews: PreviewProvider {
     static var previews: some View {
         FlowView(model: FlowModel())
     }
 }
-

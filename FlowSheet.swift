@@ -10,14 +10,16 @@ struct FlowSheet: View {
     @ObservedObject var model: FlowModel
     @Binding var flow: Flow
     @FocusState var focusedField: Field?
+    @Binding var show: Bool
+    @Binding var simple: Bool
     
     var body: some View {
         ZStack {
             MaterialBackGround()
                 .onTapGesture { Save() }
                 .disabled(flow.title.isEmpty)
-                .opacity(model.showFlow ? 1.0 : 0.0)
-                .animation(.default.speed(model.showFlow ? 2.0 : 1.0), value: model.showFlow)
+                .opacity(show ? 1.0 : 0.0)
+                .animation(.default.speed(show ? 2.0 : 1.0), value: show)
                 .ignoresSafeArea(.keyboard)
             
             VStack(alignment: .leading, spacing: 16) {
@@ -26,21 +28,21 @@ struct FlowSheet: View {
                     flowSheetMenu
                 }
                 SegmentedPicker
-                if flow.simple {
+                if simple {
                     FlowPicker
                     Divider()
                     BreakPicker
                     Divider()
                     RoundsPicker
                 }
-                if !flow.simple {
+                if !simple {
                     CustomFlow(flow: $flow)
                 }
             }
             .customGlass()
-            .opacity(model.showFlow ? 1.0 : 0.0)
-            .scaleEffect(model.showFlow ? 1.0 : 0.96)
-            .animation(.default.speed(model.showFlow ? 1.0 : 2.0), value: model.showFlow)
+            .opacity(show ? 1.0 : 0.0)
+            .scaleEffect(show ? 1.0 : 0.96)
+            .animation(.default.speed(show ? 1.0 : 2.0), value: show)
             .animation(.default.speed(1.0), value: chooseFlow)
             .animation(.default.speed(1.0), value: chooseBreak)
             .animation(.default.speed(1.0), value: chooseRound)
@@ -199,7 +201,7 @@ struct FlowSheet: View {
             RoundedRectangle(cornerRadius: 20)
             .foregroundColor(.black.opacity(0.55))
             .frame(width: self.segmentSize.width, height: self.segmentSize.height)
-            .offset(x: CGFloat(flow.simple ? 0 : 1) * (self.segmentSize.width + 16 / 2), y: 0)
+            .offset(x: CGFloat(simple ? 0 : 1) * (self.segmentSize.width + 16 / 2), y: 0)
             .eraseToAnyView()
     }
     
@@ -213,7 +215,7 @@ struct FlowSheet: View {
                     .maxWidth()
                     .modifier(SizeAwareViewModifier(viewSize: self.$segmentSize))
                     .onTapGesture {
-                        flow.simple = true
+                        simple = true
                         preventCrashFunc()
                     }
                 FootNote(text: "Custom")
@@ -222,12 +224,12 @@ struct FlowSheet: View {
                     .maxWidth()
                     .modifier(SizeAwareViewModifier(viewSize: self.$segmentSize))
                     .onTapGesture {
-                        flow.simple = false
+                        simple = false
                         preventCrashFunc()
                     }
             }
         }
-        .animation(.easeOut(duration: 0.3), value: flow.simple)
+        .animation(.easeOut(duration: 0.3), value: simple)
         .padding(3.0)
         .background(.ultraThinMaterial.opacity(0.55))
         .clipShape(RoundedRectangle(cornerRadius: 20))
@@ -365,6 +367,28 @@ struct SizeAwareViewModifier: ViewModifier {
         content
             .background(BackgroundGeometryReader())
             .onPreferenceChange(SizePreferenceKey.self, perform: { if self.viewSize != $0 { self.viewSize = $0 }})
+    }
+}
+
+struct Simple_Previews: PreviewProvider {
+    @State static var model = FlowModel()
+    static var previews: some View {
+        ZStack {
+            FlowView(model: model)
+            FlowSheet(model: model, flow: $model.flow, show: .constant(true), simple: .constant(true))
+                .opacity(1.0)
+        }
+    }
+}
+
+struct Custom_Previews: PreviewProvider {
+    @State static var model = FlowModel()
+    static var previews: some View {
+        ZStack {
+            FlowView(model: model)
+            FlowSheet(model: model, flow: $model.flow, show: .constant(true), simple: .constant(false))
+                .opacity(1.0)
+        }
     }
 }
 

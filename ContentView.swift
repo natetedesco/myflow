@@ -9,7 +9,7 @@ import SwiftUI
 struct ContentView: View {
     @AppStorage("SelectedTab") var selectedTab: Tab = .home
     @StateObject var model = FlowModel()
-
+    
     init() {
         selectedTab = .home
     }
@@ -19,10 +19,9 @@ struct ContentView: View {
             switch selectedTab {
                 
             case .home:
-                ZStack {
-                    FlowView(model: model)
-                    FlowSheet(model: model, flow: $model.flow)
-                }
+                
+                FlowView(model: model)
+                
                 
             case .settings:
                 SettingsView()

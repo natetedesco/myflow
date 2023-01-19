@@ -28,6 +28,8 @@
 		F04FFB4728FF326E0058E66D /* Reminders.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB4628FF326E0058E66D /* Reminders.swift */; };
 		F04FFB4C28FF66B30058E66D /* FlowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB4B28FF66B30058E66D /* FlowModel.swift */; };
 		F04FFB5E29033EC70058E66D /* Controls.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB5D29033EC70058E66D /* Controls.swift */; };
+		F07291E72979F6A100C25E0E /* FlowCompleted.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291E62979F6A100C25E0E /* FlowCompleted.swift */; };
+		F07291E92979FB4B00C25E0E /* ControlBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291E82979FB4B00C25E0E /* ControlBar.swift */; };
 		F074D678271D100600CE1AB4 /* Circles.swift in Sources */ = {isa = PBXBuildFile; fileRef = F074D677271D100600CE1AB4 /* Circles.swift */; };
 		F074D67A271D124900CE1AB4 /* FlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F074D679271D124900CE1AB4 /* FlowView.swift */; };
 		F083152A2888A55100153CD7 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08315292888A55100153CD7 /* StatsView.swift */; };
@@ -95,6 +97,8 @@
 		F04FFB4B28FF66B30058E66D /* FlowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowModel.swift; sourceTree = "<group>"; };
 		F04FFB5D29033EC70058E66D /* Controls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controls.swift; sourceTree = "<group>"; };
 		F066923326FB9C3800DB905E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F07291E62979F6A100C25E0E /* FlowCompleted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowCompleted.swift; sourceTree = "<group>"; };
+		F07291E82979FB4B00C25E0E /* ControlBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlBar.swift; sourceTree = "<group>"; };
 		F074D677271D100600CE1AB4 /* Circles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Circles.swift; sourceTree = "<group>"; };
 		F074D679271D124900CE1AB4 /* FlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowView.swift; sourceTree = "<group>"; };
 		F08315292888A55100153CD7 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
@@ -222,7 +226,9 @@
 				F074D679271D124900CE1AB4 /* FlowView.swift */,
 				F08315292888A55100153CD7 /* StatsView.swift */,
 				F032564A272251A5009D3EFB /* SettingsView.swift */,
+				F07291E82979FB4B00C25E0E /* ControlBar.swift */,
 				F001C23C28D3C59F00134EB5 /* FlowSheet.swift */,
+				F07291E62979F6A100C25E0E /* FlowCompleted.swift */,
 				F028E6DE269D406A0022A555 /* UI */,
 				F01C1D7B26A3874E00C40900 /* Models */,
 				F018B2B62928263E00FCD857 /* ViewModels */,
@@ -377,6 +383,7 @@
 				F0F7F4302911C6CA00BC8E16 /* Complete.swift in Sources */,
 				F0F7F4232904F0A900BC8E16 /* Waves.swift in Sources */,
 				F0899DEB292EA83200A35D4D /* MyFlowApp.swift in Sources */,
+				F07291E92979FB4B00C25E0E /* ControlBar.swift in Sources */,
 				F0A025C92949014B00AF723F /* GetWeek.swift in Sources */,
 				F04FFB4C28FF66B30058E66D /* FlowModel.swift in Sources */,
 				F0F7F4342911C96E00BC8E16 /* Flow.swift in Sources */,
@@ -390,6 +397,7 @@
 				F001C23D28D3C59F00134EB5 /* FlowSheet.swift in Sources */,
 				F04FFB4328FF2C890058E66D /* Blocks.swift in Sources */,
 				F0391317285FA0990074CF33 /* Haptics.swift in Sources */,
+				F07291E72979F6A100C25E0E /* FlowCompleted.swift in Sources */,
 				F01962B32931EBE700336821 /* Start.swift in Sources */,
 				F018CF202864E11D002A17D7 /* ContentView.swift in Sources */,
 				F0391314285EBF860074CF33 /* Format.swift in Sources */,
