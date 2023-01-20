@@ -25,16 +25,18 @@
 		F0391314285EBF860074CF33 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0391313285EBF860074CF33 /* Format.swift */; };
 		F0391317285FA0990074CF33 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0391316285FA0990074CF33 /* Haptics.swift */; };
 		F04FFB4328FF2C890058E66D /* Blocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB4228FF2C890058E66D /* Blocks.swift */; };
-		F04FFB4728FF326E0058E66D /* Reminders.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB4628FF326E0058E66D /* Reminders.swift */; };
 		F04FFB4C28FF66B30058E66D /* FlowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB4B28FF66B30058E66D /* FlowModel.swift */; };
 		F04FFB5E29033EC70058E66D /* Controls.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB5D29033EC70058E66D /* Controls.swift */; };
 		F07291E72979F6A100C25E0E /* FlowCompleted.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291E62979F6A100C25E0E /* FlowCompleted.swift */; };
 		F07291E92979FB4B00C25E0E /* ControlBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291E82979FB4B00C25E0E /* ControlBar.swift */; };
+		F07291EB297B41C000C25E0E /* GoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291EA297B41BF00C25E0E /* GoalView.swift */; };
+		F07291EE297B42FF00C25E0E /* OverViewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291ED297B42FF00C25E0E /* OverViewCard.swift */; };
+		F07291F0297B441200C25E0E /* WeekCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291EF297B441200C25E0E /* WeekCard.swift */; };
+		F07291F2297B448F00C25E0E /* MonthCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291F1297B448F00C25E0E /* MonthCard.swift */; };
 		F074D678271D100600CE1AB4 /* Circles.swift in Sources */ = {isa = PBXBuildFile; fileRef = F074D677271D100600CE1AB4 /* Circles.swift */; };
 		F074D67A271D124900CE1AB4 /* FlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F074D679271D124900CE1AB4 /* FlowView.swift */; };
 		F083152A2888A55100153CD7 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08315292888A55100153CD7 /* StatsView.swift */; };
 		F0899DEB292EA83200A35D4D /* MyFlowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0899DEA292EA83200A35D4D /* MyFlowApp.swift */; };
-		F08D41DE296B4EA8001772BF /* ExampleFlows.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08D41DD296B4EA8001772BF /* ExampleFlows.swift */; };
 		F0948C1D26818EE100A5F48D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0948C1C26818EE100A5F48D /* Assets.xcassets */; };
 		F0948C2026818EE100A5F48D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0948C1F26818EE100A5F48D /* Preview Assets.xcassets */; };
 		F0948C4C2681907A00A5F48D /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0948C4B2681907A00A5F48D /* Notifications.swift */; };
@@ -93,17 +95,19 @@
 		F0391313285EBF860074CF33 /* Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Format.swift; sourceTree = "<group>"; };
 		F0391316285FA0990074CF33 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		F04FFB4228FF2C890058E66D /* Blocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blocks.swift; sourceTree = "<group>"; };
-		F04FFB4628FF326E0058E66D /* Reminders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminders.swift; sourceTree = "<group>"; };
 		F04FFB4B28FF66B30058E66D /* FlowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowModel.swift; sourceTree = "<group>"; };
 		F04FFB5D29033EC70058E66D /* Controls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controls.swift; sourceTree = "<group>"; };
 		F066923326FB9C3800DB905E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F07291E62979F6A100C25E0E /* FlowCompleted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowCompleted.swift; sourceTree = "<group>"; };
 		F07291E82979FB4B00C25E0E /* ControlBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlBar.swift; sourceTree = "<group>"; };
+		F07291EA297B41BF00C25E0E /* GoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalView.swift; sourceTree = "<group>"; };
+		F07291ED297B42FF00C25E0E /* OverViewCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverViewCard.swift; sourceTree = "<group>"; };
+		F07291EF297B441200C25E0E /* WeekCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekCard.swift; sourceTree = "<group>"; };
+		F07291F1297B448F00C25E0E /* MonthCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCard.swift; sourceTree = "<group>"; };
 		F074D677271D100600CE1AB4 /* Circles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Circles.swift; sourceTree = "<group>"; };
 		F074D679271D124900CE1AB4 /* FlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowView.swift; sourceTree = "<group>"; };
 		F08315292888A55100153CD7 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		F0899DEA292EA83200A35D4D /* MyFlowApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFlowApp.swift; sourceTree = "<group>"; };
-		F08D41DD296B4EA8001772BF /* ExampleFlows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleFlows.swift; sourceTree = "<group>"; };
 		F0948C1526818EE000A5F48D /* MyFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0948C1C26818EE100A5F48D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F0948C1F26818EE100A5F48D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -141,8 +145,6 @@
 			children = (
 				F04FFB4B28FF66B30058E66D /* FlowModel.swift */,
 				F0A025C6294796A500AF723F /* FlowData.swift */,
-				F01962A02931255D00336821 /* Helpers.swift */,
-				F08D41DD296B4EA8001772BF /* ExampleFlows.swift */,
 				F04FFB55290339000058E66D /* Timer */,
 				F0A025CA2949019A00AF723F /* Data */,
 				F0FD718728ECD7B9008D9DC1 /* Helpers */,
@@ -155,7 +157,6 @@
 			children = (
 				F0F7F4332911C96E00BC8E16 /* Flow.swift */,
 				F04FFB4228FF2C890058E66D /* Blocks.swift */,
-				F04FFB4628FF326E0058E66D /* Reminders.swift */,
 				F014A05C293AA67200B9D7D4 /* Data.swift */,
 			);
 			path = Models;
@@ -164,8 +165,16 @@
 		F028E6DE269D406A0022A555 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				F04B500A2852F68C004269DD /* FlowView */,
-				F060E80C284548B600D69C92 /* Components */,
+				F0948C1C26818EE100A5F48D /* Assets.xcassets */,
+				F09E34F4295CCEC0005F2583 /* Global Variables.swift */,
+				F02C1469270FA679002FE382 /* UI Elements.swift */,
+				F001C23828D3A12100134EB5 /* Modifiers.swift */,
+				F03256422721308C009D3EFB /* AnimatedBlur.swift */,
+				F02C1466270FA679002FE382 /* Toolbar.swift */,
+				F02C146A270FA679002FE382 /* StartButton.swift */,
+				F03358F8294CE8950020E5F3 /* DayButton.swift */,
+				F09861FE26968B4B00A61B42 /* WelcomeView.swift */,
+				F0F7F4222904F0A900BC8E16 /* Waves.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -173,6 +182,9 @@
 		F04B500A2852F68C004269DD /* FlowView */ = {
 			isa = PBXGroup;
 			children = (
+				F001C23C28D3C59F00134EB5 /* FlowSheet.swift */,
+				F07291E62979F6A100C25E0E /* FlowCompleted.swift */,
+				F07291E82979FB4B00C25E0E /* ControlBar.swift */,
 				F074D677271D100600CE1AB4 /* Circles.swift */,
 				F02C1468270FA679002FE382 /* Labels.swift */,
 				F001C24128D7F24100134EB5 /* CustomFlow.swift */,
@@ -188,25 +200,20 @@
 				F01962B0293184BD00336821 /* Run.swift */,
 				F0F7F42F2911C6CA00BC8E16 /* Complete.swift */,
 				F04FFB5D29033EC70058E66D /* Controls.swift */,
+				F01962A02931255D00336821 /* Helpers.swift */,
 			);
 			path = Timer;
 			sourceTree = "<group>";
 		};
-		F060E80C284548B600D69C92 /* Components */ = {
+		F07291EC297B427600C25E0E /* StatsView */ = {
 			isa = PBXGroup;
 			children = (
-				F0948C1C26818EE100A5F48D /* Assets.xcassets */,
-				F09E34F4295CCEC0005F2583 /* Global Variables.swift */,
-				F02C1469270FA679002FE382 /* UI Elements.swift */,
-				F001C23828D3A12100134EB5 /* Modifiers.swift */,
-				F03256422721308C009D3EFB /* AnimatedBlur.swift */,
-				F02C1466270FA679002FE382 /* Toolbar.swift */,
-				F02C146A270FA679002FE382 /* StartButton.swift */,
-				F03358F8294CE8950020E5F3 /* DayButton.swift */,
-				F09861FE26968B4B00A61B42 /* WelcomeView.swift */,
-				F0F7F4222904F0A900BC8E16 /* Waves.swift */,
+				F07291EA297B41BF00C25E0E /* GoalView.swift */,
+				F07291ED297B42FF00C25E0E /* OverViewCard.swift */,
+				F07291EF297B441200C25E0E /* WeekCard.swift */,
+				F07291F1297B448F00C25E0E /* MonthCard.swift */,
 			);
-			path = Components;
+			path = StatsView;
 			sourceTree = "<group>";
 		};
 		F0732D0526B63DDD00BA05CF /* Preview Content */ = {
@@ -224,11 +231,10 @@
 				F0899DEA292EA83200A35D4D /* MyFlowApp.swift */,
 				F066923326FB9C3800DB905E /* ContentView.swift */,
 				F074D679271D124900CE1AB4 /* FlowView.swift */,
+				F04B500A2852F68C004269DD /* FlowView */,
 				F08315292888A55100153CD7 /* StatsView.swift */,
+				F07291EC297B427600C25E0E /* StatsView */,
 				F032564A272251A5009D3EFB /* SettingsView.swift */,
-				F07291E82979FB4B00C25E0E /* ControlBar.swift */,
-				F001C23C28D3C59F00134EB5 /* FlowSheet.swift */,
-				F07291E62979F6A100C25E0E /* FlowCompleted.swift */,
 				F028E6DE269D406A0022A555 /* UI */,
 				F01C1D7B26A3874E00C40900 /* Models */,
 				F018B2B62928263E00FCD857 /* ViewModels */,
@@ -376,10 +382,11 @@
 				F03358F9294CE8950020E5F3 /* DayButton.swift in Sources */,
 				F0BA1E1F28FB7FFB00FCB5A8 /* SwipeDelete.swift in Sources */,
 				F02C146F270FA679002FE382 /* Toolbar.swift in Sources */,
+				F07291EB297B41C000C25E0E /* GoalView.swift in Sources */,
 				F074D67A271D124900CE1AB4 /* FlowView.swift in Sources */,
-				F04FFB4728FF326E0058E66D /* Reminders.swift in Sources */,
 				F02C1472270FA679002FE382 /* UI Elements.swift in Sources */,
 				F09861FF26968B4B00A61B42 /* WelcomeView.swift in Sources */,
+				F07291F2297B448F00C25E0E /* MonthCard.swift in Sources */,
 				F0F7F4302911C6CA00BC8E16 /* Complete.swift in Sources */,
 				F0F7F4232904F0A900BC8E16 /* Waves.swift in Sources */,
 				F0899DEB292EA83200A35D4D /* MyFlowApp.swift in Sources */,
@@ -388,7 +395,6 @@
 				F04FFB4C28FF66B30058E66D /* FlowModel.swift in Sources */,
 				F0F7F4342911C96E00BC8E16 /* Flow.swift in Sources */,
 				F074D678271D100600CE1AB4 /* Circles.swift in Sources */,
-				F08D41DE296B4EA8001772BF /* ExampleFlows.swift in Sources */,
 				F02C1473270FA679002FE382 /* StartButton.swift in Sources */,
 				F014A05D293AA67300B9D7D4 /* Data.swift in Sources */,
 				F083152A2888A55100153CD7 /* StatsView.swift in Sources */,
@@ -397,12 +403,14 @@
 				F001C23D28D3C59F00134EB5 /* FlowSheet.swift in Sources */,
 				F04FFB4328FF2C890058E66D /* Blocks.swift in Sources */,
 				F0391317285FA0990074CF33 /* Haptics.swift in Sources */,
+				F07291EE297B42FF00C25E0E /* OverViewCard.swift in Sources */,
 				F07291E72979F6A100C25E0E /* FlowCompleted.swift in Sources */,
 				F01962B32931EBE700336821 /* Start.swift in Sources */,
 				F018CF202864E11D002A17D7 /* ContentView.swift in Sources */,
 				F0391314285EBF860074CF33 /* Format.swift in Sources */,
 				F0BA1E2128FCBA5900FCB5A8 /* FlowBlock.swift in Sources */,
 				F001C23928D3A12100134EB5 /* Modifiers.swift in Sources */,
+				F07291F0297B441200C25E0E /* WeekCard.swift in Sources */,
 				F032564B272251A6009D3EFB /* SettingsView.swift in Sources */,
 				F0F7F428290E2DF400BC8E16 /* TimerNotifications.swift in Sources */,
 				F0A025CC2949020800AF723F /* Date extensions.swift in Sources */,

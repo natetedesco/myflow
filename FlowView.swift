@@ -79,8 +79,41 @@ struct FlowView: View {
     }
 }
     
-struct FlowView_Previews: PreviewProvider {
+struct I: PreviewProvider {
+    @State static var model = FlowModel()
     static var previews: some View {
-        FlowView(model: FlowModel())
+        FlowView(model: model)
+    }
+}
+struct P: PreviewProvider {
+    @State static var model = FlowModel(mode: .flowPaused)
+    static var previews: some View {
+        FlowView(model: model)
+    }
+}
+
+struct FS: PreviewProvider {
+    @State static var model = FlowModel(mode: .flowStart)
+    static var previews: some View {
+        FlowView(model: model)
+    }
+}
+struct FR: PreviewProvider {
+    @State static var model = FlowModel(mode: .flowRunning)
+    static var previews: some View {
+        FlowView(model: model)
+    }
+}
+
+struct BS: PreviewProvider {
+    @State static var model = FlowModel(mode: .breakStart)
+    static var previews: some View {
+        FlowView(model: model)
+    }
+}
+struct BR: PreviewProvider {
+    @State static var model = FlowModel(mode: .breakRunning)
+    static var previews: some View {
+        FlowView(model: model)
     }
 }

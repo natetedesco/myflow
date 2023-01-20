@@ -8,38 +8,26 @@ import Foundation
 
 extension FlowModel {
     
-    // Start Automatically
-    func startAutomatically() -> Bool {
-        if type == .Break { // set initial values for labels(only break)
-            if settings.startFlowAutomatically {
-                startFlow()
-                return true
-            }
-        }
-        if type == .Flow {
-            if settings.startBreakAutomatically {
-                startBreak()
-                return true
-            }
-        }
-        return false
-    }
-    
-    
     // Complete Round
     func completeRound() {
             if type == .Flow {
                 roundsCompleted += 1
                 if roundsCompleted == roundsSet {
                     completeSession()
+                } else {
+                    mode = .breakStart
+                    if settings.startBreakAutomatically {
+                        startBreak()
+                    }
                 }
             }
             else {
                 setBothTimes(flowTime: flowTime, breakTime: breakTime)
+                mode = .flowStart
+                if settings.startFlowAutomatically {
+                    startFlow()
+                }
             }
-        if !startAutomatically() {
-            mode = type == .Flow ? .breakStart : .flowStart
-        }
     }
     
     // Complete Block
@@ -62,6 +50,8 @@ extension FlowModel {
     
     // Complete Session
     func completeSession() {
+        mode = .Initial
+
         Initialize()
         completed = true
     }

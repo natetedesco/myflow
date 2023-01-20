@@ -9,7 +9,6 @@ import Foundation
 extension FlowModel {
     
     func Initialize() {
-        mode = .Initial
         setFlow()
         setMode()
         
@@ -34,7 +33,6 @@ extension FlowModel {
         elapsedTime = 0
         roundsCompleted = 0
         blocksCompleted = 0
-        
     }
     
     func startInput() {

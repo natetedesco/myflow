@@ -80,6 +80,14 @@ extension View {
         .accentColor(.myBlue)
     }
     
+    func previewBackGround() -> some View {
+        self
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(.black.opacity(0.6))
+                .background(.ultraThinMaterial)
+                .background(AnimatedBlur(opacity: 0.3))
+    }
+    
     func myBlue() -> some View {
         self
             .foregroundColor(.myBlue)
