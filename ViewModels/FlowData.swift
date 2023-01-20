@@ -7,6 +7,13 @@
 import SwiftUI
 import Foundation
 
+struct Day: Codable, Identifiable, Equatable {
+    let day: Date
+    var time: Int
+    var today: Bool = false
+    var id: Date { day }
+}
+
 class FlowData: ObservableObject {
     @AppStorage("GoalTime") var goalSelection: Int = 2
     @Published var showGoal: Bool = false
