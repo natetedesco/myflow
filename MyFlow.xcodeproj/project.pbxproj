@@ -20,7 +20,6 @@
 		F02C1473270FA679002FE382 /* StartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C146A270FA679002FE382 /* StartButton.swift */; };
 		F03256432721308C009D3EFB /* AnimatedBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03256422721308C009D3EFB /* AnimatedBlur.swift */; };
 		F032564B272251A6009D3EFB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F032564A272251A5009D3EFB /* SettingsView.swift */; };
-		F03358F9294CE8950020E5F3 /* DayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03358F8294CE8950020E5F3 /* DayButton.swift */; };
 		F0391314285EBF860074CF33 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0391313285EBF860074CF33 /* Format.swift */; };
 		F0391317285FA0990074CF33 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0391316285FA0990074CF33 /* Haptics.swift */; };
 		F04FFB4C28FF66B30058E66D /* FlowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB4B28FF66B30058E66D /* FlowModel.swift */; };
@@ -31,6 +30,12 @@
 		F07291EE297B42FF00C25E0E /* OverViewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291ED297B42FF00C25E0E /* OverViewCard.swift */; };
 		F07291F0297B441200C25E0E /* WeekCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291EF297B441200C25E0E /* WeekCard.swift */; };
 		F07291F2297B448F00C25E0E /* MonthCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291F1297B448F00C25E0E /* MonthCard.swift */; };
+		F07291F5297B6B0A00C25E0E /* AboutUs.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291F4297B6B0A00C25E0E /* AboutUs.swift */; };
+		F07291F8297B6CA200C25E0E /* HowItWorks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291F7297B6CA200C25E0E /* HowItWorks.swift */; };
+		F07291FA297B6DBD00C25E0E /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291F9297B6DBD00C25E0E /* Feedback.swift */; };
+		F07291FC297B6FC500C25E0E /* SegmentedPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291FB297B6FC500C25E0E /* SegmentedPicker.swift */; };
+		F07291FF297B72A200C25E0E /* MultiPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291FE297B72A200C25E0E /* MultiPicker.swift */; };
+		F0729203297B78B200C25E0E /* Picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0729202297B78B200C25E0E /* Picker.swift */; };
 		F074D678271D100600CE1AB4 /* Circles.swift in Sources */ = {isa = PBXBuildFile; fileRef = F074D677271D100600CE1AB4 /* Circles.swift */; };
 		F074D67A271D124900CE1AB4 /* FlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F074D679271D124900CE1AB4 /* FlowView.swift */; };
 		F083152A2888A55100153CD7 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08315292888A55100153CD7 /* StatsView.swift */; };
@@ -46,7 +51,6 @@
 		F0A025CC2949020800AF723F /* Date extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A025CB2949020800AF723F /* Date extensions.swift */; };
 		F0BA1E1F28FB7FFB00FCB5A8 /* SwipeDelete.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BA1E1E28FB7FFB00FCB5A8 /* SwipeDelete.swift */; };
 		F0BA1E2128FCBA5900FCB5A8 /* FlowBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BA1E2028FCBA5800FCB5A8 /* FlowBlock.swift */; };
-		F0F7F4232904F0A900BC8E16 /* Waves.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F4222904F0A900BC8E16 /* Waves.swift */; };
 		F0F7F428290E2DF400BC8E16 /* TimerNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F427290E2DF400BC8E16 /* TimerNotifications.swift */; };
 		F0F7F4302911C6CA00BC8E16 /* Complete.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F42F2911C6CA00BC8E16 /* Complete.swift */; };
 		F0F7F4342911C96E00BC8E16 /* Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F4332911C96E00BC8E16 /* Flow.swift */; };
@@ -88,7 +92,6 @@
 		F02C146A270FA679002FE382 /* StartButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartButton.swift; sourceTree = "<group>"; };
 		F03256422721308C009D3EFB /* AnimatedBlur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedBlur.swift; sourceTree = "<group>"; };
 		F032564A272251A5009D3EFB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		F03358F8294CE8950020E5F3 /* DayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayButton.swift; sourceTree = "<group>"; };
 		F0391313285EBF860074CF33 /* Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Format.swift; sourceTree = "<group>"; };
 		F0391316285FA0990074CF33 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		F04FFB4B28FF66B30058E66D /* FlowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowModel.swift; sourceTree = "<group>"; };
@@ -100,6 +103,12 @@
 		F07291ED297B42FF00C25E0E /* OverViewCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverViewCard.swift; sourceTree = "<group>"; };
 		F07291EF297B441200C25E0E /* WeekCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekCard.swift; sourceTree = "<group>"; };
 		F07291F1297B448F00C25E0E /* MonthCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCard.swift; sourceTree = "<group>"; };
+		F07291F4297B6B0A00C25E0E /* AboutUs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUs.swift; sourceTree = "<group>"; };
+		F07291F7297B6CA200C25E0E /* HowItWorks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowItWorks.swift; sourceTree = "<group>"; };
+		F07291F9297B6DBD00C25E0E /* Feedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feedback.swift; sourceTree = "<group>"; };
+		F07291FB297B6FC500C25E0E /* SegmentedPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedPicker.swift; sourceTree = "<group>"; };
+		F07291FE297B72A200C25E0E /* MultiPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiPicker.swift; sourceTree = "<group>"; };
+		F0729202297B78B200C25E0E /* Picker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picker.swift; sourceTree = "<group>"; };
 		F074D677271D100600CE1AB4 /* Circles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Circles.swift; sourceTree = "<group>"; };
 		F074D679271D124900CE1AB4 /* FlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowView.swift; sourceTree = "<group>"; };
 		F08315292888A55100153CD7 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
@@ -119,7 +128,6 @@
 		F0BA1E2028FCBA5800FCB5A8 /* FlowBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowBlock.swift; sourceTree = "<group>"; };
 		F0C6CE7426913C240026E415 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		F0F510642963518C00CFE3C7 /* MyFlow.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyFlow.entitlements; sourceTree = "<group>"; };
-		F0F7F4222904F0A900BC8E16 /* Waves.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Waves.swift; sourceTree = "<group>"; };
 		F0F7F427290E2DF400BC8E16 /* TimerNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerNotifications.swift; sourceTree = "<group>"; };
 		F0F7F42F2911C6CA00BC8E16 /* Complete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Complete.swift; sourceTree = "<group>"; };
 		F0F7F4332911C96E00BC8E16 /* Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flow.swift; sourceTree = "<group>"; };
@@ -154,30 +162,27 @@
 			children = (
 				F0948C1C26818EE100A5F48D /* Assets.xcassets */,
 				F09E34F4295CCEC0005F2583 /* Global Variables.swift */,
-				F02C1469270FA679002FE382 /* UI Elements.swift */,
 				F001C23828D3A12100134EB5 /* Modifiers.swift */,
-				F03256422721308C009D3EFB /* AnimatedBlur.swift */,
+				F02C1469270FA679002FE382 /* UI Elements.swift */,
 				F02C1466270FA679002FE382 /* Toolbar.swift */,
-				F02C146A270FA679002FE382 /* StartButton.swift */,
-				F03358F8294CE8950020E5F3 /* DayButton.swift */,
+				F03256422721308C009D3EFB /* AnimatedBlur.swift */,
 				F09861FE26968B4B00A61B42 /* WelcomeView.swift */,
-				F0F7F4222904F0A900BC8E16 /* Waves.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
 		};
-		F04B500A2852F68C004269DD /* FlowView */ = {
+		F04B500A2852F68C004269DD /*   */ = {
 			isa = PBXGroup;
 			children = (
-				F001C23C28D3C59F00134EB5 /* FlowSheet.swift */,
 				F07291E62979F6A100C25E0E /* FlowCompleted.swift */,
 				F07291E82979FB4B00C25E0E /* ControlBar.swift */,
+				F02C146A270FA679002FE382 /* StartButton.swift */,
 				F074D677271D100600CE1AB4 /* Circles.swift */,
 				F02C1468270FA679002FE382 /* Labels.swift */,
 				F001C24128D7F24100134EB5 /* CustomFlow.swift */,
 				F0BA1E2028FCBA5800FCB5A8 /* FlowBlock.swift */,
 			);
-			path = FlowView;
+			path = " ";
 			sourceTree = "<group>";
 		};
 		F04FFB55290339000058E66D /* Timer */ = {
@@ -192,7 +197,7 @@
 			path = Timer;
 			sourceTree = "<group>";
 		};
-		F07291EC297B427600C25E0E /* StatsView */ = {
+		F07291EC297B427600C25E0E /*    */ = {
 			isa = PBXGroup;
 			children = (
 				F07291EA297B41BF00C25E0E /* GoalView.swift */,
@@ -200,20 +205,43 @@
 				F07291EF297B441200C25E0E /* WeekCard.swift */,
 				F07291F1297B448F00C25E0E /* MonthCard.swift */,
 			);
-			path = StatsView;
+			path = "  ";
 			sourceTree = "<group>";
 		};
 		F07291F3297B45E600C25E0E /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				F074D679271D124900CE1AB4 /* FlowView.swift */,
+				F04B500A2852F68C004269DD /*   */,
 				F08315292888A55100153CD7 /* StatsView.swift */,
+				F07291EC297B427600C25E0E /*    */,
 				F032564A272251A5009D3EFB /* SettingsView.swift */,
-				F04B500A2852F68C004269DD /* FlowView */,
-				F07291EC297B427600C25E0E /* StatsView */,
+				F07291F6297B6C6000C25E0E /*     */,
+				F001C23C28D3C59F00134EB5 /* FlowSheet.swift */,
+				F07291FD297B715C00C25E0E /*      */,
 				F028E6DE269D406A0022A555 /* Components */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		F07291F6297B6C6000C25E0E /*     */ = {
+			isa = PBXGroup;
+			children = (
+				F07291F4297B6B0A00C25E0E /* AboutUs.swift */,
+				F07291F7297B6CA200C25E0E /* HowItWorks.swift */,
+				F07291F9297B6DBD00C25E0E /* Feedback.swift */,
+			);
+			path = "   ";
+			sourceTree = "<group>";
+		};
+		F07291FD297B715C00C25E0E /*      */ = {
+			isa = PBXGroup;
+			children = (
+				F07291FB297B6FC500C25E0E /* SegmentedPicker.swift */,
+				F07291FE297B72A200C25E0E /* MultiPicker.swift */,
+				F0729202297B78B200C25E0E /* Picker.swift */,
+			);
+			path = "    ";
 			sourceTree = "<group>";
 		};
 		F0732D0526B63DDD00BA05CF /* Preview Content */ = {
@@ -373,23 +401,25 @@
 				F01962A12931255D00336821 /* Helpers.swift in Sources */,
 				F0A025C7294796A500AF723F /* FlowData.swift in Sources */,
 				F03256432721308C009D3EFB /* AnimatedBlur.swift in Sources */,
-				F03358F9294CE8950020E5F3 /* DayButton.swift in Sources */,
 				F0BA1E1F28FB7FFB00FCB5A8 /* SwipeDelete.swift in Sources */,
+				F07291F5297B6B0A00C25E0E /* AboutUs.swift in Sources */,
 				F02C146F270FA679002FE382 /* Toolbar.swift in Sources */,
 				F07291EB297B41C000C25E0E /* GoalView.swift in Sources */,
+				F07291F8297B6CA200C25E0E /* HowItWorks.swift in Sources */,
 				F074D67A271D124900CE1AB4 /* FlowView.swift in Sources */,
 				F02C1472270FA679002FE382 /* UI Elements.swift in Sources */,
 				F09861FF26968B4B00A61B42 /* WelcomeView.swift in Sources */,
 				F07291F2297B448F00C25E0E /* MonthCard.swift in Sources */,
 				F0F7F4302911C6CA00BC8E16 /* Complete.swift in Sources */,
-				F0F7F4232904F0A900BC8E16 /* Waves.swift in Sources */,
 				F0899DEB292EA83200A35D4D /* MyFlowApp.swift in Sources */,
 				F07291E92979FB4B00C25E0E /* ControlBar.swift in Sources */,
 				F0A025C92949014B00AF723F /* GetWeek.swift in Sources */,
 				F04FFB4C28FF66B30058E66D /* FlowModel.swift in Sources */,
+				F0729203297B78B200C25E0E /* Picker.swift in Sources */,
 				F0F7F4342911C96E00BC8E16 /* Flow.swift in Sources */,
 				F074D678271D100600CE1AB4 /* Circles.swift in Sources */,
 				F02C1473270FA679002FE382 /* StartButton.swift in Sources */,
+				F07291FC297B6FC500C25E0E /* SegmentedPicker.swift in Sources */,
 				F083152A2888A55100153CD7 /* StatsView.swift in Sources */,
 				F02C1471270FA679002FE382 /* Labels.swift in Sources */,
 				F09E34F5295CCEC0005F2583 /* Global Variables.swift in Sources */,
@@ -397,7 +427,9 @@
 				F0391317285FA0990074CF33 /* Haptics.swift in Sources */,
 				F07291EE297B42FF00C25E0E /* OverViewCard.swift in Sources */,
 				F07291E72979F6A100C25E0E /* FlowCompleted.swift in Sources */,
+				F07291FF297B72A200C25E0E /* MultiPicker.swift in Sources */,
 				F01962B32931EBE700336821 /* Start.swift in Sources */,
+				F07291FA297B6DBD00C25E0E /* Feedback.swift in Sources */,
 				F018CF202864E11D002A17D7 /* ContentView.swift in Sources */,
 				F0391314285EBF860074CF33 /* Format.swift in Sources */,
 				F0BA1E2128FCBA5900FCB5A8 /* FlowBlock.swift in Sources */,

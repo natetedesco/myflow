@@ -51,7 +51,6 @@ struct Title3: View {
     }
 }
 
-
 struct SubHeadline: View {
     var text: String
     var body: some View {
@@ -97,10 +96,19 @@ struct Callout: View {
     }
 }
 
-struct BackGround: View {
+struct Chevron: View {
+    var image: String
     var body: some View {
-        LinearGradient(gradient: Gradient(colors: [Color.darkBackground, Color.darkBackground]), startPoint:
-                        .topTrailing, endPoint: .center).edgesIgnoringSafeArea(.all)
+        Image(systemName: image)
+            .font(Font.system(size: 20))
+            .padding(.horizontal, 4)
     }
 }
 
+struct MaterialBackGround: View {
+    var body: some View {
+        Toolbar(model: FlowModel())
+        Color.clear.opacity(0.0).ignoresSafeArea()
+            .background(.ultraThinMaterial)
+    }
+}

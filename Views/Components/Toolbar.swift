@@ -12,28 +12,20 @@ struct Toolbar: View {
     
     var body: some View {
         HStack {
-            
-            // Statistics
             Button { selectedTab = Tab.data }
-            label: { ToolBarButton(
-                image: "chart.bar.fill",
-                size: 25, padding: 5,
+            label: { ToolBarButton(image: "chart.bar.fill", size: 25,
                 selected: selectedTab == .data ? true : false)
             }
-            
+
             Spacer()
             
-            // Home Button
             StartButton(model: model)
                 .padding(.bottom, 25)
             
             Spacer()
             
-            // Settings
             Button { selectedTab = Tab.settings }
-            label: { ToolBarButton(
-                image: "person.fill",
-                size: 30, padding: 5,
+            label: { ToolBarButton(image: "person.fill", size: 30,
                 selected: selectedTab == .settings ? true : false)
             }
         }
@@ -46,7 +38,6 @@ struct Toolbar: View {
 struct ToolBarButton: View {
     var image: String
     var size: CGFloat
-    var padding: CGFloat = 5.0
     var selected: Bool
     
     var body: some View {

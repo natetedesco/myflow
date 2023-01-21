@@ -8,8 +8,8 @@ import SwiftUI
 
 struct FlowSheet: View {
     @ObservedObject var model: FlowModel
-    @Binding var flow: Flow
     @FocusState var focusedField: Field?
+    @Binding var flow: Flow
     @Binding var show: Bool
     @Binding var simple: Bool
     
@@ -27,7 +27,7 @@ struct FlowSheet: View {
                     FlowTitle
                     flowSheetMenu
                 }
-                SegmentedPicker
+                SegmentedPicker(simple: $simple)
                 if simple {
                     FlowPicker
                     Divider()
@@ -56,7 +56,7 @@ struct FlowSheet: View {
             VStack {
                 PickerLabel(text: "Flow: ", time: (flow.flowMinutes * 60) + flow.flowSeconds, color: .myBlue)
                 if chooseFlow {
-                    MultiComponentPicker(columns: columns,selections: [$flow.flowMinutes, $flow.flowSeconds])
+                    MultiComponentPicker(columns: columns, selections: [$flow.flowMinutes, $flow.flowSeconds])
                 }
             }
             .animation(.default.speed(chooseFlow ? 0.7 : 2.0), value: chooseFlow)
@@ -126,7 +126,7 @@ struct FlowSheet: View {
                 .font(.title)
                 .foregroundColor(.white.opacity(0.5))
                 .focused($focusedField, equals: .flowName)
-            if model.showFlow {
+            if show {
                 Text("")
                     .foregroundColor(.clear)
                     .onAppear {
@@ -149,7 +149,7 @@ struct FlowSheet: View {
     }
     
     func Delete() {
-        model.showFlow = false;
+        show = false;
         preventCrashFunc()
         model.deleteFlow(id: flow.id)
         if flow.new {
@@ -159,7 +159,7 @@ struct FlowSheet: View {
     
     func Save() {
         preventCrashFunc()
-            model.showFlow = false;
+            show = false;
             if flow.new {
                 model.addFlow(flow: flow)
                 model.selection = (model.flowList.count - 1) // selects next flow
@@ -192,182 +192,12 @@ struct FlowSheet: View {
             flow.blocks[$0].pickTime = false
         }
     }
-    
-    @State var segmentSize: CGSize = .zero
-    private var activeSegmentView: AnyView {
-        let isInitialized: Bool = segmentSize != .zero
-        if !isInitialized { return EmptyView().eraseToAnyView() }
-        return
-            RoundedRectangle(cornerRadius: 20)
-            .foregroundColor(.black.opacity(0.55))
-            .frame(width: self.segmentSize.width, height: self.segmentSize.height)
-            .offset(x: CGFloat(simple ? 0 : 1) * (self.segmentSize.width + 16 / 2), y: 0)
-            .eraseToAnyView()
-    }
-    
-    var SegmentedPicker: some View {
-        ZStack(alignment: .leading) {
-            activeSegmentView
-            HStack {
-                FootNote(text: "Simple")
-                    .foregroundColor(.white.opacity(0.95))
-                    .padding(.vertical, 6)
-                    .maxWidth()
-                    .modifier(SizeAwareViewModifier(viewSize: self.$segmentSize))
-                    .onTapGesture {
-                        simple = true
-                        preventCrashFunc()
-                    }
-                FootNote(text: "Custom")
-                    .foregroundColor(.white.opacity(0.95))
-                    .padding(.vertical, 6)
-                    .maxWidth()
-                    .modifier(SizeAwareViewModifier(viewSize: self.$segmentSize))
-                    .onTapGesture {
-                        simple = false
-                        preventCrashFunc()
-                    }
-            }
-        }
-        .animation(.easeOut(duration: 0.3), value: simple)
-        .padding(3.0)
-        .background(.ultraThinMaterial.opacity(0.55))
-        .clipShape(RoundedRectangle(cornerRadius: 20))
-        .padding(.bottom, 8)
-    }
-}
-
-struct PickerLabel: View {
-    var text: String
-    var time: Int
-    var color: Color
-    
-    var body: some View {
-        HStack {
-            Headline(text: text)
-            Text(formatTime(seconds: time))
-        }
-        .foregroundColor(color)
-        .leading()
-    }
-}
-
-struct PickerView: View {
-    @Binding var selection: Int
-    var unit: [Int]
-    var label: String
-    var body: some View {
-        
-        GeometryReader { geometry in
-            Picker(selection: $selection, label: Text("")) {
-                ForEach(unit, id: \.self) { unit in
-                    Text("\(unit) \(label)")
-                }
-            }
-            .pickerStyle(.wheel)
-        }
-        .frame(height: 150)
-        .padding(.vertical, -8)
-    }
-}
-
-struct MultiComponentPicker<Tag: Hashable>: View  {
-    let columns: [Column]
-    var selections: [Binding<Tag>]
-    
-    var body: some View {
-        GeometryReader { geometry in
-            HStack {
-                ForEach(0 ..< columns.count, id: \.self) { index in
-                    let column = columns[index]
-                    ZStack(alignment: Alignment.init(horizontal: .customCenter, vertical: .center)) {
-                        HStack {
-                            Text(verbatim: column.options.last!.text)
-                                .foregroundColor(.clear)
-                                .alignmentGuide(.customCenter) { $0[HorizontalAlignment.center] }
-                            Text(column.label)
-                                .foregroundColor(.gray)
-                        }
-                        Picker(column.label, selection: selections[index]) {
-                            ForEach(column.options, id: \.tag) { option in
-                                Text(verbatim: option.text).tag(option.tag)
-                            }
-                        }
-                        .pickerStyle(WheelPickerStyle())
-                        .clipped()
-                        .padding(.vertical, -8)
-                    }
-                }
-            }
-        }
-        .frame(height: 150)
-    }
-}
-
-extension MultiComponentPicker {
-    struct Column {
-        struct Option {
-            var text: String
-            var tag: Tag
-        }
-        
-        var label: String
-        var options: [Option]
-    }
-}
-
-private extension HorizontalAlignment {
-    enum CustomCenter: AlignmentID {
-        static func defaultValue(in context: ViewDimensions) -> CGFloat { context[HorizontalAlignment.center] }
-    }
-    static let customCenter = Self(CustomCenter.self)
 }
 
 enum Field: Hashable {
     case flowName
     case blockName
     case time
-}
-
-struct MaterialBackGround: View {
-    var body: some View {
-        Toolbar(model: FlowModel())
-        Color.clear.opacity(0.0).ignoresSafeArea()
-            .background(.ultraThinMaterial)
-    }
-}
-
-extension View {
-    func eraseToAnyView() -> AnyView {
-        AnyView(self)
-    }
-}
-struct SizePreferenceKey: PreferenceKey {
-    typealias Value = CGSize
-    static var defaultValue: CGSize = .zero
-    static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
-    }
-}
-struct BackgroundGeometryReader: View {
-    var body: some View {
-        GeometryReader { geometry in
-            return Color
-                .clear
-                .preference(key: SizePreferenceKey.self, value: geometry.size)
-        }
-    }
-}
-struct SizeAwareViewModifier: ViewModifier {
-    @Binding var viewSize: CGSize
-    init(viewSize: Binding<CGSize>) {
-        self._viewSize = viewSize
-    }
-    
-    func body(content: Content) -> some View {
-        content
-            .background(BackgroundGeometryReader())
-            .onPreferenceChange(SizePreferenceKey.self, perform: { if self.viewSize != $0 { self.viewSize = $0 }})
-    }
 }
 
 struct Simple_Previews: PreviewProvider {

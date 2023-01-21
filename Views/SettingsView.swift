@@ -8,7 +8,6 @@ import SwiftUI
 
 struct SettingsView: View {
     @StateObject var settings = Settings()
-    @State var hideToolBar = false
     
     var body: some View {
         ZStack {
@@ -107,110 +106,6 @@ struct ToggleBar: View {
         }
         .toggleStyle(SwitchToggleStyle(tint: Color.myBlue))
         .padding(.horizontal)
-    }
-}
-
-struct AboutUs: View {
-    var body: some View {
-        VStack() {
-            VStack(spacing: 8) {
-                Image("Image")
-                    .padding(.bottom)
-                
-                Text("MyFlow")
-                    .myBlue()
-                    .font(.largeTitle)
-                    .fontWeight(.ultraLight)
-                    .kerning(3.0)
-                
-                Text("Focus on what matters.")
-                    .font(.footnote)
-                
-                FootNote(text: "2.0")
-            }
-            .padding(.bottom, 32)
-            
-            Text("How can we make better use of our time? In a world full of distractions how can we create an environment to just focus? Focus on the things that really matter. Because we owe that to ourselves. We deserve to realize our dreams and stay true to our passions. Motivation fuels us but consistency moves us forward. That is the idea that created MyFlow.")
-                .fontWeight(.light)
-            
-            Spacer()
-        }
-        .padding(.horizontal, 32)
-        .background(AnimatedBlur(opacity: 0.01))
-    }
-}
-
-struct HowItWorks: View {
-    var body: some View {
-        VStack(alignment: .leading, spacing: 64) {
-            
-            HStack {
-                Image(systemName: "circle")
-                    .myBlue()
-                    .font(.largeTitle)
-                    .padding(.trailing, 4)
-                    .background(Circle()
-                        .fill(.ultraThinMaterial.opacity(0.55)))
-                //                                .padding(4)
-                
-                VStack {
-                    Text("Create Flows")
-                        .font(.headline)
-                        .leading()
-                    Text("Using time blocks or intervals")
-                        .leading()
-                        .font(.footnote)
-                }
-            }
-            .leading()
-            
-            HStack {
-                Image(systemName: "chart.bar")
-                    .myBlue()
-                    .CircularGlassButton()
-                    .padding(.leading, -4) // no idea
-                VStack {
-                    Text("Visualize progress")
-                        .font(.headline)
-                        .leading()
-                    Text("Using time blocks or intervals")
-                        .font(.footnote)
-                        .leading()
-                }
-            }
-            .leading()
-            
-            
-            HStack {
-                Image(systemName: "bell")
-                    .myBlue()
-                    .CircularGlassButton()
-                VStack {
-                    Text("Allow Notifications")
-                        .leading()
-                        .font(.headline)
-                    Text("Required for app functionality")
-                        .leading()
-                        .font(.footnote)
-                }
-                
-            }
-            .leading()
-            
-            Spacer()
-        }
-        .padding(.horizontal, 32)
-        .background(AnimatedBlur(opacity: 0.01))
-    }
-}
-
-struct Feedback: View {
-    var body: some View {
-        ZStack {
-            Text("Please email feedback or support to natetedesco@icloud.com ")
-                .padding(.horizontal, 32)
-                .top()
-        }
     }
 }
 

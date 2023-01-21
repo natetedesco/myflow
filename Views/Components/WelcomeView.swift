@@ -14,9 +14,7 @@ struct WelcomeScreen: View {
         ZStack {
             MaterialBackGround()
             VStack(alignment: .leading, spacing: 32) {
-                
                     VStack(alignment: .leading, spacing: 0) {
-
                             Text("Welcome to MyFlow")
                                 .font(.title).fontWeight(.bold)
                                 .centered()
@@ -58,7 +56,6 @@ struct WelcomeScreen: View {
                         .leading()
                         .padding(.top, 32)
 
-
                         HStack {
                             Image(systemName: "bell")
                                 .myBlue()
@@ -71,7 +68,6 @@ struct WelcomeScreen: View {
                                     .leading()
                                     .font(.footnote)
                             }
-
                         }
                         .leading()
                         .padding(.bottom, 32)
@@ -94,12 +90,10 @@ struct WelcomeScreen: View {
                         })
                     }
             }
-//            .frame(height: 400)
             .customGlass()
         }
     }
 }
-
 
 struct SwiftUIView_Previews: PreviewProvider {
     static var previews: some View {
@@ -107,65 +101,3 @@ struct SwiftUIView_Previews: PreviewProvider {
             .preferredColorScheme(.dark)
     }
 }
-
-struct DescriptionView: View {
-    var title: String
-    var text: String
-    
-    var body: some View {
-        VStack(alignment: .leading) {
-            Text(title)
-                .font(.title2).bold()
-                .foregroundColor(.white)
-            
-            Text(text)
-                .font(.footnote)
-                .foregroundColor(.white)
-        }
-    }
-}
-
-//HStack {
-//    Circle()
-//        .stroke(lineWidth: 3)
-//        .frame(width: 30)
-//        .myBlue
-//        .padding(.trailing)
-//    DescriptionView(
-//        title: "Flow",
-//        text: "Time for productivity and focus")
-//}
-//
-//HStack {
-//    Circle()
-//        .stroke(lineWidth: 3)
-//        .frame(width: 30)
-//        .foregroundColor(.gray)
-//        .padding(.trailing)
-//    DescriptionView(
-//        title: "Break",
-//        text: "Time to rest your body and mind")
-//}
-//
-//
-//HStack {
-//    Image(systemName: "play.fill")
-//        .myBlue
-//        .font(.system(size: 30))
-//        .padding(.trailing)
-//    DescriptionView(
-//        title: "Start",
-//        text: "Cycle between your flows and breaks")
-//}
-//
-//Button(action: {
-//    welcomeScreenShown = true },
-//       label: {
-//    Text("Continue")
-//        .myBlue
-//        .maxWidth()
-//        .padding(.vertical)
-//        .background(.ultraThinMaterial.opacity(0.55))
-//        .cornerRadius(30)
-//})
-//.padding(.top)

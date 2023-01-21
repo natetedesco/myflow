@@ -8,20 +8,21 @@ import SwiftUI
 
 struct AnimatedBlur: View {
     var opacity: CGFloat
+    let blur: CGFloat = 100
+    var size: CGFloat = 1
     
     var body: some View {
-        ZStack {
-            FloatingClouds(blur: 100, size:1)
-                .opacity(opacity)
-        }
-    }
-}
-
-struct AnimatedBlurOpaque: View {
-    var body: some View {
-        ZStack {
-            FloatingClouds(blur: 200, size:1)
-                .opacity(0.05)
+        GeometryReader { proxy in
+            ZStack {
+                ZStack {
+                    Cloud(proxy: proxy, color: .myBlue, rotationStart: 0, duration: 60, size: size)
+                    Cloud(proxy: proxy, color: .myBlue, rotationStart: 90, duration: 80, size: size)
+                    Cloud(proxy: proxy, color: .myBlue, rotationStart: 180, duration: 80, size: size)
+                    Cloud(proxy: proxy, color: .myBlue, rotationStart: 360, duration: 120, size: size)
+                }
+                .blur(radius: blur)
+            }
+            .opacity(opacity)
         }
     }
 }
@@ -47,26 +48,6 @@ struct Cloud: View {
             .onAppear {
                 move.toggle()
             }
-    }
-}
-
-struct FloatingClouds: View {
-    let blur: CGFloat
-    var size: CGFloat
-    
-    var body: some View {
-        GeometryReader { proxy in
-            ZStack {
-                ZStack {
-                    Cloud(proxy: proxy, color: .myBlue, rotationStart: 0, duration: 60, size: size)
-                    Cloud(proxy: proxy, color: .myBlue, rotationStart: 90, duration: 80, size: size)
-                    Cloud(proxy: proxy, color: .myBlue, rotationStart: 180, duration: 80, size: size)
-//                    Cloud(proxy: proxy, color: .gray, rotationStart: 180, duration: 100, size: size)
-                    Cloud(proxy: proxy, color: .myBlue, rotationStart: 360, duration: 120, size: size)
-                }
-                .blur(radius: blur)
-            }
-        }
     }
 }
 
