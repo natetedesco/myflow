@@ -6,6 +6,7 @@
 
 import SwiftUI
 
+
 struct TimerLabels: View {
     @ObservedObject var model: FlowModel
     @Binding var mode: TimerMode
@@ -13,7 +14,7 @@ struct TimerLabels: View {
     var body: some View {
         ZStack {
             // Custom
-            if model.flowMode == .Custom {
+            if model.Custom() {
                 if model.flowContinue {
                     Text(model.flow.blocks[model.blocksCompleted - 1].title)
                         .foregroundColor(.myBlue.opacity(0.6))
@@ -35,7 +36,7 @@ struct TimerLabels: View {
             }
             
             // Simple
-            if model.flowMode == .Simple {
+            if model.Simple() {
                 HStack(alignment: .center) {
                     if showFlowLabel {
                         FlowLabel

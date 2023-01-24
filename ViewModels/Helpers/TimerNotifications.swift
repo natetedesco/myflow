@@ -9,13 +9,13 @@ import SwiftUI
 
 extension NotificationManager {
     
-    func Set(flow: Bool, time: Int, elapsedTime: Int) {
+    func Set(flow: Bool, time: Int, elapsed: Int) {
         let content = UNMutableNotificationContent()
         
         content.title = flow ? "Flow Completed" : "Break Completed"
         content.sound = UNNotificationSound.init(named:UNNotificationSoundName(rawValue: "AquaSound.aif"))
         
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(time - elapsedTime), repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(time - elapsed), repeats: false)
         let req = UNNotificationRequest(identifier: "timerCompleted", content: content, trigger: trigger)
         
         UNUserNotificationCenter.current().add(req, withCompletionHandler: nil) // Show in background

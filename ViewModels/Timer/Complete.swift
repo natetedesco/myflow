@@ -8,26 +8,37 @@ import Foundation
 
 extension FlowModel {
     
+    func endTimer() {
+        invalidateTimer()
+        elapsed = 0
+        
+        if Simple() {
+            completeRound()
+        } else {
+            completeBlock()
+        }
+    }
+    
     // Complete Round
     func completeRound() {
-            if type == .Flow {
-                roundsCompleted += 1
-                if roundsCompleted == roundsSet {
-                    completeSession()
-                } else {
-                    mode = .breakStart
-                    if settings.startBreakAutomatically {
-                        startBreak()
-                    }
+        if isFlow() {
+            roundsCompleted += 1
+            if roundsCompleted == roundsSet {
+                completeSession()
+            } else {
+                mode = .breakStart
+                if settings.startBreakAutomatically {
+                    startBreak()
                 }
             }
-            else {
-                setBothTimes(flowTime: flowTime, breakTime: breakTime)
-                mode = .flowStart
-                if settings.startFlowAutomatically {
-                    startFlow()
-                }
+        }
+        if isBreak() {
+            setTimes(flowTime: flowTime, breakTime: breakTime)
+            mode = .flowStart
+            if settings.startFlowAutomatically {
+                startFlow()
             }
+        }
     }
     
     // Complete Block
@@ -51,19 +62,21 @@ extension FlowModel {
     // Complete Session
     func completeSession() {
         mode = .Initial
-
         Initialize()
+        elapsed = 0
+        roundsCompleted = 0
+        blocksCompleted = 0
         completed = true
     }
     
-    // Invalidate Timer
+//     Invalidate Timer
     func invalidateTimer() {
         timer.invalidate()
         notifications.removeAllPendingNotificationRequests()
     }
     
     func dismissCompleted() {
-        totalFlowTime = 0
+        totalTime = 0
         completed = false
     }
 }

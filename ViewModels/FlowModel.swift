@@ -5,34 +5,31 @@
 //
 
 import Foundation
-import SwiftUI
-import CoreData
 
 class FlowModel: ObservableObject {
     var data = FlowData()
     var settings = Settings()
     var notifications = NotificationManager()
-    var start = Date()
     var timer = Timer()
+    var start = Date()
     
-    var flowTime: Int = 0
-    var breakTime: Int = 0
-    var roundsSet: Int = 0
-    var elapsedTime: Int = 0
-    var totalFlowTime: Int = 0
-    var roundsCompleted: Int = 0
-    var flowContinue = false
+    var flowTime = 0
+    var breakTime = 0
+    var roundsSet = 0
+    var elapsed = 0
+    var totalTime = 0
+    var roundsCompleted = 0
+    var blocksCompleted = 0
+    var type: FlowType = .Flow
+    var flowMode: FlowMode = .Simple
     
     @Published var flow: Flow = Flow()
     @Published var mode: TimerMode
-    @Published var type: FlowType = .Flow
-    @Published var flowMode: FlowMode = .Simple
-    @Published var flowTimeLeft: Int = 0
-    @Published var breakTimeLeft: Int = 0
-    @Published var blocksCompleted: Int = 0
-    @Published var completed = false
+    @Published var flowTimeLeft = 0
+    @Published var breakTimeLeft = 0
     @Published var showFlow = false
-    
+    @Published var completed = false
+    @Published var flowContinue = false
     @Published var flowList: [Flow] { didSet { Initialize() } }
     @Published var selection = 0 { didSet { Initialize() } }
     
@@ -126,35 +123,3 @@ enum TimerMode {
     case breakRunning
     case breakPaused
 }
-
-var exampleFlows = [
-    
-    Flow(
-        title: "Flow"),
-    
-    Flow(
-        title: "Workout", simple: false, blocks: [
-            Block(flow: true, title: "Warm Up", minutes: 15),
-            Block(flow: true, title: "Workout", minutes: 40),
-            Block(flow: true, title: "Cool Down", minutes: 5)
-        ]),
-    
-    Flow(
-        title: "Creativity", simple: false, blocks: [
-            Block(flow: true, title: "Brainstorm", minutes: 15),
-            Block(flow: false, title: "Break", minutes: 5),
-            Block(flow: true, title: "Create", minutes: 30),
-            Block(flow: false, title: "Break", minutes: 5),
-            Block(flow: true, title: "Revision", minutes: 15)])
-]
-
-var exampleDays = [
-    Day(day: Date.from(year: 2023, month: 1, day: 9), time: 135),
-    Day(day: Date.from(year: 2023, month: 1, day: 7), time: 80),
-    Day(day: Date.from(year: 2023, month: 1, day: 6), time: 115),
-    Day(day: Date.from(year: 2023, month: 1, day: 5), time: 95),
-    Day(day: Date.from(year: 2023, month: 1, day: 4), time: 39),
-    Day(day: Date.from(year: 2023, month: 1, day: 3), time: 75),
-    Day(day: Date.from(year: 2023, month: 1, day: 2), time: 90),
-    Day(day: Date.from(year: 2023, month: 1, day: 1), time: 50)
-]

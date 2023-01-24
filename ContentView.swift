@@ -19,9 +19,7 @@ struct ContentView: View {
             switch selectedTab {
                 
             case .home:
-                
                 FlowView(model: model)
-                
                 
             case .settings:
                 SettingsView()

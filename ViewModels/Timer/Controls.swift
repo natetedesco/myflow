@@ -9,55 +9,56 @@ import Foundation
 extension FlowModel {
     
     // Pause
-    func Pause() {
+    func Pause(flow: Bool) {
+        mode = flow ? .flowPaused : .breakPaused
         setElapsedTime()
         invalidateTimer()
     }
     
-    // Skip
+    // find way to early return here
     func Skip() {
-        if flowMode == .Custom {
-            endTimer()
-        }
-        else {
-            if mode == .breakStart {
+        if Simple() {
+            if flowPaused() {
+                mode = .breakStart
+                addTime(time: flowTime - flowTimeLeft)
+                setFlowTimeLeft(time: 0)
+                endTimer()
+            }
+            else if breakStart() || breakPaused() {
                 mode = .flowStart
                 flowTimeLeft = flowTime
             }
-            else {
-                if type == .Flow {
-                    data.addTimeToDay(time: flowTime - flowTimeLeft)
-                    totalFlowTime = totalFlowTime + (flowTime - flowTimeLeft)
-                }
-                mode == .flowPaused ? setFlowTimeLeft(time: 0) : setBreakTimeLeft(time: 0)
-                endTimer()
-            }
+        }
+        if Custom() {
+            endTimer()
         }
     }
     
     // Restart
     func Restart() {
-        elapsedTime = 0
-        if mode == .flowPaused {
-            if flowMode == .Simple {
+        elapsed = 0
+        if flowPaused() {
+            if Simple() {
                 setFlowTimeLeft(time: flowTime)
                 setFlowStart()
-            } else {
+            }
+            if Custom() {
                 setFlowTime(time: (flowList[selection].blocks[blocksCompleted].minutes * 60) + flowList[selection].blocks[blocksCompleted].seconds)
                 setFlowStart()
             }
         }
-        else if mode == .breakPaused || mode == .flowStart {
+        else if breakPaused() || flowStart() {
             setBreakTimeLeft(time: breakTime)
             setBreakStart()
         }
-        else if mode == .breakStart {
-            if flowMode == .Simple {
+        else if breakStart() {
+            if Simple() {
                 setFlowTimeLeft(time: flowTime)
                 setFlowStart()
-                roundsCompleted = roundsCompleted - 1
-            } else {
-                blocksCompleted = blocksCompleted - 1
+                roundsCompleted -= 1
+            }
+            if Custom() {
+                blocksCompleted -= 1
                 setFlowTime(time: (flowList[selection].blocks[blocksCompleted].minutes * 60) + flowList[selection].blocks[blocksCompleted].seconds)
                 setFlowStart()
             }
@@ -67,9 +68,8 @@ extension FlowModel {
     // Reset
     func Reset() {
         mediumHaptic()
-        if type == .Flow {
-            data.addTimeToDay(time: flowTime - flowTimeLeft)
-            totalFlowTime = totalFlowTime + (flowTime - flowTimeLeft)
+        if isFlow() {
+            addTime(time: flowTime - flowTimeLeft)
         }
         invalidateTimer()
         completeSession()
@@ -77,25 +77,24 @@ extension FlowModel {
     
     // Continue Flow
     func continueFlow() {
-        var startDate = Date()
+        var start = Date()
         if flowContinue {
-            startDate = Calendar.current.date(byAdding: .second, value: (-flowTimeLeft), to: startDate)!
+            start = Calendar.current.date(byAdding: .second, value: (-flowTimeLeft), to: start)!
         }
         mode = .flowRunning
         flowContinue = true
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [self] timer in
-            flowTimeLeft = (Calendar.current.dateComponents([.second], from: startDate, to: Date()).second ?? 0)
-        })
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [self] timer in
+            flowTimeLeft = (Calendar.current.dateComponents([.second], from: start, to: Date()).second ?? 0)
+        }
     }
     
     // Complete Continue Flow
     func completeContinueFlow() {
-        timer.invalidate()
+        invalidateTimer()
         mode = .breakStart
-        data.addTimeToDay(time: flowTimeLeft)
-        totalFlowTime = totalFlowTime + flowTimeLeft
+        addTime(time: flowTimeLeft)
         flowTimeLeft = flowTime
         flowContinue = false
-        elapsedTime = 0
+        elapsed = 0
     }
 }

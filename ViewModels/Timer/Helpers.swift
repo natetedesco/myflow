@@ -9,26 +9,33 @@ import SwiftUI
 
 extension FlowModel {
     
-    func setFlow() {
-        if flowList.count != 0 {
-            self.flow = flowList[selection]
-        } else {
-            self.flow = Flow(new: true, title: "Flow")
-        }
+    func setNotification(flow: Bool, time: Int) {
+        notifications.Set(flow: flow, time: time, elapsed: elapsed)
     }
     
-    func setMode() {
-        if flow.simple {
-            flowMode = .Simple
-        } else {
-            flowMode = .Custom
-        }
+    func createDay() {
+        data.createDayStruct()
     }
     
-    func setSimpleFlow() {
-        setFlowTime(time: (flow.flowMinutes * 60) + flow.flowSeconds )
-        setBreakTime(time: (flow.breakMinutes * 60) + flow.breakSeconds)
-        roundsSet = flow.rounds // Add if rounds asp
+    func addTime(time: Int) {
+        data.addTime(time: time)
+        totalTime = totalTime + time
+    }
+    
+    func timeLeft(end: Date) -> Int {
+        let timeLeft = Calendar.current.dateComponents([.second], from: Date(), to: end + 1).second ?? 0
+        if isFlow() {
+            setFlowTimeLeft(time: timeLeft)
+        } else {
+            setBreakTimeLeft(time: timeLeft)
+        }
+        return timeLeft
+    }
+    
+    func setEnd(time: Int) -> Date {
+        start = Date()
+        let end = Calendar.current.date(byAdding: .second, value: (time - elapsed), to: start)!
+        return end
     }
     
     // Set Flow Time
@@ -54,7 +61,7 @@ extension FlowModel {
     }
     
     // Set Both
-    func setBothTimes(flowTime: Int, breakTime: Int) {
+    func setTimes(flowTime: Int, breakTime: Int) {
         setFlowTime(time: flowTime)
         setBreakTime(time: breakTime)
     }
@@ -62,18 +69,8 @@ extension FlowModel {
     // Set Elapsed Time
     func setElapsedTime() {
         let newTime = Int(abs(start.timeIntervalSinceNow))
-        elapsedTime = elapsedTime + newTime
+        elapsed = elapsed + newTime
     }
-    
-    // Get Mode
-    func getMode() -> String {
-        if flowList[selection].simple {
-            return "simple"
-        }
-        return "custom"
-    }
-    
-
     
     // Set Modes
     func setFlowStart() {
@@ -81,20 +78,30 @@ extension FlowModel {
         type = .Flow
     }
     
-    func setFlowRunning() {
-        mode = .flowRunning
-        type = .Flow
-    }
-    
-    func setBreakRunning() {
-        mode = .breakRunning
-        type = .Break
+    func setRunning(flow: Bool) {
+        if flow {
+            mode = .flowRunning
+            type = .Flow
+        } else {
+            mode = .breakRunning
+            type = .Break
+        }
     }
     
     func setBreakStart() {
         mode = .breakStart
         type = .Break
     }
+    func startFlow() {
+        type = .Flow ;
+        mode = .flowRunning
+    }
+    
+    func startBreak() {
+        mode = .breakRunning
+        type = .Break
+    }
+    
 }
 
 class Settings: ObservableObject {

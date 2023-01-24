@@ -20,7 +20,7 @@ struct FlowCompleted: View {
                 HStack {
                     Text("Time: ")
                         .font(.callout)
-                    Text(formatHoursAndMinutes(time: model.totalFlowTime/60))
+                    Text(formatHoursAndMinutes(time: model.totalTime/60))
                         .myBlue()
                         .font(.subheadline)
                 }

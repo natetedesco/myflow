@@ -17,7 +17,6 @@ struct Day: Codable, Identifiable, Equatable {
 class FlowData: ObservableObject {
     @AppStorage("GoalTime") var goalSelection: Int = 2
     @Published var showGoal: Bool = false
-    
     @Published var days: [Day]
     
     let date = Date()
@@ -27,7 +26,6 @@ class FlowData: ObservableObject {
     var todayTime: Int { getTodayTime() }
     var thisWeekTime: Int { getThisWeekTime() }
     var thisMonthTime: Int { getThisMonthTime() }
-    
     var dayOfTheWeek: Int { getDayOfTheWeek() }
     var thisWeekDays: [Day] { getThisWeekDays() }
     var thisMonthDays: [Day] { getThisMonthDays() }
@@ -50,7 +48,7 @@ class FlowData: ObservableObject {
     }
     
     // Add time to today
-    func addTimeToDay(time: Int) {
+    func addTime(time: Int) {
         days[0].time = days[0].time + (time/60)
         save()
     }

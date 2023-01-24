@@ -20,7 +20,7 @@ struct StartButton: View {
             }
         
         if selectedTab == Tab.home {
-            Button { model.startInput() }
+            Button { model.Start() }
         label: {
             switch model.mode {
             case .Initial:
