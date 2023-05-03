@@ -20,14 +20,12 @@ struct MySwipeModifier: ViewModifier {
     let action: () -> ()
     
     @AppStorage("MySwipeActive") var mySwipeActive = false
-    
     @State private var contentWidth: CGFloat = 0
     @State private var isDragging: Bool = false
     @State private var isDeleting: Bool = false
     @State private var isActive: Bool = false
     @State private var dragX: CGFloat = 0
     @State private var iconOffset: CGFloat = 40
-    
     let miniumDistance: CGFloat = 20
     
     func body(content: Content) -> some View {
@@ -70,7 +68,6 @@ struct MySwipeModifier: ViewModifier {
                     mySwipeActive = false
                     isDragging = true
                 }
-                
                 if value.translation.width < 0 {
                     dragX = -min(value.translation.width + miniumDistance, 0)
                 } else if isActive {

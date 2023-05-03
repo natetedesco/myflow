@@ -9,21 +9,21 @@ import SwiftUI
 
 extension FlowModel {
     
-    func setNotification(flow: Bool, time: Int) {
-        notifications.Set(flow: flow, time: time, elapsed: elapsed)
-    }
-    
+    // Create Day
     func createDay() {
         data.createDayStruct()
     }
     
+    // Add Time
     func addTime(time: Int) {
         data.addTime(time: time)
         totalTime = totalTime + time
     }
     
+    // Time Left
     func timeLeft(end: Date) -> Int {
         let timeLeft = Calendar.current.dateComponents([.second], from: Date(), to: end + 1).second ?? 0
+        
         if isFlow() {
             setFlowTimeLeft(time: timeLeft)
         } else {
@@ -32,6 +32,7 @@ extension FlowModel {
         return timeLeft
     }
     
+    // Set End
     func setEnd(time: Int) -> Date {
         start = Date()
         let end = Calendar.current.date(byAdding: .second, value: (time - elapsed), to: start)!
@@ -78,6 +79,7 @@ extension FlowModel {
         type = .Flow
     }
     
+    // Set Running
     func setRunning(flow: Bool) {
         if flow {
             mode = .flowRunning
@@ -88,20 +90,23 @@ extension FlowModel {
         }
     }
     
+    // Set Break Start
     func setBreakStart() {
         mode = .breakStart
         type = .Break
     }
+    
+    // Start FLow
     func startFlow() {
         type = .Flow ;
         mode = .flowRunning
     }
     
+    // Start Break
     func startBreak() {
         mode = .breakRunning
         type = .Break
     }
-    
 }
 
 class Settings: ObservableObject {

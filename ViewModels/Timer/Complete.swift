@@ -8,36 +8,34 @@ import Foundation
 
 extension FlowModel {
     
-    func endTimer() {
+    // End Timer
+    func endTimer(skip: Bool = false) {
         invalidateTimer()
+        stopActivity()
         elapsed = 0
         
         if Simple() {
-            completeRound()
+            completeRound(skip: skip)
         } else {
             completeBlock()
         }
     }
     
     // Complete Round
-    func completeRound() {
+    func completeRound(skip: Bool) {
         if isFlow() {
             roundsCompleted += 1
             if roundsCompleted == roundsSet {
                 completeSession()
             } else {
                 mode = .breakStart
-                if settings.startBreakAutomatically {
-                    startBreak()
-                }
+                startBreakAutomatically(skip: skip)
             }
         }
-        if isBreak() {
+        else if isBreak() {
             setTimes(flowTime: flowTime, breakTime: breakTime)
             mode = .flowStart
-            if settings.startFlowAutomatically {
-                startFlow()
-            }
+            startFlowAutomatically(skip: skip)
         }
     }
     
@@ -69,12 +67,13 @@ extension FlowModel {
         completed = true
     }
     
-//     Invalidate Timer
+    // Invalidate Timer
     func invalidateTimer() {
         timer.invalidate()
         notifications.removeAllPendingNotificationRequests()
     }
     
+    // Dismiss Completed
     func dismissCompleted() {
         totalTime = 0
         completed = false

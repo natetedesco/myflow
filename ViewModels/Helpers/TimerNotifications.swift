@@ -9,17 +9,15 @@ import SwiftUI
 
 extension NotificationManager {
     
-    func Set(flow: Bool, time: Int, elapsed: Int) {
+    func Set(flow: Bool, time: Int, elapsed: Int, id: String = "timer") {
         let content = UNMutableNotificationContent()
-        
         content.title = flow ? "Flow Completed" : "Break Completed"
         content.sound = UNNotificationSound.init(named:UNNotificationSoundName(rawValue: "AquaSound.aif"))
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(time - elapsed), repeats: false)
-        let req = UNNotificationRequest(identifier: "timerCompleted", content: content, trigger: trigger)
+        let req = UNNotificationRequest(identifier: id, content: content, trigger: trigger)
         
         UNUserNotificationCenter.current().add(req, withCompletionHandler: nil) // Show in background
-
         UNUserNotificationCenter.current().delegate = self // Play in foreground
     }
     
@@ -28,3 +26,4 @@ extension NotificationManager {
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
     }
 }
+

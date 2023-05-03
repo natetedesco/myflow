@@ -13,6 +13,8 @@ extension FlowModel {
         mode = flow ? .flowPaused : .breakPaused
         setElapsedTime()
         invalidateTimer()
+        
+        startActivity(flow: flow, start: Date(), end: Date(), paused: true)
     }
     
     // find way to early return here
@@ -22,7 +24,7 @@ extension FlowModel {
                 mode = .breakStart
                 addTime(time: flowTime - flowTimeLeft)
                 setFlowTimeLeft(time: 0)
-                endTimer()
+                endTimer(skip: true)
             }
             else if breakStart() || breakPaused() {
                 mode = .flowStart
@@ -72,6 +74,7 @@ extension FlowModel {
             addTime(time: flowTime - flowTimeLeft)
         }
         invalidateTimer()
+        stopActivity()
         completeSession()
     }
     

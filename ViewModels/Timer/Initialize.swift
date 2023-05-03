@@ -8,6 +8,7 @@ import Foundation
 
 extension FlowModel {
     
+    // Initialize
     func Initialize() {
         if flowList.count != 0 {
             self.flow = flowList[selection]
@@ -17,6 +18,7 @@ extension FlowModel {
         flow.simple ? setSimple() : setCustom()
     }
     
+    // Set Simple
     func setSimple() {
         flowMode = .Simple
         roundsSet = flow.rounds // Add if rounds asp
@@ -24,6 +26,7 @@ extension FlowModel {
         setBreakTime(time: (flow.breakMinutes * 60) + flow.breakSeconds)
     }
     
+    // Set Custom
     func setCustom() {
         flowMode = .Custom
         if flow.blocks.indices.contains(0) {
@@ -41,6 +44,7 @@ extension FlowModel {
         }
     }
     
+    // Time Set?
     func timesSet() -> Bool {
         mediumHaptic()
         if (flowTime > 0 && breakTime > 0) || (flowMode == .Custom && (flowTime > 0 || breakTime > 0)) {
