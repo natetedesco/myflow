@@ -29,7 +29,6 @@ struct MultiComponentPicker<Tag: Hashable>: View  {
                             }
                         }
                         .pickerStyle(WheelPickerStyle())
-                        .clipped()
                         .padding(.vertical, -8)
                     }
                 }

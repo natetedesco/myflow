@@ -12,10 +12,13 @@ struct TimerWidgetAttributes: ActivityAttributes {
     
     public struct ContentState: Codable, Hashable {
         var flow: Bool
+        var custom: Bool = false
         var name: String
         var value: ClosedRange<Date>
         var paused: Bool = false
         var time: Int = 0
+        var start: Date = Date()
+        var extend: Bool = false
     }
     var name: String
 }

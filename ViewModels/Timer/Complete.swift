@@ -8,19 +8,6 @@ import Foundation
 
 extension FlowModel {
     
-    // End Timer
-    func endTimer(skip: Bool = false) {
-        invalidateTimer()
-        stopActivity()
-        elapsed = 0
-        
-        if Simple() {
-            completeRound(skip: skip)
-        } else {
-            completeBlock()
-        }
-    }
-    
     // Complete Round
     func completeRound(skip: Bool) {
         if isFlow() {

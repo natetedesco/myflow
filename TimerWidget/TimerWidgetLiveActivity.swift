@@ -10,32 +10,73 @@ import WidgetKit
 import SwiftUI
 
 struct TimerWidgetLiveActivity: Widget {
+    var progress = 0.5
+    var progress2 = 0.0
+    var progress3 = 1.0
+
+
     
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: TimerWidgetAttributes.self) { context in
-            HStack {
-                Image(systemName: "circle")
-                    .foregroundColor(context.state.flow ? .myBlue : .gray)
-                    .font(.system(size: 30))
-                Text("\(context.state.name)")
-                    .font(.title3)
-                    .foregroundColor(.white)
-                Spacer()
-                Text(timerInterval: context.state.value, countsDown: true)
-                    .frame(width: 45)
-            }
-            .padding()
+            
+                VStack {
+                    HStack {
+                        Image(systemName: "circle")
+                            .foregroundColor(context.state.flow ? .myBlue : .gray)
+                            .font(.system(size: 30))
+                        Text("\(context.state.name)")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                        Spacer()
+                        if context.state.paused {
+                            Text("\(formatTime(seconds: context.state.time))")
+                                .frame(width: 50, height: 50)
+                                .padding(.trailing)
+                        } else {
+                            if context.state.extend {
+                                Text(context.state.start, style: .timer)
+                                    .frame(width: 55)
+                            } else {
+                                Text(timerInterval: context.state.value, countsDown: true)
+                                    .frame(width: 55)
+                            }
+                        }
+                    }.padding(.bottom, 8)
+                    HStack {
+                        // only for custom
+//                        Text("Workout -")
+//                        Text("Cardio")
+//                            .font(.subheadline)
+//                            .fontWeight(.bold)
+//                        Spacer()
+                    }
+                    HStack {
+                        ProgressView(value: 1.0)
+                        ProgressView(value: 1.0)
+                        ProgressView(value: 0.25)
+                        ProgressView(value: 0.0)
+                        ProgressView(value: 0.0)
+                        
 
+                    }.padding(.top, 4).padding(.horizontal, 4)
+                        .accentColor(.myBlue)
+                }
+                .padding()
+                .background(.black.opacity(0.5))
+            
+            
         } dynamicIsland: { context in
+            
+            // Dynamic Island
             DynamicIsland {
                 DynamicIslandExpandedRegion(.leading) {
                     HStack {
-                    Image(systemName: "circle")
+                        Image(systemName: "circle")
                             .foregroundColor(context.state.flow ? .myBlue : .gray)
-                        .font(.system(size: 40))
+                            .font(.system(size: 40))
                         Text(context.state.name)
-                            .font(.title3)
-
+                            .font(.headline)
+                            .frame(maxWidth: .infinity)
                     }
                     .frame(height: 50)
                 }
@@ -46,10 +87,17 @@ struct TimerWidgetLiveActivity: Widget {
                                 .frame(width: 50, height: 50)
                                 .padding(.trailing)
                         } else {
-                            Text(timerInterval: context.state.value, countsDown: true)
-                                .multilineTextAlignment(.center)
-                                .frame(width: 50, height: 50)
-                                .padding(.trailing)
+                            if context.state.extend {
+                                Text(context.state.start, style: .timer)
+                                    .multilineTextAlignment(.center)
+                                    .frame(width: 50, height: 50)
+                                    .padding(.trailing)
+                            } else {
+                                Text(timerInterval: context.state.value, countsDown: true)
+                                    .multilineTextAlignment(.center)
+                                    .frame(width: 50, height: 50)
+                                    .padding(.trailing)
+                            }
                         }
                     }
                 }
@@ -62,26 +110,33 @@ struct TimerWidgetLiveActivity: Widget {
             } compactTrailing: {
                 if context.state.paused {
                     Text("\(formatTime(seconds: context.state.time))")
+                } else if context.state.extend {
+                    Text(context.state.start, style: .timer)
+                        .multilineTextAlignment(.center)
+                        .frame(width: 40)
                 } else {
-                Text(timerInterval: context.state.value, countsDown: true)
-                    .multilineTextAlignment(.center)
-                    .frame(width: 40)
+                    Text(timerInterval: context.state.value, countsDown: true)
+                        .multilineTextAlignment(.center)
+                        .frame(width: 40)
                 }
-            } minimal: {
-                Circle()
-                    .trim(from: 0, to: 1)
-                    .stroke(Color.myBlue,style: StrokeStyle(lineWidth: 2,lineCap: .round))
-                    .frame(width: 22)
             }
-            .keylineTint(Color.white)
+            
+            // Minimal
+        minimal: {
+            Circle()
+                .trim(from: 0, to: 1)
+                .stroke(Color.myBlue,style: StrokeStyle(lineWidth: 2,lineCap: .round))
+                .frame(width: 22)
+        }
+        .keylineTint(Color.white)
         }
     }
 }
 
 struct TimerWidgetLiveActivity_Previews: PreviewProvider {
     static let attributes = TimerWidgetAttributes(name: "Me")
-    static let contentState = TimerWidgetAttributes.ContentState(flow: true, name: "Flow", value: .now...Date())
-
+    static let contentState = TimerWidgetAttributes.ContentState(flow: true, custom: true, name: "Flow", value: .now...Date())
+    
     static var previews: some View {
         attributes
             .previewContext(contentState, viewKind: .dynamicIsland(.compact))

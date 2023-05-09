@@ -9,6 +9,15 @@ import SwiftUI
 
 extension FlowModel {
     
+    // Time Set?
+    func timesSet() -> Bool {
+        mediumHaptic()
+        if (flowTime > 0 && breakTime > 0) || (flowMode == .Custom && (flowTime > 0 || breakTime > 0)) {
+            return true
+        }
+        return false
+    }
+    
     // Create Day
     func createDay() {
         data.createDayStruct()

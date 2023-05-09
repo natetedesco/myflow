@@ -5,8 +5,6 @@
 //
 
 import Foundation
-import SwiftUI
-import ActivityKit
 
 extension FlowModel {
     
@@ -32,7 +30,6 @@ extension FlowModel {
         setRunning(flow: flow)
         setSimpleNotification(flow: flow, time: time)
         let end = setEnd(time: time)
-        
         startActivity(flow: flow, start: start, end: end)
         
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [self] timer in
@@ -48,48 +45,17 @@ extension FlowModel {
         }
     }
     
-    func startActivity(flow: Bool, start: Date, end: Date, paused: Bool = false) {
-        let attributes = TimerWidgetAttributes(name: "flow")
-        let initialContentState = TimerWidgetAttributes.TimerStatus(
-            flow: flow,
-            name: flow ? "Flow" : "Break",
-            value: start...end,
-            paused: paused,
-            time: flowTimeLeft
-        )
+    // End
+    func endTimer(skip: Bool = false) {
+        invalidateTimer()
+        stopActivity()
+        elapsed = 0
         
-        do {
-            let activity = try Activity<TimerWidgetAttributes>.request(
-                attributes: attributes,
-                contentState: initialContentState,
-                pushType: nil)
-            print("error \(activity.id)")
-        } catch (let error) {
-            print("error \(error.localizedDescription)")
+        if Simple() {
+            completeRound(skip: skip)
+        } else {
+            completeBlock()
         }
     }
-    
-    func stopActivity() {
-        Task {
-            for activity in Activity<TimerWidgetAttributes>.activities{
-                await activity.end(dismissalPolicy: .immediate)
-            }
-        }
-    }
-    
-//    func updateActivity(start: Date, end: Date, paused: Bool = false) {
-//        Task {
-//            let updatedStatus = TimerWidgetAttributes.TimerStatus(
-//                value: start...end,
-//                name: "flow",
-//                paused: paused,
-//                time: flowTimeLeft
-//            )
-//
-//            for activity in Activity<TimerWidgetAttributes>.activities{
-//                await activity.update(using: updatedStatus)
-//            }
-//        }
-//    }
 }
 

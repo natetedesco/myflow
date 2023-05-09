@@ -23,6 +23,7 @@
 		F0391317285FA0990074CF33 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0391316285FA0990074CF33 /* Haptics.swift */; };
 		F04FFB4C28FF66B30058E66D /* FlowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB4B28FF66B30058E66D /* FlowModel.swift */; };
 		F04FFB5E29033EC70058E66D /* Controls.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB5D29033EC70058E66D /* Controls.swift */; };
+		F06FDAF62A030ADD00C58F3B /* LiveActivities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06FDAF52A030ADD00C58F3B /* LiveActivities.swift */; };
 		F07291E72979F6A100C25E0E /* FlowCompleted.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291E62979F6A100C25E0E /* FlowCompleted.swift */; };
 		F07291E92979FB4B00C25E0E /* ControlBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291E82979FB4B00C25E0E /* ControlBar.swift */; };
 		F07291EB297B41C000C25E0E /* GoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291EA297B41BF00C25E0E /* GoalView.swift */; };
@@ -125,6 +126,7 @@
 		F05FC0D629FAE96600A9B503 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		F05FC0ED29FAF9CD00A9B503 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		F066923326FB9C3800DB905E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F06FDAF52A030ADD00C58F3B /* LiveActivities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivities.swift; sourceTree = "<group>"; };
 		F07291E62979F6A100C25E0E /* FlowCompleted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowCompleted.swift; sourceTree = "<group>"; };
 		F07291E82979FB4B00C25E0E /* ControlBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlBar.swift; sourceTree = "<group>"; };
 		F07291EA297B41BF00C25E0E /* GoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalView.swift; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 				F0EABDD5297F313500F508A5 /* Checkers.swift */,
 				F0EE5E80298332D0007A42C8 /* StartAutomatically.swift */,
 				F096A2B12980739E00D3DF6F /* SetNotification.swift */,
+				F06FDAF52A030ADD00C58F3B /* LiveActivities.swift */,
 			);
 			path = Timer;
 			sourceTree = "<group>";
@@ -507,6 +510,7 @@
 				F04FFB5E29033EC70058E66D /* Controls.swift in Sources */,
 				F001C24228D7F24100134EB5 /* CustomFlow.swift in Sources */,
 				F0948C4C2681907A00A5F48D /* Notifications.swift in Sources */,
+				F06FDAF62A030ADD00C58F3B /* LiveActivities.swift in Sources */,
 				F01962B1293184BD00336821 /* Timer.swift in Sources */,
 				F01962A12931255D00336821 /* Helpers.swift in Sources */,
 				F0A025C7294796A500AF723F /* FlowData.swift in Sources */,
