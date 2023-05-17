@@ -14,11 +14,20 @@ struct TimerWidgetAttributes: ActivityAttributes {
         var flow: Bool
         var custom: Bool = false
         var name: String
+        var blockName: String
+        
         var value: ClosedRange<Date>
         var paused: Bool = false
+        
         var time: Int = 0
         var start: Date = Date()
         var extend: Bool = false
+        
+        var rounds: Int
+        var roundsCompleted: Int
+        
+        var blocks: Int
+        var blocksCompleted: Int
     }
     var name: String
 }

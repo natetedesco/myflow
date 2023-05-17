@@ -13,7 +13,7 @@ extension FlowModel {
         mode = flow ? .flowPaused : .breakPaused
         setElapsedTime()
         invalidateTimer()
-        startActivity(flow: flow, start: Date(), end: Date(), paused: true)
+        startActivity(flow: flow, custom: flowMode == .Custom ? true : false, start: Date(), end: Date(), paused: true)
     }
     
     // Skip
@@ -86,7 +86,7 @@ extension FlowModel {
         }
         mode = .flowRunning
         flowContinue = true
-        startActivity(flow: true, start: start, end: start, extend: true)
+        startActivity(flow: true, custom: flowMode == .Custom ? true : false, start: start, end: start, extend: true)
 
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [self] timer in
             flowTimeLeft = (Calendar.current.dateComponents([.second], from: start, to: Date()).second ?? 0)

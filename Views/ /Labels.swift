@@ -13,6 +13,7 @@ struct TimerLabels: View {
     
     var body: some View {
         ZStack {
+
             // Custom
             if model.Custom() {
                 if model.flowContinue {
@@ -21,14 +22,17 @@ struct TimerLabels: View {
                         .font(.title3)
                         .padding(.top, 90)
                     
+                    HStack {
+                        
                     TimerLabel(color: .myBlue, text: ("+\(formatTime(seconds: model.flowTimeLeft))"))
                         .font(.system(size: 50))
+                    }
                 }
                 else {
                     Text(model.flow.blocks[model.blocksCompleted].title)
                         .foregroundColor(model.flow.blocks[model.blocksCompleted].flow ? .myBlue.opacity(0.6) : .gray.opacity(0.6))
-                        .font(.title3)
-                        .padding(.top, 90)
+                        .font(.subheadline)
+                        .padding(.top, 100)
                     
                     TimerLabel(color: model.type == .Flow ? .myBlue : .gray, text: customLabel)
                         .font(.system(size: 50))
@@ -41,7 +45,7 @@ struct TimerLabels: View {
                     if showFlowLabel {
                         FlowLabel
                     }
-                    if showSpacer {
+                    if mode == .Initial {
                         Spacer()
                             .frame(width: 44)
                     }
@@ -72,21 +76,20 @@ struct TimerLabels: View {
     
     var BreakLabel: some View {
         TimerLabel(color: .gray, text: breakLabel)
-            .modifier(AnimatingFontSize(fontSize: mode == .breakRunning || mode == .breakStart ? 60 : 35))
-            .scaleEffect(mode == .flowRunning || mode == .flowStart ? 0.0 : 1.0)
+            .modifier(AnimatingFontSize(fontSize: mode == .Initial ? 35 : 60))
     }
     
     var FlowLabel: some View {
-        TimerLabel(color: .myBlue, text: flowLabel)
-            .modifier(AnimatingFontSize(fontSize: mode == .flowRunning || mode == .flowStart ? 60 : 35))
-            .scaleEffect(mode == .breakRunning || mode == .breakStart ? 0.0 : 1.0)
-    }
-    
-    var showSpacer: Bool {
-        if mode == .Initial || mode == .flowPaused || mode == .breakPaused {
-        return true
+        HStack {
+            if model.flowContinue {
+                Text("+")
+                    .foregroundColor(.myBlue)
+                    .font(.system(size: 45))
+                    .fontWeight(.light)
+            }
+        TimerLabel(color: .myBlue, text: (formatTime(seconds: model.flowTimeLeft)))
+            .modifier(AnimatingFontSize(fontSize: mode == .Initial ? 35 : 60))
         }
-        return false
     }
     
     var flowLabel: String {
@@ -108,14 +111,14 @@ struct TimerLabels: View {
     }
     
     var showFlowLabel: Bool {
-        if mode == .Initial || mode == .flowStart || mode == .flowRunning || mode == .breakPaused || mode == .flowPaused {
+        if mode == .Initial || mode == .flowStart || mode == .flowRunning || mode == .flowPaused {
             return true
         }
         return false
     }
     
     var showBreakLabel: Bool {
-        if mode == .Initial || mode == .breakStart || mode == .breakRunning || mode == .breakPaused || mode == .flowPaused {
+        if mode == .Initial || mode == .breakStart || mode == .breakRunning || mode == .breakPaused {
             return true
         }
         return false

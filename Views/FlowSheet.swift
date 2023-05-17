@@ -12,6 +12,7 @@ struct FlowSheet: View {
     @Binding var flow: Flow
     @Binding var show: Bool
     @Binding var simple: Bool
+    var showSeconds: Bool = false
     
     var body: some View {
         ZStack {

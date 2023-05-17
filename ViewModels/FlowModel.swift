@@ -54,6 +54,7 @@ class FlowModel: ObservableObject {
     
     func editFlow() {
         showFlow = true
+        heavyHaptic()
     }
     
     // Add Flow

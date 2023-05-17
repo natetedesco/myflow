@@ -1,7 +1,6 @@
 //
 //  TimerWidgetLiveActivity.swift
 //  TimerWidget
-//
 //  Created by Nate Tedesco on 5/2/23.
 //
 
@@ -10,132 +9,193 @@ import WidgetKit
 import SwiftUI
 
 struct TimerWidgetLiveActivity: Widget {
-    var progress = 0.5
-    var progress2 = 0.0
-    var progress3 = 1.0
-
-
     
     var body: some WidgetConfiguration {
+        
+        // Live Activity
         ActivityConfiguration(for: TimerWidgetAttributes.self) { context in
-            
-                VStack {
-                    HStack {
-                        Image(systemName: "circle")
-                            .foregroundColor(context.state.flow ? .myBlue : .gray)
-                            .font(.system(size: 30))
-                        Text("\(context.state.name)")
-                            .font(.headline)
-                            .foregroundColor(.white)
-                        Spacer()
+            VStack {
+                HStack {
+                    Image(systemName: "circle")
+                        .foregroundColor(context.state.flow ? .myBlue : .gray)
+                        .font(.system(size: 30))
+                    Text(context.state.flow ? "Flow" : "Break")
+                        .font(.headline)
+                    Spacer()
+                }
+                
+                HStack {
+                    if context.state.custom {
+                        HStack {
+                            Text(context.state.blockName)
+                                .foregroundColor(.white.opacity(0.8))
+                            Spacer()
+                        }
+                        .padding(.top, 8)
+                    }
+                    else {
+                        ForEach(0 ..< context.state.roundsCompleted, id: \.self) {_ in RoundCircle() }
+                        if context.state.flow {
+                            RoundCircle(half: true)
+                        }
+                        ForEach(0 ..< (context.state.rounds - context.state.roundsCompleted - 1), id: \.self) {
+                            _ in RoundCircleStroke()
+                        }
+                        if !context.state.flow {
+                            RoundCircleStroke()
+                        }
+                    }
+                    Spacer()
+                    ZStack {
                         if context.state.paused {
                             Text("\(formatTime(seconds: context.state.time))")
-                                .frame(width: 50, height: 50)
-                                .padding(.trailing)
                         } else {
                             if context.state.extend {
                                 Text(context.state.start, style: .timer)
-                                    .frame(width: 55)
                             } else {
                                 Text(timerInterval: context.state.value, countsDown: true)
-                                    .frame(width: 55)
                             }
                         }
-                    }.padding(.bottom, 8)
-                    HStack {
-                        // only for custom
-//                        Text("Workout -")
-//                        Text("Cardio")
-//                            .font(.subheadline)
-//                            .fontWeight(.bold)
-//                        Spacer()
                     }
-                    HStack {
-                        ProgressView(value: 1.0)
-                        ProgressView(value: 1.0)
-                        ProgressView(value: 0.25)
-                        ProgressView(value: 0.0)
-                        ProgressView(value: 0.0)
-                        
+                    .multilineTextAlignment(.trailing)
+                    .foregroundColor(.white.opacity(0.8))
+                    .padding(.trailing, 4)
+                    
+                }.padding(.leading, 4)
+                
+                ProgressView(timerInterval: context.state.value, countsDown: false, label: {
+                    Text("")
+                }, currentValueLabel: {
+                    Text("")
+                })
+                .tint(context.state.flow ? .myBlue : .gray)
+                .padding(.horizontal, 4)
+                .scaleEffect(x: 1, y: 1.2, anchor: .center)
 
-                    }.padding(.top, 4).padding(.horizontal, 4)
-                        .accentColor(.myBlue)
-                }
-                .padding()
-                .background(.black.opacity(0.5))
-            
-            
-        } dynamicIsland: { context in
-            
-            // Dynamic Island
-            DynamicIsland {
-                DynamicIslandExpandedRegion(.leading) {
-                    HStack {
-                        Image(systemName: "circle")
-                            .foregroundColor(context.state.flow ? .myBlue : .gray)
-                            .font(.system(size: 40))
-                        Text(context.state.name)
-                            .font(.headline)
-                            .frame(maxWidth: .infinity)
-                    }
-                    .frame(height: 50)
-                }
-                DynamicIslandExpandedRegion(.trailing) {
-                    HStack {
-                        if context.state.paused {
-                            Text("\(formatTime(seconds: context.state.time))")
-                                .frame(width: 50, height: 50)
-                                .padding(.trailing)
-                        } else {
-                            if context.state.extend {
-                                Text(context.state.start, style: .timer)
-                                    .multilineTextAlignment(.center)
-                                    .frame(width: 50, height: 50)
-                                    .padding(.trailing)
-                            } else {
-                                Text(timerInterval: context.state.value, countsDown: true)
-                                    .multilineTextAlignment(.center)
-                                    .frame(width: 50, height: 50)
-                                    .padding(.trailing)
-                            }
-                        }
-                    }
-                }
-                DynamicIslandExpandedRegion(.bottom) {
-                }
-            } compactLeading: {
-                Image(systemName: "circle")
-                    .foregroundColor(context.state.flow ? .myBlue : .gray)
-                    .font(.system(size: 20))
-            } compactTrailing: {
-                if context.state.paused {
-                    Text("\(formatTime(seconds: context.state.time))")
-                } else if context.state.extend {
-                    Text(context.state.start, style: .timer)
-                        .multilineTextAlignment(.center)
-                        .frame(width: 40)
-                } else {
-                    Text(timerInterval: context.state.value, countsDown: true)
-                        .multilineTextAlignment(.center)
-                        .frame(width: 40)
+            }
+            .padding(.top)
+            .padding(.horizontal)
+            .background(.black.opacity(0.5))
+        }
+        
+        // Dynamic Island Expanded
+    dynamicIsland: { context in
+        DynamicIsland {
+            DynamicIslandExpandedRegion(.leading) {
+                HStack {
+                    Image(systemName: "circle")
+                        .foregroundColor(context.state.flow ? .myBlue : .gray)
+                        .font(.system(size: 30))
+                    Text(context.state.flow ? "Flow" : "Break")
+                        .font(.headline)
+                        .frame(maxWidth: .infinity)
+                    Spacer()
                 }
             }
+            DynamicIslandExpandedRegion(.trailing) {}
+            DynamicIslandExpandedRegion(.bottom) {
+                HStack {
+                    if context.state.custom {
+                        HStack {
+                            Text(context.state.blockName)
+                                .font(.callout)
+                            Spacer()
+                        }
+                        .padding(.top, 2)
+                    }
+                    else {
+                        ForEach(0 ..< context.state.roundsCompleted, id: \.self) {_ in
+                            RoundCircle()
+                        }
+                        if context.state.flow {
+                            RoundCircle(half: true)
+                        }
+                        ForEach(0 ..< (context.state.rounds - context.state.roundsCompleted - 1), id: \.self) {
+                            _ in RoundCircleStroke()
+                        }
+                        if !context.state.flow {
+                            RoundCircleStroke()
+                        }
+                    }
+                    Spacer()
+                    
+                    ZStack {
+                        if context.state.paused {
+                            Text("\(formatTime(seconds: context.state.time))")
+                        } else {
+                            if context.state.extend {
+                                Text(context.state.start, style: .timer)
+                            } else {
+                                Text(timerInterval: context.state.value, countsDown: true)
+                            }
+                        }
+                    }
+                    .multilineTextAlignment(.trailing)
+                    .foregroundColor(.white.opacity(0.8))
+                    .padding(.trailing, 4)
+                    
+                }
+                .padding(.leading, 4)
+                .padding(.bottom, -4)
+                
+                ProgressView(timerInterval: context.state.value, countsDown: false, label: {
+                    Text("")
+                }, currentValueLabel: {
+                    Text("")
+                })
+                .tint(context.state.flow ? .myBlue : .gray)
+                .padding(.horizontal, 4)
+                .padding(.bottom, -16)
+            }
             
-            // Minimal
-        minimal: {
-            Circle()
-                .trim(from: 0, to: 1)
-                .stroke(Color.myBlue,style: StrokeStyle(lineWidth: 2,lineCap: .round))
-                .frame(width: 22)
+            // Compact
+        } compactLeading: {
+            Image(systemName: "circle")
+                .foregroundColor(context.state.flow ? .myBlue : .gray)
+                .font(.system(size: 20))
+        } compactTrailing: {
+            if context.state.paused {
+                Text("\(formatTime(seconds: context.state.time))")
+            } else if context.state.extend {
+                Text(context.state.start, style: .timer)
+                    .multilineTextAlignment(.center)
+                    .frame(width: 40)
+                    .font(.footnote)
+            } else {
+                Text(timerInterval: context.state.value, countsDown: true)
+                    .multilineTextAlignment(.center)
+                    .frame(width: 40)
+                    .font(.footnote)
+            }
         }
-        .keylineTint(Color.white)
+        
+        // Minimal
+    minimal: {
+        if context.state.paused {
+            Text("\(formatTime(seconds: context.state.time))")
+                .multilineTextAlignment(.center)
+                .frame(width: 35)
+                .font(.system(size: 12))
+        } else if context.state.extend {
+            Text(context.state.start, style: .timer)
+                .multilineTextAlignment(.center)
+                .frame(width: 35)
+                .font(.system(size: 12))
+        } else {
+            Text(timerInterval: context.state.value, countsDown: true)
+                .multilineTextAlignment(.center)
+                .frame(width: 35)
+                .font(.system(size: 12))
         }
+    }
+    .keylineTint(Color.white)
+    }
     }
 }
 
 struct TimerWidgetLiveActivity_Previews: PreviewProvider {
     static let attributes = TimerWidgetAttributes(name: "Me")
-    static let contentState = TimerWidgetAttributes.ContentState(flow: true, custom: true, name: "Flow", value: .now...Date())
+    static let contentState = TimerWidgetAttributes.ContentState(flow: true, custom: true, name: "Flow", blockName: "Cardio", value: .now...Date(), rounds: 5, roundsCompleted: 2, blocks: 5, blocksCompleted: 2)
     
     static var previews: some View {
         attributes
@@ -159,4 +219,34 @@ extension Color {
     }
     static let darkBackground = Color(#colorLiteral(red: 0.05882352941, green: 0.07058823529, blue: 0.08235294118, alpha: 1))
     static let myBlue = Color(#colorLiteral(red: 0, green: 0.8217858727, blue: 1, alpha: 1))
+}
+
+struct RoundCircle: View {
+    var half: Bool = false
+    var body: some View {
+        ZStack {
+            Circle()
+                .trim(from: 0, to: half ? 0.5 : 1.0)
+                .rotationEffect(.degrees(90))
+                .frame(width: 10, height: 10)
+                .foregroundColor(.gray.opacity(0.3))
+                .padding(1)
+            //            if half {
+            //                Circle()
+            //                .stroke(Color.gray.opacity(0.3),style: StrokeStyle(lineWidth: 1.5 ,lineCap: .round))
+            //                .frame(width: 10, height: 10)
+            //                .padding(1)
+            //            }
+        }
+    }
+}
+
+struct RoundCircleStroke: View {
+    var half: Bool = false
+    var body: some View {
+        Circle()
+            .stroke(Color.gray.opacity(0.3),style: StrokeStyle(lineWidth: 1.5 ,lineCap: .round))
+            .frame(width: 10, height: 10)
+            .padding(1)
+    }
 }

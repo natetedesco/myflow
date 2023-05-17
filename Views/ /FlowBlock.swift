@@ -110,6 +110,7 @@ struct FlowBlock: View {
     }
     
     func deleteBlock() {
+        mediumHaptic()
         if !(flow.blocks.count == 1) {
             flow.deleteBlock(id: block.id)
         }

@@ -9,11 +9,10 @@ import SwiftUI
 struct FlowView: View {
     @ObservedObject var model: FlowModel
     @State var disable = false
-    @AppStorage("showWelcome") var showWelcome: Bool = true
+    @AppStorage("showWelcome") var showWelcome: Bool = false
     @AppStorage("showCreateFlow") var showCreateFlow: Bool = true
     init(model: FlowModel) {
         self.model = model
-        self.showCreateFlow = false
     }
     
     var body: some View {
@@ -48,14 +47,17 @@ struct FlowView: View {
     var FlowCenter: some View {
         Button {
             model.editFlow()
+            showCreateFlow = false
         } label: {
             ZStack {
                 Circles(model: model)
                 if showCreateFlow {
-                    Text("Tap to edit your flow or select from the menu above")
+                    Text("Tap to create your flow")
                         .myBlue()
                         .padding(.horizontal, 70)
                         .frame(maxWidth: 400)
+                        .font(.title2)
+                        .fontWeight(.light)
                 } else {
                     TimerLabels(model: model, mode: $model.mode)
                 }

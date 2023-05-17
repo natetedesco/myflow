@@ -43,6 +43,7 @@ struct CustomFlow: View {
     }
     
     func addFlowBlock() {
+        mediumHaptic()
         flow.blocks.indices.forEach {
             flow.blocks[$0].pickTime = false
         }
@@ -50,6 +51,7 @@ struct CustomFlow: View {
     }
     
     func addBreakBlock() {
+        mediumHaptic()
         flow.blocks.indices.forEach {
             flow.blocks[$0].pickTime = false
         }

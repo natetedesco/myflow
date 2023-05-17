@@ -30,7 +30,7 @@ extension FlowModel {
         setRunning(flow: flow)
         setSimpleNotification(flow: flow, time: time)
         let end = setEnd(time: time)
-        startActivity(flow: flow, start: start, end: end)
+        startActivity(flow: flow, custom: flowMode == .Custom ? true : false, start: start, end: end)
         
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [self] timer in
             if timeLeft(end: end) <= 0 {
