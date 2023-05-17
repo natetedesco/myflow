@@ -47,7 +47,7 @@
 		F096A2AE298059E600D3DF6F /* Initialize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F096A2AD298059E600D3DF6F /* Initialize.swift */; };
 		F096A2B02980613800D3DF6F /* Examples.swift in Sources */ = {isa = PBXBuildFile; fileRef = F096A2AF2980613800D3DF6F /* Examples.swift */; };
 		F096A2B22980739E00D3DF6F /* SetNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = F096A2B12980739E00D3DF6F /* SetNotification.swift */; };
-		F09861FF26968B4B00A61B42 /* Paywall.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09861FE26968B4B00A61B42 /* Paywall.swift */; };
+		F09861FF26968B4B00A61B42 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09861FE26968B4B00A61B42 /* WelcomeView.swift */; };
 		F09862012696C80E00A61B42 /* AquaSound.aif in Resources */ = {isa = PBXBuildFile; fileRef = F09862002696C80E00A61B42 /* AquaSound.aif */; };
 		F09E34F5295CCEC0005F2583 /* Global Variables.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09E34F4295CCEC0005F2583 /* Global Variables.swift */; };
 		F0A025C7294796A500AF723F /* FlowData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A025C6294796A500AF723F /* FlowData.swift */; };
@@ -153,7 +153,7 @@
 		F096A2AD298059E600D3DF6F /* Initialize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initialize.swift; sourceTree = "<group>"; };
 		F096A2AF2980613800D3DF6F /* Examples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Examples.swift; sourceTree = "<group>"; };
 		F096A2B12980739E00D3DF6F /* SetNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetNotification.swift; sourceTree = "<group>"; };
-		F09861FE26968B4B00A61B42 /* Paywall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paywall.swift; sourceTree = "<group>"; };
+		F09861FE26968B4B00A61B42 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		F09862002696C80E00A61B42 /* AquaSound.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = AquaSound.aif; sourceTree = "<group>"; };
 		F09E34F4295CCEC0005F2583 /* Global Variables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Global Variables.swift"; sourceTree = "<group>"; };
 		F0A025C6294796A500AF723F /* FlowData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowData.swift; sourceTree = "<group>"; };
@@ -220,7 +220,7 @@
 				F02C1469270FA679002FE382 /* UI Elements.swift */,
 				F02C1466270FA679002FE382 /* Toolbar.swift */,
 				F03256422721308C009D3EFB /* AnimatedBlur.swift */,
-				F09861FE26968B4B00A61B42 /* Paywall.swift */,
+				F09861FE26968B4B00A61B42 /* WelcomeView.swift */,
 				F0463CA42A1424E10044AC26 /* Archive.swift */,
 			);
 			path = Components;
@@ -527,7 +527,7 @@
 				F07291F8297B6CA200C25E0E /* HowItWorks.swift in Sources */,
 				F074D67A271D124900CE1AB4 /* FlowView.swift in Sources */,
 				F02C1472270FA679002FE382 /* UI Elements.swift in Sources */,
-				F09861FF26968B4B00A61B42 /* Paywall.swift in Sources */,
+				F09861FF26968B4B00A61B42 /* WelcomeView.swift in Sources */,
 				F07291F2297B448F00C25E0E /* MonthCard.swift in Sources */,
 				F0F7F4302911C6CA00BC8E16 /* Complete.swift in Sources */,
 				F0899DEB292EA83200A35D4D /* MyFlowApp.swift in Sources */,
