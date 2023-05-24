@@ -14,6 +14,7 @@ extension FlowModel {
         setElapsedTime()
         invalidateTimer()
         startActivity(flow: flow, custom: flowMode == .Custom ? true : false, start: Date(), end: Date(), paused: true)
+        stopRestrictions()
     }
     
     // Skip
@@ -76,6 +77,7 @@ extension FlowModel {
         invalidateTimer()
         stopActivity()
         completeSession()
+        stopRestrictions()
     }
     
     // Continue Flow

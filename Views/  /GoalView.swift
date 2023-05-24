@@ -10,7 +10,7 @@ struct GoalView: View {
     @ObservedObject var data: FlowData
     @Binding var show: Bool
     
-    var hours = [Int](0...12)
+    var hours = [Int](0...8)
     
     var body: some View {
         ZStack {

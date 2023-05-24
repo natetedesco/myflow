@@ -8,7 +8,10 @@ import SwiftUI
 
 struct HowItWorks: View {
     var body: some View {
+        NavigationView {
+            
         VStack(alignment: .leading, spacing: 64) {
+            
             HStack {
                 Image(systemName: "circle")
                     .myBlue()
@@ -26,6 +29,7 @@ struct HowItWorks: View {
                         .font(.footnote)
                 }
             }
+            .padding(.top, 64)
             .leading()
             
             HStack {
@@ -63,6 +67,9 @@ struct HowItWorks: View {
         }
         .padding(.horizontal, 32)
         .background(AnimatedBlur(opacity: 0.01))
+        }
+        .navigationTitle("How it Works")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

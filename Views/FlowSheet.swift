@@ -13,11 +13,12 @@ struct FlowSheet: View {
     @Binding var show: Bool
     @Binding var simple: Bool
     var showSeconds: Bool = false
+    @Binding var disable: Bool
     
     var body: some View {
         ZStack {
             MaterialBackGround()
-                .onTapGesture { Save() }
+                .onTapGesture { Save() ; disable = false }
                 .disabled(flow.title.isEmpty)
                 .opacity(show ? 1.0 : 0.0)
                 .animation(.default.speed(show ? 2.0 : 1.0), value: show)
@@ -206,7 +207,7 @@ struct Simple_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             FlowView(model: model)
-            FlowSheet(model: model, flow: $model.flow, show: .constant(true), simple: .constant(true))
+            FlowSheet(model: model, flow: $model.flow, show: .constant(true), simple: .constant(true), disable: .constant(false))
                 .opacity(1.0)
         }
     }
@@ -217,7 +218,7 @@ struct Custom_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             FlowView(model: model)
-            FlowSheet(model: model, flow: $model.flow, show: .constant(true), simple: .constant(false))
+            FlowSheet(model: model, flow: $model.flow, show: .constant(true), simple: .constant(false), disable: .constant(false))
                 .opacity(1.0)
         }
     }

@@ -8,11 +8,17 @@ import SwiftUI
 
 struct Feedback: View {
     var body: some View {
-        ZStack {
+        NavigationView {
+            
+        VStack {
             Text("Please email feedback or support to natetedesco@icloud.com ")
                 .padding(.horizontal, 32)
-                .top()
+                .padding(.top, 64)
+            Spacer()
         }
+        }
+        .navigationTitle("Feedback & Support")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

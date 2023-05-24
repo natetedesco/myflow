@@ -8,6 +8,8 @@ import SwiftUI
 
 struct StartButton: View {
     @AppStorage("SelectedTab") var selectedTab: Tab = .home
+    @AppStorage("Onboarding") var onboarding: Bool = true
+    @AppStorage("showPause") var showPause: Bool = false
     @ObservedObject var model: FlowModel
     
     var body: some View {
@@ -20,7 +22,14 @@ struct StartButton: View {
             }
         
         if selectedTab == Tab.home {
-            Button { model.Start() }
+            Button {
+                model.Start()
+                if onboarding {
+                    showPause = true
+                }
+                UNUserNotificationCenter.current()
+                    .requestAuthorization(options:[.badge,.sound,.alert]) { (_, _) in }
+            }
         label: {
             switch model.mode {
             case .Initial:

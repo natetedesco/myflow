@@ -8,6 +8,8 @@ import SwiftUI
 
 struct AboutUs: View {
     var body: some View {
+        NavigationView {
+            
         VStack() {
             VStack(spacing: 8) {
                 Image("Image")
@@ -32,6 +34,7 @@ struct AboutUs: View {
         }
         .padding(.horizontal, 32)
         .background(AnimatedBlur(opacity: 0.01))
+        }
     }
 }
 

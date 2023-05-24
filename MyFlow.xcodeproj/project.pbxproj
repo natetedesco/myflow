@@ -53,6 +53,7 @@
 		F0A025C7294796A500AF723F /* FlowData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A025C6294796A500AF723F /* FlowData.swift */; };
 		F0A025C92949014B00AF723F /* GetWeek.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A025C82949014B00AF723F /* GetWeek.swift */; };
 		F0A025CC2949020800AF723F /* Date extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A025CB2949020800AF723F /* Date extensions.swift */; };
+		F0B351AA2A1D592D001186BB /* ScreenTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B351A92A1D592D001186BB /* ScreenTime.swift */; };
 		F0BA1E1F28FB7FFB00FCB5A8 /* SwipeDelete.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BA1E1E28FB7FFB00FCB5A8 /* SwipeDelete.swift */; };
 		F0BA1E2128FCBA5900FCB5A8 /* FlowBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BA1E2028FCBA5800FCB5A8 /* FlowBlock.swift */; };
 		F0EABDD6297F313500F508A5 /* Checkers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EABDD5297F313500F508A5 /* Checkers.swift */; };
@@ -159,6 +160,8 @@
 		F0A025C6294796A500AF723F /* FlowData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowData.swift; sourceTree = "<group>"; };
 		F0A025C82949014B00AF723F /* GetWeek.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetWeek.swift; sourceTree = "<group>"; };
 		F0A025CB2949020800AF723F /* Date extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date extensions.swift"; sourceTree = "<group>"; };
+		F0B3518E2A1BE3AE001186BB /* TimerWidgetExtension.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = TimerWidgetExtension.entitlements; sourceTree = "<group>"; };
+		F0B351A92A1D592D001186BB /* ScreenTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenTime.swift; sourceTree = "<group>"; };
 		F0BA1E1E28FB7FFB00FCB5A8 /* SwipeDelete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeDelete.swift; sourceTree = "<group>"; };
 		F0BA1E2028FCBA5800FCB5A8 /* FlowBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowBlock.swift; sourceTree = "<group>"; };
 		F0C6CE7426913C240026E415 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -204,6 +207,7 @@
 				F0F7F4332911C96E00BC8E16 /* Flow.swift */,
 				F04FFB4B28FF66B30058E66D /* FlowModel.swift */,
 				F0A025C6294796A500AF723F /* FlowData.swift */,
+				F0B351A92A1D592D001186BB /* ScreenTime.swift */,
 				F04FFB55290339000058E66D /* Timer */,
 				F0A025CA2949019A00AF723F /* Data */,
 				F0FD718728ECD7B9008D9DC1 /* Helpers */,
@@ -323,6 +327,7 @@
 		F0948C0C26818EE000A5F48D = {
 			isa = PBXGroup;
 			children = (
+				F0B3518E2A1BE3AE001186BB /* TimerWidgetExtension.entitlements */,
 				F0948C1726818EE000A5F48D /* MyFlow */,
 				F0899DEA292EA83200A35D4D /* MyFlowApp.swift */,
 				F066923326FB9C3800DB905E /* ContentView.swift */,
@@ -520,6 +525,7 @@
 				F03256432721308C009D3EFB /* AnimatedBlur.swift in Sources */,
 				F0BA1E1F28FB7FFB00FCB5A8 /* SwipeDelete.swift in Sources */,
 				F0EDD04B2A01717600223505 /* TimerWidget.intentdefinition in Sources */,
+				F0B351AA2A1D592D001186BB /* ScreenTime.swift in Sources */,
 				F07291F5297B6B0A00C25E0E /* AboutUs.swift in Sources */,
 				F02C146F270FA679002FE382 /* Toolbar.swift in Sources */,
 				F0EE5E81298332D0007A42C8 /* StartAutomatically.swift in Sources */,
@@ -775,6 +781,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = TimerWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = AMU2LP62W2;
@@ -803,6 +810,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = TimerWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = AMU2LP62W2;

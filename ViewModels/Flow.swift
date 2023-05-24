@@ -13,11 +13,11 @@ struct Flow: Codable, Equatable {
     var title: String = ""
     var simple = true
     
-    var flowMinutes: Int = 0
+    var flowMinutes: Int = 20
     var flowSeconds: Int = 0
-    var breakMinutes: Int = 0
+    var breakMinutes: Int = 5
     var breakSeconds: Int = 0
-    var rounds: Int = 0
+    var rounds: Int = 5
     
     var blocks = [Block(flow: true), Block(flow: false)]
 }

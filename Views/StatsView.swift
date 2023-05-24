@@ -9,6 +9,9 @@ import SwiftUI
 struct StatsView: View {
     @StateObject var data = FlowData()
     
+    var hours = [Int](0...8)
+
+    
     var body: some View {
         ZStack {
             ZStack {
@@ -24,7 +27,8 @@ struct StatsView: View {
                     MonthCard(data: data)
                     
                 }
-                .navigationView(title: "Statistics", button: GoalButton)
+                .navigationView(title: "Statistics", button: goalMenu
+                )
                 .toolbar{ GoalButton }
                 .background(AnimatedBlur(opacity: moreBlur ? 0.5 : 0.0))
                 .animation(.default.speed(1.5), value: moreBlur)
@@ -32,6 +36,24 @@ struct StatsView: View {
             }
             //            .blur(radius: data.showGoal ? 10 : 0) // Fucks up view
             GoalView(data: data, show: $data.showGoal)
+        }
+    }
+    
+    var goalMenu: some View {
+        ZStack {
+        Menu {
+            Text("Hours")
+            Picker(selection: $data.goalSelection, label: Text("")) {
+                ForEach(1..<hours.count, id: \.self) {
+                    Text("\(hours[$0])")
+                }
+            }
+        }
+    label: {
+        Text("Goal")
+            .smallButtonGlass()
+            .foregroundColor(.clear)
+    }
         }
     }
     

@@ -5,11 +5,14 @@
 //
 
 import Foundation
+import FamilyControls
+import ManagedSettings
 
 class FlowModel: ObservableObject {
     var data = FlowData()
     var settings = Settings()
     var notifications = NotificationManager()
+    var deciveRestriction = MyMonitor()
     var timer = Timer()
     var start = Date()
     
@@ -33,7 +36,15 @@ class FlowModel: ObservableObject {
     @Published var flowList: [Flow] { didSet { Initialize() } }
     @Published var selection = 0 { didSet { Initialize() } }
     
+    let store = ManagedSettingsStore()
+    @Published var activitySelection = FamilyActivitySelection() { didSet { saveActivitySelection() } }
+    
     init(mode: TimerMode = .Initial) {
+        if let data = UserDefaults.standard.data(forKey: "activitySelection") {
+            if let decoded = try? JSONDecoder().decode(FamilyActivitySelection.self, from: data) {
+                activitySelection = decoded
+            }
+        }
         if let data = UserDefaults.standard.data(forKey: "SavedData") {
             if let decoded = try? JSONDecoder().decode([Flow].self, from: data) {
                 flowList = decoded
@@ -47,6 +58,27 @@ class FlowModel: ObservableObject {
         Initialize()
     }
     
+    
+    // Save
+    func saveActivitySelection() {
+        if let encoded = try? JSONEncoder().encode(activitySelection) {
+            UserDefaults.standard.set(encoded, forKey: "activitySelection")
+        }
+    }
+    
+    func startRestriction() {
+        let applications = activitySelection.applicationTokens
+        let categories = activitySelection.categoryTokens
+        let webCategories = activitySelection.webDomainTokens
+        store.shield.applications = applications.isEmpty ? nil : applications
+        store.shield.applicationCategories = ShieldSettings.ActivityCategoryPolicy.specific(categories, except: Set())
+        store.shield.webDomains = webCategories
+    }
+    
+    func stopRestrictions() {
+        store.shield.applications = nil
+    }
+    
     func createFlow() {
         flow = Flow(new: true)
         showFlow = true
@@ -54,7 +86,6 @@ class FlowModel: ObservableObject {
     
     func editFlow() {
         showFlow = true
-        heavyHaptic()
     }
     
     // Add Flow

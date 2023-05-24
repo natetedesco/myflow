@@ -33,6 +33,12 @@ struct WelcomeScreen: View {
                                 .foregroundColor(.myBlue)
                                 .padding(.bottom, 48)
                         
+                        Text("Try myFlow Pro for free")
+                            .centered()
+                            .font(.title3)
+                            .fontWeight(.semibold)
+                            .padding(.bottom, 48)
+
                         
                         
                         HStack {
@@ -82,34 +88,49 @@ struct WelcomeScreen: View {
                             }
                         }
                         .leading()
-                        .padding(.bottom, 64)
+                        .padding(.bottom, 48)
                         .padding(.top, 32)
-
-                        
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("$0.99 Monthly")
-                                .fontWeight(.bold)
-                            Text("First 7 days free")
-                                .leading()
-                        }
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.myBlue.opacity(0.8))
-                        .cornerRadius(20)
-                        .padding(.bottom)
-                        
 
                         VStack(alignment: .leading, spacing: 8) {
                             Text("$9.99 One-Time")
-                                .fontWeight(.bold)
+                                .fontWeight(.semibold)
                             Text("Pay once. Use forever.")
                                 .leading()
                         }
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.myBlue.opacity(0.4))
+                        .background(Color.myBlue.opacity(0.2))
                         .cornerRadius(20)
-                        .padding(.bottom, 64)
+                        .padding(.bottom)
+                        
+                        HStack {
+                            
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("$0.99 Monthly")
+                                    .fontWeight(.semibold)
+                                Text("First 7 days free")
+                                    .leading()
+                                
+                            }
+                            Image(systemName: "checkmark")
+                                .font(.system(size: 15))
+                                .myBlue()
+                                .font(.title3)
+                                .padding(8)
+                                .background(Circle()
+                                    .fill(.ultraThinMaterial.opacity(0.55)))
+                        }
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.myBlue.opacity(0.8))
+                        .cornerRadius(20)
+//                        .padding(.bottom, 64)
+
+                        Text("Restore Purchase • Terms & Privacy")
+                            .centered()
+                            .font(.footnote)
+                            .padding(32)
+
                         
                         Button(action: {
                             showWelcome = false
@@ -126,7 +147,7 @@ struct WelcomeScreen: View {
                                 .padding(.vertical)
                                 .background(.ultraThinMaterial.opacity(0.55))
                                 .cornerRadius(30)
-                                .padding(.bottom, 32)
+                                .padding(.bottom, 64)
                         })
                     }
             }

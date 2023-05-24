@@ -5,9 +5,11 @@
 //
 
 import SwiftUI
+import FamilyControls
 
 struct SettingsView: View {
     @StateObject var settings = Settings()
+    @ObservedObject var model: FlowModel
     
     var body: some View {
         ZStack {
@@ -25,6 +27,12 @@ struct SettingsView: View {
                 .cornerRadius(25.0)
                 .padding(.horizontal)
                 
+                CustomHeadline(text: "General")
+                VStack(spacing: 16) {
+                    NavigationLink(destination: DistractionBlocker(model: model)) { NLT(text: "Block Distractions", icon: "shield", model: model) }
+                }
+                .cardGlassNP()
+                
                 // About
                 CustomHeadline(text: "About")
                 VStack(spacing: 16) {
@@ -32,7 +40,7 @@ struct SettingsView: View {
                     Div
                     NavigationLink(destination: HowItWorks()) { NL(text: "How it works", icon: "questionmark.circle") }
                     Div
-                    NavigationLink(destination: Feedback()) { NL(text: "Feedback and support", icon: "message") }
+                    NavigationLink(destination: Feedback()) { NL(text: "Feedback & support", icon: "message") }
                 }
                 .cardGlassNP()
                 
@@ -65,6 +73,68 @@ struct SettingsView: View {
     }
 }
 
+struct DistractionBlocker: View {
+    let center = AuthorizationCenter.shared
+    @AppStorage("ScreenTimeAuthorized") var isAuthorized: Bool = false
+    @State var isPresented = false
+    @ObservedObject var model: FlowModel
+    
+    var body: some View {
+        NavigationView {
+            List {
+                
+                if isAuthorized {
+                // put lock symbol on blocked apps but make it so the user can access the screen
+                Text("Upgrade to Pro")
+                    .foregroundColor(.myBlue)
+                }
+                Section {
+                    if isAuthorized {
+                        Button {
+                            isPresented = true
+                        } label: {
+                            HStack {
+                                Text("Blocked Apps")
+                                    .foregroundColor(.white)
+                                Spacer()
+                                if model.activitySelection.applicationTokens.isEmpty && model.activitySelection.categoryTokens.isEmpty &&
+                                    model.activitySelection.webDomainTokens.isEmpty {
+                                    Text("None")
+                                        .foregroundColor(.gray)
+                                } else {
+                                    Text(Image(systemName: "chevron.right"))
+                                        .foregroundColor(.gray)
+                                    
+                                }
+                            }
+                        }
+                        .familyActivityPicker(isPresented: $isPresented, selection: $model.activitySelection)
+                    } else {
+                        Button {
+                            Task {
+                                do {
+                                    try await center.requestAuthorization(for: .individual)
+                                    isAuthorized = true
+                                } catch {
+                                    print("error")
+                                }
+                            }
+                        } label: {
+                            Text("Authorize")
+                                .foregroundColor(.white)
+                        }
+                    }
+                    
+                } footer: {
+                    Text(isAuthorized ? "You wont have access to these apps during flow": "MyFlow needs to access Screen Time")
+                }
+            }
+        }
+        .navigationTitle("Block Distractions")
+        .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
 struct NL: View {
     var text: String
     var icon: String
@@ -74,6 +144,32 @@ struct NL: View {
                 .frame(width: 20)
             Text(text)
             Spacer()
+            Image(systemName: "chevron.right")
+                .font(.system(size: 15))
+                .opacity(0.5)
+        }
+        .padding(.horizontal)
+        .foregroundColor(.white)
+    }
+}
+
+struct NLT: View {
+    var text: String
+    var icon: String
+    @ObservedObject var model: FlowModel
+    
+    var body: some View {
+        HStack {
+            Image(systemName: icon)
+                .frame(width: 20)
+            Text(text)
+            Spacer()
+            Text(model.activitySelection.applicationTokens.isEmpty && model.activitySelection.categoryTokens.isEmpty &&
+                 model.activitySelection.webDomainTokens.isEmpty ? "Off" : "On")
+            .opacity(0.5)
+            Image(systemName: "chevron.right")
+                .font(.system(size: 15))
+                .opacity(0.5)
         }
         .padding(.horizontal)
         .foregroundColor(.white)
@@ -111,7 +207,7 @@ struct ToggleBar: View {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView()
+        SettingsView(model: FlowModel())
     }
 }
 

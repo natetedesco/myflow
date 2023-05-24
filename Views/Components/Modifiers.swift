@@ -55,7 +55,7 @@ extension View {
         self
             .padding(.vertical)
             .background(.black.opacity(0.6))
-            .cornerRadius(25.0)
+            .cornerRadius(20.0)
             .padding(.horizontal)
     }
     

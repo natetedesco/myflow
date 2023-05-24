@@ -7,8 +7,10 @@
 import SwiftUI
 
 struct ControlBar: View {
+    @AppStorage("showYourFlowHasBeenAdded") var showYourFlowHasBeenAdded: Bool = false
     @ObservedObject var model: FlowModel
     @Binding var mode: TimerMode
+    @Binding var disable: Bool
     
     var body: some View {
         ZStack {
@@ -24,8 +26,16 @@ struct ControlBar: View {
                         FlowList
                     }
                 label: {
-                    MenuLabel
-                        .foregroundColor(.clear)
+                    MenuLabel.foregroundColor(.clear)
+                }
+                .onTapGesture {
+                    disable = true
+                    showYourFlowHasBeenAdded = false
+                    
+                    if showYourFlowHasBeenAdded == true {
+                        showYourFlowHasBeenAdded = false
+                    }
+                    
                 }
                 }
                 .disabled(mode != .Initial)
@@ -58,9 +68,9 @@ struct ControlBar: View {
         HStack {
             Title2(text: label)
                 .fontWeight(.light)
-//            Image(systemName: "list.bullet")
-//                .font(.system(size: 20))
-//                .padding(.vertical, 6)
+            //            Image(systemName: "list.bullet")
+            //                .font(.system(size: 20))
+            //                .padding(.vertical, 6)
         }
     }
     
@@ -99,18 +109,18 @@ struct ControlBar: View {
     @ViewBuilder var ContinueButton: some View {
         if mode == .breakStart {
             HStack(spacing: 20) {
-//                Button(action: model.Restart) {
-//                    Chevron(image: "chevron.left")
-//                }
+                //                Button(action: model.Restart) {
+                //                    Chevron(image: "chevron.left")
+                //                }
                 Button {
                     model.continueFlow()
                 } label: {
                     Title3(text: "Extend Flow")
                         .fontWeight(.light)
                 }
-//                Button(action: model.Skip) {
-//                    Chevron(image: "chevron.right")
-//                }
+                                Button(action: model.Skip) {
+                                    Chevron(image: "chevron.right")
+                                }
             }
         }
         else {

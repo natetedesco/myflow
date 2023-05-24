@@ -31,6 +31,7 @@ extension FlowModel {
         setSimpleNotification(flow: flow, time: time)
         let end = setEnd(time: time)
         startActivity(flow: flow, custom: flowMode == .Custom ? true : false, start: start, end: end)
+        flow ? startRestriction() : nil
         
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [self] timer in
             if timeLeft(end: end) <= 0 {
@@ -49,6 +50,7 @@ extension FlowModel {
     func endTimer(skip: Bool = false) {
         invalidateTimer()
         stopActivity()
+        stopRestrictions()
         elapsed = 0
         
         if Simple() {

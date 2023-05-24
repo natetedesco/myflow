@@ -22,7 +22,7 @@ struct ContentView: View {
                 FlowView(model: model)
                 
             case .settings:
-                SettingsView()
+                SettingsView(model: model)
                 
             case .data:
                 StatsView()

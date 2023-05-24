@@ -9,11 +9,12 @@ import SwiftUI
 struct FlowView: View {
     @ObservedObject var model: FlowModel
     @State var disable = false
-    @AppStorage("showWelcome") var showWelcome: Bool = false
+    @AppStorage("Onboarding") var onboarding: Bool = true
     @AppStorage("showCreateFlow") var showCreateFlow: Bool = true
-    init(model: FlowModel) {
-        self.model = model
-    }
+    @AppStorage("showYourFlowHasBeenAdded") var showYourFlowHasBeenAdded: Bool = false
+    @AppStorage("showPause") var showPause: Bool = false
+
+    init(model: FlowModel) { self.model = model }
     
     var body: some View {
         ZStack {
@@ -28,36 +29,56 @@ struct FlowView: View {
             .blur(radius: model.showFlow ? 10 : 0)
             .animation(.default, value: [model.showFlow, model.completed])
             .ignoresSafeArea(.keyboard)
-            
-            if showWelcome {
-                WelcomeScreen()
+            .onTapGesture {
+                disable = false
+                if showYourFlowHasBeenAdded == true {
+                    showYourFlowHasBeenAdded = false
+                }
             }
+            
             FlowCompleted(model: model, show: $model.completed)
-            FlowSheet(model: model, flow: $model.flow, show: $model.showFlow, simple: $model.flow.simple)
+            FlowSheet(model: model, flow: $model.flow, show: $model.showFlow, simple: $model.flow.simple, disable: $disable)
         }
-    }
-    
-    var moreBlur: Bool {
-        if model.showFlow || model.completed || showWelcome {
-            return true
-        }
-        return false
     }
     
     var FlowCenter: some View {
         Button {
             model.editFlow()
+            mediumHaptic()
+            disable = false
+
+            if showCreateFlow == true {
+                showYourFlowHasBeenAdded = true
+            }
             showCreateFlow = false
         } label: {
             ZStack {
                 Circles(model: model)
+                if showPause {
+                    VStack {
+                        Spacer()
+                        Text("Pause to access skip, restart, and reset")
+                            .foregroundColor(.white)
+                            .font(.footnote)
+                        Image(systemName: "arrow.down")
+                            .padding(.bottom, 120)
+                            .padding(.top, 1)
+                            .foregroundColor(.white)
+                            .font(.footnote)
+                    }
+                    .foregroundColor(.myBlue)
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                            onboarding = false
+                            showPause = false
+                        }
+                    }
+                }
+                if showYourFlowHasBeenAdded {
+                    yourFlowHasBeenAdded
+                }
                 if showCreateFlow {
-                    Text("Tap to create your flow")
-                        .myBlue()
-                        .padding(.horizontal, 70)
-                        .frame(maxWidth: 400)
-                        .font(.title2)
-                        .fontWeight(.light)
+                    createYourFlow
                 } else {
                     TimerLabels(model: model, mode: $model.mode)
                 }
@@ -65,12 +86,47 @@ struct FlowView: View {
         }
         .disabled(model.mode != .Initial)
         .disabled(disable)
+//        .hapticOnTouch()
     }
+    
+    var createYourFlow: some View {
+        Text("Tap to create your flow")
+//            .myBlue()
+            .foregroundColor(.white)
+            .padding(.horizontal, 70)
+            .frame(maxWidth: 400)
+            .font(.title2)
+            .fontWeight(.light)
+    }
+    
+    var yourFlowHasBeenAdded: some View {
+        VStack() {
+            Image(systemName: "arrow.up")
+                .padding(.top, 75)
+                .padding(.bottom, 1)
+                .foregroundColor(.white)
+                .font(.footnote)
+            Text("Your flow has been added, tap to view your list")
+                .foregroundColor(.white)
+                .font(.footnote)
+            Spacer()
+            
+        }
+        .foregroundColor(.myBlue)
+    }
+    
+    var moreBlur: Bool {
+        if model.showFlow || model.completed {
+            return true
+        }
+        return false
+    }
+    
     
     @ViewBuilder var Controls: some View {
         // Menu must be reloaded or else doesnt update properly
         if model.showFlow == false {
-            ControlBar(model: model, mode: $model.mode)
+            ControlBar(model: model, mode: $model.mode, disable: $disable)
         }
         if model.showFlow == true {
             Text(model.flow.title)
@@ -80,7 +136,7 @@ struct FlowView: View {
         }
     }
 }
-    
+
 struct I: PreviewProvider {
     @State static var model = FlowModel()
     static var previews: some View {
@@ -117,5 +173,33 @@ struct BR: PreviewProvider {
     @State static var model = FlowModel(mode: .breakRunning)
     static var previews: some View {
         FlowView(model: model)
+    }
+}
+
+struct HapticOnTouch: ViewModifier {
+    @State var isDragging: Bool = false
+    
+    func body(content: Content) -> some View {
+        content
+            .simultaneousGesture(
+                DragGesture(minimumDistance: 0)
+                    .onChanged { _ in
+                        if !isDragging {
+                            let impactLight = UIImpactFeedbackGenerator(style: .light)
+                            impactLight.impactOccurred()
+                        }
+                        
+                        isDragging = true
+                    }
+                    .onEnded { _ in
+                        isDragging = false
+                    }
+            )
+    }
+}
+
+extension View {
+    func hapticOnTouch() -> some View {
+        modifier(HapticOnTouch())
     }
 }
