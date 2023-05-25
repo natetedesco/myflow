@@ -6,150 +6,140 @@
 
 import SwiftUI
 
-struct WelcomeScreen: View {
-    @AppStorage("showWelcome") var showWelcome: Bool = true
-    @AppStorage("showCreateFlow") var showCreateFlow: Bool = true
-
+struct PayWall: View {
+    @State var monthlySelected = true
+    @State var oneTimeSelected = false
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
         ZStack {
-            AnimatedBlur(opacity: 0.05)
-                .offset(y: 200)
-            AnimatedBlur(opacity: 0.075)
-            AnimatedBlur(opacity: 0.05)
-                .offset(y: -200)
+            AnimatedBlur(opacity: 0.05).offset(y: 200)
+//            AnimatedBlur(opacity: 0.075)
+            AnimatedBlur(opacity: 0.05).offset(y: -200)
             VStack(alignment: .leading, spacing: 32) {
                 Spacer()
-                    VStack(alignment: .leading, spacing: 0) {
-                        
+                VStack(alignment: .leading, spacing: 0) {
+                    
+                    Button {
+                        dismiss()
+                    } label: {
                         Image(systemName: "xmark")
                             .myBlue()
                             .CircularGlassButton()
+                    }
                         
-                            Text("PRO")
+                        Text("PRO")
                             .font(.system(size: 80))
                             .kerning(5.0)
-                                .fontWeight(.bold)
-                                .centered()
-                                .foregroundColor(.myBlue)
-                                .padding(.bottom, 48)
-                        
-                        Text("Try myFlow Pro for free")
+                            .fontWeight(.bold)
                             .centered()
-                            .font(.title3)
-                            .fontWeight(.semibold)
+                            .foregroundColor(.myBlue)
                             .padding(.bottom, 48)
+                    
+//                    Text("Try free")
+//                        .centered()
+//                        .font(.title3)
+//                        .fontWeight(.semibold)
+//                        .padding()
 
+                    
+                    HStack {
+                        Image(systemName: "circle")
+                            .myBlue()
+                            .font(.largeTitle)
+                            .padding(4)
+                            .background(Circle()
+                                .fill(.ultraThinMaterial.opacity(0.55)))
                         
-                        
-                        HStack {
-                            Image(systemName: "circle")
-                                .myBlue()
-                                .font(.largeTitle)
-                                .padding(4)
-                                .background(Circle()
-                                    .fill(.ultraThinMaterial.opacity(0.55)))
-
-                            VStack {
-                                Text("Custom Flows")
-                                    .font(.headline)
-                                    .leading()
-                                Text("Create your optimal workflow")
-                                    .leading()
-                            }
-                        }
-                        .leading()
-                        
-                        HStack {
-                            Image(systemName: "chart.bar.fill")
-                                .myBlue()
-                                .CircularGlassButton()
-                                .padding(.leading, -4) // no idea
-                            VStack {
-                                Text("Visualize progress")
-                                    .font(.headline)
-                                    .leading()
-                                Text("Set goals and track your progress")
-                                    .leading()
-                            }
-                        }
-                        .leading()
-                        .padding(.top, 32)
-
-                        HStack {
-                            Image(systemName: "switch.2")
-                                .myBlue()
-                                .CircularGlassButton()
-                            VStack {
-                                Text("Advanced Controls")
-                                    .leading()
-                                    .font(.headline)
-                                Text("Customize your flow experience")
-                                    .leading()
-                            }
-                        }
-                        .leading()
-                        .padding(.bottom, 48)
-                        .padding(.top, 32)
-
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("$9.99 One-Time")
-                                .fontWeight(.semibold)
-                            Text("Pay once. Use forever.")
+                        VStack {
+                            Text("Custom Flows")
+                                .font(.subheadline)
+                                .leading()
+                            Text("Create your optimal workflow")
+                                .font(.footnote)
                                 .leading()
                         }
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.myBlue.opacity(0.2))
-                        .cornerRadius(20)
-                        .padding(.bottom)
-                        
-                        HStack {
-                            
-                            VStack(alignment: .leading, spacing: 8) {
-                                Text("$0.99 Monthly")
-                                    .fontWeight(.semibold)
-                                Text("First 7 days free")
-                                    .leading()
-                                
-                            }
-                            Image(systemName: "checkmark")
-                                .font(.system(size: 15))
-                                .myBlue()
-                                .font(.title3)
-                                .padding(8)
-                                .background(Circle()
-                                    .fill(.ultraThinMaterial.opacity(0.55)))
-                        }
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.myBlue.opacity(0.8))
-                        .cornerRadius(20)
-//                        .padding(.bottom, 64)
-
-                        Text("Restore Purchase • Terms & Privacy")
-                            .centered()
-                            .font(.footnote)
-                            .padding(32)
-
-                        
-                        Button(action: {
-                            showWelcome = false
-                            showCreateFlow = true
-                            UNUserNotificationCenter.current()
-                                .requestAuthorization(options:[.badge,.sound,.alert]) { (_, _) in }
-                        },
-                               label: {
-                            Text("Start Trial")
-                                .font(.title3)
-                                .fontWeight(.semibold)
-                                .myBlue()
-                                .maxWidth()
-                                .padding(.vertical)
-                                .background(.ultraThinMaterial.opacity(0.55))
-                                .cornerRadius(30)
-                                .padding(.bottom, 64)
-                        })
                     }
+                    .leading()
+                    
+                    HStack {
+                        Image(systemName: "chart.bar.fill")
+                            .myBlue()
+                            .CircularGlassButton()
+                            .padding(.leading, -4) // no idea
+                        VStack {
+                            Text("Visualize progress")
+                                .font(.subheadline)
+                                .leading()
+                            Text("Set goals and track your progress")
+                                .font(.footnote)
+                                .leading()
+                        }
+                    }
+                    .leading()
+                    .padding(.top, 32)
+                    
+                    
+                    
+                    HStack {
+                        Image(systemName: "shield.fill")
+                            .myBlue()
+                            .CircularGlassButton()
+                        VStack {
+                            Text("Distraction Blocker")
+                                .leading()
+                                .font(.subheadline)
+                            Text("Restrict applications during flow")
+                                .font(.footnote)
+                                .leading()
+                        }
+                    }
+                    .leading()
+                    .padding(.bottom, 48)
+                    .padding(.top, 32)
+                    
+                    // One Time Button
+                    Button {
+                        oneTimeSelected = true
+                        monthlySelected = false
+                    } label: {
+                        PlanSelectionButton(
+                            selected: $oneTimeSelected,
+                            mainText: "$9.99 One-time",
+                            subText: "Pay once. Use forever.")
+                    }
+                    
+                    // Monthly Button
+                    Button {
+                        monthlySelected = true
+                        oneTimeSelected = false
+                    } label: {
+                        PlanSelectionButton(
+                            selected: $monthlySelected,
+                            mainText: "$0.99 Monthly",
+                            subText: "First 7 days free")
+                    }
+                    
+                    Text("Restore Purchase")
+                        .centered()
+                        .foregroundColor(.gray)
+                        .font(.caption)
+                        .padding(.bottom, 32)
+                        .padding(.top, 8)
+                    
+                    
+                    // Start Trial Button
+                    Button {
+                    } label: {
+                        Text(monthlySelected ? "Start Trial" : "Purchase")
+                            .myBlue()
+                            .maxWidth()
+                            .padding(.vertical)
+                            .background(.ultraThinMaterial.opacity(0.55))
+                            .cornerRadius(30)
+                            .padding(.bottom, 64)
+                    }
+                }
             }
             .padding(24)
         }
@@ -158,7 +148,45 @@ struct WelcomeScreen: View {
 
 struct SwiftUIView_Previews: PreviewProvider {
     static var previews: some View {
-        WelcomeScreen()
+        PayWall()
             .preferredColorScheme(.dark)
+    }
+}
+
+struct PlanSelectionButton: View {
+    @Binding var selected: Bool
+    var mainText: String
+    var subText: String
+    
+    var body: some View {
+        
+        HStack {
+            VStack(alignment: .leading, spacing: 8) {
+                Text(mainText)
+                    .font(.headline)
+//                    .fontWeight(.semibold)
+                    .foregroundColor(.white)
+                Text(subText)
+                    .leading()
+                    .font(.footnote)
+                    .foregroundColor(.white)
+            }
+            
+            if selected {
+                Image(systemName: "checkmark")
+                    .font(.system(size: 15))
+                    .myBlue()
+                    .font(.title3)
+                    .padding(8)
+                    .background(Circle()
+                        .fill(.ultraThinMaterial.opacity(0.55)))
+            }
+        }
+        .padding()
+        .frame(maxWidth: .infinity)
+        .background(Color.myBlue.opacity(selected ? 0.8 : 0.2))
+        .cornerRadius(20)
+        .padding(.vertical, 8)
+        
     }
 }

@@ -10,25 +10,18 @@ import FamilyControls
 struct SettingsView: View {
     @StateObject var settings = Settings()
     @ObservedObject var model: FlowModel
+    @State private var showingSheet = false
+
     
     var body: some View {
         ZStack {
             ScrollView {
-                // Flows
-                CustomHeadline(text: "Flow")
-                VStack {
-                    ToggleBar(text: "Start flow automatically", isOn: $settings.startFlowAutomatically)
-                    Div
-                        .padding(.vertical, 2)
-                    ToggleBar(text: "Start break automatically", isOn: $settings.startBreakAutomatically)
-                }
-                .padding(.vertical, 12)
-                .background(.black.opacity(0.6))
-                .cornerRadius(25.0)
-                .padding(.horizontal)
                 
                 CustomHeadline(text: "General")
                 VStack(spacing: 16) {
+                    ToggleBar(text: "Notifications", isOn: .constant(true))
+                    Div
+
                     NavigationLink(destination: DistractionBlocker(model: model)) { NLT(text: "Block Distractions", icon: "shield", model: model) }
                 }
                 .cardGlassNP()
@@ -46,8 +39,25 @@ struct SettingsView: View {
                 
                 VersionNumber
             }
-            .navigationView(title: "Settings")
+            .navigationView(title: "Settings", button: upgradeButton)
+            
             Toolbar()
+        }
+        .fullScreenCover(isPresented: $showingSheet) {
+            PayWall()
+        }
+    }
+    
+    var upgradeButton: some View {
+        ZStack {
+            Button {
+                showingSheet.toggle()
+            } label: {
+        Text("Upgrade")
+                    .padding(.trailing)
+//            .smallButtonGlass()
+//            .foregroundColor(.clear)
+    }
         }
     }
     
@@ -121,7 +131,6 @@ struct DistractionBlocker: View {
                             }
                         } label: {
                             Text("Authorize")
-                                .foregroundColor(.white)
                         }
                     }
                     
@@ -150,6 +159,7 @@ struct NL: View {
         }
         .padding(.horizontal)
         .foregroundColor(.white)
+        .padding(.vertical, 4)
     }
 }
 
@@ -173,6 +183,7 @@ struct NLT: View {
         }
         .padding(.horizontal)
         .foregroundColor(.white)
+        .padding(.vertical, 4)
     }
 }
 
@@ -198,7 +209,11 @@ struct ToggleBar: View {
     @Binding var isOn: Bool
     var body: some View {
         Toggle(isOn: $isOn) {
+            HStack {
+                Image(systemName: "bell")
+                    .frame(width: 20)
             Text(text)
+            }
         }
         .toggleStyle(SwitchToggleStyle(tint: Color.myBlue))
         .padding(.horizontal)
@@ -223,3 +238,15 @@ struct SettingsView_Previews: PreviewProvider {
 //                label: { NavigationList(text: "Sounds", icon: "speaker") }
 //                }
 
+// Flows
+//                CustomHeadline(text: "Flow")
+//                VStack {
+//                    ToggleBar(text: "Start flow automatically", isOn: $settings.startFlowAutomatically)
+//                    Div
+//                        .padding(.vertical, 2)
+//                    ToggleBar(text: "Start break automatically", isOn: $settings.startBreakAutomatically)
+//                }
+//                .padding(.vertical, 12)
+//                .background(.black.opacity(0.6))
+//                .cornerRadius(25.0)
+//                .padding(.horizontal)
