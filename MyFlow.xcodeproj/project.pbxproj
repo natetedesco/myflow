@@ -432,6 +432,8 @@
 				F0EDD04D2A01717600223505 /* PBXTargetDependency */,
 			);
 			name = MyFlow;
+			packageProductDependencies = (
+			);
 			productName = "Flow Timer";
 			productReference = F0948C1526818EE000A5F48D /* MyFlow.app */;
 			productType = "com.apple.product-type.application";
@@ -479,6 +481,8 @@
 				Base,
 			);
 			mainGroup = F0948C0C26818EE000A5F48D;
+			packageReferences = (
+			);
 			productRefGroup = F0948C1626818EE000A5F48D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";

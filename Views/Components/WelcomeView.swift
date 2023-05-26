@@ -105,8 +105,8 @@ struct PayWall: View {
                     } label: {
                         PlanSelectionButton(
                             selected: $oneTimeSelected,
-                            mainText: "$9.99 One-time",
-                            subText: "Pay once. Use forever.")
+                            mainText: "$9.99 Yearly",
+                            subText: "Pay once and forget.")
                     }
                     
                     // Monthly Button
@@ -131,7 +131,7 @@ struct PayWall: View {
                     // Start Trial Button
                     Button {
                     } label: {
-                        Text(monthlySelected ? "Start Trial" : "Purchase")
+                        Text("Upgrade")
                             .myBlue()
                             .maxWidth()
                             .padding(.vertical)
