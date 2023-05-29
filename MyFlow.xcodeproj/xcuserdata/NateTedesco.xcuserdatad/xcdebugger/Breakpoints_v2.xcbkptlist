@@ -7,17 +7,49 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "0CA4AD25-B3B6-4DBB-B738-BBB34135D17E"
+            uuid = "A8E8672D-24A2-45A5-8D44-6C7C258F3154"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ViewModels/ScreenTime.swift"
+            filePath = "Views/Components/WelcomeView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "16"
-            endingLineNumber = "16"
-            landmarkName = "startRestriction()"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
+            landmarkName = "subscribe()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A8E8672D-24A2-45A5-8D44-6C7C258F3154 - b2702c28c093bbea"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;RevenueCat.Offerings&gt;, Swift.Optional&lt;__C.NSError&gt;) -&gt; () in MyFlow.PayWall.subscribe() -&gt; ()"
+                  moduleName = "MyFlow"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/NateTedesco/Documents/Documents/MyFlow/MyFlow/Views/Components/WelcomeView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "160"
+                  endingLineNumber = "160"
+                  offsetFromSymbolStart = "180">
+               </Location>
+               <Location
+                  uuid = "A8E8672D-24A2-45A5-8D44-6C7C258F3154 - b2702c28c093bbea"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;RevenueCat.Offerings&gt;, Swift.Optional&lt;__C.NSError&gt;) -&gt; () in MyFlow.PayWall.subscribe() -&gt; ()"
+                  moduleName = "MyFlow"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/NateTedesco/Documents/Documents/MyFlow/MyFlow/Views/Components/WelcomeView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "160"
+                  endingLineNumber = "160"
+                  offsetFromSymbolStart = "372">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -12,12 +12,13 @@ struct CustomFlow: View {
     @State var dragging = false
     @State var edit = false
     @FocusState var focusedField: Field?
+    @State var contentSize: CGSize = .zero
     
     var body: some View {
         VStack {
             
             // Blocks
-            VStack {
+            ScrollView {
                 ForEach($flow.blocks) { $block in
                     FlowBlock(block: $block, flow: $flow, edit: $edit, dragging: $dragging)
                         .opacity(block.id == draggingItem?.id && dragging ? 0.01 : 1)
@@ -26,7 +27,21 @@ struct CustomFlow: View {
                         .onDrop(of: [.item], delegate: DropViewDelegate(currentItem: block, items: $flow.blocks, draggingItem: $draggingItem, dragging: $dragging))
                         .padding(.vertical, -1)
                 }
+                .padding(.vertical, 2)
+                .overlay(
+                    GeometryReader { geo in
+                        Color.clear
+                        .onAppear {
+                            contentSize = geo.size
+                        }
+                        
+                        .onChange(of: geo.size.height) { _ in
+                                contentSize = geo.size
+                        }
+                    }
+                )
             }
+            .frame(maxHeight: contentSize.height)
             .padding(.top, -8)
             .padding(.bottom, 8)
             
@@ -44,6 +59,7 @@ struct CustomFlow: View {
     
     func addFlowBlock() {
         mediumHaptic()
+        self.contentSize = contentSize
         flow.blocks.indices.forEach {
             flow.blocks[$0].pickTime = false
         }

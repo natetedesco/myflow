@@ -16,6 +16,7 @@ struct ControlBar: View {
         ZStack {
             if Continue {
                 ContinueButton
+                    .padding(.vertical, 2)
             } else if showFlowMenu {
                 ZStack {
                     MenuLabel
@@ -46,6 +47,7 @@ struct ControlBar: View {
                     ResetButton
                     Button(action: model.Skip) { Chevron(image: "chevron.right") }
                 }
+                .padding(.vertical, 2)
             }
         }
         .buttonGlass()
@@ -68,9 +70,6 @@ struct ControlBar: View {
         HStack {
             Title2(text: label)
                 .fontWeight(.light)
-            //            Image(systemName: "list.bullet")
-            //                .font(.system(size: 20))
-            //                .padding(.vertical, 6)
         }
     }
     
@@ -108,27 +107,33 @@ struct ControlBar: View {
     
     @ViewBuilder var ContinueButton: some View {
         if mode == .breakStart {
-            HStack(spacing: 20) {
-                //                Button(action: model.Restart) {
-                //                    Chevron(image: "chevron.left")
-                //                }
+            HStack(spacing: 32) {
+                Button(action: model.Restart) {
+                    Chevron(image: "chevron.left")
+                }
                 Button {
                     model.continueFlow()
                 } label: {
-                    Title3(text: "Extend Flow")
+                    Title3(text: "Continue")
                         .fontWeight(.light)
                 }
-                                Button(action: model.Skip) {
-                                    Chevron(image: "chevron.right")
-                                }
+                Button(action: model.Skip) {
+                    Chevron(image: "chevron.right")
+                }
             }
         }
         else {
-            Button {
-                mode == .breakStart ? model.continueFlow() : model.completeContinueFlow()
-            } label: {
-                Title3(text: mode == .breakStart ? "Continue" : "Complete")
-                    .fontWeight(.light)
+            HStack(spacing: 32) {
+                
+                Button {
+                    mode == .breakStart ? model.continueFlow() : model.completeContinueFlow()
+                } label: {
+                    Title3(text: mode == .breakStart ? "Continue" : "Complete")
+                        .fontWeight(.light)
+                }
+                if mode == .flowPaused {
+                    ResetButton
+                }
             }
         }
     }

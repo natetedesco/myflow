@@ -24,13 +24,6 @@ class MyMonitor: DeviceActivityMonitor, ObservableObject {
         store.shield.webDomains = webCategories
     }
     
-//    override func intervalDidStart(for activity: DeviceActivityName) {
-//        super.intervalDidStart(for: activity)
-//
-//        let applications = selection.applicationTokens
-//        store.shield.applications = applications.isEmpty ? nil : applications
-//    }
-    
     override func intervalDidEnd(for activity: DeviceActivityName) {
         super.intervalDidEnd(for: activity)
         

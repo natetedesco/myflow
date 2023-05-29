@@ -5,11 +5,16 @@
 //
 
 import SwiftUI
+import RevenueCat
 
 struct PayWall: View {
     @State var monthlySelected = true
     @State var oneTimeSelected = false
     @Environment(\.dismiss) var dismiss
+    
+    @State var showAlert = false
+    @State var alertTitle = ""
+    @State var alertDescription = ""
     
     var body: some View {
         ZStack {
@@ -106,7 +111,7 @@ struct PayWall: View {
                         PlanSelectionButton(
                             selected: $oneTimeSelected,
                             mainText: "$9.99 Yearly",
-                            subText: "Pay once and forget.")
+                            subText: "First 14 days free")
                     }
                     
                     // Monthly Button
@@ -128,8 +133,9 @@ struct PayWall: View {
                         .padding(.top, 8)
                     
                     
-                    // Start Trial Button
+                    // Subscribe Button
                     Button {
+                        subscribe()
                     } label: {
                         Text("Upgrade")
                             .myBlue()
@@ -142,8 +148,35 @@ struct PayWall: View {
                 }
             }
             .padding(24)
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text(alertTitle), message: Text(alertDescription), dismissButton: .cancel() )
+            }
         }
     }
+    
+    func subscribe() {
+        Purchases.shared.getOfferings { offerings, error in
+            
+            if let packages = offerings?.current?.availablePackages {
+                Purchases.shared.purchase(package: packages.first!) { transaction, PurchaserInfo, error, userCancelled in
+                    
+                    if error != nil {
+                        alertTitle = "Purchase Failed"
+                        alertDescription = "Error: \(error!.localizedDescription)"
+                        showAlert.toggle()
+                    }
+                    
+                    if PurchaserInfo?.entitlements["pro"]?.isActive == true {
+                        print("success")
+                        alertTitle = "Purchase Successful"
+                        alertDescription = "You are now subscribed"
+                        showAlert.toggle() 
+                    }
+                }
+            }
+        }
+    }
+    
 }
 
 struct SwiftUIView_Previews: PreviewProvider {

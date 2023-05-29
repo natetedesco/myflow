@@ -14,6 +14,9 @@ struct FlowSheet: View {
     @Binding var simple: Bool
     var showSeconds: Bool = false
     @Binding var disable: Bool
+    @StateObject var settings = Settings()
+    @State private var showingSheet = false
+
     
     var body: some View {
         ZStack {
@@ -38,7 +41,28 @@ struct FlowSheet: View {
                     RoundsPicker
                 }
                 if !simple {
-                    CustomFlow(flow: $flow)
+                    ZStack {
+                        CustomFlow(flow: $flow)
+                            .disabled(!settings.proAccess)
+                            .blur(radius: settings.proAccess ? 0 : 5)
+                        if !settings.proAccess {
+                            VStack {
+                                Button {
+                                    showingSheet.toggle()
+                                } label: {
+                                    HStack {
+                                        Image(systemName: "lock.fill")
+                                            .font(.system(size: 20))
+                                        Text("Unlock Pro")
+//                                        .foregroundColor(.clear)
+                                    }
+                                    .smallButtonGlass()
+                                        .foregroundColor(.myBlue)
+
+                                }
+                            }
+                        }
+                    }
                 }
             }
             .customGlass()
@@ -49,6 +73,9 @@ struct FlowSheet: View {
             .animation(.default.speed(1.0), value: chooseBreak)
             .animation(.default.speed(1.0), value: chooseRound)
             .animation(.easeOut.speed(1.0), value: flow) // Custom Flow
+            .padding(.vertical, 32)
+            .fullScreenCover(isPresented: $showingSheet) {
+                PayWall() }
         }
     }
     
@@ -106,8 +133,8 @@ struct FlowSheet: View {
                 }
             }
         }
-            .animation(.default.speed(chooseRound ? 0.7 : 2.0), value: chooseRound)
-            .padding(.bottom, 4)
+        .animation(.default.speed(chooseRound ? 0.7 : 2.0), value: chooseRound)
+        .padding(.bottom, 4)
     }
     
     var flowSheetMenu: some View {
@@ -161,13 +188,13 @@ struct FlowSheet: View {
     
     func Save() {
         preventCrashFunc()
-            show = false;
-            if flow.new {
-                model.addFlow(flow: flow)
-                model.selection = (model.flowList.count - 1) // selects next flow
-            } else {
-                model.editFlow(id: flow.id, flow: flow)
-            }
+        show = false;
+        if flow.new {
+            model.addFlow(flow: flow)
+            model.selection = (model.flowList.count - 1) // selects next flow
+        } else {
+            model.editFlow(id: flow.id, flow: flow)
+        }
     }
     
     func toggleFlowPicker() {

@@ -8,6 +8,7 @@ import Foundation
 import UserNotifications
 
 final class NotificationManager: NSObject, ObservableObject, UNUserNotificationCenterDelegate  {
+    var settings = Settings()
     @Published private(set) var notifications: [UNNotificationRequest] = []
     @Published private(set) var authorizationStatus: UNAuthorizationStatus?
     

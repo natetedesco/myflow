@@ -8,51 +8,75 @@ import SwiftUI
 
 struct StatsView: View {
     @StateObject var data = FlowData()
+    @StateObject var settings = Settings()
+    @State private var showingSheet = false
     
     var hours = [Int](0...8)
 
-    
     var body: some View {
         ZStack {
             ZStack {
                 ScrollView {
-                    
+                    VStack(spacing: 12) {
+                        
                     CustomHeadline(text: "Overview")
-                    OverViewCard(data: data)
+                    ZStack {
+                        OverViewCard(data: data)
+                            .blur(radius: settings.proAccess ? 0 : 5)
+                        if !settings.proAccess { lock }
+                    }
                     
                     CustomHeadline(text: "This Week")
-                    WeekCard(data: data)
+                    ZStack {
+                        WeekCard(data: data)
+                            .blur(radius: settings.proAccess ? 0 : 5)
+                        if !settings.proAccess { lock }
+                    }
                     
                     CustomHeadline(text: "This Month")
-                    MonthCard(data: data)
-                    
+                    ZStack {
+                        MonthCard(data: data)
+                            .blur(radius: settings.proAccess ? 0 : 5)
+                        if !settings.proAccess { lock }
+                    }
+                    }
                 }
                 .navigationView(title: "Statistics", button: goalMenu)
-                .toolbar{ GoalButton }
-                .background(AnimatedBlur(opacity: moreBlur ? 0.5 : 0.0))
-                .animation(.default.speed(1.5), value: moreBlur)
+                .fullScreenCover(isPresented: $showingSheet) {
+                    PayWall() }
                 Toolbar()
             }
-            //            .blur(radius: data.showGoal ? 10 : 0) // Fucks up view
-//            GoalView(data: data, show: $data.showGoal)
         }
     }
     
-    var goalMenu: some View {
-        ZStack {
-        Menu {
-            Text("Hours")
-            Picker(selection: $data.goalSelection, label: Text("")) {
-                ForEach(1..<hours.count, id: \.self) {
-                    Text("\(hours[$0])")
+    var lock: some View {
+        Image(systemName: "lock.fill")
+            .foregroundColor(.myBlue)
+            .font(.system(size: 20))
+    }
+    
+    @ViewBuilder var goalMenu: some View {
+        if settings.proAccess {
+            Menu {
+                Text("Hours")
+                Picker(selection: $data.goalSelection, label: Text("")) {
+                    ForEach(1..<hours.count, id: \.self) {
+                        Text("\(hours[$0])")
+                    }
                 }
             }
+        label: {
+            Text("Goal")
+                .smallButtonGlass()
+                .foregroundColor(.clear)
         }
-    label: {
-        Text("Goal")
-            .smallButtonGlass()
-            .foregroundColor(.clear)
-    }
+        } else {
+            Button {
+                showingSheet.toggle()
+            } label: {
+                Text("Unlock Pro")
+                    .smallButtonGlass()
+            }
         }
     }
     
@@ -66,7 +90,7 @@ struct StatsView: View {
     // Goal Button
     var GoalButton: some View {
         Button(action: showGoalCard) {
-            Text("Goal")
+            Text(settings.proAccess ? "Goal" : "Unlock")
                 .smallButtonGlass()
         }
     }
@@ -81,3 +105,9 @@ struct StatsView_Previews: PreviewProvider {
         StatsView()
     }
 }
+
+//                .toolbar{ GoalButton }
+//            .blur(radius: data.showGoal ? 10 : 0) // Fucks up view
+//            GoalView(data: data, show: $data.showGoal)
+//    .background(AnimatedBlur(opacity: moreBlur ? 0.5 : 0.0))
+//                .animation(.default.speed(1.5), value: moreBlur)

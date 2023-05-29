@@ -3,13 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		F001C23928D3A12100134EB5 /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F001C23828D3A12100134EB5 /* Modifiers.swift */; };
 		F001C23D28D3C59F00134EB5 /* FlowSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F001C23C28D3C59F00134EB5 /* FlowSheet.swift */; };
 		F001C24228D7F24100134EB5 /* CustomFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F001C24128D7F24100134EB5 /* CustomFlow.swift */; };
+		F012E42B2A2115BF00CA4CA2 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F012E42A2A2115BF00CA4CA2 /* StoreKit.framework */; };
 		F018CF202864E11D002A17D7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066923326FB9C3800DB905E /* ContentView.swift */; };
 		F01962A12931255D00336821 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962A02931255D00336821 /* Helpers.swift */; };
 		F01962B1293184BD00336821 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962B0293184BD00336821 /* Timer.swift */; };
@@ -54,8 +55,11 @@
 		F0A025C92949014B00AF723F /* GetWeek.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A025C82949014B00AF723F /* GetWeek.swift */; };
 		F0A025CC2949020800AF723F /* Date extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A025CB2949020800AF723F /* Date extensions.swift */; };
 		F0B351AA2A1D592D001186BB /* ScreenTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B351A92A1D592D001186BB /* ScreenTime.swift */; };
+		F0B9FD652A2149D900889DFD /* ReceiptParser in Frameworks */ = {isa = PBXBuildFile; productRef = F0B9FD642A2149D900889DFD /* ReceiptParser */; };
+		F0B9FD672A2149D900889DFD /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = F0B9FD662A2149D900889DFD /* RevenueCat */; };
 		F0BA1E1F28FB7FFB00FCB5A8 /* SwipeDelete.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BA1E1E28FB7FFB00FCB5A8 /* SwipeDelete.swift */; };
 		F0BA1E2128FCBA5900FCB5A8 /* FlowBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BA1E2028FCBA5800FCB5A8 /* FlowBlock.swift */; };
+		F0E35E132A246A11009D020E /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E35E122A246A11009D020E /* Settings.swift */; };
 		F0EABDD6297F313500F508A5 /* Checkers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EABDD5297F313500F508A5 /* Checkers.swift */; };
 		F0EDD03D2A01717400223505 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F05FC0ED29FAF9CD00A9B503 /* WidgetKit.framework */; };
 		F0EDD03E2A01717400223505 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F05FC0D629FAE96600A9B503 /* SwiftUI.framework */; };
@@ -113,6 +117,7 @@
 		F001C23828D3A12100134EB5 /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
 		F001C23C28D3C59F00134EB5 /* FlowSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowSheet.swift; sourceTree = "<group>"; };
 		F001C24128D7F24100134EB5 /* CustomFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFlow.swift; sourceTree = "<group>"; };
+		F012E42A2A2115BF00CA4CA2 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		F01962A02931255D00336821 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		F01962B0293184BD00336821 /* Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		F02C1466270FA679002FE382 /* Toolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toolbar.swift; sourceTree = "<group>"; };
@@ -165,6 +170,7 @@
 		F0BA1E1E28FB7FFB00FCB5A8 /* SwipeDelete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeDelete.swift; sourceTree = "<group>"; };
 		F0BA1E2028FCBA5800FCB5A8 /* FlowBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowBlock.swift; sourceTree = "<group>"; };
 		F0C6CE7426913C240026E415 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		F0E35E122A246A11009D020E /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		F0EABDD5297F313500F508A5 /* Checkers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkers.swift; sourceTree = "<group>"; };
 		F0EDD03C2A01717400223505 /* TimerWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TimerWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0EDD0402A01717400223505 /* TimerWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerWidgetBundle.swift; sourceTree = "<group>"; };
@@ -186,6 +192,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0B9FD652A2149D900889DFD /* ReceiptParser in Frameworks */,
+				F012E42B2A2115BF00CA4CA2 /* StoreKit.framework in Frameworks */,
+				F0B9FD672A2149D900889DFD /* RevenueCat in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,6 +272,7 @@
 		F05FC0D329FAE96600A9B503 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F012E42A2A2115BF00CA4CA2 /* StoreKit.framework */,
 				F05FC0D629FAE96600A9B503 /* SwiftUI.framework */,
 				F05FC0ED29FAF9CD00A9B503 /* WidgetKit.framework */,
 			);
@@ -409,6 +419,7 @@
 				F0BA1E1E28FB7FFB00FCB5A8 /* SwipeDelete.swift */,
 				F0948C4B2681907A00A5F48D /* Notifications.swift */,
 				F0F7F427290E2DF400BC8E16 /* TimerNotifications.swift */,
+				F0E35E122A246A11009D020E /* Settings.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -433,6 +444,8 @@
 			);
 			name = MyFlow;
 			packageProductDependencies = (
+				F0B9FD642A2149D900889DFD /* ReceiptParser */,
+				F0B9FD662A2149D900889DFD /* RevenueCat */,
 			);
 			productName = "Flow Timer";
 			productReference = F0948C1526818EE000A5F48D /* MyFlow.app */;
@@ -461,8 +474,9 @@
 		F0948C0D26818EE000A5F48D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					F0948C1426818EE000A5F48D = {
 						CreatedOnToolsVersion = 12.5;
@@ -482,6 +496,7 @@
 			);
 			mainGroup = F0948C0C26818EE000A5F48D;
 			packageReferences = (
+				F0B9FD632A2149D900889DFD /* XCRemoteSwiftPackageReference "purchases-ios" */,
 			);
 			productRefGroup = F0948C1626818EE000A5F48D /* Products */;
 			projectDirPath = "";
@@ -543,6 +558,7 @@
 				F0899DEB292EA83200A35D4D /* MyFlowApp.swift in Sources */,
 				F07291E92979FB4B00C25E0E /* ControlBar.swift in Sources */,
 				F0A025C92949014B00AF723F /* GetWeek.swift in Sources */,
+				F0E35E132A246A11009D020E /* Settings.swift in Sources */,
 				F04FFB4C28FF66B30058E66D /* FlowModel.swift in Sources */,
 				F0EABDD6297F313500F508A5 /* Checkers.swift in Sources */,
 				F0729203297B78B200C25E0E /* Picker.swift in Sources */,
@@ -737,7 +753,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.2;
+				MARKETING_VERSION = 2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -768,7 +784,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.2;
+				MARKETING_VERSION = 2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -793,12 +809,13 @@
 				INFOPLIST_FILE = TimerWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = TimerWidget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainNibFile = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow.TimerWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -822,12 +839,13 @@
 				INFOPLIST_FILE = TimerWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = TimerWidget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainNibFile = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow.TimerWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -868,6 +886,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F0B9FD632A2149D900889DFD /* XCRemoteSwiftPackageReference "purchases-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RevenueCat/purchases-ios";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F0B9FD642A2149D900889DFD /* ReceiptParser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F0B9FD632A2149D900889DFD /* XCRemoteSwiftPackageReference "purchases-ios" */;
+			productName = ReceiptParser;
+		};
+		F0B9FD662A2149D900889DFD /* RevenueCat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F0B9FD632A2149D900889DFD /* XCRemoteSwiftPackageReference "purchases-ios" */;
+			productName = RevenueCat;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F0948C0D26818EE000A5F48D /* Project object */;
 }

@@ -11,6 +11,7 @@ struct OverViewCard: View {
     @ObservedObject var data: FlowData
     
     var body: some View {
+        
         HStack(alignment: .center) {
             OverviewLabel(label: "Today", time: data.todayTime)
             OverviewLabel(label: "This Week", time: data.thisWeekTime)

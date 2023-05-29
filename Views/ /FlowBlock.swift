@@ -37,7 +37,7 @@ struct FlowBlock: View {
             }
             .animation(.easeOut.speed(block.pickTime ? 0.6 : 2.0), value: block.pickTime)
         }
-        .frame(maxWidth: .infinity, maxHeight: blockSize)
+        .frame(maxWidth: .infinity, minHeight: blockSize)
         .background(blockColor)
         .cornerRadius(10)
         .background(blockSideBar)
@@ -56,13 +56,13 @@ struct FlowBlock: View {
     var BlockTextField: some View {
         ZStack {
             TextField(block.flow ? "Flow" : "Break", text: $block.title)
-                .font(.footnote)
+                .font(.callout)
                 .foregroundColor(block.flow ? .myBlue : .gray)
                 .opacity(0.9)
                 .disabled(dragging)
 //                .maxWidth()
                 .focused($focusedField, equals: .blockName)
-                .padding(.leading, 12)
+                .padding(.leading, 14)
             
             // Solves keyboard glitch when selecting blockname after time
                 .overlay {

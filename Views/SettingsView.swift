@@ -11,7 +11,6 @@ struct SettingsView: View {
     @StateObject var settings = Settings()
     @ObservedObject var model: FlowModel
     @State private var showingSheet = false
-
     
     var body: some View {
         ZStack {
@@ -19,8 +18,12 @@ struct SettingsView: View {
                 
                 CustomHeadline(text: "General")
                 VStack(spacing: 16) {
-                    ToggleBar(text: "Notifications", isOn: .constant(true))
+                    ToggleBar(text: "Notifications", isOn: settings.$notificationsOn)
                     Div
+                    
+                    ToggleBar(text: "Pro Access", isOn: settings.$proAccess)
+                    Div
+
 
                     NavigationLink(destination: DistractionBlocker(model: model)) { NLT(text: "Block Distractions", icon: "shield", model: model) }
                 }
@@ -48,16 +51,19 @@ struct SettingsView: View {
         }
     }
     
-    var upgradeButton: some View {
-        ZStack {
-            Button {
-                showingSheet.toggle()
-            } label: {
-        Text("Upgrade")
-                    .padding(.trailing)
-//            .smallButtonGlass()
-//            .foregroundColor(.clear)
-    }
+    @ViewBuilder var upgradeButton: some View {
+        if settings.proAccess {
+            
+            ZStack {
+                Button {
+                    showingSheet.toggle()
+                } label: {
+                    Text("Upgrade")
+                        .padding(.trailing)
+                    //            .smallButtonGlass()
+                    //            .foregroundColor(.clear)
+                }
+            }
         }
     }
     
@@ -67,7 +73,7 @@ struct SettingsView: View {
     }
     
     var VersionNumber: some View {
-        Text("v2.0")
+        Text("v2.1")
             .myBlue()
             .padding(16)
             .kerning(2.0)

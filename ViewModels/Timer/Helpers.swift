@@ -118,7 +118,3 @@ extension FlowModel {
     }
 }
 
-class Settings: ObservableObject {
-    @AppStorage("StartFlowAutomatically") var startFlowAutomatically: Bool = false
-    @AppStorage("StartBreakAutomatically") var startBreakAutomatically: Bool = false
-}

@@ -16,10 +16,10 @@ struct FlowCompleted: View {
                 .opacity(show ? 1.0 : 0.0)
                 .animation(.default.speed(show ? 2.0 : 1.0), value: show)
             VStack(alignment: .center, spacing: 16) {
-                Title3(text: "Flow Completed")
+                Title2(text: "\(model.flow.title) Completed")
                 HStack {
-                    Text("Time: ")
-                        .font(.callout)
+                    Text("Total flow time: ")
+                        .font(.footnote)
                     Text(formatHoursAndMinutes(time: model.totalTime/60))
                         .myBlue()
                         .font(.subheadline)
