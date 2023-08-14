@@ -55,11 +55,10 @@
 		F0A025C92949014B00AF723F /* GetWeek.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A025C82949014B00AF723F /* GetWeek.swift */; };
 		F0A025CC2949020800AF723F /* Date extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A025CB2949020800AF723F /* Date extensions.swift */; };
 		F0B351AA2A1D592D001186BB /* ScreenTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B351A92A1D592D001186BB /* ScreenTime.swift */; };
-		F0B9FD652A2149D900889DFD /* ReceiptParser in Frameworks */ = {isa = PBXBuildFile; productRef = F0B9FD642A2149D900889DFD /* ReceiptParser */; };
-		F0B9FD672A2149D900889DFD /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = F0B9FD662A2149D900889DFD /* RevenueCat */; };
 		F0BA1E1F28FB7FFB00FCB5A8 /* SwipeDelete.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BA1E1E28FB7FFB00FCB5A8 /* SwipeDelete.swift */; };
 		F0BA1E2128FCBA5900FCB5A8 /* FlowBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BA1E2028FCBA5800FCB5A8 /* FlowBlock.swift */; };
 		F0E35E132A246A11009D020E /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E35E122A246A11009D020E /* Settings.swift */; };
+		F0E35E162A26ADF8009D020E /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E35E152A26ADF8009D020E /* PurchaseManager.swift */; };
 		F0EABDD6297F313500F508A5 /* Checkers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EABDD5297F313500F508A5 /* Checkers.swift */; };
 		F0EDD03D2A01717400223505 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F05FC0ED29FAF9CD00A9B503 /* WidgetKit.framework */; };
 		F0EDD03E2A01717400223505 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F05FC0D629FAE96600A9B503 /* SwiftUI.framework */; };
@@ -171,6 +170,8 @@
 		F0BA1E2028FCBA5800FCB5A8 /* FlowBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowBlock.swift; sourceTree = "<group>"; };
 		F0C6CE7426913C240026E415 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		F0E35E122A246A11009D020E /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		F0E35E142A26965D009D020E /* Main.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Main.storekit; sourceTree = "<group>"; };
+		F0E35E152A26ADF8009D020E /* PurchaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseManager.swift; sourceTree = "<group>"; };
 		F0EABDD5297F313500F508A5 /* Checkers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkers.swift; sourceTree = "<group>"; };
 		F0EDD03C2A01717400223505 /* TimerWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TimerWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0EDD0402A01717400223505 /* TimerWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerWidgetBundle.swift; sourceTree = "<group>"; };
@@ -192,9 +193,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0B9FD652A2149D900889DFD /* ReceiptParser in Frameworks */,
 				F012E42B2A2115BF00CA4CA2 /* StoreKit.framework in Frameworks */,
-				F0B9FD672A2149D900889DFD /* RevenueCat in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,6 +216,7 @@
 				F04FFB4B28FF66B30058E66D /* FlowModel.swift */,
 				F0A025C6294796A500AF723F /* FlowData.swift */,
 				F0B351A92A1D592D001186BB /* ScreenTime.swift */,
+				F0E35E152A26ADF8009D020E /* PurchaseManager.swift */,
 				F04FFB55290339000058E66D /* Timer */,
 				F0A025CA2949019A00AF723F /* Data */,
 				F0FD718728ECD7B9008D9DC1 /* Helpers */,
@@ -233,7 +233,6 @@
 				F02C1469270FA679002FE382 /* UI Elements.swift */,
 				F02C1466270FA679002FE382 /* Toolbar.swift */,
 				F03256422721308C009D3EFB /* AnimatedBlur.swift */,
-				F09861FE26968B4B00A61B42 /* WelcomeView.swift */,
 				F0463CA42A1424E10044AC26 /* Archive.swift */,
 			);
 			path = Components;
@@ -301,6 +300,7 @@
 				F07291F6297B6C6000C25E0E /*     */,
 				F001C23C28D3C59F00134EB5 /* FlowSheet.swift */,
 				F07291FD297B715C00C25E0E /*      */,
+				F09861FE26968B4B00A61B42 /* WelcomeView.swift */,
 				F028E6DE269D406A0022A555 /* Components */,
 			);
 			path = Views;
@@ -337,6 +337,7 @@
 		F0948C0C26818EE000A5F48D = {
 			isa = PBXGroup;
 			children = (
+				F0E35E142A26965D009D020E /* Main.storekit */,
 				F0B3518E2A1BE3AE001186BB /* TimerWidgetExtension.entitlements */,
 				F0948C1726818EE000A5F48D /* MyFlow */,
 				F0899DEA292EA83200A35D4D /* MyFlowApp.swift */,
@@ -444,8 +445,6 @@
 			);
 			name = MyFlow;
 			packageProductDependencies = (
-				F0B9FD642A2149D900889DFD /* ReceiptParser */,
-				F0B9FD662A2149D900889DFD /* RevenueCat */,
 			);
 			productName = "Flow Timer";
 			productReference = F0948C1526818EE000A5F48D /* MyFlow.app */;
@@ -496,7 +495,6 @@
 			);
 			mainGroup = F0948C0C26818EE000A5F48D;
 			packageReferences = (
-				F0B9FD632A2149D900889DFD /* XCRemoteSwiftPackageReference "purchases-ios" */,
 			);
 			productRefGroup = F0948C1626818EE000A5F48D /* Products */;
 			projectDirPath = "";
@@ -573,6 +571,7 @@
 				F09E34F5295CCEC0005F2583 /* Global Variables.swift in Sources */,
 				F001C23D28D3C59F00134EB5 /* FlowSheet.swift in Sources */,
 				F0391317285FA0990074CF33 /* Haptics.swift in Sources */,
+				F0E35E162A26ADF8009D020E /* PurchaseManager.swift in Sources */,
 				F096A2B22980739E00D3DF6F /* SetNotification.swift in Sources */,
 				F07291EE297B42FF00C25E0E /* OverViewCard.swift in Sources */,
 				F07291E72979F6A100C25E0E /* FlowCompleted.swift in Sources */,
@@ -740,6 +739,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = MyFlow/MyFlow.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MyFlow/Preview Content\"";
@@ -753,12 +753,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -771,6 +772,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = MyFlow/MyFlow.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MyFlow/Preview Content\"";
@@ -784,12 +786,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -802,6 +805,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = TimerWidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = AMU2LP62W2;
@@ -815,9 +819,10 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.2;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow.TimerWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -832,6 +837,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = TimerWidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = AMU2LP62W2;
@@ -845,9 +851,10 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.2;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow.TimerWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -886,30 +893,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		F0B9FD632A2149D900889DFD /* XCRemoteSwiftPackageReference "purchases-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/RevenueCat/purchases-ios";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		F0B9FD642A2149D900889DFD /* ReceiptParser */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F0B9FD632A2149D900889DFD /* XCRemoteSwiftPackageReference "purchases-ios" */;
-			productName = ReceiptParser;
-		};
-		F0B9FD662A2149D900889DFD /* RevenueCat */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F0B9FD632A2149D900889DFD /* XCRemoteSwiftPackageReference "purchases-ios" */;
-			productName = RevenueCat;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F0948C0D26818EE000A5F48D /* Project object */;
 }

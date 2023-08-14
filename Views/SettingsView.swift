@@ -12,6 +12,8 @@ struct SettingsView: View {
     @ObservedObject var model: FlowModel
     @State private var showingSheet = false
     
+    @AppStorage("ProAccess") var proAccess: Bool = false
+    
     var body: some View {
         ZStack {
             ScrollView {
@@ -21,10 +23,11 @@ struct SettingsView: View {
                     ToggleBar(text: "Notifications", isOn: settings.$notificationsOn)
                     Div
                     
-                    ToggleBar(text: "Pro Access", isOn: settings.$proAccess)
-                    Div
-
-
+                    // Only for demoing
+//                    ToggleBar(text: "Pro Access", isOn: $proAccess)
+//                    Div
+                    
+                    
                     NavigationLink(destination: DistractionBlocker(model: model)) { NLT(text: "Block Distractions", icon: "shield", model: model) }
                 }
                 .cardGlassNP()
@@ -52,15 +55,15 @@ struct SettingsView: View {
     }
     
     @ViewBuilder var upgradeButton: some View {
-        if settings.proAccess {
+        if !proAccess {
             
             ZStack {
                 Button {
                     showingSheet.toggle()
                 } label: {
-                    Text("Upgrade")
-                        .padding(.trailing)
-                    //            .smallButtonGlass()
+                    Text("Unlock Pro")
+                    //                        .padding(.trailing)
+                        .smallButtonGlass()
                     //            .foregroundColor(.clear)
                 }
             }
@@ -94,20 +97,37 @@ struct DistractionBlocker: View {
     @AppStorage("ScreenTimeAuthorized") var isAuthorized: Bool = false
     @State var isPresented = false
     @ObservedObject var model: FlowModel
+    @StateObject var settings = Settings()
+    @State private var showingSheet = false
+    
+    @AppStorage("ProAccess") var proAccess: Bool = false
     
     var body: some View {
         NavigationView {
             List {
                 
                 if isAuthorized {
-                // put lock symbol on blocked apps but make it so the user can access the screen
-                Text("Upgrade to Pro")
-                    .foregroundColor(.myBlue)
+                    if !proAccess {
+                        Button {
+                            showingSheet.toggle()
+                        } label: {
+                            Text("Unlock Pro")
+                                .foregroundColor(.myBlue)
+                        }
+                    } else {
+                        Toggle(isOn: settings.$blockDistractions) {
+                            Text("Block Distractions")
+                            
+                        }
+                        .toggleStyle(SwitchToggleStyle(tint: Color.myBlue))
+                    }
                 }
                 Section {
                     if isAuthorized {
                         Button {
-                            isPresented = true
+                            if proAccess {
+                                isPresented = true
+                            }
                         } label: {
                             HStack {
                                 Text("Blocked Apps")
@@ -118,8 +138,13 @@ struct DistractionBlocker: View {
                                     Text("None")
                                         .foregroundColor(.gray)
                                 } else {
-                                    Text(Image(systemName: "chevron.right"))
-                                        .foregroundColor(.gray)
+                                    if !proAccess {
+                                        Image(systemName: "lock.fill")
+                                            .foregroundColor(.gray)
+                                    } else {
+                                        Text(Image(systemName: "chevron.right"))
+                                            .foregroundColor(.gray)
+                                    }
                                     
                                 }
                             }
@@ -147,6 +172,8 @@ struct DistractionBlocker: View {
         }
         .navigationTitle("Block Distractions")
         .navigationBarTitleDisplayMode(.inline)
+        .fullScreenCover(isPresented: $showingSheet) {
+            PayWall() }
     }
 }
 
@@ -173,6 +200,7 @@ struct NLT: View {
     var text: String
     var icon: String
     @ObservedObject var model: FlowModel
+    @StateObject var settings = Settings()
     
     var body: some View {
         HStack {
@@ -180,8 +208,7 @@ struct NLT: View {
                 .frame(width: 20)
             Text(text)
             Spacer()
-            Text(model.activitySelection.applicationTokens.isEmpty && model.activitySelection.categoryTokens.isEmpty &&
-                 model.activitySelection.webDomainTokens.isEmpty ? "Off" : "On")
+            Text(settings.blockDistractions ? "On" : "Off")
             .opacity(0.5)
             Image(systemName: "chevron.right")
                 .font(.system(size: 15))
@@ -218,7 +245,7 @@ struct ToggleBar: View {
             HStack {
                 Image(systemName: "bell")
                     .frame(width: 20)
-            Text(text)
+                Text(text)
             }
         }
         .toggleStyle(SwitchToggleStyle(tint: Color.myBlue))

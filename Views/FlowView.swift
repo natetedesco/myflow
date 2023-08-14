@@ -13,14 +13,19 @@ struct FlowView: View {
     @AppStorage("showCreateFlow") var showCreateFlow: Bool = true
     @AppStorage("showYourFlowHasBeenAdded") var showYourFlowHasBeenAdded: Bool = false
     @AppStorage("showPause") var showPause: Bool = false
-
+    
     init(model: FlowModel) { self.model = model }
     
     var body: some View {
         ZStack {
             ZStack {
+                
                 FlowCenter
-                Controls
+                
+                
+                ControlBar(model: model, mode: $model.mode, disable: $disable)
+                
+                
                 Toolbar(model: model)
             }
             .FlowViewBackGround()
@@ -46,7 +51,7 @@ struct FlowView: View {
             model.editFlow()
             mediumHaptic()
             disable = false
-
+            
             if showCreateFlow == true {
                 showYourFlowHasBeenAdded = true
             }
@@ -86,12 +91,12 @@ struct FlowView: View {
         }
         .disabled(model.mode != .Initial)
         .disabled(disable)
-//        .hapticOnTouch()
+        //        .hapticOnTouch()
     }
     
     var createYourFlow: some View {
         Text("Tap to create your flow")
-//            .myBlue()
+        //            .myBlue()
             .foregroundColor(.white)
             .padding(.horizontal, 70)
             .frame(maxWidth: 400)
@@ -120,20 +125,6 @@ struct FlowView: View {
             return true
         }
         return false
-    }
-    
-    
-    @ViewBuilder var Controls: some View {
-        // Menu must be reloaded or else doesnt update properly
-        if model.showFlow == false {
-            ControlBar(model: model, mode: $model.mode, disable: $disable)
-        }
-        if model.showFlow == true {
-            Text(model.flow.title)
-                .buttonGlass()
-                .top()
-                .padding(.top)
-        }
     }
 }
 
@@ -173,33 +164,5 @@ struct BR: PreviewProvider {
     @State static var model = FlowModel(mode: .breakRunning)
     static var previews: some View {
         FlowView(model: model)
-    }
-}
-
-struct HapticOnTouch: ViewModifier {
-    @State var isDragging: Bool = false
-    
-    func body(content: Content) -> some View {
-        content
-            .simultaneousGesture(
-                DragGesture(minimumDistance: 0)
-                    .onChanged { _ in
-                        if !isDragging {
-                            let impactLight = UIImpactFeedbackGenerator(style: .light)
-                            impactLight.impactOccurred()
-                        }
-                        
-                        isDragging = true
-                    }
-                    .onEnded { _ in
-                        isDragging = false
-                    }
-            )
-    }
-}
-
-extension View {
-    func hapticOnTouch() -> some View {
-        modifier(HapticOnTouch())
     }
 }

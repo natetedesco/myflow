@@ -11,6 +11,8 @@ struct StatsView: View {
     @StateObject var settings = Settings()
     @State private var showingSheet = false
     
+    @AppStorage("ProAccess") var proAccess: Bool = false
+    
     var hours = [Int](0...8)
 
     var body: some View {
@@ -22,22 +24,22 @@ struct StatsView: View {
                     CustomHeadline(text: "Overview")
                     ZStack {
                         OverViewCard(data: data)
-                            .blur(radius: settings.proAccess ? 0 : 5)
-                        if !settings.proAccess { lock }
+                            .blur(radius: proAccess ? 0 : 3)
+                        if !proAccess { lock }
                     }
                     
                     CustomHeadline(text: "This Week")
                     ZStack {
                         WeekCard(data: data)
-                            .blur(radius: settings.proAccess ? 0 : 5)
-                        if !settings.proAccess { lock }
+                            .blur(radius: proAccess ? 0 : 3)
+                        if !proAccess { lock }
                     }
                     
                     CustomHeadline(text: "This Month")
                     ZStack {
                         MonthCard(data: data)
-                            .blur(radius: settings.proAccess ? 0 : 5)
-                        if !settings.proAccess { lock }
+                            .blur(radius: proAccess ? 0 : 3)
+                        if !proAccess { lock }
                     }
                     }
                 }
@@ -56,7 +58,7 @@ struct StatsView: View {
     }
     
     @ViewBuilder var goalMenu: some View {
-        if settings.proAccess {
+        if proAccess {
             Menu {
                 Text("Hours")
                 Picker(selection: $data.goalSelection, label: Text("")) {
@@ -90,7 +92,7 @@ struct StatsView: View {
     // Goal Button
     var GoalButton: some View {
         Button(action: showGoalCard) {
-            Text(settings.proAccess ? "Goal" : "Unlock")
+            Text(proAccess ? "Goal" : "Unlock")
                 .smallButtonGlass()
         }
     }

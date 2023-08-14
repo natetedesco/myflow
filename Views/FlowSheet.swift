@@ -17,11 +17,19 @@ struct FlowSheet: View {
     @StateObject var settings = Settings()
     @State private var showingSheet = false
 
+    @AppStorage("ProAccess") var proAccess: Bool = false
+
     
     var body: some View {
         ZStack {
             MaterialBackGround()
-                .onTapGesture { Save() ; disable = false }
+                .onTapGesture {
+                    if !proAccess {
+                        simple = true
+                    }
+                    Save()
+                    disable = false
+                }
                 .disabled(flow.title.isEmpty)
                 .opacity(show ? 1.0 : 0.0)
                 .animation(.default.speed(show ? 2.0 : 1.0), value: show)
@@ -43,9 +51,9 @@ struct FlowSheet: View {
                 if !simple {
                     ZStack {
                         CustomFlow(flow: $flow)
-                            .disabled(!settings.proAccess)
-                            .blur(radius: settings.proAccess ? 0 : 5)
-                        if !settings.proAccess {
+                            .disabled(!proAccess)
+                            .blur(radius: proAccess ? 0 : 3)
+                        if !proAccess {
                             VStack {
                                 Button {
                                     showingSheet.toggle()

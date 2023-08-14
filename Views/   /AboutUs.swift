@@ -24,13 +24,36 @@ struct AboutUs: View {
                 Text("Focus on what matters.")
                     .font(.footnote)
                 
-                FootNote(text: "2.0")
+//                FootNote(text: "2.1")
             }
-            .padding(.bottom, 32)
+            .padding(.bottom, 16)
             
-            Text("How can we make better use of our time? In a world full of distractions how can we create an environment to just focus? Focus on the things that really matter. Because we owe that to ourselves. We deserve to realize our dreams and stay true to our passions. Motivation fuels us but consistency moves us forward. That is the idea that created MyFlow.")
+            
+
+            
+                
+                
+            
+            
+            Text("In a world full of distractions how can we create an environment to focus on the things that really matter. Because we owe that to ourselves. That is the idea that created MyFlow.")
                 .fontWeight(.light)
+                .padding(.bottom)
+            
+            VStack(alignment: .leading){
+                
+            Link("Privacy Policy", destination: URL(string: "https://myflow.notion.site/Privacy-Policy-0002d1598beb401e9801a0c7fe497fd3?pvs=4")!)
+                .padding(.bottom)
+                .foregroundColor(.myBlue)
+            
+            Link("Terms Of Use", destination: URL(string: "https://myflow.notion.site/Terms-Of-Use-50feabde93874a54b823a6627e0fa5ca?pvs=4")!)
+                .padding(.bottom)
+                .foregroundColor(.myBlue)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            
             Spacer()
+
+            
         }
         .padding(.horizontal, 32)
         .background(AnimatedBlur(opacity: 0.01))

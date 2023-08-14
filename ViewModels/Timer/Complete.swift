@@ -33,14 +33,18 @@ extension FlowModel {
             completeSession()
         }
         else {
-            let block = flowList[selection].blocks[blocksCompleted]
-            if block.flow {
-                setFlowTime(time: (block.minutes * 60) + block.seconds)
-                setFlowStart()
-            } else {
-                setBreakTime(time: (block.minutes * 60) + block.seconds)
-                setBreakStart()
-            }
+            setNextBlock()
+        }
+    }
+    
+    func setNextBlock() {
+        let block = flowList[selection].blocks[blocksCompleted]
+        if block.flow {
+            setFlowTime(time: (block.minutes * 60) + block.seconds)
+            setFlowStart()
+        } else {
+            setBreakTime(time: (block.minutes * 60) + block.seconds)
+            setBreakStart()
         }
     }
     

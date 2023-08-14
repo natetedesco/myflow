@@ -13,13 +13,13 @@ struct StartButton: View {
     @ObservedObject var model: FlowModel
     
     var body: some View {
-        
         if selectedTab == Tab.data || selectedTab == Tab.settings {
-            Button { selectedTab = Tab.home }
-        label: {
-            FlowButton()
-        }
+            Button {
+                selectedTab = Tab.home
+            } label: {
+                FlowButton()
             }
+        }
         
         if selectedTab == Tab.home {
             Button {
@@ -29,25 +29,23 @@ struct StartButton: View {
                 }
                 UNUserNotificationCenter.current()
                     .requestAuthorization(options:[.badge,.sound,.alert]) { (_, _) in }
-            }
-        label: {
-            switch model.mode {
-            case .Initial:
-                Start(image: "play.fill")
-            case .flowRunning:
-                Start(image: "pause.fill")
-            case .flowPaused:
-                Start(image: "play.fill")
-            case .breakStart:
-                StartNext(image: "play.fill",text: "Break ")
-            case .breakRunning:
-                Start(image: "pause.fill")
-            case .breakPaused:
-                Start(image: "play.fill")
-            case .flowStart:
-                StartNext(image: "play.fill",text: "Flow")
-            }
-        }}
+            } label: {
+                switch model.mode {
+                case .Initial: Start(image: "play.fill")
+                    
+                case .flowRunning: Start(image: "pause.fill")
+                    
+                case .flowPaused: Start(image: "play.fill")
+                    
+                case .breakStart: StartNext(image: "play.fill",text: "Break ")
+                    
+                case .breakRunning: Start(image: "pause.fill")
+                    
+                case .breakPaused: Start(image: "play.fill")
+                    
+                case .flowStart: StartNext(image: "play.fill",text: "Flow")
+                }
+            }}
     }
 }
 

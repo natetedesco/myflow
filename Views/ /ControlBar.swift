@@ -14,7 +14,7 @@ struct ControlBar: View {
     
     var body: some View {
         ZStack {
-            if Continue {
+            if mode == .breakStart || (mode == .flowStart && model.Custom()) || model.flowContinue {
                 ContinueButton
                     .padding(.vertical, 2)
             } else if showFlowMenu {
@@ -26,18 +26,14 @@ struct ControlBar: View {
                         DeleteFlowButton
                         FlowList
                     }
-                label: {
-                    MenuLabel.foregroundColor(.clear)
-                }
-                .onTapGesture {
-                    disable = true
-                    showYourFlowHasBeenAdded = false
-                    
-                    if showYourFlowHasBeenAdded == true {
-                        showYourFlowHasBeenAdded = false
-                    }
-                    
-                }
+                label: { MenuLabel.foregroundColor(.clear) }
+                        .onTapGesture {
+                            disable = true
+                            showYourFlowHasBeenAdded = false
+                            if showYourFlowHasBeenAdded == true {
+                                showYourFlowHasBeenAdded = false
+                            }
+                        }
                 }
                 .disabled(mode != .Initial)
             } else {
@@ -106,7 +102,7 @@ struct ControlBar: View {
     }
     
     @ViewBuilder var ContinueButton: some View {
-        if mode == .breakStart {
+        if (mode == .flowStart && model.Custom()) || mode == .breakStart {
             HStack(spacing: 32) {
                 Button(action: model.Restart) {
                     Chevron(image: "chevron.left")
@@ -124,7 +120,6 @@ struct ControlBar: View {
         }
         else {
             HStack(spacing: 32) {
-                
                 Button {
                     mode == .breakStart ? model.continueFlow() : model.completeContinueFlow()
                 } label: {
@@ -136,13 +131,6 @@ struct ControlBar: View {
                 }
             }
         }
-    }
-    
-    var Continue: Bool {
-        if mode == .breakStart || model.flowContinue {
-            return true
-        }
-        return false
     }
     
     var showFlowMenu: Bool {

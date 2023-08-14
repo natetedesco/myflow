@@ -18,11 +18,13 @@ extension FlowModel {
     }
     
     // Skip
-    // find way to early return here
     func Skip() {
+        invalidateTimer()
+        elapsed = 0
         if Simple() {
             if flowPaused() {
                 mode = .breakStart
+                breakTimeLeft = breakTime
                 addTime(time: flowTime - flowTimeLeft)
                 setFlowTimeLeft(time: 0)
                 endTimer(skip: true)
@@ -72,12 +74,15 @@ extension FlowModel {
     func Reset() {
         mediumHaptic()
         if isFlow() {
-            addTime(time: flowTime - flowTimeLeft)
+            if !flowContinue {
+                addTime(time: flowTime - flowTimeLeft)
+            }
         }
         invalidateTimer()
         stopActivity()
         completeSession()
         stopRestrictions()
+        flowContinue = false
     }
     
     // Continue Flow
@@ -98,10 +103,15 @@ extension FlowModel {
     // Complete Continue Flow
     func completeContinueFlow() {
         invalidateTimer()
-        mode = .breakStart
+        flowContinue = false
         addTime(time: flowTimeLeft)
         flowTimeLeft = flowTime
-        flowContinue = false
         elapsed = 0
+        
+        if Simple() {
+            mode = .breakStart
+        } else {
+            setNextBlock()
+        }
     }
 }

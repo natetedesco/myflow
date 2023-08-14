@@ -11,5 +11,5 @@ class Settings: ObservableObject {
     @AppStorage("StartFlowAutomatically") var startFlowAutomatically: Bool = false
     @AppStorage("StartBreakAutomatically") var startBreakAutomatically: Bool = false
     @AppStorage("NotificationsOn") var notificationsOn: Bool = true
-    @AppStorage("ProAccess") var proAccess: Bool = true
+    @AppStorage("BlockDistractions") var blockDistractions: Bool = false
 }

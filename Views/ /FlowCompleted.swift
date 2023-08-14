@@ -12,9 +12,11 @@ struct FlowCompleted: View {
 
     var body: some View {
         ZStack {
+            
             MaterialBackGround()
                 .opacity(show ? 1.0 : 0.0)
                 .animation(.default.speed(show ? 2.0 : 1.0), value: show)
+            
             VStack(alignment: .center, spacing: 16) {
                 Title2(text: "\(model.flow.title) Completed")
                 HStack {
@@ -35,9 +37,7 @@ struct FlowCompleted: View {
             .animation(.default.speed(show ? 1.0 : 2.0), value: show)
             .animation(.default.speed(show ? 1.0 : 2.0), value: model.flowContinue)
         }
-        .onTapGesture {
-            model.dismissCompleted()
-        }
+        .onTapGesture { model.dismissCompleted() }
     }
 }
 

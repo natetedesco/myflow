@@ -5,9 +5,11 @@
 //
 
 import SwiftUI
-import RevenueCat
+import StoreKit
 
 struct PayWall: View {
+    @StateObject var settings = Settings()
+    
     @State var monthlySelected = true
     @State var oneTimeSelected = false
     @Environment(\.dismiss) var dismiss
@@ -16,10 +18,11 @@ struct PayWall: View {
     @State var alertTitle = ""
     @State var alertDescription = ""
     
+    @StateObject var purchaseManager = PurchaseManager()
+    
     var body: some View {
         ZStack {
             AnimatedBlur(opacity: 0.05).offset(y: 200)
-//            AnimatedBlur(opacity: 0.075)
             AnimatedBlur(opacity: 0.05).offset(y: -200)
             VStack(alignment: .leading, spacing: 32) {
                 Spacer()
@@ -32,27 +35,20 @@ struct PayWall: View {
                             .myBlue()
                             .CircularGlassButton()
                     }
-                        
-                        Text("PRO")
-                            .font(.system(size: 80))
-                            .kerning(5.0)
-                            .fontWeight(.bold)
-                            .centered()
-                            .foregroundColor(.myBlue)
-                            .padding(.bottom, 48)
                     
-//                    Text("Try free")
-//                        .centered()
-//                        .font(.title3)
-//                        .fontWeight(.semibold)
-//                        .padding()
-
+                    Text("PRO")
+                        .font(.system(size: 80))
+                        .kerning(5.0)
+                        .fontWeight(.bold)
+                        .centered()
+                        .foregroundColor(.myBlue)
+                        .padding(.bottom, 48)
                     
                     HStack {
                         Image(systemName: "circle")
                             .myBlue()
-                            .font(.largeTitle)
-                            .padding(4)
+                            .font(.title)
+                            .padding(6)
                             .background(Circle()
                                 .fill(.ultraThinMaterial.opacity(0.55)))
                         
@@ -84,8 +80,6 @@ struct PayWall: View {
                     .leading()
                     .padding(.top, 32)
                     
-                    
-                    
                     HStack {
                         Image(systemName: "shield.fill")
                             .myBlue()
@@ -103,39 +97,69 @@ struct PayWall: View {
                     .padding(.bottom, 48)
                     .padding(.top, 32)
                     
-                    // One Time Button
-                    Button {
-                        oneTimeSelected = true
-                        monthlySelected = false
-                    } label: {
-                        PlanSelectionButton(
-                            selected: $oneTimeSelected,
-                            mainText: "$9.99 Yearly",
-                            subText: "First 14 days free")
+                    VStack {
+                        ForEach(purchaseManager.products) { product in
+                            Button {
+                                purchaseManager.selectedProduct = product
+                            } label: {
+                                PlanSelectionButton(
+                                    mainText: "\(product.displayPrice) - \(product.displayName)",
+                                    subText: product.displayPrice == "$0.99" ? "First 7 days free" : "First 14 days free",
+                                    selected: purchaseManager.selectedProduct == product ? true : false)
+                            }
+                        }
+                    }.task {
+                        do {
+                            try await purchaseManager.loadProducts()
+                        } catch {
+                            print(error)
+                        }
                     }
                     
-                    // Monthly Button
-                    Button {
-                        monthlySelected = true
-                        oneTimeSelected = false
-                    } label: {
-                        PlanSelectionButton(
-                            selected: $monthlySelected,
-                            mainText: "$0.99 Monthly",
-                            subText: "First 7 days free")
+                    HStack {
+                        Spacer()
+                        Button {
+                            Task {
+                                do {
+                                    try await AppStore.sync()
+                                } catch {
+                                    print(error)
+                                }
+                            }
+                        } label: {
+                            Text("Restore Purchase")
+                                .foregroundColor(.gray)
+                                .font(.caption)
+                                .padding(.trailing)
+                        }
+                        
+                        Button {
+                            if let url = URL(string: "https://myflow.notion.site/MyFlow-Privacy-Policy-0002d1598beb401e9801a0c7fe497fd3?pvs=4") {
+                                UIApplication.shared.open(url)
+                            }
+                        } label: {
+                            Text("Privacy & Terms")
+                                .foregroundColor(.gray)
+                                .font(.caption)
+                                .padding(.leading)
+                            
+                        }
+                        Spacer()
                     }
-                    
-                    Text("Restore Purchase")
-                        .centered()
-                        .foregroundColor(.gray)
-                        .font(.caption)
-                        .padding(.bottom, 32)
-                        .padding(.top, 8)
+                    .padding(.top, 8)
+                    .padding(.bottom, 32)
                     
                     
                     // Subscribe Button
                     Button {
-                        subscribe()
+                        Task {
+                            do {
+                                try await purchaseManager.purchase(purchaseManager.selectedProduct!)
+                            } catch {
+                                print(error)
+                            }
+                        }
+                        dismiss()
                     } label: {
                         Text("Upgrade")
                             .myBlue()
@@ -153,30 +177,6 @@ struct PayWall: View {
             }
         }
     }
-    
-    func subscribe() {
-        Purchases.shared.getOfferings { offerings, error in
-            
-            if let packages = offerings?.current?.availablePackages {
-                Purchases.shared.purchase(package: packages.first!) { transaction, PurchaserInfo, error, userCancelled in
-                    
-                    if error != nil {
-                        alertTitle = "Purchase Failed"
-                        alertDescription = "Error: \(error!.localizedDescription)"
-                        showAlert.toggle()
-                    }
-                    
-                    if PurchaserInfo?.entitlements["pro"]?.isActive == true {
-                        print("success")
-                        alertTitle = "Purchase Successful"
-                        alertDescription = "You are now subscribed"
-                        showAlert.toggle() 
-                    }
-                }
-            }
-        }
-    }
-    
 }
 
 struct SwiftUIView_Previews: PreviewProvider {
@@ -187,9 +187,9 @@ struct SwiftUIView_Previews: PreviewProvider {
 }
 
 struct PlanSelectionButton: View {
-    @Binding var selected: Bool
     var mainText: String
     var subText: String
+    var selected: Bool
     
     var body: some View {
         
@@ -197,7 +197,6 @@ struct PlanSelectionButton: View {
             VStack(alignment: .leading, spacing: 8) {
                 Text(mainText)
                     .font(.headline)
-//                    .fontWeight(.semibold)
                     .foregroundColor(.white)
                 Text(subText)
                     .leading()

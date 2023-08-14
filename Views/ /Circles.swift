@@ -47,7 +47,7 @@ struct Circles: View {
     }
     
     var showFlowCircle: Bool {
-        if model.mode != .breakRunning && model.mode != .breakStart && model.mode != .breakPaused {
+        if model.mode != .breakRunning && model.mode != .breakPaused {
             return true
         }
         return false

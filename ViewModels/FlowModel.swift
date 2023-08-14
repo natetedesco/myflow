@@ -12,7 +12,7 @@ class FlowModel: ObservableObject {
     var data = FlowData()
     var settings = Settings()
     var notifications = NotificationManager()
-    var deciveRestriction = MyMonitor()
+//    var deciveRestriction = MyMonitor()
     var timer = Timer()
     var start = Date()
     
