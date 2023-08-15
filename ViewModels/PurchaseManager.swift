@@ -28,13 +28,7 @@ class PurchaseManager: ObservableObject {
     deinit {
         updates?.cancel()
     }
-    
-    
-//    var proAccess: Bool {
-//        return !self.purchasedProductIDs.isEmpty
-//    }
 
-    
     func loadProducts() async throws {
         guard !self.productsLoaded else { return }
         self.products = try await Product.products(for: productIds)
@@ -74,14 +68,6 @@ class PurchaseManager: ObservableObject {
             }
         }
     }
-    
-//    private func observeTransactionUpdates() -> Task<Void, Never> {
-//        Task(priority: .background) { [unowned self] in
-//            for await _ in Transaction.updates {
-//                await self.updatePurchasedProducts()
-//            }
-//        }
-//    }
     
     private func observeTransactionUpdates() -> Task<Void, Never> {
             Task(priority: .background) {

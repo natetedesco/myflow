@@ -29,10 +29,11 @@ struct TimerLabels: View {
                     }
                 }
                 else {
+                    
                     Text(model.flow.blocks[model.blocksCompleted].title)
-                        .foregroundColor(model.flow.blocks[model.blocksCompleted].flow ? .myBlue.opacity(0.6) : .gray.opacity(0.6))
-                        .font(.subheadline)
-                        .padding(.top, 100)
+                        .foregroundColor(model.flow.blocks[model.blocksCompleted].flow ? .myBlue.opacity(0.6) : .gray.opacity(0.8))
+                        .font(.headline)
+                        .padding(.top, 92)
                     
                     TimerLabel(color: model.type == .Flow ? .myBlue : .gray, text: customLabel)
                         .font(.system(size: 50))

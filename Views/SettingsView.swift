@@ -24,8 +24,8 @@ struct SettingsView: View {
                     Div
                     
                     // Only for demoing
-                    ToggleBar(text: "Pro Access", isOn: $proAccess)
-                    Div
+//                    ToggleBar(text: "Pro Access", isOn: $proAccess)
+//                    Div
                     
                     
                     NavigationLink(destination: DistractionBlocker(model: model)) { NLT(text: "Block Distractions", icon: "shield", model: model) }

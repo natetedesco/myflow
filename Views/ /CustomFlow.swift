@@ -27,7 +27,7 @@ struct CustomFlow: View {
                         .onDrop(of: [.item], delegate: DropViewDelegate(currentItem: block, items: $flow.blocks, draggingItem: $draggingItem, dragging: $dragging))
                         .padding(.vertical, -1)
                 }
-//                .padding(.vertical, -5)
+                .padding(.vertical, 2) // avoids scrollview from cutting off
                 .overlay(
                     GeometryReader { geo in
                         Color.clear

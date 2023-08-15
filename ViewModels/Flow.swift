@@ -19,7 +19,8 @@ struct Flow: Codable, Equatable {
     var breakSeconds: Int = 0
     var rounds: Int = 5
     
-    var blocks = [Block(flow: true), Block(flow: false)]
+    var blocks = [Block(flow: true, title: "Focus", minutes: 20),
+                  Block(flow: false, title: "Break", minutes: 5)]
 }
 
 struct Block: Codable, Hashable, Identifiable {

@@ -19,7 +19,6 @@ struct FlowSheet: View {
 
     @AppStorage("ProAccess") var proAccess: Bool = false
 
-    
     var body: some View {
         ZStack {
             MaterialBackGround()

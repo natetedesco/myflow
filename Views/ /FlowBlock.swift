@@ -58,7 +58,7 @@ struct FlowBlock: View {
             .fill(block.flow ? Color.myBlue.opacity(0.75) : Color.gray.opacity(0.75))
             .mask(
                 HStack {
-                    Rectangle().frame(width: 6)
+                    Rectangle().frame(width: 5)
                     Spacer()
                 })
     }
@@ -67,7 +67,7 @@ struct FlowBlock: View {
         ZStack {
             TextField(block.flow ? "Focus" : "Break", text: $block.title)
                 .font(block.flow ? .callout : .footnote)
-                .fontWeight(block.flow ? .medium : .regular)
+                .fontWeight(.medium)
                 .foregroundColor(block.flow ? .myBlue : .gray)
                 .opacity(0.9)
                 .disabled(dragging)
@@ -95,6 +95,7 @@ struct FlowBlock: View {
     var BlockTimeLabel: some View {
         Text(formatTime(seconds: (block.seconds) + (block.minutes * 60)))
             .font(.caption)
+            .fontWeight(.medium)
             .foregroundColor(block.flow ? .myBlue : .gray)
             .opacity(0.9)
 //            .frame(maxWidth: .infinity, alignment: .trailing)
