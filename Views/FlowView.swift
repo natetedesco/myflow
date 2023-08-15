@@ -22,9 +22,7 @@ struct FlowView: View {
                 
                 FlowCenter
                 
-                
                 ControlBar(model: model, mode: $model.mode, disable: $disable)
-                
                 
                 Toolbar(model: model)
             }

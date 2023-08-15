@@ -293,12 +293,12 @@
 			isa = PBXGroup;
 			children = (
 				F074D679271D124900CE1AB4 /* FlowView.swift */,
+				F001C23C28D3C59F00134EB5 /* FlowSheet.swift */,
 				F04B500A2852F68C004269DD /*   */,
 				F08315292888A55100153CD7 /* StatsView.swift */,
 				F07291EC297B427600C25E0E /*    */,
 				F032564A272251A5009D3EFB /* SettingsView.swift */,
 				F07291F6297B6C6000C25E0E /*     */,
-				F001C23C28D3C59F00134EB5 /* FlowSheet.swift */,
 				F07291FD297B715C00C25E0E /*      */,
 				F09861FE26968B4B00A61B42 /* WelcomeView.swift */,
 				F028E6DE269D406A0022A555 /* Components */,

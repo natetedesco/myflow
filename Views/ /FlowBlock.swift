@@ -20,15 +20,24 @@ struct FlowBlock: View {
         
         ZStack {
             VStack{
-                HStack {
-                    BlockTextField
-                    Button(action: togglePickTime) {
-                        BlockTimeLabel
-                        
-                    }
-                    DeleteButton
+                
+//                if block.flow {
+//                    VStack(spacing: 16) {
+//                        BlockTextField
+//                        Button(action: togglePickTime) {
+//                            BlockTimeLabel
+//                        }
+//                    }
+//                } else {
+                    HStack {
+                        BlockTextField
+                        Button(action: togglePickTime) {
+                            BlockTimeLabel
+                        }
+//                    }
+                        DeleteButton
+                            .padding(.top, block.pickTime ? block.flow ? 18 : 6 : 0)
                 }
-                .padding(.top, block.pickTime ? block.flow ? 18 : 6 : 0)
                 
                 if block.pickTime {
                     MultiComponentPicker(columns: columns, selections: blockTime)
@@ -39,6 +48,7 @@ struct FlowBlock: View {
         }
         .frame(maxWidth: .infinity, minHeight: blockSize)
         .background(blockColor)
+        
         .cornerRadius(10)
         .background(blockSideBar)
     }
@@ -55,14 +65,17 @@ struct FlowBlock: View {
     
     var BlockTextField: some View {
         ZStack {
-            TextField(block.flow ? "Flow" : "Break", text: $block.title)
-                .font(.callout)
+            TextField(block.flow ? "Focus" : "Break", text: $block.title)
+                .font(block.flow ? .callout : .footnote)
+                .fontWeight(block.flow ? .medium : .regular)
                 .foregroundColor(block.flow ? .myBlue : .gray)
                 .opacity(0.9)
                 .disabled(dragging)
-//                .maxWidth()
+            //                .maxWidth()
                 .focused($focusedField, equals: .blockName)
                 .padding(.leading, 14)
+            //                .padding(.top)
+            //                .frame(maxHeight: .infinity, alignment: .top)
             
             // Solves keyboard glitch when selecting blockname after time
                 .overlay {

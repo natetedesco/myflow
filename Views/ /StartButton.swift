@@ -43,7 +43,7 @@ struct StartButton: View {
                     
                 case .breakPaused: Start(image: "play.fill")
                     
-                case .flowStart: StartNext(image: "play.fill",text: "Flow")
+                case .flowStart: StartNext(image: "play.fill",text: "Focus")
                 }
             }}
     }

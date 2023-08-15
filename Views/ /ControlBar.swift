@@ -110,7 +110,7 @@ struct ControlBar: View {
                 Button {
                     model.continueFlow()
                 } label: {
-                    Title3(text: "Continue")
+                    Title3(text: "Extend")
                         .fontWeight(.light)
                 }
                 Button(action: model.Skip) {

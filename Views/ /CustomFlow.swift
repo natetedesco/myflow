@@ -27,7 +27,7 @@ struct CustomFlow: View {
                         .onDrop(of: [.item], delegate: DropViewDelegate(currentItem: block, items: $flow.blocks, draggingItem: $draggingItem, dragging: $dragging))
                         .padding(.vertical, -1)
                 }
-                .padding(.vertical, 2)
+//                .padding(.vertical, -5)
                 .overlay(
                     GeometryReader { geo in
                         Color.clear

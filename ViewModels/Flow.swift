@@ -36,11 +36,11 @@ struct Block: Codable, Hashable, Identifiable {
 
 extension Flow {
     mutating func addFlowBlock() {
-        blocks.append(Block(flow: true))
+        blocks.append(Block(flow: true, title: "Focus", minutes: 20))
     }
     
     mutating func addBreakBlock() {
-        blocks.append(Block(flow: false))
+        blocks.append(Block(flow: false, title: "Break", minutes: 5))
     }
     
     mutating func deleteBlock(id: UUID) {
