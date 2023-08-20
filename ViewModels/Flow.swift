@@ -11,14 +11,7 @@ struct Flow: Codable, Equatable {
     var id = UUID()
     var new = false
     var title: String = ""
-    var simple = true
-    
-    var flowMinutes: Int = 20
-    var flowSeconds: Int = 0
-    var breakMinutes: Int = 5
-    var breakSeconds: Int = 0
-    var rounds: Int = 5
-    
+
     var blocks = [Block(flow: true, title: "Focus", minutes: 20),
                   Block(flow: false, title: "Break", minutes: 5)]
 }

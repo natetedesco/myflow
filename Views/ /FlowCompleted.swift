@@ -12,7 +12,6 @@ struct FlowCompleted: View {
 
     var body: some View {
         ZStack {
-            
             MaterialBackGround()
                 .opacity(show ? 1.0 : 0.0)
                 .animation(.default.speed(show ? 2.0 : 1.0), value: show)

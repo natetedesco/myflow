@@ -20,8 +20,8 @@ struct LargeTitle: View {
         ZStack {
             Text(text)
                 .font(.largeTitle)
-                .fontWeight(.bold)
-                .kerning(5.0)
+                .fontWeight(.light)
+                .kerning(1.0)
                 .myBlue()
         }
     }

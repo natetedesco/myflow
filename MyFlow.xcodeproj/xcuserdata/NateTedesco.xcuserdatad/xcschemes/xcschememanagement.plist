@@ -29,6 +29,11 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>MyFlow Beta.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 		<key>MyFlow WidgetExtension.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
@@ -77,6 +82,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>F03464AD2A8D386B008EA7A5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>F0948C1426818EE000A5F48D</key>
 		<dict>
 			<key>primary</key>
@@ -88,6 +98,11 @@
 			<true/>
 		</dict>
 		<key>F0948C3026818EE100A5F48D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F0EBC1142A8D3C0B006F9616</key>
 		<dict>
 			<key>primary</key>
 			<true/>

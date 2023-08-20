@@ -13,7 +13,7 @@ extension FlowModel {
         mode = flow ? .flowPaused : .breakPaused
         setElapsedTime()
         invalidateTimer()
-        startActivity(flow: flow, custom: flowMode == .Custom ? true : false, start: Date(), end: Date(), paused: true)
+        startActivity(flow: flow, start: Date(), end: Date(), paused: true)
         stopRestrictions()
     }
     
@@ -21,52 +21,26 @@ extension FlowModel {
     func Skip() {
         invalidateTimer()
         elapsed = 0
-        if Simple() {
-            if flowPaused() {
-                mode = .breakStart
-                breakTimeLeft = breakTime
-                addTime(time: flowTime - flowTimeLeft)
-                setFlowTimeLeft(time: 0)
-                endTimer(skip: true)
-            }
-            else if breakStart() || breakPaused() {
-                mode = .flowStart
-                flowTimeLeft = flowTime
-            }
-        }
-        if Custom() {
-            endTimer()
-        }
+        endTimer()
     }
     
     // Restart
     func Restart() {
         elapsed = 0
         if flowPaused() {
-            if Simple() {
-                setFlowTimeLeft(time: flowTime)
-                setFlowStart()
-            }
-            if Custom() {
-                setFlowTime(time: (flowList[selection].blocks[blocksCompleted].minutes * 60) + flowList[selection].blocks[blocksCompleted].seconds)
-                setFlowStart()
-            }
+            setFlowTime(time: (flowList[selection].blocks[blocksCompleted].minutes * 60) + flowList[selection].blocks[blocksCompleted].seconds)
+            setFlowStart()
+            
         }
         else if breakPaused() || flowStart() {
             setBreakTimeLeft(time: breakTime)
             setBreakStart()
         }
         else if breakStart() {
-            if Simple() {
-                setFlowTimeLeft(time: flowTime)
-                setFlowStart()
-                roundsCompleted -= 1
-            }
-            if Custom() {
-                blocksCompleted -= 1
-                setFlowTime(time: (flowList[selection].blocks[blocksCompleted].minutes * 60) + flowList[selection].blocks[blocksCompleted].seconds)
-                setFlowStart()
-            }
+            blocksCompleted -= 1
+            setFlowTime(time: (flowList[selection].blocks[blocksCompleted].minutes * 60) + flowList[selection].blocks[blocksCompleted].seconds)
+            setFlowStart()
+            
         }
     }
     
@@ -93,8 +67,8 @@ extension FlowModel {
         }
         mode = .flowRunning
         flowContinue = true
-        startActivity(flow: true, custom: flowMode == .Custom ? true : false, start: start, end: start, extend: true)
-
+        startActivity(flow: true, start: start, end: start, extend: true)
+        
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [self] timer in
             flowTimeLeft = (Calendar.current.dateComponents([.second], from: start, to: Date()).second ?? 0)
         }
@@ -107,11 +81,7 @@ extension FlowModel {
         addTime(time: flowTimeLeft)
         flowTimeLeft = flowTime
         elapsed = 0
+        setNextBlock()
         
-        if Simple() {
-            mode = .breakStart
-        } else {
-            setNextBlock()
-        }
     }
 }

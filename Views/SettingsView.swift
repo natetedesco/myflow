@@ -23,9 +23,9 @@ struct SettingsView: View {
                     ToggleBar(text: "Notifications", isOn: settings.$notificationsOn)
                     Div
                     
-                    // Only for demoing
-//                    ToggleBar(text: "Pro Access", isOn: $proAccess)
-//                    Div
+//                     Only for demoing
+                    ToggleBar(text: "Pro Access", isOn: $proAccess)
+                    Div
                     
                     
                     NavigationLink(destination: DistractionBlocker(model: model)) { NLT(text: "Block Distractions", icon: "shield", model: model) }

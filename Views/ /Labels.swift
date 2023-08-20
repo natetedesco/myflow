@@ -13,71 +13,30 @@ struct TimerLabels: View {
     
     var body: some View {
         ZStack {
-
-            // Custom
-            if model.Custom() {
-                if model.flowContinue {
-                    Text(model.flow.blocks[model.blocksCompleted - 1].title)
-                        .foregroundColor(.myBlue.opacity(0.6))
-                        .font(.title3)
-                        .padding(.top, 90)
-                    
-                    HStack {
-                        
+            if model.flowContinue {
+                Text(model.flow.blocks[model.blocksCompleted - 1].title)
+                    .foregroundColor(.myBlue.opacity(0.6))
+                    .font(.title3)
+                    .padding(.top, 90)
+                
+                HStack {
                     TimerLabel(color: .myBlue, text: ("+\(formatTime(seconds: model.flowTimeLeft))"))
                         .font(.system(size: 50))
-                    }
                 }
-                else {
-                    
-                    Text(model.flow.blocks[model.blocksCompleted].title)
-                        .foregroundColor(model.flow.blocks[model.blocksCompleted].flow ? .myBlue.opacity(0.6) : .gray.opacity(0.8))
-                        .font(.headline)
-                        .padding(.top, 92)
-                    
-                    TimerLabel(color: model.type == .Flow ? .myBlue : .gray, text: customLabel)
-                        .font(.system(size: 50))
-                }
+            }
+            else {
+                
+                Text(model.flow.blocks[model.blocksCompleted].title)
+                    .foregroundColor(model.flow.blocks[model.blocksCompleted].flow ? .myBlue.opacity(0.7) : .gray.opacity(0.7))
+                    .font(.body)
+                    .padding(.top, 96)
+                
+                TimerLabel(color: model.type == .Flow ? .myBlue : .gray, text: customLabel)
+                    .font(.system(size: 60))
             }
             
-            // Simple
-            if model.Simple() {
-                HStack(alignment: .center) {
-                    if showFlowLabel {
-                        FlowLabel
-                    }
-                    if mode == .Initial {
-                        Spacer()
-                            .frame(width: 44)
-                    }
-                    if showBreakLabel {
-                        BreakLabel
-                    }
-                }
-                .maxWidth()
-                
-                // Rounds
-                HStack {
-                    if mode == .Initial {
-                        ForEach(0 ..< model.roundsSet, id: \.self) {_ in RoundCircle() }
-                    }
-                    else {
-                        ForEach(0 ..< model.roundsCompleted, id: \.self) {_ in RoundCircle() }
-                        
-                        if (mode == .flowRunning || mode == .flowPaused) && !model.flowContinue {
-                            RoundCircle(half: true)
-                        }
-                    }
-                }
-                .padding(.top, 100)
-            }
         }
         .animation(.easeInOut(duration: 0.3), value: mode)
-    }
-    
-    var BreakLabel: some View {
-        TimerLabel(color: .gray, text: breakLabel)
-            .modifier(AnimatingFontSize(fontSize: mode == .Initial ? 35 : 60))
     }
     
     var FlowLabel: some View {
@@ -88,55 +47,18 @@ struct TimerLabels: View {
                     .font(.system(size: 45))
                     .fontWeight(.light)
             }
-        TimerLabel(color: .myBlue, text: (formatTime(seconds: model.flowTimeLeft)))
-            .modifier(AnimatingFontSize(fontSize: mode == .Initial ? 35 : 60))
+            TimerLabel(color: .myBlue, text: (formatTime(seconds: model.flowTimeLeft)))
+                .modifier(AnimatingFontSize(fontSize: mode == .Initial ? 35 : 60))
         }
     }
-    
-    var flowLabel: String {
-        if model.flowContinue {
-            return ("+\(formatTime(seconds: model.flowTimeLeft))")
-        }
-        return formatTime(seconds: model.flowTimeLeft)
-    }
-    
-    var breakLabel: String {
-        return formatTime(seconds: model.breakTimeLeft)
-    }
-    
     var customLabel: String {
         if model.type == .Flow {
             return formatTime(seconds: model.flowTimeLeft)
         }
         return formatTime(seconds: model.breakTimeLeft)
     }
-    
-    var showFlowLabel: Bool {
-        if mode == .Initial || mode == .flowStart || mode == .flowRunning || mode == .flowPaused {
-            return true
-        }
-        return false
-    }
-    
-    var showBreakLabel: Bool {
-        if mode == .Initial || mode == .breakStart || mode == .breakRunning || mode == .breakPaused {
-            return true
-        }
-        return false
-    }
 }
 
-struct RoundCircle: View {
-    var half: Bool = false
-    var body: some View {
-        Circle()
-            .trim(from: 0, to: half ? 0.5 : 1.0)
-            .rotationEffect(.degrees(90))
-            .frame(width: 10, height: 10)
-            .foregroundColor(.gray.opacity(0.3))
-            .padding(1)
-    }
-}
 
 struct TimerLabel: View {
     var color: Color
@@ -165,7 +87,7 @@ struct AnimatingFontSize: AnimatableModifier {
 }
 
 extension HorizontalAlignment {
-
+    
     // A custom horizontal alignment to custom align views horizontally
     private struct CustomHorizontalAlignment: AlignmentID {
         static func defaultValue(in context: ViewDimensions) -> CGFloat {
@@ -173,6 +95,6 @@ extension HorizontalAlignment {
             context[VerticalAlignment.center]
         }
     }
-
+    
     static let customHorizontalAlignment = HorizontalAlignment(CustomHorizontalAlignment.self)
 }

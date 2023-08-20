@@ -25,26 +25,15 @@ struct TimerWidgetLiveActivity: Widget {
                 }
                 
                 HStack {
-                    if context.state.custom {
-                        HStack {
-                            Text(context.state.blockName)
-                                .foregroundColor(.white.opacity(0.8))
-                            Spacer()
-                        }
-                        .padding(.top, 8)
+                    
+                    HStack {
+                        Text(context.state.blockName)
+                            .foregroundColor(.white.opacity(0.8))
+                        Spacer()
                     }
-                    else {
-                        ForEach(0 ..< context.state.roundsCompleted, id: \.self) {_ in RoundCircle() }
-                        if context.state.flow {
-                            RoundCircle(half: true)
-                        }
-                        ForEach(0 ..< (context.state.rounds - context.state.roundsCompleted - 1), id: \.self) {
-                            _ in RoundCircleStroke()
-                        }
-                        if !context.state.flow {
-                            RoundCircleStroke()
-                        }
-                    }
+                    .padding(.top, 8)
+                    
+                    
                     Spacer()
                     ZStack {
                         if context.state.paused {
@@ -71,7 +60,7 @@ struct TimerWidgetLiveActivity: Widget {
                 .tint(context.state.flow ? .myBlue : .gray)
                 .padding(.horizontal, 4)
                 .scaleEffect(x: 1, y: 1.2, anchor: .center)
-
+                
             }
             .padding(.top)
             .padding(.horizontal)
@@ -95,28 +84,15 @@ struct TimerWidgetLiveActivity: Widget {
             DynamicIslandExpandedRegion(.trailing) {}
             DynamicIslandExpandedRegion(.bottom) {
                 HStack {
-                    if context.state.custom {
-                        HStack {
-                            Text(context.state.blockName)
-                                .font(.callout)
-                            Spacer()
-                        }
-                        .padding(.top, 2)
+                    
+                    HStack {
+                        Text(context.state.blockName)
+                            .font(.callout)
+                        Spacer()
                     }
-                    else {
-                        ForEach(0 ..< context.state.roundsCompleted, id: \.self) {_ in
-                            RoundCircle()
-                        }
-                        if context.state.flow {
-                            RoundCircle(half: true)
-                        }
-                        ForEach(0 ..< (context.state.rounds - context.state.roundsCompleted - 1), id: \.self) {
-                            _ in RoundCircleStroke()
-                        }
-                        if !context.state.flow {
-                            RoundCircleStroke()
-                        }
-                    }
+                    .padding(.top, 2)
+                    
+                    
                     Spacer()
                     
                     ZStack {
@@ -195,7 +171,7 @@ struct TimerWidgetLiveActivity: Widget {
 
 struct TimerWidgetLiveActivity_Previews: PreviewProvider {
     static let attributes = TimerWidgetAttributes(name: "Me")
-    static let contentState = TimerWidgetAttributes.ContentState(flow: true, custom: true, name: "Flow", blockName: "Cardio", value: .now...Date(), rounds: 5, roundsCompleted: 2, blocks: 5, blocksCompleted: 2)
+    static let contentState = TimerWidgetAttributes.ContentState(flow: true, name: "Flow", blockName: "Cardio", value: .now...Date(), blocks: 5, blocksCompleted: 2)
     
     static var previews: some View {
         attributes

@@ -15,20 +15,12 @@ extension FlowModel {
         } else {
             self.flow = Flow(new: true, title: "Flow")
         }
-        flow.simple ? setSimple() : setCustom()
+        setFlow()
     }
     
-    // Set Simple
-    func setSimple() {
-        flowMode = .Simple
-        roundsSet = flow.rounds // Add if rounds asp
-        setFlowTime(time: (flow.flowMinutes * 60) + flow.flowSeconds )
-        setBreakTime(time: (flow.breakMinutes * 60) + flow.breakSeconds)
-    }
     
-    // Set Custom
-    func setCustom() {
-        flowMode = .Custom
+    
+    func setFlow() {
         if flow.blocks.indices.contains(0) {
             if flow.blocks[0].flow {
                 type = .Flow

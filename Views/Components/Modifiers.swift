@@ -39,14 +39,16 @@ extension View {
             .padding(24)
             .background(.black.opacity(0.7))
             .cornerRadius(40)
-            .padding(.horizontal, 32)
+            .padding(.horizontal, 24)
     }
     
     func cardGlass() -> some View {
         self
             .maxWidth()
             .padding()
-            .background(.black.opacity(0.6))
+            .background(.black.opacity(0.7))
+            .background(.ultraThinMaterial)
+
             .cornerRadius(25.0)
             .padding(.horizontal)
     }
@@ -70,8 +72,8 @@ extension View {
         NavigationView {
         self
             .padding(.bottom, 85)
-            .background(.black.opacity(0.6))
-            .background(.ultraThinMaterial)
+            .background(.black.opacity(0.3))
+            .background(.ultraThinMaterial.opacity(0.5))
             .background(AnimatedBlur(opacity: 0.3))
             .navigationTitle(title)
             .toolbar{ button }

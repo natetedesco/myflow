@@ -14,7 +14,7 @@ struct ControlBar: View {
     
     var body: some View {
         ZStack {
-            if mode == .breakStart || (mode == .flowStart && model.Custom()) || model.flowContinue {
+            if mode == .breakStart || mode == .flowStart || model.flowContinue {
                 ContinueButton
                     .padding(.vertical, 2)
             } else if showFlowMenu {
@@ -46,7 +46,11 @@ struct ControlBar: View {
                 .padding(.vertical, 2)
             }
         }
-        .buttonGlass()
+        .myBlue()
+        .padding(.vertical, 8)
+        .padding(.horizontal, 12)
+        .background(.ultraThinMaterial.opacity(0.65))
+        .cornerRadius(30)
         .top()
         .padding(.top)
         .animation(.easeInOut(duration: 0.15), value: mode)
@@ -65,7 +69,7 @@ struct ControlBar: View {
     var MenuLabel: some View {
         HStack {
             Title2(text: label)
-                .fontWeight(.light)
+                .kerning(1.0)
         }
     }
     
@@ -102,7 +106,7 @@ struct ControlBar: View {
     }
     
     @ViewBuilder var ContinueButton: some View {
-        if (mode == .flowStart && model.Custom()) || mode == .breakStart {
+        if mode == .flowStart || mode == .breakStart {
             HStack(spacing: 32) {
                 Button(action: model.Restart) {
                     Chevron(image: "chevron.left")
@@ -140,28 +144,4 @@ struct ControlBar: View {
         return false
     }
 }
-
-//struct Initial: PreviewProvider {
-//    @State static var model = FlowModel()
-//    static var previews: some View {
-//        ControlBar(model: model, mode: .constant(.Initial))
-//            .FlowViewBackGround()
-//    }
-//}
-//
-//struct Paused: PreviewProvider {
-//    @State static var model = FlowModel()
-//    static var previews: some View {
-//            ControlBar(model: model, mode: .constant(.flowPaused))
-//        .FlowViewBackGround()
-//    }
-//}
-//
-//struct Continue: PreviewProvider {
-//    @State static var model = FlowModel()
-//    static var previews: some View {
-//            ControlBar(model: model, mode: .constant(.breakStart))
-//        .FlowViewBackGround()
-//    }
-//}
 

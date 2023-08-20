@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "1430"
-   version = "1.3">
+   version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F0948C1426818EE000A5F48D"
+               BlueprintIdentifier = "F0EBC1142A8D3C0B006F9616"
                BuildableName = "MyFlow.app"
                BlueprintName = "MyFlow"
                ReferencedContainer = "container:MyFlow.xcodeproj">
@@ -23,12 +23,11 @@
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "Release"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
-      <Testables>
-      </Testables>
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      shouldAutocreateTestPlan = "YES">
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -44,15 +43,12 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F0948C1426818EE000A5F48D"
+            BlueprintIdentifier = "F0EBC1142A8D3C0B006F9616"
             BuildableName = "MyFlow.app"
             BlueprintName = "MyFlow"
             ReferencedContainer = "container:MyFlow.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <StoreKitConfigurationFileReference
-         identifier = "../../Main.storekit">
-      </StoreKitConfigurationFileReference>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -64,7 +60,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F0948C1426818EE000A5F48D"
+            BlueprintIdentifier = "F0EBC1142A8D3C0B006F9616"
             BuildableName = "MyFlow.app"
             BlueprintName = "MyFlow"
             ReferencedContainer = "container:MyFlow.xcodeproj">

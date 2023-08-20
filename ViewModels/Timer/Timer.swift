@@ -29,9 +29,9 @@ extension FlowModel {
     func Run(time: Int, flow: Bool) {
         setRunning(flow: flow)
         let end = setEnd(time: time)
-        
-        setSimpleNotification(flow: flow, time: time)
-        startActivity(flow: flow, custom: flowMode == .Custom ? true : false, start: start, end: end)
+
+        setNotification(flow: flow, time: time)
+        startActivity(flow: flow, start: start, end: end)
         if settings.blockDistractions && flow == true { startRestriction() }
         
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [self] timer in
@@ -53,12 +53,7 @@ extension FlowModel {
         stopActivity()
         stopRestrictions()
         elapsed = 0
-        
-        if Simple() {
-            completeRound(skip: skip)
-        } else {
-            completeBlock()
-        }
+        completeBlock()
     }
 }
 

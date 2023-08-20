@@ -12,19 +12,15 @@ class FlowModel: ObservableObject {
     var data = FlowData()
     var settings = Settings()
     var notifications = NotificationManager()
-//    var deciveRestriction = MyMonitor()
     var timer = Timer()
     var start = Date()
     
     var flowTime = 0
     var breakTime = 0
-    var roundsSet = 0
     var elapsed = 0
     var totalTime = 0
-    var roundsCompleted = 0
     var blocksCompleted = 0
     var type: FlowType = .Flow
-    var flowMode: FlowMode = .Simple
     
     @Published var flow: Flow = Flow()
     @Published var mode: TimerMode
@@ -124,12 +120,6 @@ class FlowModel: ObservableObject {
         let changedFlow =
         Flow(
             title: flow.title,
-            simple: flow.simple,
-            flowMinutes: flow.flowMinutes,
-            flowSeconds: flow.flowSeconds,
-            breakMinutes: flow.breakMinutes,
-            breakSeconds: flow.breakSeconds,
-            rounds: flow.rounds,
             blocks: flow.blocks
         )
         return changedFlow
@@ -139,11 +129,6 @@ class FlowModel: ObservableObject {
 enum FlowType {
     case Flow
     case Break
-}
-
-enum FlowMode {
-    case Simple
-    case Custom
 }
 
 enum TimerMode {

@@ -15,28 +15,17 @@ struct FlowBlock: View {
     
     var body: some View {
         let blockTime = [$block.minutes, $block.seconds]
-        let blockSize: CGFloat = (block.flow ? 50 : 25) + (block.pickTime ? (block.flow ? 140 : 170) : 0)
-        let blockColor = block.flow ? Color.myBlue.opacity(0.15) : Color.gray.opacity(0.15)
+        let blockSize: CGFloat = (block.flow ? 64 : 32) + (block.pickTime ? (block.flow ? 140 : 170) : 0)
         
         ZStack {
             VStack{
-                
-//                if block.flow {
-//                    VStack(spacing: 16) {
-//                        BlockTextField
-//                        Button(action: togglePickTime) {
-//                            BlockTimeLabel
-//                        }
-//                    }
-//                } else {
-                    HStack {
-                        BlockTextField
-                        Button(action: togglePickTime) {
-                            BlockTimeLabel
-                        }
-//                    }
-                        DeleteButton
-                            .padding(.top, block.pickTime ? block.flow ? 18 : 6 : 0)
+                HStack {
+                    BlockTextField
+                    Button(action: togglePickTime) {
+                        BlockTimeLabel
+                    }
+                    DeleteButton
+                        .padding(.top, block.pickTime ? block.flow ? 18 : 6 : 0)
                 }
                 
                 if block.pickTime {
@@ -47,18 +36,34 @@ struct FlowBlock: View {
             .animation(.easeOut.speed(block.pickTime ? 0.6 : 2.0), value: block.pickTime)
         }
         .frame(maxWidth: .infinity, minHeight: blockSize)
-        .background(blockColor)
-        
-        .cornerRadius(10)
+//        .background(block.flow ? Color.myBlue.opacity(0.10) : Color.gray.opacity(0.10))
+        .background(block.flow
+                    ?
+                    LinearGradient(
+                        gradient: Gradient(colors: [.myBlue.opacity(0.15), .myBlue.opacity(0.075)]),
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
+                                    )
+                    :
+                        LinearGradient(
+                            gradient: Gradient(colors: [.gray.opacity(0.15), .gray.opacity(0.075)]),
+                                            startPoint: .topLeading,
+                                            endPoint: .bottomTrailing
+                                        )
+                    )
+        .background(.ultraThinMaterial.opacity(0.2))
+        .cornerRadius(12.5)
         .background(blockSideBar)
     }
     
     var blockSideBar: some View {
-        RoundedRectangle(cornerRadius: 10)
-            .fill(block.flow ? Color.myBlue.opacity(0.75) : Color.gray.opacity(0.75))
+        RoundedRectangle(cornerRadius: 12.5)
+            .fill(block.flow ? Color.myBlue.opacity(0.8) : Color.gray.opacity(0.8))
             .mask(
                 HStack {
-                    Rectangle().frame(width: 5)
+                    Rectangle().frame(width: 6.25)
+                        .cornerRadius(12.5)
+//                        .padding(6)
                     Spacer()
                 })
     }
@@ -66,16 +71,13 @@ struct FlowBlock: View {
     var BlockTextField: some View {
         ZStack {
             TextField(block.flow ? "Focus" : "Break", text: $block.title)
-                .font(block.flow ? .callout : .footnote)
-                .fontWeight(.medium)
+                .font(block.flow ? .body : .footnote)
+//                .fontWeight(.semibold)
                 .foregroundColor(block.flow ? .myBlue : .gray)
-                .opacity(0.9)
                 .disabled(dragging)
-            //                .maxWidth()
                 .focused($focusedField, equals: .blockName)
-                .padding(.leading, 14)
-            //                .padding(.top)
-            //                .frame(maxHeight: .infinity, alignment: .top)
+                .padding(.leading, 16)
+                .padding(.top, block.pickTime ? block.flow ? 18 : 0 : 0)
             
             // Solves keyboard glitch when selecting blockname after time
                 .overlay {
@@ -97,9 +99,8 @@ struct FlowBlock: View {
             .font(.caption)
             .fontWeight(.medium)
             .foregroundColor(block.flow ? .myBlue : .gray)
-            .opacity(0.9)
-//            .frame(maxWidth: .infinity, alignment: .trailing)
             .padding(.trailing, 12)
+            .padding(.top, block.pickTime ? 16 : 0)
     }
     
     @ViewBuilder var DeleteButton: some View { // custom circle button

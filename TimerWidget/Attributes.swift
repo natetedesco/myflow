@@ -12,7 +12,6 @@ struct TimerWidgetAttributes: ActivityAttributes {
     
     public struct ContentState: Codable, Hashable {
         var flow: Bool
-        var custom: Bool = false
         var name: String
         var blockName: String
         
@@ -22,9 +21,6 @@ struct TimerWidgetAttributes: ActivityAttributes {
         var time: Int = 0
         var start: Date = Date()
         var extend: Bool = false
-        
-        var rounds: Int
-        var roundsCompleted: Int
         
         var blocks: Int
         var blocksCompleted: Int

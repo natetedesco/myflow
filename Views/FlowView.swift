@@ -40,7 +40,7 @@ struct FlowView: View {
             }
             
             FlowCompleted(model: model, show: $model.completed)
-            FlowSheet(model: model, flow: $model.flow, show: $model.showFlow, simple: $model.flow.simple, disable: $disable)
+            FlowSheet(model: model, flow: $model.flow, show: $model.showFlow, disable: $disable)
         }
     }
     
@@ -89,12 +89,10 @@ struct FlowView: View {
         }
         .disabled(model.mode != .Initial)
         .disabled(disable)
-        //        .hapticOnTouch()
     }
     
     var createYourFlow: some View {
         Text("Tap to create your flow")
-        //            .myBlue()
             .foregroundColor(.white)
             .padding(.horizontal, 70)
             .frame(maxWidth: 400)
@@ -109,7 +107,7 @@ struct FlowView: View {
                 .padding(.bottom, 1)
                 .foregroundColor(.white)
                 .font(.footnote)
-            Text("Your flow has been added, tap to view your list")
+            Text("Your flow has been added to the list")
                 .foregroundColor(.white)
                 .font(.footnote)
             Spacer()

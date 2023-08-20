@@ -13,6 +13,8 @@ struct StartButton: View {
     @ObservedObject var model: FlowModel
     
     var body: some View {
+        
+        // Flow Circle Button
         if selectedTab == Tab.data || selectedTab == Tab.settings {
             Button {
                 selectedTab = Tab.home
@@ -21,6 +23,7 @@ struct StartButton: View {
             }
         }
         
+        // Start Button
         if selectedTab == Tab.home {
             Button {
                 model.Start()
@@ -56,7 +59,7 @@ struct Start: View {
             .myBlue()
             .font(.system(size: 30))
             .padding(16)
-            .background(.ultraThinMaterial.opacity(0.55))
+            .background(.ultraThinMaterial.opacity(0.65))
             .cornerRadius(50)
     }
 }

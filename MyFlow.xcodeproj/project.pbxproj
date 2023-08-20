@@ -7,58 +7,65 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F001C23928D3A12100134EB5 /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F001C23828D3A12100134EB5 /* Modifiers.swift */; };
-		F001C23D28D3C59F00134EB5 /* FlowSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F001C23C28D3C59F00134EB5 /* FlowSheet.swift */; };
-		F001C24228D7F24100134EB5 /* CustomFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F001C24128D7F24100134EB5 /* CustomFlow.swift */; };
-		F012E42B2A2115BF00CA4CA2 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F012E42A2A2115BF00CA4CA2 /* StoreKit.framework */; };
-		F018CF202864E11D002A17D7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066923326FB9C3800DB905E /* ContentView.swift */; };
-		F01962A12931255D00336821 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962A02931255D00336821 /* Helpers.swift */; };
-		F01962B1293184BD00336821 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962B0293184BD00336821 /* Timer.swift */; };
-		F02C146F270FA679002FE382 /* Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C1466270FA679002FE382 /* Toolbar.swift */; };
-		F02C1471270FA679002FE382 /* Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C1468270FA679002FE382 /* Labels.swift */; };
-		F02C1472270FA679002FE382 /* UI Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C1469270FA679002FE382 /* UI Elements.swift */; };
-		F02C1473270FA679002FE382 /* StartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C146A270FA679002FE382 /* StartButton.swift */; };
-		F03256432721308C009D3EFB /* AnimatedBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03256422721308C009D3EFB /* AnimatedBlur.swift */; };
-		F032564B272251A6009D3EFB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F032564A272251A5009D3EFB /* SettingsView.swift */; };
-		F0391314285EBF860074CF33 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0391313285EBF860074CF33 /* Format.swift */; };
-		F0391317285FA0990074CF33 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0391316285FA0990074CF33 /* Haptics.swift */; };
-		F0463CA52A1424E10044AC26 /* Archive.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0463CA42A1424E10044AC26 /* Archive.swift */; };
-		F04FFB4C28FF66B30058E66D /* FlowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB4B28FF66B30058E66D /* FlowModel.swift */; };
-		F04FFB5E29033EC70058E66D /* Controls.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB5D29033EC70058E66D /* Controls.swift */; };
-		F06FDAF62A030ADD00C58F3B /* LiveActivities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06FDAF52A030ADD00C58F3B /* LiveActivities.swift */; };
-		F07291E72979F6A100C25E0E /* FlowCompleted.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291E62979F6A100C25E0E /* FlowCompleted.swift */; };
-		F07291E92979FB4B00C25E0E /* ControlBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291E82979FB4B00C25E0E /* ControlBar.swift */; };
-		F07291EB297B41C000C25E0E /* GoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291EA297B41BF00C25E0E /* GoalView.swift */; };
-		F07291EE297B42FF00C25E0E /* OverViewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291ED297B42FF00C25E0E /* OverViewCard.swift */; };
-		F07291F0297B441200C25E0E /* WeekCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291EF297B441200C25E0E /* WeekCard.swift */; };
-		F07291F2297B448F00C25E0E /* MonthCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291F1297B448F00C25E0E /* MonthCard.swift */; };
-		F07291F5297B6B0A00C25E0E /* AboutUs.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291F4297B6B0A00C25E0E /* AboutUs.swift */; };
-		F07291F8297B6CA200C25E0E /* HowItWorks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291F7297B6CA200C25E0E /* HowItWorks.swift */; };
-		F07291FA297B6DBD00C25E0E /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291F9297B6DBD00C25E0E /* Feedback.swift */; };
-		F07291FC297B6FC500C25E0E /* SegmentedPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291FB297B6FC500C25E0E /* SegmentedPicker.swift */; };
-		F07291FF297B72A200C25E0E /* MultiPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291FE297B72A200C25E0E /* MultiPicker.swift */; };
-		F0729203297B78B200C25E0E /* Picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0729202297B78B200C25E0E /* Picker.swift */; };
-		F074D678271D100600CE1AB4 /* Circles.swift in Sources */ = {isa = PBXBuildFile; fileRef = F074D677271D100600CE1AB4 /* Circles.swift */; };
-		F074D67A271D124900CE1AB4 /* FlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F074D679271D124900CE1AB4 /* FlowView.swift */; };
-		F083152A2888A55100153CD7 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08315292888A55100153CD7 /* StatsView.swift */; };
-		F0899DEB292EA83200A35D4D /* MyFlowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0899DEA292EA83200A35D4D /* MyFlowApp.swift */; };
-		F0948C1D26818EE100A5F48D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0948C1C26818EE100A5F48D /* Assets.xcassets */; };
-		F0948C2026818EE100A5F48D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0948C1F26818EE100A5F48D /* Preview Assets.xcassets */; };
-		F0948C4C2681907A00A5F48D /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0948C4B2681907A00A5F48D /* Notifications.swift */; };
-		F096A2AE298059E600D3DF6F /* Initialize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F096A2AD298059E600D3DF6F /* Initialize.swift */; };
-		F096A2B02980613800D3DF6F /* Examples.swift in Sources */ = {isa = PBXBuildFile; fileRef = F096A2AF2980613800D3DF6F /* Examples.swift */; };
-		F096A2B22980739E00D3DF6F /* SetNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = F096A2B12980739E00D3DF6F /* SetNotification.swift */; };
-		F09861FF26968B4B00A61B42 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09861FE26968B4B00A61B42 /* WelcomeView.swift */; };
-		F09862012696C80E00A61B42 /* AquaSound.aif in Resources */ = {isa = PBXBuildFile; fileRef = F09862002696C80E00A61B42 /* AquaSound.aif */; };
-		F09E34F5295CCEC0005F2583 /* Global Variables.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09E34F4295CCEC0005F2583 /* Global Variables.swift */; };
-		F0A025C7294796A500AF723F /* FlowData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A025C6294796A500AF723F /* FlowData.swift */; };
-		F0A025C92949014B00AF723F /* GetWeek.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A025C82949014B00AF723F /* GetWeek.swift */; };
-		F0A025CC2949020800AF723F /* Date extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A025CB2949020800AF723F /* Date extensions.swift */; };
-		F0BA1E1F28FB7FFB00FCB5A8 /* SwipeDelete.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BA1E1E28FB7FFB00FCB5A8 /* SwipeDelete.swift */; };
-		F0BA1E2128FCBA5900FCB5A8 /* FlowBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BA1E2028FCBA5800FCB5A8 /* FlowBlock.swift */; };
-		F0E35E132A246A11009D020E /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E35E122A246A11009D020E /* Settings.swift */; };
-		F0E35E162A26ADF8009D020E /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E35E152A26ADF8009D020E /* PurchaseManager.swift */; };
-		F0EABDD6297F313500F508A5 /* Checkers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EABDD5297F313500F508A5 /* Checkers.swift */; };
+		F08AAE3C2A927D3E00E82A36 /* Liquid in Frameworks */ = {isa = PBXBuildFile; productRef = F08AAE3B2A927D3E00E82A36 /* Liquid */; };
+		F0EBC1182A8D3C0B006F9616 /* Controls.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB5D29033EC70058E66D /* Controls.swift */; };
+		F0EBC1192A8D3C0B006F9616 /* CustomFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F001C24128D7F24100134EB5 /* CustomFlow.swift */; };
+		F0EBC11A2A8D3C0B006F9616 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0948C4B2681907A00A5F48D /* Notifications.swift */; };
+		F0EBC11B2A8D3C0B006F9616 /* LiveActivities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06FDAF52A030ADD00C58F3B /* LiveActivities.swift */; };
+		F0EBC11C2A8D3C0B006F9616 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962B0293184BD00336821 /* Timer.swift */; };
+		F0EBC11D2A8D3C0B006F9616 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962A02931255D00336821 /* Helpers.swift */; };
+		F0EBC11E2A8D3C0B006F9616 /* FlowData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A025C6294796A500AF723F /* FlowData.swift */; };
+		F0EBC11F2A8D3C0B006F9616 /* AnimatedBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03256422721308C009D3EFB /* AnimatedBlur.swift */; };
+		F0EBC1202A8D3C0B006F9616 /* SwipeDelete.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BA1E1E28FB7FFB00FCB5A8 /* SwipeDelete.swift */; };
+		F0EBC1212A8D3C0B006F9616 /* TimerWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = F0EDD0462A01717400223505 /* TimerWidget.intentdefinition */; };
+		F0EBC1222A8D3C0B006F9616 /* AboutUs.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291F4297B6B0A00C25E0E /* AboutUs.swift */; };
+		F0EBC1232A8D3C0B006F9616 /* Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C1466270FA679002FE382 /* Toolbar.swift */; };
+		F0EBC1242A8D3C0B006F9616 /* StartAutomatically.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EE5E80298332D0007A42C8 /* StartAutomatically.swift */; };
+		F0EBC1252A8D3C0B006F9616 /* GoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291EA297B41BF00C25E0E /* GoalView.swift */; };
+		F0EBC1262A8D3C0B006F9616 /* HowItWorks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291F7297B6CA200C25E0E /* HowItWorks.swift */; };
+		F0EBC1272A8D3C0B006F9616 /* FlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F074D679271D124900CE1AB4 /* FlowView.swift */; };
+		F0EBC1282A8D3C0B006F9616 /* UI Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C1469270FA679002FE382 /* UI Elements.swift */; };
+		F0EBC1292A8D3C0B006F9616 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09861FE26968B4B00A61B42 /* WelcomeView.swift */; };
+		F0EBC12A2A8D3C0B006F9616 /* MonthCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291F1297B448F00C25E0E /* MonthCard.swift */; };
+		F0EBC12B2A8D3C0B006F9616 /* Complete.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F42F2911C6CA00BC8E16 /* Complete.swift */; };
+		F0EBC12C2A8D3C0B006F9616 /* MyFlowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0899DEA292EA83200A35D4D /* MyFlowApp.swift */; };
+		F0EBC12D2A8D3C0B006F9616 /* ControlBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291E82979FB4B00C25E0E /* ControlBar.swift */; };
+		F0EBC12E2A8D3C0B006F9616 /* GetWeek.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A025C82949014B00AF723F /* GetWeek.swift */; };
+		F0EBC12F2A8D3C0B006F9616 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E35E122A246A11009D020E /* Settings.swift */; };
+		F0EBC1302A8D3C0B006F9616 /* FlowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB4B28FF66B30058E66D /* FlowModel.swift */; };
+		F0EBC1312A8D3C0B006F9616 /* Checkers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EABDD5297F313500F508A5 /* Checkers.swift */; };
+		F0EBC1322A8D3C0B006F9616 /* Picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0729202297B78B200C25E0E /* Picker.swift */; };
+		F0EBC1332A8D3C0B006F9616 /* Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F4332911C96E00BC8E16 /* Flow.swift */; };
+		F0EBC1342A8D3C0B006F9616 /* Circles.swift in Sources */ = {isa = PBXBuildFile; fileRef = F074D677271D100600CE1AB4 /* Circles.swift */; };
+		F0EBC1352A8D3C0B006F9616 /* StartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C146A270FA679002FE382 /* StartButton.swift */; };
+		F0EBC1362A8D3C0B006F9616 /* Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EDD0532A0171AF00223505 /* Attributes.swift */; };
+		F0EBC1372A8D3C0B006F9616 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08315292888A55100153CD7 /* StatsView.swift */; };
+		F0EBC1382A8D3C0B006F9616 /* Examples.swift in Sources */ = {isa = PBXBuildFile; fileRef = F096A2AF2980613800D3DF6F /* Examples.swift */; };
+		F0EBC1392A8D3C0B006F9616 /* Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C1468270FA679002FE382 /* Labels.swift */; };
+		F0EBC13A2A8D3C0B006F9616 /* Global Variables.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09E34F4295CCEC0005F2583 /* Global Variables.swift */; };
+		F0EBC13B2A8D3C0B006F9616 /* FlowSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F001C23C28D3C59F00134EB5 /* FlowSheet.swift */; };
+		F0EBC13C2A8D3C0B006F9616 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0391316285FA0990074CF33 /* Haptics.swift */; };
+		F0EBC13D2A8D3C0B006F9616 /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E35E152A26ADF8009D020E /* PurchaseManager.swift */; };
+		F0EBC13E2A8D3C0B006F9616 /* SetNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = F096A2B12980739E00D3DF6F /* SetNotification.swift */; };
+		F0EBC13F2A8D3C0B006F9616 /* OverViewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291ED297B42FF00C25E0E /* OverViewCard.swift */; };
+		F0EBC1402A8D3C0B006F9616 /* FlowCompleted.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291E62979F6A100C25E0E /* FlowCompleted.swift */; };
+		F0EBC1412A8D3C0B006F9616 /* MultiPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291FE297B72A200C25E0E /* MultiPicker.swift */; };
+		F0EBC1422A8D3C0B006F9616 /* Initialize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F096A2AD298059E600D3DF6F /* Initialize.swift */; };
+		F0EBC1432A8D3C0B006F9616 /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291F9297B6DBD00C25E0E /* Feedback.swift */; };
+		F0EBC1442A8D3C0B006F9616 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066923326FB9C3800DB905E /* ContentView.swift */; };
+		F0EBC1452A8D3C0B006F9616 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0391313285EBF860074CF33 /* Format.swift */; };
+		F0EBC1462A8D3C0B006F9616 /* FlowBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BA1E2028FCBA5800FCB5A8 /* FlowBlock.swift */; };
+		F0EBC1472A8D3C0B006F9616 /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F001C23828D3A12100134EB5 /* Modifiers.swift */; };
+		F0EBC1482A8D3C0B006F9616 /* WeekCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291EF297B441200C25E0E /* WeekCard.swift */; };
+		F0EBC1492A8D3C0B006F9616 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F032564A272251A5009D3EFB /* SettingsView.swift */; };
+		F0EBC14A2A8D3C0B006F9616 /* TimerNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F427290E2DF400BC8E16 /* TimerNotifications.swift */; };
+		F0EBC14B2A8D3C0B006F9616 /* Archive.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0463CA42A1424E10044AC26 /* Archive.swift */; };
+		F0EBC14C2A8D3C0B006F9616 /* Date extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A025CB2949020800AF723F /* Date extensions.swift */; };
+		F0EBC14E2A8D3C0B006F9616 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F012E42A2A2115BF00CA4CA2 /* StoreKit.framework */; };
+		F0EBC1502A8D3C0B006F9616 /* AquaSound.aif in Resources */ = {isa = PBXBuildFile; fileRef = F09862002696C80E00A61B42 /* AquaSound.aif */; };
+		F0EBC1512A8D3C0B006F9616 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0948C1F26818EE100A5F48D /* Preview Assets.xcassets */; };
+		F0EBC1522A8D3C0B006F9616 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0948C1C26818EE100A5F48D /* Assets.xcassets */; };
+		F0EBC1552A8D3C0B006F9616 /* TimerWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F0EDD03C2A01717400223505 /* TimerWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F0EDD03D2A01717400223505 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F05FC0ED29FAF9CD00A9B503 /* WidgetKit.framework */; };
 		F0EDD03E2A01717400223505 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F05FC0D629FAE96600A9B503 /* SwiftUI.framework */; };
 		F0EDD0412A01717400223505 /* TimerWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EDD0402A01717400223505 /* TimerWidgetBundle.swift */; };
@@ -66,19 +73,12 @@
 		F0EDD0452A01717400223505 /* TimerWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EDD0442A01717400223505 /* TimerWidget.swift */; };
 		F0EDD0482A01717600223505 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0EDD0472A01717600223505 /* Assets.xcassets */; };
 		F0EDD04A2A01717600223505 /* TimerWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = F0EDD0462A01717400223505 /* TimerWidget.intentdefinition */; };
-		F0EDD04B2A01717600223505 /* TimerWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = F0EDD0462A01717400223505 /* TimerWidget.intentdefinition */; };
-		F0EDD04E2A01717600223505 /* TimerWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F0EDD03C2A01717400223505 /* TimerWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		F0EDD0542A0171AF00223505 /* Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EDD0532A0171AF00223505 /* Attributes.swift */; };
 		F0EDD0552A0171AF00223505 /* Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EDD0532A0171AF00223505 /* Attributes.swift */; };
 		F0EDD0562A01755400223505 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0391313285EBF860074CF33 /* Format.swift */; };
-		F0EE5E81298332D0007A42C8 /* StartAutomatically.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EE5E80298332D0007A42C8 /* StartAutomatically.swift */; };
-		F0F7F428290E2DF400BC8E16 /* TimerNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F427290E2DF400BC8E16 /* TimerNotifications.swift */; };
-		F0F7F4302911C6CA00BC8E16 /* Complete.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F42F2911C6CA00BC8E16 /* Complete.swift */; };
-		F0F7F4342911C96E00BC8E16 /* Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F4332911C96E00BC8E16 /* Flow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		F0EDD04C2A01717600223505 /* PBXContainerItemProxy */ = {
+		F0EBC1162A8D3C0B006F9616 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F0948C0D26818EE000A5F48D /* Project object */;
 			proxyType = 1;
@@ -88,7 +88,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		F08FEE93268C1AEE001A0E20 /* Embed Watch Content */ = {
+		F0EBC1532A8D3C0B006F9616 /* Embed Watch Content */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
@@ -98,13 +98,13 @@
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F0C6CE8226913C260026E415 /* Embed Foundation Extensions */ = {
+		F0EBC1542A8D3C0B006F9616 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				F0EDD04E2A01717600223505 /* TimerWidgetExtension.appex in Embed Foundation Extensions */,
+				F0EBC1552A8D3C0B006F9616 /* TimerWidgetExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -124,6 +124,7 @@
 		F02C146A270FA679002FE382 /* StartButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartButton.swift; sourceTree = "<group>"; };
 		F03256422721308C009D3EFB /* AnimatedBlur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedBlur.swift; sourceTree = "<group>"; };
 		F032564A272251A5009D3EFB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		F03464F42A8D386B008EA7A5 /* MyFlow copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "MyFlow copy-Info.plist"; path = "/Users/NateTedesco/Desktop/MyFlow/MyFlow/MyFlow copy-Info.plist"; sourceTree = "<absolute>"; };
 		F0391313285EBF860074CF33 /* Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Format.swift; sourceTree = "<group>"; };
 		F0391316285FA0990074CF33 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		F0463CA42A1424E10044AC26 /* Archive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Archive.swift; sourceTree = "<group>"; };
@@ -142,14 +143,12 @@
 		F07291F4297B6B0A00C25E0E /* AboutUs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUs.swift; sourceTree = "<group>"; };
 		F07291F7297B6CA200C25E0E /* HowItWorks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowItWorks.swift; sourceTree = "<group>"; };
 		F07291F9297B6DBD00C25E0E /* Feedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feedback.swift; sourceTree = "<group>"; };
-		F07291FB297B6FC500C25E0E /* SegmentedPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedPicker.swift; sourceTree = "<group>"; };
 		F07291FE297B72A200C25E0E /* MultiPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiPicker.swift; sourceTree = "<group>"; };
 		F0729202297B78B200C25E0E /* Picker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picker.swift; sourceTree = "<group>"; };
 		F074D677271D100600CE1AB4 /* Circles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Circles.swift; sourceTree = "<group>"; };
 		F074D679271D124900CE1AB4 /* FlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowView.swift; sourceTree = "<group>"; };
 		F08315292888A55100153CD7 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		F0899DEA292EA83200A35D4D /* MyFlowApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFlowApp.swift; sourceTree = "<group>"; };
-		F0948C1526818EE000A5F48D /* MyFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0948C1C26818EE100A5F48D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F0948C1F26818EE100A5F48D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F0948C2126818EE100A5F48D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -171,6 +170,8 @@
 		F0E35E142A26965D009D020E /* Main.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Main.storekit; sourceTree = "<group>"; };
 		F0E35E152A26ADF8009D020E /* PurchaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseManager.swift; sourceTree = "<group>"; };
 		F0EABDD5297F313500F508A5 /* Checkers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkers.swift; sourceTree = "<group>"; };
+		F0EBC15A2A8D3C0B006F9616 /* MyFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0EBC15B2A8D3C0B006F9616 /* MyFlow copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "MyFlow copy2-Info.plist"; path = "/Users/NateTedesco/Desktop/MyFlow/MyFlow/MyFlow copy2-Info.plist"; sourceTree = "<absolute>"; };
 		F0EDD03C2A01717400223505 /* TimerWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TimerWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0EDD0402A01717400223505 /* TimerWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerWidgetBundle.swift; sourceTree = "<group>"; };
 		F0EDD0422A01717400223505 /* TimerWidgetLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerWidgetLiveActivity.swift; sourceTree = "<group>"; };
@@ -187,11 +188,12 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		F0948C1226818EE000A5F48D /* Frameworks */ = {
+		F0EBC14D2A8D3C0B006F9616 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F012E42B2A2115BF00CA4CA2 /* StoreKit.framework in Frameworks */,
+				F08AAE3C2A927D3E00E82A36 /* Liquid in Frameworks */,
+				F0EBC14E2A8D3C0B006F9616 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,7 +318,6 @@
 		F07291FD297B715C00C25E0E /* Pickers */ = {
 			isa = PBXGroup;
 			children = (
-				F07291FB297B6FC500C25E0E /* SegmentedPicker.swift */,
 				F07291FE297B72A200C25E0E /* MultiPicker.swift */,
 				F0729202297B78B200C25E0E /* Picker.swift */,
 			);
@@ -344,14 +345,16 @@
 				F0EDD03F2A01717400223505 /* TimerWidget */,
 				F05FC0D329FAE96600A9B503 /* Frameworks */,
 				F0948C1626818EE000A5F48D /* Products */,
+				F03464F42A8D386B008EA7A5 /* MyFlow copy-Info.plist */,
+				F0EBC15B2A8D3C0B006F9616 /* MyFlow copy2-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
 		F0948C1626818EE000A5F48D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F0948C1526818EE000A5F48D /* MyFlow.app */,
 				F0EDD03C2A01717400223505 /* TimerWidgetExtension.appex */,
+				F0EBC15A2A8D3C0B006F9616 /* MyFlow.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -425,26 +428,27 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F0948C1426818EE000A5F48D /* MyFlow */ = {
+		F0EBC1142A8D3C0B006F9616 /* MyFlow */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F0948C3A26818EE100A5F48D /* Build configuration list for PBXNativeTarget "MyFlow" */;
+			buildConfigurationList = F0EBC1562A8D3C0B006F9616 /* Build configuration list for PBXNativeTarget "MyFlow" */;
 			buildPhases = (
-				F0948C1126818EE000A5F48D /* Sources */,
-				F0948C1226818EE000A5F48D /* Frameworks */,
-				F0948C1326818EE000A5F48D /* Resources */,
-				F08FEE93268C1AEE001A0E20 /* Embed Watch Content */,
-				F0C6CE8226913C260026E415 /* Embed Foundation Extensions */,
+				F0EBC1172A8D3C0B006F9616 /* Sources */,
+				F0EBC14D2A8D3C0B006F9616 /* Frameworks */,
+				F0EBC14F2A8D3C0B006F9616 /* Resources */,
+				F0EBC1532A8D3C0B006F9616 /* Embed Watch Content */,
+				F0EBC1542A8D3C0B006F9616 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				F0EDD04D2A01717600223505 /* PBXTargetDependency */,
+				F0EBC1152A8D3C0B006F9616 /* PBXTargetDependency */,
 			);
 			name = MyFlow;
 			packageProductDependencies = (
+				F08AAE3B2A927D3E00E82A36 /* Liquid */,
 			);
 			productName = "Flow Timer";
-			productReference = F0948C1526818EE000A5F48D /* MyFlow.app */;
+			productReference = F0EBC15A2A8D3C0B006F9616 /* MyFlow.app */;
 			productType = "com.apple.product-type.application";
 		};
 		F0EDD03B2A01717400223505 /* TimerWidgetExtension */ = {
@@ -474,9 +478,6 @@
 				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
-					F0948C1426818EE000A5F48D = {
-						CreatedOnToolsVersion = 12.5;
-					};
 					F0EDD03B2A01717400223505 = {
 						CreatedOnToolsVersion = 14.3;
 					};
@@ -492,25 +493,26 @@
 			);
 			mainGroup = F0948C0C26818EE000A5F48D;
 			packageReferences = (
+				F08AAE3A2A927D3E00E82A36 /* XCRemoteSwiftPackageReference "liquid" */,
 			);
 			productRefGroup = F0948C1626818EE000A5F48D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F0948C1426818EE000A5F48D /* MyFlow */,
+				F0EBC1142A8D3C0B006F9616 /* MyFlow */,
 				F0EDD03B2A01717400223505 /* TimerWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		F0948C1326818EE000A5F48D /* Resources */ = {
+		F0EBC14F2A8D3C0B006F9616 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F09862012696C80E00A61B42 /* AquaSound.aif in Resources */,
-				F0948C2026818EE100A5F48D /* Preview Assets.xcassets in Resources */,
-				F0948C1D26818EE100A5F48D /* Assets.xcassets in Resources */,
+				F0EBC1502A8D3C0B006F9616 /* AquaSound.aif in Resources */,
+				F0EBC1512A8D3C0B006F9616 /* Preview Assets.xcassets in Resources */,
+				F0EBC1522A8D3C0B006F9616 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -525,64 +527,63 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		F0948C1126818EE000A5F48D /* Sources */ = {
+		F0EBC1172A8D3C0B006F9616 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F04FFB5E29033EC70058E66D /* Controls.swift in Sources */,
-				F001C24228D7F24100134EB5 /* CustomFlow.swift in Sources */,
-				F0948C4C2681907A00A5F48D /* Notifications.swift in Sources */,
-				F06FDAF62A030ADD00C58F3B /* LiveActivities.swift in Sources */,
-				F01962B1293184BD00336821 /* Timer.swift in Sources */,
-				F01962A12931255D00336821 /* Helpers.swift in Sources */,
-				F0A025C7294796A500AF723F /* FlowData.swift in Sources */,
-				F03256432721308C009D3EFB /* AnimatedBlur.swift in Sources */,
-				F0BA1E1F28FB7FFB00FCB5A8 /* SwipeDelete.swift in Sources */,
-				F0EDD04B2A01717600223505 /* TimerWidget.intentdefinition in Sources */,
-				F07291F5297B6B0A00C25E0E /* AboutUs.swift in Sources */,
-				F02C146F270FA679002FE382 /* Toolbar.swift in Sources */,
-				F0EE5E81298332D0007A42C8 /* StartAutomatically.swift in Sources */,
-				F07291EB297B41C000C25E0E /* GoalView.swift in Sources */,
-				F07291F8297B6CA200C25E0E /* HowItWorks.swift in Sources */,
-				F074D67A271D124900CE1AB4 /* FlowView.swift in Sources */,
-				F02C1472270FA679002FE382 /* UI Elements.swift in Sources */,
-				F09861FF26968B4B00A61B42 /* WelcomeView.swift in Sources */,
-				F07291F2297B448F00C25E0E /* MonthCard.swift in Sources */,
-				F0F7F4302911C6CA00BC8E16 /* Complete.swift in Sources */,
-				F0899DEB292EA83200A35D4D /* MyFlowApp.swift in Sources */,
-				F07291E92979FB4B00C25E0E /* ControlBar.swift in Sources */,
-				F0A025C92949014B00AF723F /* GetWeek.swift in Sources */,
-				F0E35E132A246A11009D020E /* Settings.swift in Sources */,
-				F04FFB4C28FF66B30058E66D /* FlowModel.swift in Sources */,
-				F0EABDD6297F313500F508A5 /* Checkers.swift in Sources */,
-				F0729203297B78B200C25E0E /* Picker.swift in Sources */,
-				F0F7F4342911C96E00BC8E16 /* Flow.swift in Sources */,
-				F074D678271D100600CE1AB4 /* Circles.swift in Sources */,
-				F02C1473270FA679002FE382 /* StartButton.swift in Sources */,
-				F0EDD0542A0171AF00223505 /* Attributes.swift in Sources */,
-				F07291FC297B6FC500C25E0E /* SegmentedPicker.swift in Sources */,
-				F083152A2888A55100153CD7 /* StatsView.swift in Sources */,
-				F096A2B02980613800D3DF6F /* Examples.swift in Sources */,
-				F02C1471270FA679002FE382 /* Labels.swift in Sources */,
-				F09E34F5295CCEC0005F2583 /* Global Variables.swift in Sources */,
-				F001C23D28D3C59F00134EB5 /* FlowSheet.swift in Sources */,
-				F0391317285FA0990074CF33 /* Haptics.swift in Sources */,
-				F0E35E162A26ADF8009D020E /* PurchaseManager.swift in Sources */,
-				F096A2B22980739E00D3DF6F /* SetNotification.swift in Sources */,
-				F07291EE297B42FF00C25E0E /* OverViewCard.swift in Sources */,
-				F07291E72979F6A100C25E0E /* FlowCompleted.swift in Sources */,
-				F07291FF297B72A200C25E0E /* MultiPicker.swift in Sources */,
-				F096A2AE298059E600D3DF6F /* Initialize.swift in Sources */,
-				F07291FA297B6DBD00C25E0E /* Feedback.swift in Sources */,
-				F018CF202864E11D002A17D7 /* ContentView.swift in Sources */,
-				F0391314285EBF860074CF33 /* Format.swift in Sources */,
-				F0BA1E2128FCBA5900FCB5A8 /* FlowBlock.swift in Sources */,
-				F001C23928D3A12100134EB5 /* Modifiers.swift in Sources */,
-				F07291F0297B441200C25E0E /* WeekCard.swift in Sources */,
-				F032564B272251A6009D3EFB /* SettingsView.swift in Sources */,
-				F0F7F428290E2DF400BC8E16 /* TimerNotifications.swift in Sources */,
-				F0463CA52A1424E10044AC26 /* Archive.swift in Sources */,
-				F0A025CC2949020800AF723F /* Date extensions.swift in Sources */,
+				F0EBC1182A8D3C0B006F9616 /* Controls.swift in Sources */,
+				F0EBC1192A8D3C0B006F9616 /* CustomFlow.swift in Sources */,
+				F0EBC11A2A8D3C0B006F9616 /* Notifications.swift in Sources */,
+				F0EBC11B2A8D3C0B006F9616 /* LiveActivities.swift in Sources */,
+				F0EBC11C2A8D3C0B006F9616 /* Timer.swift in Sources */,
+				F0EBC11D2A8D3C0B006F9616 /* Helpers.swift in Sources */,
+				F0EBC11E2A8D3C0B006F9616 /* FlowData.swift in Sources */,
+				F0EBC11F2A8D3C0B006F9616 /* AnimatedBlur.swift in Sources */,
+				F0EBC1202A8D3C0B006F9616 /* SwipeDelete.swift in Sources */,
+				F0EBC1212A8D3C0B006F9616 /* TimerWidget.intentdefinition in Sources */,
+				F0EBC1222A8D3C0B006F9616 /* AboutUs.swift in Sources */,
+				F0EBC1232A8D3C0B006F9616 /* Toolbar.swift in Sources */,
+				F0EBC1242A8D3C0B006F9616 /* StartAutomatically.swift in Sources */,
+				F0EBC1252A8D3C0B006F9616 /* GoalView.swift in Sources */,
+				F0EBC1262A8D3C0B006F9616 /* HowItWorks.swift in Sources */,
+				F0EBC1272A8D3C0B006F9616 /* FlowView.swift in Sources */,
+				F0EBC1282A8D3C0B006F9616 /* UI Elements.swift in Sources */,
+				F0EBC1292A8D3C0B006F9616 /* WelcomeView.swift in Sources */,
+				F0EBC12A2A8D3C0B006F9616 /* MonthCard.swift in Sources */,
+				F0EBC12B2A8D3C0B006F9616 /* Complete.swift in Sources */,
+				F0EBC12C2A8D3C0B006F9616 /* MyFlowApp.swift in Sources */,
+				F0EBC12D2A8D3C0B006F9616 /* ControlBar.swift in Sources */,
+				F0EBC12E2A8D3C0B006F9616 /* GetWeek.swift in Sources */,
+				F0EBC12F2A8D3C0B006F9616 /* Settings.swift in Sources */,
+				F0EBC1302A8D3C0B006F9616 /* FlowModel.swift in Sources */,
+				F0EBC1312A8D3C0B006F9616 /* Checkers.swift in Sources */,
+				F0EBC1322A8D3C0B006F9616 /* Picker.swift in Sources */,
+				F0EBC1332A8D3C0B006F9616 /* Flow.swift in Sources */,
+				F0EBC1342A8D3C0B006F9616 /* Circles.swift in Sources */,
+				F0EBC1352A8D3C0B006F9616 /* StartButton.swift in Sources */,
+				F0EBC1362A8D3C0B006F9616 /* Attributes.swift in Sources */,
+				F0EBC1372A8D3C0B006F9616 /* StatsView.swift in Sources */,
+				F0EBC1382A8D3C0B006F9616 /* Examples.swift in Sources */,
+				F0EBC1392A8D3C0B006F9616 /* Labels.swift in Sources */,
+				F0EBC13A2A8D3C0B006F9616 /* Global Variables.swift in Sources */,
+				F0EBC13B2A8D3C0B006F9616 /* FlowSheet.swift in Sources */,
+				F0EBC13C2A8D3C0B006F9616 /* Haptics.swift in Sources */,
+				F0EBC13D2A8D3C0B006F9616 /* PurchaseManager.swift in Sources */,
+				F0EBC13E2A8D3C0B006F9616 /* SetNotification.swift in Sources */,
+				F0EBC13F2A8D3C0B006F9616 /* OverViewCard.swift in Sources */,
+				F0EBC1402A8D3C0B006F9616 /* FlowCompleted.swift in Sources */,
+				F0EBC1412A8D3C0B006F9616 /* MultiPicker.swift in Sources */,
+				F0EBC1422A8D3C0B006F9616 /* Initialize.swift in Sources */,
+				F0EBC1432A8D3C0B006F9616 /* Feedback.swift in Sources */,
+				F0EBC1442A8D3C0B006F9616 /* ContentView.swift in Sources */,
+				F0EBC1452A8D3C0B006F9616 /* Format.swift in Sources */,
+				F0EBC1462A8D3C0B006F9616 /* FlowBlock.swift in Sources */,
+				F0EBC1472A8D3C0B006F9616 /* Modifiers.swift in Sources */,
+				F0EBC1482A8D3C0B006F9616 /* WeekCard.swift in Sources */,
+				F0EBC1492A8D3C0B006F9616 /* SettingsView.swift in Sources */,
+				F0EBC14A2A8D3C0B006F9616 /* TimerNotifications.swift in Sources */,
+				F0EBC14B2A8D3C0B006F9616 /* Archive.swift in Sources */,
+				F0EBC14C2A8D3C0B006F9616 /* Date extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -602,14 +603,108 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		F0EDD04D2A01717600223505 /* PBXTargetDependency */ = {
+		F0EBC1152A8D3C0B006F9616 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F0EDD03B2A01717400223505 /* TimerWidgetExtension */;
-			targetProxy = F0EDD04C2A01717600223505 /* PBXContainerItemProxy */;
+			targetProxy = F0EBC1162A8D3C0B006F9616 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		F03464F52A8D3B32008EA7A5 /* Beta */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_NSMainNibFile = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Beta;
+		};
+		F03464F72A8D3B32008EA7A5 /* Beta */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = TimerWidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AMU2LP62W2;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TimerWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TimerWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainNibFile = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 2.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow.TimerWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Beta;
+		};
 		F0948C3826818EE100A5F48D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -728,7 +823,7 @@
 			};
 			name = Release;
 		};
-		F0948C3B26818EE100A5F48D /* Debug */ = {
+		F0EBC1572A8D3C0B006F9616 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -742,14 +837,14 @@
 				DEVELOPMENT_TEAM = AMU2LP62W2;
 				ENABLE_PREVIEWS = YES;
 				EXCLUDED_ARCHS = "";
-				INFOPLIST_FILE = MyFlow/Info.plist;
+				INFOPLIST_FILE = "MyFlow copy2-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = MyFlow;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.1;
+				MARKETING_VERSION = 2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -761,7 +856,7 @@
 			};
 			name = Debug;
 		};
-		F0948C3C26818EE100A5F48D /* Release */ = {
+		F0EBC1582A8D3C0B006F9616 /* Beta */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -775,14 +870,47 @@
 				DEVELOPMENT_TEAM = AMU2LP62W2;
 				ENABLE_PREVIEWS = YES;
 				EXCLUDED_ARCHS = "";
-				INFOPLIST_FILE = MyFlow/Info.plist;
+				INFOPLIST_FILE = "MyFlow copy2-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = MyFlow;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.1;
+				MARKETING_VERSION = 2.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Beta;
+		};
+		F0EBC1592A8D3C0B006F9616 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MyFlow/MyFlow.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"MyFlow/Preview Content\"";
+				DEVELOPMENT_TEAM = AMU2LP62W2;
+				ENABLE_PREVIEWS = YES;
+				EXCLUDED_ARCHS = "";
+				INFOPLIST_FILE = "MyFlow copy2-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = MyFlow;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -815,7 +943,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.1.1;
+				MARKETING_VERSION = 2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow.TimerWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -847,7 +975,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.1.1;
+				MARKETING_VERSION = 2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow.TimerWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -865,16 +993,18 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F0948C3826818EE100A5F48D /* Debug */,
+				F03464F52A8D3B32008EA7A5 /* Beta */,
 				F0948C3926818EE100A5F48D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F0948C3A26818EE100A5F48D /* Build configuration list for PBXNativeTarget "MyFlow" */ = {
+		F0EBC1562A8D3C0B006F9616 /* Build configuration list for PBXNativeTarget "MyFlow" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F0948C3B26818EE100A5F48D /* Debug */,
-				F0948C3C26818EE100A5F48D /* Release */,
+				F0EBC1572A8D3C0B006F9616 /* Debug */,
+				F0EBC1582A8D3C0B006F9616 /* Beta */,
+				F0EBC1592A8D3C0B006F9616 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -883,12 +1013,32 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F0EDD0502A01717600223505 /* Debug */,
+				F03464F72A8D3B32008EA7A5 /* Beta */,
 				F0EDD0512A01717600223505 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F08AAE3A2A927D3E00E82A36 /* XCRemoteSwiftPackageReference "liquid" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/maustinstar/liquid.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F08AAE3B2A927D3E00E82A36 /* Liquid */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F08AAE3A2A927D3E00E82A36 /* XCRemoteSwiftPackageReference "liquid" */;
+			productName = Liquid;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F0948C0D26818EE000A5F48D /* Project object */;
 }

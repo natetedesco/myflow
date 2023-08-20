@@ -22,20 +22,6 @@ extension FlowModel {
         return false
     }
     
-    func Simple() -> Bool {
-        if flowMode == .Simple {
-            return true
-        }
-        return false
-    }
-    
-    func Custom() -> Bool {
-        if flowMode == .Custom {
-            return true
-        }
-        return false
-    }
-    
     func flowRunning() -> Bool {
         if mode == .flowRunning {
             return true
