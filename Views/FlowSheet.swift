@@ -39,6 +39,7 @@ struct FlowSheet: View {
                 }
             }
             .customGlass()
+            .shadow(color: Color.white.opacity(0.01), radius: 4, x: 0, y: 2)
             .opacity(show ? 1.0 : 0.0)
             .scaleEffect(show ? 1.0 : 0.96)
             .animation(.default.speed(show ? 1.0 : 2.0), value: show)
@@ -65,8 +66,10 @@ struct FlowSheet: View {
         ZStack {
             TextField("Title", text: $flow.title)
                 .font(.largeTitle)
-                .foregroundColor(.white.opacity(0.7))
+                .foregroundColor(.white.opacity(0.8))
                 .focused($focusedField, equals: .flowName)
+                .submitLabel(.done)
+
             if show {
                 Text("")
                     .foregroundColor(.clear)

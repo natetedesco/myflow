@@ -11,6 +11,7 @@ struct FlowBlock: View {
     @Binding var flow: Flow
     @Binding var edit: Bool
     @Binding var dragging: Bool
+    @State var pickTime = false
     @FocusState var focusedField: Field?
     
     var body: some View {
@@ -36,34 +37,46 @@ struct FlowBlock: View {
             .animation(.easeOut.speed(block.pickTime ? 0.6 : 2.0), value: block.pickTime)
         }
         .frame(maxWidth: .infinity, minHeight: blockSize)
-//        .background(block.flow ? Color.myBlue.opacity(0.10) : Color.gray.opacity(0.10))
+        //        .background(block.flow ? Color.myBlue.opacity(0.10) : Color.gray.opacity(0.10))
+//        .background(.ultraThinMaterial)
         .background(block.flow
                     ?
                     LinearGradient(
                         gradient: Gradient(colors: [.myBlue.opacity(0.15), .myBlue.opacity(0.075)]),
-                                        startPoint: .topLeading,
-                                        endPoint: .bottomTrailing
-                                    )
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
                     :
                         LinearGradient(
                             gradient: Gradient(colors: [.gray.opacity(0.15), .gray.opacity(0.075)]),
-                                            startPoint: .topLeading,
-                                            endPoint: .bottomTrailing
-                                        )
-                    )
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+        )
         .background(.ultraThinMaterial.opacity(0.2))
         .cornerRadius(12.5)
         .background(blockSideBar)
+        .toolbar {
+            ToolbarItem(placement: .keyboard) {
+                TextField(block.flow ? "Focus" : "Break", text: $block.title)
+                    .focused($focusedField, equals: .blockName)
+                    .foregroundColor(.white.opacity(0.9))
+                    .submitLabel(.done)
+                    .keyboardType(.alphabet)
+                    .disableAutocorrection(true)
+            }
+            
+        }
     }
     
     var blockSideBar: some View {
         RoundedRectangle(cornerRadius: 12.5)
-            .fill(block.flow ? Color.myBlue.opacity(0.8) : Color.gray.opacity(0.8))
+            .fill(block.flow ? Color.myBlue.opacity(0.9) : Color.gray.opacity(0.9))
             .mask(
                 HStack {
-                    Rectangle().frame(width: 6.25)
+                    Rectangle().frame(width: 8)
                         .cornerRadius(12.5)
-//                        .padding(6)
+//                                            .padding(6)
                     Spacer()
                 })
     }
@@ -72,35 +85,37 @@ struct FlowBlock: View {
         ZStack {
             TextField(block.flow ? "Focus" : "Break", text: $block.title)
                 .font(block.flow ? .body : .footnote)
-//                .fontWeight(.semibold)
-                .foregroundColor(block.flow ? .myBlue : .gray)
-                .disabled(dragging)
+//                .foregroundColor(block.flow ? .myBlue : .gray)
+                .foregroundColor(.white.opacity(0.9))
+                .disabled(dragging || flow.pickTime)
                 .focused($focusedField, equals: .blockName)
                 .padding(.leading, 16)
                 .padding(.top, block.pickTime ? block.flow ? 18 : 0 : 0)
-            
-            // Solves keyboard glitch when selecting blockname after time
-                .overlay {
-                    Rectangle()
-                        .foregroundColor(.white.opacity(0.0001))
-                        .frame(maxWidth: .infinity)
-                        .onTapGesture {
-                            flow.blocks.indices.forEach {
-                                flow.blocks[$0].pickTime = false
-                            }
-                            focusedField = .blockName
-                        }
+                .submitLabel(.done)
+                .keyboardType(.alphabet)
+                            .disableAutocorrection(true)               .onTapGesture {
+                    flow.blocks.indices.forEach {
+                        flow.blocks[$0].pickTime = false
+                    }
+                    focusedField = .blockName
                 }
         }
     }
+    
     
     var BlockTimeLabel: some View {
         Text(formatTime(seconds: (block.seconds) + (block.minutes * 60)))
             .font(.caption)
             .fontWeight(.medium)
-            .foregroundColor(block.flow ? .myBlue : .gray)
+//            .foregroundColor(block.flow ? .myBlue : .gray)
+            .foregroundColor(.white.opacity(0.6))
+
             .padding(.trailing, 12)
             .padding(.top, block.pickTime ? 16 : 0)
+        
+        //            .onTapGesture {
+        //                focusedField = nil
+        //            }
     }
     
     @ViewBuilder var DeleteButton: some View { // custom circle button
@@ -122,6 +137,8 @@ struct FlowBlock: View {
             }
         }
         block.pickTime.toggle()
+        focusedField = nil
+        
     }
     
     func deleteBlock() {
@@ -131,3 +148,5 @@ struct FlowBlock: View {
         }
     }
 }
+
+

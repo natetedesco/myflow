@@ -21,7 +21,7 @@ struct TimerLabels: View {
                 
                 HStack {
                     TimerLabel(color: .myBlue, text: ("+\(formatTime(seconds: model.flowTimeLeft))"))
-                        .font(.system(size: 50))
+                        .font(.system(size: 100))
                 }
             }
             else {
@@ -32,7 +32,7 @@ struct TimerLabels: View {
                     .padding(.top, 96)
                 
                 TimerLabel(color: model.type == .Flow ? .myBlue : .gray, text: customLabel)
-                    .font(.system(size: 60))
+                    .font(.system(size: 64))
             }
             
         }

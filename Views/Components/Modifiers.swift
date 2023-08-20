@@ -36,8 +36,11 @@ extension View {
     func customGlass() -> some View {
         self
             .maxWidth()
-            .padding(24)
-            .background(.black.opacity(0.7))
+            .padding(.top, 24)
+            .padding(.horizontal, 24)
+            .padding(.bottom, 16)
+            .background(.black.opacity(0.8))
+            .background(.ultraThinMaterial)
             .cornerRadius(40)
             .padding(.horizontal, 24)
     }

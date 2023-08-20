@@ -11,12 +11,10 @@ struct CustomFlow: View {
     @State var draggingItem: Block?
     @State var dragging = false
     @State var edit = false
-    @FocusState var focusedField: Field?
     @State var contentSize: CGSize = .zero
-    
+
     var body: some View {
         VStack {
-            
             // Blocks
             ScrollView {
                 ForEach($flow.blocks) { $block in
@@ -25,7 +23,6 @@ struct CustomFlow: View {
                         .drag(if: block.draggable) { draggingItem = block
                             return NSItemProvider(contentsOf: URL(string: "\(block.id)"))!}
                         .onDrop(of: [.item], delegate: DropViewDelegate(currentItem: block, items: $flow.blocks, draggingItem: $draggingItem, dragging: $dragging))
-                        .padding(.vertical, 0)
                 }
                 .padding(.vertical, 2) // avoids scrollview from cutting off
                 .overlay(
@@ -34,7 +31,6 @@ struct CustomFlow: View {
                         .onAppear {
                             contentSize = geo.size
                         }
-                        
                         .onChange(of: geo.size.height) { _ in
                                 contentSize = geo.size
                         }
@@ -42,8 +38,8 @@ struct CustomFlow: View {
                 )
             }
             .frame(maxHeight: contentSize.height)
-            .padding(.top, -8)
-            .padding(.bottom, 8)
+            .padding(.top, 8)
+            .padding(.bottom, 16)
             
             // Edit
             HStack {
