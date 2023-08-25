@@ -39,7 +39,7 @@ extension View {
             .padding(.top, 24)
             .padding(.horizontal, 24)
             .padding(.bottom, 16)
-            .background(.black.opacity(0.8))
+            .background(.black.opacity(0.75))
             .background(.ultraThinMaterial)
             .cornerRadius(40)
             .padding(.horizontal, 24)
@@ -51,7 +51,6 @@ extension View {
             .padding()
             .background(.black.opacity(0.7))
             .background(.ultraThinMaterial)
-
             .cornerRadius(25.0)
             .padding(.horizontal)
     }
@@ -59,25 +58,25 @@ extension View {
     func cardGlassNP() -> some View {
         self
             .padding(.vertical)
-            .background(.black.opacity(0.6))
+            .background(.black.opacity(0.7))
+            .background(.ultraThinMaterial)
             .cornerRadius(20.0)
             .padding(.horizontal)
     }
     
-    func FlowViewBackGround() -> some View {
-        self
-            .background(.black.opacity(0.8))
-            .background(.ultraThinMaterial)
-            .background(AnimatedBlur(opacity: 0.3))
-    }
+//    func FlowViewBackGround() -> some View {
+//        self
+//            .background(.black.opacity(0.8))
+//            .background(.ultraThinMaterial)
+//            .background(AnimatedBlur(opacity: 0.3))
+//    }
     
     func navigationView(title: String, button: some View = EmptyView()) -> some View {
         NavigationView {
         self
             .padding(.bottom, 85)
-            .background(.black.opacity(0.3))
-            .background(.ultraThinMaterial.opacity(0.5))
             .background(AnimatedBlur(opacity: 0.3))
+            .background(.ultraThinMaterial.opacity(0.5))
             .navigationTitle(title)
             .toolbar{ button }
         }

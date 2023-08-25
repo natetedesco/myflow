@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F08AAE3C2A927D3E00E82A36 /* Liquid in Frameworks */ = {isa = PBXBuildFile; productRef = F08AAE3B2A927D3E00E82A36 /* Liquid */; };
+		F06862102A93B5C100E64686 /* FlowEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F068620F2A93B5C100E64686 /* FlowEditor.swift */; };
+		F0954B122A95360F009E212E /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0954B112A95360F009E212E /* Block.swift */; };
+		F0954B152A9580DE009E212E /* Drag & Drop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0954B142A9580DE009E212E /* Drag & Drop.swift */; };
+		F0954B182A95B6C2009E212E /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = F0954B172A95B6C2009E212E /* Introspect */; };
+		F0954B1A2A95C456009E212E /* BlockEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0954B192A95C456009E212E /* BlockEditor.swift */; };
 		F0EBC1182A8D3C0B006F9616 /* Controls.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB5D29033EC70058E66D /* Controls.swift */; };
-		F0EBC1192A8D3C0B006F9616 /* CustomFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F001C24128D7F24100134EB5 /* CustomFlow.swift */; };
 		F0EBC11A2A8D3C0B006F9616 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0948C4B2681907A00A5F48D /* Notifications.swift */; };
 		F0EBC11B2A8D3C0B006F9616 /* LiveActivities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06FDAF52A030ADD00C58F3B /* LiveActivities.swift */; };
 		F0EBC11C2A8D3C0B006F9616 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962B0293184BD00336821 /* Timer.swift */; };
@@ -43,7 +46,6 @@
 		F0EBC1382A8D3C0B006F9616 /* Examples.swift in Sources */ = {isa = PBXBuildFile; fileRef = F096A2AF2980613800D3DF6F /* Examples.swift */; };
 		F0EBC1392A8D3C0B006F9616 /* Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C1468270FA679002FE382 /* Labels.swift */; };
 		F0EBC13A2A8D3C0B006F9616 /* Global Variables.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09E34F4295CCEC0005F2583 /* Global Variables.swift */; };
-		F0EBC13B2A8D3C0B006F9616 /* FlowSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F001C23C28D3C59F00134EB5 /* FlowSheet.swift */; };
 		F0EBC13C2A8D3C0B006F9616 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0391316285FA0990074CF33 /* Haptics.swift */; };
 		F0EBC13D2A8D3C0B006F9616 /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E35E152A26ADF8009D020E /* PurchaseManager.swift */; };
 		F0EBC13E2A8D3C0B006F9616 /* SetNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = F096A2B12980739E00D3DF6F /* SetNotification.swift */; };
@@ -54,7 +56,6 @@
 		F0EBC1432A8D3C0B006F9616 /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291F9297B6DBD00C25E0E /* Feedback.swift */; };
 		F0EBC1442A8D3C0B006F9616 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066923326FB9C3800DB905E /* ContentView.swift */; };
 		F0EBC1452A8D3C0B006F9616 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0391313285EBF860074CF33 /* Format.swift */; };
-		F0EBC1462A8D3C0B006F9616 /* FlowBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BA1E2028FCBA5800FCB5A8 /* FlowBlock.swift */; };
 		F0EBC1472A8D3C0B006F9616 /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F001C23828D3A12100134EB5 /* Modifiers.swift */; };
 		F0EBC1482A8D3C0B006F9616 /* WeekCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291EF297B441200C25E0E /* WeekCard.swift */; };
 		F0EBC1492A8D3C0B006F9616 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F032564A272251A5009D3EFB /* SettingsView.swift */; };
@@ -113,8 +114,6 @@
 
 /* Begin PBXFileReference section */
 		F001C23828D3A12100134EB5 /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
-		F001C23C28D3C59F00134EB5 /* FlowSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowSheet.swift; sourceTree = "<group>"; };
-		F001C24128D7F24100134EB5 /* CustomFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFlow.swift; sourceTree = "<group>"; };
 		F012E42A2A2115BF00CA4CA2 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		F01962A02931255D00336821 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		F01962B0293184BD00336821 /* Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
@@ -133,6 +132,7 @@
 		F05FC0D629FAE96600A9B503 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		F05FC0ED29FAF9CD00A9B503 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		F066923326FB9C3800DB905E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F068620F2A93B5C100E64686 /* FlowEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowEditor.swift; sourceTree = "<group>"; };
 		F06FDAF52A030ADD00C58F3B /* LiveActivities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivities.swift; sourceTree = "<group>"; };
 		F07291E62979F6A100C25E0E /* FlowCompleted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowCompleted.swift; sourceTree = "<group>"; };
 		F07291E82979FB4B00C25E0E /* ControlBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlBar.swift; sourceTree = "<group>"; };
@@ -153,6 +153,9 @@
 		F0948C1F26818EE100A5F48D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F0948C2126818EE100A5F48D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F0948C4B2681907A00A5F48D /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		F0954B112A95360F009E212E /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
+		F0954B142A9580DE009E212E /* Drag & Drop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Drag & Drop.swift"; sourceTree = "<group>"; };
+		F0954B192A95C456009E212E /* BlockEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockEditor.swift; sourceTree = "<group>"; };
 		F096A2AD298059E600D3DF6F /* Initialize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initialize.swift; sourceTree = "<group>"; };
 		F096A2AF2980613800D3DF6F /* Examples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Examples.swift; sourceTree = "<group>"; };
 		F096A2B12980739E00D3DF6F /* SetNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetNotification.swift; sourceTree = "<group>"; };
@@ -164,7 +167,6 @@
 		F0A025CB2949020800AF723F /* Date extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date extensions.swift"; sourceTree = "<group>"; };
 		F0B3518E2A1BE3AE001186BB /* TimerWidgetExtension.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = TimerWidgetExtension.entitlements; sourceTree = "<group>"; };
 		F0BA1E1E28FB7FFB00FCB5A8 /* SwipeDelete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeDelete.swift; sourceTree = "<group>"; };
-		F0BA1E2028FCBA5800FCB5A8 /* FlowBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowBlock.swift; sourceTree = "<group>"; };
 		F0C6CE7426913C240026E415 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		F0E35E122A246A11009D020E /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		F0E35E142A26965D009D020E /* Main.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Main.storekit; sourceTree = "<group>"; };
@@ -192,8 +194,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F08AAE3C2A927D3E00E82A36 /* Liquid in Frameworks */,
 				F0EBC14E2A8D3C0B006F9616 /* StoreKit.framework in Frameworks */,
+				F0954B182A95B6C2009E212E /* Introspect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,13 +243,6 @@
 		F04B500A2852F68C004269DD /*   */ = {
 			isa = PBXGroup;
 			children = (
-				F07291E62979F6A100C25E0E /* FlowCompleted.swift */,
-				F07291E82979FB4B00C25E0E /* ControlBar.swift */,
-				F02C146A270FA679002FE382 /* StartButton.swift */,
-				F074D677271D100600CE1AB4 /* Circles.swift */,
-				F02C1468270FA679002FE382 /* Labels.swift */,
-				F001C24128D7F24100134EB5 /* CustomFlow.swift */,
-				F0BA1E2028FCBA5800FCB5A8 /* FlowBlock.swift */,
 			);
 			path = " ";
 			sourceTree = "<group>";
@@ -292,8 +287,8 @@
 		F07291F3297B45E600C25E0E /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F074D679271D124900CE1AB4 /* FlowView.swift */,
-				F001C23C28D3C59F00134EB5 /* FlowSheet.swift */,
+				F0954B132A95795C009E212E /* FlowView */,
+				F0954B102A95359D009E212E /* FlowEditor */,
 				F04B500A2852F68C004269DD /*   */,
 				F08315292888A55100153CD7 /* StatsView.swift */,
 				F07291EC297B427600C25E0E /*    */,
@@ -371,6 +366,30 @@
 			path = MyFlow;
 			sourceTree = "<group>";
 		};
+		F0954B102A95359D009E212E /* FlowEditor */ = {
+			isa = PBXGroup;
+			children = (
+				F068620F2A93B5C100E64686 /* FlowEditor.swift */,
+				F0954B112A95360F009E212E /* Block.swift */,
+				F0954B192A95C456009E212E /* BlockEditor.swift */,
+				F0954B142A9580DE009E212E /* Drag & Drop.swift */,
+			);
+			path = FlowEditor;
+			sourceTree = "<group>";
+		};
+		F0954B132A95795C009E212E /* FlowView */ = {
+			isa = PBXGroup;
+			children = (
+				F074D679271D124900CE1AB4 /* FlowView.swift */,
+				F07291E82979FB4B00C25E0E /* ControlBar.swift */,
+				F02C146A270FA679002FE382 /* StartButton.swift */,
+				F074D677271D100600CE1AB4 /* Circles.swift */,
+				F02C1468270FA679002FE382 /* Labels.swift */,
+				F07291E62979F6A100C25E0E /* FlowCompleted.swift */,
+			);
+			path = FlowView;
+			sourceTree = "<group>";
+		};
 		F0A025CA2949019A00AF723F /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -445,7 +464,7 @@
 			);
 			name = MyFlow;
 			packageProductDependencies = (
-				F08AAE3B2A927D3E00E82A36 /* Liquid */,
+				F0954B172A95B6C2009E212E /* Introspect */,
 			);
 			productName = "Flow Timer";
 			productReference = F0EBC15A2A8D3C0B006F9616 /* MyFlow.app */;
@@ -493,7 +512,7 @@
 			);
 			mainGroup = F0948C0C26818EE000A5F48D;
 			packageReferences = (
-				F08AAE3A2A927D3E00E82A36 /* XCRemoteSwiftPackageReference "liquid" */,
+				F0954B162A95B6C2009E212E /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 			);
 			productRefGroup = F0948C1626818EE000A5F48D /* Products */;
 			projectDirPath = "";
@@ -532,7 +551,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0EBC1182A8D3C0B006F9616 /* Controls.swift in Sources */,
-				F0EBC1192A8D3C0B006F9616 /* CustomFlow.swift in Sources */,
 				F0EBC11A2A8D3C0B006F9616 /* Notifications.swift in Sources */,
 				F0EBC11B2A8D3C0B006F9616 /* LiveActivities.swift in Sources */,
 				F0EBC11C2A8D3C0B006F9616 /* Timer.swift in Sources */,
@@ -544,6 +562,7 @@
 				F0EBC1222A8D3C0B006F9616 /* AboutUs.swift in Sources */,
 				F0EBC1232A8D3C0B006F9616 /* Toolbar.swift in Sources */,
 				F0EBC1242A8D3C0B006F9616 /* StartAutomatically.swift in Sources */,
+				F06862102A93B5C100E64686 /* FlowEditor.swift in Sources */,
 				F0EBC1252A8D3C0B006F9616 /* GoalView.swift in Sources */,
 				F0EBC1262A8D3C0B006F9616 /* HowItWorks.swift in Sources */,
 				F0EBC1272A8D3C0B006F9616 /* FlowView.swift in Sources */,
@@ -553,6 +572,7 @@
 				F0EBC12B2A8D3C0B006F9616 /* Complete.swift in Sources */,
 				F0EBC12C2A8D3C0B006F9616 /* MyFlowApp.swift in Sources */,
 				F0EBC12D2A8D3C0B006F9616 /* ControlBar.swift in Sources */,
+				F0954B1A2A95C456009E212E /* BlockEditor.swift in Sources */,
 				F0EBC12E2A8D3C0B006F9616 /* GetWeek.swift in Sources */,
 				F0EBC12F2A8D3C0B006F9616 /* Settings.swift in Sources */,
 				F0EBC1302A8D3C0B006F9616 /* FlowModel.swift in Sources */,
@@ -566,7 +586,6 @@
 				F0EBC1382A8D3C0B006F9616 /* Examples.swift in Sources */,
 				F0EBC1392A8D3C0B006F9616 /* Labels.swift in Sources */,
 				F0EBC13A2A8D3C0B006F9616 /* Global Variables.swift in Sources */,
-				F0EBC13B2A8D3C0B006F9616 /* FlowSheet.swift in Sources */,
 				F0EBC13C2A8D3C0B006F9616 /* Haptics.swift in Sources */,
 				F0EBC13D2A8D3C0B006F9616 /* PurchaseManager.swift in Sources */,
 				F0EBC13E2A8D3C0B006F9616 /* SetNotification.swift in Sources */,
@@ -577,11 +596,12 @@
 				F0EBC1432A8D3C0B006F9616 /* Feedback.swift in Sources */,
 				F0EBC1442A8D3C0B006F9616 /* ContentView.swift in Sources */,
 				F0EBC1452A8D3C0B006F9616 /* Format.swift in Sources */,
-				F0EBC1462A8D3C0B006F9616 /* FlowBlock.swift in Sources */,
 				F0EBC1472A8D3C0B006F9616 /* Modifiers.swift in Sources */,
 				F0EBC1482A8D3C0B006F9616 /* WeekCard.swift in Sources */,
+				F0954B152A9580DE009E212E /* Drag & Drop.swift in Sources */,
 				F0EBC1492A8D3C0B006F9616 /* SettingsView.swift in Sources */,
 				F0EBC14A2A8D3C0B006F9616 /* TimerNotifications.swift in Sources */,
+				F0954B122A95360F009E212E /* Block.swift in Sources */,
 				F0EBC14B2A8D3C0B006F9616 /* Archive.swift in Sources */,
 				F0EBC14C2A8D3C0B006F9616 /* Date extensions.swift in Sources */,
 			);
@@ -839,7 +859,7 @@
 				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = "MyFlow copy2-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = MyFlow;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -872,7 +892,7 @@
 				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = "MyFlow copy2-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = MyFlow;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -905,7 +925,7 @@
 				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = "MyFlow copy2-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = MyFlow;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1022,21 +1042,21 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		F08AAE3A2A927D3E00E82A36 /* XCRemoteSwiftPackageReference "liquid" */ = {
+		F0954B162A95B6C2009E212E /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/maustinstar/liquid.git";
+			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.11.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		F08AAE3B2A927D3E00E82A36 /* Liquid */ = {
+		F0954B172A95B6C2009E212E /* Introspect */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F08AAE3A2A927D3E00E82A36 /* XCRemoteSwiftPackageReference "liquid" */;
-			productName = Liquid;
+			package = F0954B162A95B6C2009E212E /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			productName = Introspect;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

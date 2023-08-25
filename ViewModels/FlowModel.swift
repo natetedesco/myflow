@@ -26,7 +26,10 @@ class FlowModel: ObservableObject {
     @Published var mode: TimerMode
     @Published var flowTimeLeft = 0
     @Published var breakTimeLeft = 0
+    
     @Published var showFlow = false
+    @Published var showingSheet = false
+
     @Published var completed = false
     @Published var flowContinue = false
     @Published var flowList: [Flow] { didSet { Initialize() } }
@@ -77,7 +80,9 @@ class FlowModel: ObservableObject {
     
     func createFlow() {
         flow = Flow(new: true)
+        showingSheet = true
         showFlow = true
+        addFlow(flow: flow)
     }
     
     func editFlow() {
@@ -87,11 +92,12 @@ class FlowModel: ObservableObject {
     // Add Flow
     func addFlow(flow: Flow) {
         flowList.append(updateFlow(flow: flow))
+        selection = (flowList.endIndex - 1)
         save()
     }
     
     // Edit Flow
-    func editFlow(id: UUID, flow: Flow) {
+    func saveFlow(id: UUID, flow: Flow) {
         if let updatedFlow = flowList.first(where: {$0.id == id}) {
             let index = flowList.firstIndex(of: updatedFlow)
             flowList[index!] = updateFlow(flow: flow)

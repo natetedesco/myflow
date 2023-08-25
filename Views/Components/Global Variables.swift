@@ -14,10 +14,4 @@ var breakRunning = TimerMode.breakRunning
 var flowPaused = TimerMode.flowPaused
 var breakPaused = TimerMode.breakPaused
 
-var minutes = [Int](0...60)
-var seconds = [Int](0...60)
 
-var columns = [
-    MultiComponentPicker.Column(label: "min", options: Array(0...60).map { MultiComponentPicker.Column.Option(text: "\($0)", tag: $0) }),
-//    MultiComponentPicker.Column(label: "sec", options: Array(0...59).map { MultiComponentPicker.Column.Option(text: "\($0)", tag: $0) }),
-]

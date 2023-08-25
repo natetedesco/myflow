@@ -5,7 +5,6 @@
 //
 
 import SwiftUI
-import Liquid
 
 struct AnimatedBlur: View {
     var opacity: CGFloat
@@ -17,7 +16,7 @@ struct AnimatedBlur: View {
             ZStack {
                 ZStack {
                     Cloud(proxy: proxy, color: .myBlue, rotationStart: 0, duration: 60, size: size)
-                    Cloud(proxy: proxy, color: .brown, rotationStart: 90, duration: 80, size: size)
+                    Cloud(proxy: proxy, color: .brown.opacity(0.7), rotationStart: 90, duration: 80, size: size)
                     Cloud(proxy: proxy, color: .teal, rotationStart: 180, duration: 80, size: size)
                     Cloud(proxy: proxy, color: .myBlue, rotationStart: 360, duration: 120, size: size)
                 }
@@ -49,6 +48,7 @@ struct Cloud: View {
             .onAppear {
                 move.toggle()
             }
+        
     }
 }
 

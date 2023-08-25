@@ -55,12 +55,15 @@ struct StartButton: View {
 struct Start: View {
     var image: String
     var body: some View {
-        Image(systemName: image)
-            .myBlue()
-            .font(.system(size: 30))
-            .padding(16)
-            .background(.ultraThinMaterial.opacity(0.65))
+        ZStack {
+            Image(systemName: image)
+                .myBlue()
+                .font(.system(size: 32))
+                .padding(.vertical, 14)
+                .padding(.horizontal, 16)
+                .background(.ultraThinMaterial.opacity(0.65))
             .cornerRadius(50)
+        }
     }
 }
 
@@ -74,8 +77,7 @@ struct StartNext: View {
                 .font(.system(size: 30))
                 .padding(.trailing, 5)
             Text(text)
-                .font(.title3)
-                .fontWeight(.light)
+                .font(.title2)
                 .myBlue()
         }
         .padding(13)

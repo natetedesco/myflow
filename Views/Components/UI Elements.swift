@@ -71,8 +71,8 @@ struct CustomHeadline: View {
     var text: String
     var body: some View {
         Text(text)
-            .font(.subheadline)
-            .foregroundColor(.white.opacity(0.9))
+            .font(.headline)
+            .foregroundColor(.white)
             .fontWeight(.semibold)
             .padding(.leading)
             .padding(.top)

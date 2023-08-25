@@ -68,7 +68,7 @@ struct BarGraph: View {
                 Rectangle()
                     .frame(width: 25, height: 60)
                     .foregroundColor(.clear)
-                    .background(.ultraThinMaterial.opacity(0.3))
+                    .background(.ultraThinMaterial.opacity(0.5))
                 
                 Rectangle()
                     .frame(width: 25, height: min(value, 60))

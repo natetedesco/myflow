@@ -53,8 +53,8 @@ struct ToolBarButton: View {
                 .font(Font.system(size: size))
         .frame(width: 60, height: 20)
         .padding(.top, 40)
-        .foregroundColor(.gray.opacity(0.25))
-//        .foregroundStyle(.ultraThickMaterial.opacity(0.75))
+        .foregroundColor(.gray.opacity(0.3))
+        .foregroundStyle(.ultraThinMaterial)
             
         }
     }

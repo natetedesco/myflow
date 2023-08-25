@@ -16,13 +16,18 @@ struct Flow: Codable, Equatable {
 
     var blocks = [Block(flow: true, title: "Focus", minutes: 20),
                   Block(flow: false, title: "Break", minutes: 5)]
+    
+    var selectedBlock = Block()
+
 }
 
 struct Block: Codable, Hashable, Identifiable {
+    
     var id = UUID()
     var flow: Bool = true
     var title: String = ""
 
+    var hours: Int = 0
     var minutes: Int = 0
     var seconds: Int = 0
     
@@ -32,11 +37,11 @@ struct Block: Codable, Hashable, Identifiable {
 
 extension Flow {
     mutating func addFlowBlock() {
-        blocks.append(Block(flow: true, title: "Focus", minutes: 20))
+        blocks.append(Block(flow: true, minutes: 20))
     }
     
     mutating func addBreakBlock() {
-        blocks.append(Block(flow: false, title: "Break", minutes: 5))
+        blocks.append(Block(flow: false, minutes: 5))
     }
     
     mutating func deleteBlock(id: UUID) {

@@ -14,36 +14,48 @@ struct Circles: View {
         ZStack {
             if showFlowCircle {
                 
-                // Flow Circle
                 Circle()
-                    .trim(from: 0, to: flowCircleFill)
-                    .stroke(Color.myBlue,style: StrokeStyle(lineWidth: 5,lineCap: .round))
+                    .fill(.ultraThinMaterial)
+                Circle()
+                    .fill(
+                        RadialGradient(
+                            gradient: Gradient(colors: [.black.opacity(0.5), .black.opacity(0.7)]),
+                            center: .center,
+                            startRadius: 10,
+                            endRadius: 320
+                        )
+                    )
                 
-                Circle()
-                    .trim(from: 0, to: flowCircleFill)
-                    .stroke(Color.myBlue.opacity(0.1),style: StrokeStyle(lineWidth: 8,lineCap: .round))
-                    .blur(radius: 10)
-                
-                Circle()
-                    .stroke(Color.myBlue.opacity(0.3),style: StrokeStyle(lineWidth: 4,lineCap: .round))
-                    .blur(radius: 0.5)
+                if model.mode != .Initial {
+                    // Flow Circle
+                    Circle()
+                        .trim(from: 0, to: flowCircleFill)
+                        .stroke(Color.myBlue,style: StrokeStyle(lineWidth: 6,lineCap: .round))
+                        .frame(width: 314)
+                    
+                    Circle()
+                        .trim(from: 0, to: flowCircleFill)
+                        .stroke(Color.black.opacity(0.1),style: StrokeStyle(lineWidth: 6,lineCap: .round))
+                        .blur(radius: 10)
+                        .frame(width: 314)
+                }
             }
             else {
                 
                 // Break Circle
                 Circle()
                     .trim(from: 0, to: breakCircleFIll)
-                    .stroke(Color.gray.opacity(0.5), style: StrokeStyle(lineWidth: 5, lineCap: .round))
+                    .stroke(Color.white.opacity(0.8), style: StrokeStyle(lineWidth: 6, lineCap: .round))
                 
                 Circle()
-                    .stroke(Color.gray.opacity(0.3), style: StrokeStyle(lineWidth: 4, lineCap: .round))
+                    .stroke(Color.white.opacity(0.3), style: StrokeStyle(lineWidth: 5, lineCap: .round))
                     .blur(radius: 0.5)
             }
         }
         .animation(.none, value: showFlowCircle)
         .animation(.default.speed(0.2), value: [model.flowTimeLeft, model.breakTimeLeft])
         .rotationEffect(.degrees(-90))
-        .frame(width: 310)
+        .frame(width: 320)
     }
     
     var showFlowCircle: Bool {

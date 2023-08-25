@@ -13,28 +13,23 @@ struct TimerLabels: View {
     
     var body: some View {
         ZStack {
-            if model.flowContinue {
-                Text(model.flow.blocks[model.blocksCompleted - 1].title)
-                    .foregroundColor(.myBlue.opacity(0.6))
-                    .font(.title3)
-                    .padding(.top, 90)
+
+                // Timer
+                TimerLabel(color: model.type == .Flow ? .myBlue : .white.opacity(0.8), text: customLabel)
+                    .font(.system(size: 76))
+                    .fontWeight(.bold)
                 
+            // Block
                 HStack {
-                    TimerLabel(color: .myBlue, text: ("+\(formatTime(seconds: model.flowTimeLeft))"))
-                        .font(.system(size: 100))
+                    Circle()
+                        .fill(Color.myBlue)
+                        .frame(height: 8)
+                    Text(model.flow.blocks[model.blocksCompleted].title)
+                        .foregroundColor(model.flow.blocks[model.blocksCompleted].flow ? .myBlue.opacity(0.6) : .white.opacity(0.6))
+                        .font(.title3)
+                        .fontWeight(.semibold)
                 }
-            }
-            else {
-                
-                Text(model.flow.blocks[model.blocksCompleted].title)
-                    .foregroundColor(model.flow.blocks[model.blocksCompleted].flow ? .myBlue.opacity(0.7) : .gray.opacity(0.7))
-                    .font(.body)
-                    .padding(.top, 96)
-                
-                TimerLabel(color: model.type == .Flow ? .myBlue : .gray, text: customLabel)
-                    .font(.system(size: 64))
-            }
-            
+                .padding(.top, 128)
         }
         .animation(.easeInOut(duration: 0.3), value: mode)
     }
@@ -98,3 +93,15 @@ extension HorizontalAlignment {
     
     static let customHorizontalAlignment = HorizontalAlignment(CustomHorizontalAlignment.self)
 }
+
+//if model.flowContinue {
+//                Text(model.flow.blocks[model.blocksCompleted - 1].title)
+//                    .foregroundColor(.myBlue.opacity(0.6))
+//                    .font(.title3)
+////                    .padding(.top, 90)
+//
+//                HStack {
+//                    TimerLabel(color: .myBlue, text: ("+\(formatTime(seconds: model.flowTimeLeft))"))
+//                        .font(.system(size: 100))
+//                }
+//            }
