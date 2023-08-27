@@ -76,7 +76,7 @@ extension View {
         self
             .padding(.bottom, 85)
             .background(AnimatedBlur(opacity: 0.3))
-            .background(.ultraThinMaterial.opacity(0.5))
+            .background(.ultraThinMaterial.opacity(0.3))
             .navigationTitle(title)
             .toolbar{ button }
         }

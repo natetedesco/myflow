@@ -7,18 +7,12 @@
 import Foundation
 
 var exampleFlows = [
-//    Flow(
-//        title: "Flow"),
-    Flow(
-        title: "Flow", blocks: [
-            Block(flow: true, title: "Focus", minutes: 20),
-            Block(flow: false, title: "Break", minutes: 5)
-        ]),
     Flow(
         title: "Workout", blocks: [
-            Block(flow: true, title: "Warm Up", minutes: 15),
-            Block(flow: true, title: "Workout", minutes: 40),
-            Block(flow: true, title: "Cool Down", minutes: 5)
+            Block(flow: true, title: "Warm Up", minutes: 20),
+            Block(flow: true, title: "Strength", minutes: 15),
+            Block(flow: true, title: "Conditioning", minutes: 15),
+            Block(flow: true, title: "Cool Down", minutes: 10)
         ]),
     Flow(
         title: "Creativity", blocks: [

@@ -9,15 +9,19 @@ import SwiftUI
 struct FlowView: View {
     @ObservedObject var model: FlowModel
     @State var disable = false
-    @AppStorage("Onboarding") var onboarding: Bool = true
     @AppStorage("showCreateFlow") var showCreateFlow: Bool = true
+    @AppStorage("showPayWall") var showPayWall = false
     @FocusState var focusedField: Field?
+    @AppStorage("ProAccess") var proAccess: Bool = false
     
     init(model: FlowModel) { self.model = model }
     
     var body: some View {
         ZStack {
             ZStack {
+                if showCreateFlow {
+                    createYourFlow
+                }
                 
                 // Control Bar
                 ControlBar(model: model, mode: $model.mode, disable: $disable)
@@ -27,7 +31,12 @@ struct FlowView: View {
                     Spacer()
                     if (model.mode == .flowStart || model.mode == .breakStart || model.flowContinue) && model.blocksCompleted != 0 {
                         Button {
-                            model.flowContinue ? model.completeContinueFlow() : model.continueFlow()
+                            if proAccess {
+                                model.flowContinue ? model.completeContinueFlow() : model.continueFlow()
+                            }
+                            else {
+                                showPayWall = true
+                            }
                         } label: {
                             HStack {
                                 Text(model.flowContinue ? "Complete" : "Extend")
@@ -38,7 +47,6 @@ struct FlowView: View {
                             .background(.ultraThinMaterial.opacity(0.8))
                             .cornerRadius(30)
                             .compositingGroup()
-                            
                         }
                         .padding(.bottom, 128)
                     }
@@ -46,56 +54,59 @@ struct FlowView: View {
 
                 // Flow Center
                 Button {
-                    if disable {
-                        disable = false
-                    } else {
-                        mediumHaptic()
-                        model.showingSheet = true
+                    if !showCreateFlow {
+                        if disable {
+                            disable = false
+                        } else {
+                            mediumHaptic()
+                            model.showingSheet = true
+                        }
                     }
-                    showCreateFlow = false
                 } label: {
-                    FlowCenter
+                    ZStack {
+                        Circles(model: model)
+                        if !showCreateFlow {
+                            TimerLabels(model: model, mode: $model.mode)
+                        }
+                    }
                 }
                 .disabled(model.mode != .Initial || disable)
-                
-                VStack {
-                    
                     // Menu
-                    Menu {
-                        FlowList
-                        EditFlowButton
-                        DeleteFlowButton
+                        Menu {
+                            FlowList
+                            EditFlowButton
+                            DeleteFlowButton
+                        }
+                    label: {
+                        HStack {
+                            Text(model.flow.title)
+                                .font(.title)
+                                .fontWeight(.medium)
+                                .animation(.default, value: model.flow.title)
+                            Image(systemName: "chevron.down")
+                                .font(.footnote)
+                        
+                        }
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.4) // if title is too long
+                        .frame(maxWidth: 200)
+                        .foregroundColor(showCreateFlow ? .clear : .white)
+                        .padding(.leading)
                     }
-                label: {
-                    HStack {
-                        Text(model.flow.title)
-                            .font(.title)
-                            .fontWeight(.medium)
-                            .animation(.default, value: model.flow.title)
-                        Image(systemName: "chevron.down")
-                            .font(.footnote)
+                    .transaction { transaction in
+                        transaction.animation = nil // disables ...
                     }
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.4) // if title is too long
-                    .frame(maxWidth: 200)
-                    .foregroundColor(.white)
-                    .padding(.leading)
-                }
-                .transaction { transaction in
-                    transaction.animation = nil // disables ...
-                }
-                .onTapGesture {
-                    print("disable on")
-                    disable = true
-                }
-                .padding(.bottom, 128)
-                }
+                    .onTapGesture {
+                        disable = true
+                    }
+                    .padding(.bottom, 128)
+                    .disabled(model.mode != .Initial)
                 
                 // ToolBar
                 Toolbar(model: model)
             }
             .background(AnimatedBlur(opacity: 0.3))
-            .background(.ultraThinMaterial.opacity(0.5))
+            .background(.ultraThinMaterial.opacity(0.3))
             .ignoresSafeArea(.keyboard)
             .onTapGesture { disable = false }
             FlowCompleted(model: model, show: $model.completed)
@@ -103,26 +114,20 @@ struct FlowView: View {
         .fullScreenCover(isPresented: $model.showingSheet) {
             FlowView2(model: model, flow: $model.flow)
         }
-    }
-    
-    var FlowCenter: some View {
-        ZStack {
-            Circles(model: model)
-            if showCreateFlow {
-                createYourFlow
-            } else {
-                TimerLabels(model: model, mode: $model.mode)
-            }
+        .sheet(isPresented: $showPayWall) {
+            PayWall()
         }
     }
     
     var createYourFlow: some View {
-        Text("Tap to create your flow")
-            .foregroundColor(.white)
-            .padding(.horizontal, 70)
-            .frame(maxWidth: 400)
-            .font(.title2)
+        VStack {
+            Text("Create your first flow")
+                .foregroundColor(.white)
+                .padding(.top, 112)
+                .font(.title2)
             .fontWeight(.light)
+            Spacer()
+        }
     }
     
     var EditFlowButton: some View {

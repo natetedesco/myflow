@@ -133,7 +133,7 @@ struct FlowView2: View {
                 }
                 .customOnDrop(draggingItem: $draggingItem, items: $flow.blocks, dragging: $dragging)
                 .background(AnimatedBlur(opacity: 0.3).ignoresSafeArea()) // prevents it from moving when renaming
-                .background(.ultraThinMaterial.opacity(0.75))
+                .background(.ultraThinMaterial.opacity(0.3))
                 .ignoresSafeArea(.keyboard)
             }
             .customOnDrop(draggingItem: $draggingItem, items: $flow.blocks, dragging: $dragging)
@@ -245,6 +245,7 @@ struct AddButtonLabel: View {
             Image(systemName: "plus")
                 .font(.largeTitle)
                 .CircularGlassButton()
+                .fontWeight(.medium)
         }
         .foregroundColor(color)
     }

@@ -11,7 +11,6 @@ struct SettingsView: View {
     @StateObject var settings = Settings()
     @ObservedObject var model: FlowModel
     @State private var showingSheet = false
-    
     @AppStorage("ProAccess") var proAccess: Bool = false
     
     var body: some View {
@@ -24,9 +23,8 @@ struct SettingsView: View {
                     Div
                     
 //                     Only for demoing
-                    ToggleBar(text: "Pro Access", isOn: $proAccess)
-                    Div
-                    
+//                    ToggleBar(text: "Pro Access", isOn: $proAccess)
+//                    Div
                     
                     NavigationLink(destination: DistractionBlocker(model: model)) { NLT(text: "Block Distractions", icon: "shield", model: model) }
                 }
@@ -49,7 +47,7 @@ struct SettingsView: View {
             
             Toolbar()
         }
-        .fullScreenCover(isPresented: $showingSheet) {
+        .sheet(isPresented: $showingSheet) {
             PayWall()
         }
     }
@@ -61,10 +59,9 @@ struct SettingsView: View {
                 Button {
                     showingSheet.toggle()
                 } label: {
-                    Text("Unlock Pro")
-                    //                        .padding(.trailing)
+                    Text("Try Pro")
                         .smallButtonGlass()
-                    //            .foregroundColor(.clear)
+                    
                 }
             }
         }
@@ -76,7 +73,7 @@ struct SettingsView: View {
     }
     
     var VersionNumber: some View {
-        Text("v2.1")
+        Text("v2.3")
             .myBlue()
             .padding(16)
             .kerning(2.0)
@@ -111,7 +108,7 @@ struct DistractionBlocker: View {
                         Button {
                             showingSheet.toggle()
                         } label: {
-                            Text("Unlock Pro")
+                            Text("Try Pro")
                                 .foregroundColor(.myBlue)
                         }
                     } else {
@@ -172,8 +169,9 @@ struct DistractionBlocker: View {
         }
         .navigationTitle("Block Distractions")
         .navigationBarTitleDisplayMode(.inline)
-        .fullScreenCover(isPresented: $showingSheet) {
-            PayWall() }
+        .sheet(isPresented: $showingSheet) {
+            PayWall()
+        }
     }
 }
 

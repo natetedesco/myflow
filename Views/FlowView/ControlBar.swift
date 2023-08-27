@@ -7,10 +7,12 @@
 import SwiftUI
 
 struct ControlBar: View {
-    @AppStorage("showYourFlowHasBeenAdded") var showYourFlowHasBeenAdded: Bool = false
+    @AppStorage("showCreateFlow") var showCreateFlow: Bool = true
     @ObservedObject var model: FlowModel
     @Binding var mode: TimerMode
     @Binding var disable: Bool
+    @AppStorage("ProAccess") var proAccess: Bool = false
+    @AppStorage("showPayWall") var showPayWall = false
     
     var body: some View {
         ZStack {
@@ -19,19 +21,30 @@ struct ControlBar: View {
             if mode == .Initial {
                 Button {
                     model.createFlow()
+                    showCreateFlow = false
                 } label: {
-                    Image(systemName: "plus")
-                        .font(.title)
+                    
+                    ZStack {
+                        Circle()
+                            .frame(height: 48)
+                            .foregroundStyle(.ultraThinMaterial.opacity(0.55))
+                        Image(systemName: "plus")
+                            .font(.title)
+                    }
                 }
-                .padding(.vertical, 12) // perfect circle
-                .padding(.horizontal, 10)
                 .background(.ultraThinMaterial.opacity(0.55))
                 .disabled(mode != .Initial)
             }
             
             else {
                 HStack(spacing: 72) {
-                    Button { model.Restart()
+                    Button {
+                        if proAccess {
+                            model.Restart()
+                        }
+                        else {
+                            showPayWall = true
+                        }
                     } label: {
                         Chevron(image: "chevron.left")
                     }
@@ -42,7 +55,13 @@ struct ControlBar: View {
                             .font(Font.system(size: 20))
                     }
                     
-                    Button { model.Skip()
+                    Button {
+                        if proAccess {
+                            model.Skip()
+                        }
+                        else {
+                            showPayWall = true
+                        }
                     } label: {
                         Chevron(image: "chevron.right")
                     }

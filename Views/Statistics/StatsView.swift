@@ -10,7 +10,6 @@ struct StatsView: View {
     @StateObject var data = FlowData()
     @StateObject var settings = Settings()
     @State private var showingSheet = false
-    
     @AppStorage("ProAccess") var proAccess: Bool = false
     
     var hours = [Int](0...8)
@@ -44,8 +43,9 @@ struct StatsView: View {
                     }
                 }
                 .navigationView(title: "Statistics", button: goalMenu)
-                .fullScreenCover(isPresented: $showingSheet) {
-                    PayWall() }
+                .sheet(isPresented: $showingSheet) {
+                    PayWall()
+                }
                 Toolbar()
             }
         }
@@ -76,7 +76,7 @@ struct StatsView: View {
             Button {
                 showingSheet.toggle()
             } label: {
-                Text("Unlock Pro")
+                Text("Try Pro")
                     .smallButtonGlass()
             }
         }

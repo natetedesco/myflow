@@ -91,8 +91,9 @@ class FlowModel: ObservableObject {
     
     // Add Flow
     func addFlow(flow: Flow) {
-        flowList.append(updateFlow(flow: flow))
-        selection = (flowList.endIndex - 1)
+        let updatedFlow = updateFlow(flow: flow)
+        flowList.insert(updatedFlow, at: 0)
+        selection = 0
         save()
     }
     
