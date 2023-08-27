@@ -9,95 +9,80 @@ import SwiftUI
 struct StartButton: View {
     @AppStorage("SelectedTab") var selectedTab: Tab = .home
     @AppStorage("Onboarding") var onboarding: Bool = true
-    @AppStorage("showPause") var showPause: Bool = false
     @ObservedObject var model: FlowModel
     
     var body: some View {
+        
+        // Start Button
+        if selectedTab == Tab.home {
+            Button {
+                model.Start()
+                UNUserNotificationCenter.current()
+                    .requestAuthorization(options:[.badge,.sound,.alert]) { (_, _) in }
+            } label: {
+                    HStack {
+                        // Button icon
+                        Image(systemName: start ? "play.fill" : "pause.fill")
+                            .font(.system(size: 32))
+                            .foregroundStyle(.ultraThinMaterial)
+                            .blendMode(.destinationOut)
+
+                        if next {
+                            Text(flow ? "Focus" : "Break")
+                                .font(.title3)
+                                .foregroundStyle(.ultraThickMaterial)
+                                .padding(.leading, 8)
+                                .blendMode(.destinationOut)
+                        }
+                    }
+                    .padding(.vertical, next ? 16 : 14)
+                    .padding(.horizontal, next ? 24 : 16)
+                    .background(Color.myBlue.opacity(0.95))
+                    .cornerRadius(next ? 40 : 50)
+                    .animation(nil, value: start)
+                .animation(.default, value: flow)
+                .compositingGroup()
+                }
+        }
         
         // Flow Circle Button
         if selectedTab == Tab.data || selectedTab == Tab.settings {
             Button {
                 selectedTab = Tab.home
             } label: {
-                FlowButton()
+                ZStack {
+                    Circle()
+                        .stroke(Color.myBlue,style: StrokeStyle(lineWidth: 6, lineCap: .round))
+                        .myBlue()
+                        .frame(width: 90, height: 50)
+                    Circle()
+                        .stroke(Color.myBlue,style: StrokeStyle(lineWidth: 1, lineCap: .round))
+                        .myBlue()
+                        .frame(width: 90, height: 50)
+                        .blur(radius: 5)
+                }
             }
         }
-        
-        // Start Button
-        if selectedTab == Tab.home {
-            Button {
-                model.Start()
-                if onboarding {
-                    showPause = true
-                }
-                UNUserNotificationCenter.current()
-                    .requestAuthorization(options:[.badge,.sound,.alert]) { (_, _) in }
-            } label: {
-                switch model.mode {
-                case .Initial: Start(image: "play.fill")
-                    
-                case .flowRunning: Start(image: "pause.fill")
-                    
-                case .flowPaused: Start(image: "play.fill")
-                    
-                case .breakStart: StartNext(image: "play.fill",text: "Break ")
-                    
-                case .breakRunning: Start(image: "pause.fill")
-                    
-                case .breakPaused: Start(image: "play.fill")
-                    
-                case .flowStart: StartNext(image: "play.fill",text: "Focus")
-                }
-            }}
     }
-}
-
-struct Start: View {
-    var image: String
-    var body: some View {
-        ZStack {
-            Image(systemName: image)
-                .myBlue()
-                .font(.system(size: 32))
-                .padding(.vertical, 14)
-                .padding(.horizontal, 16)
-                .background(.ultraThinMaterial.opacity(0.65))
-            .cornerRadius(50)
+    
+    var next: Bool {
+        if model.mode == .flowStart || model.mode == .breakStart {
+            return true
         }
+        return false
     }
-}
-
-struct StartNext: View {
-    var image: String
-    var text: String
-    var body: some View {
-        HStack {
-            Image(systemName: image)
-                .myBlue()
-                .font(.system(size: 30))
-                .padding(.trailing, 5)
-            Text(text)
-                .font(.title2)
-                .myBlue()
+    
+    var start: Bool {
+        if model.mode == .Initial || model.mode == .flowStart || model.mode == .breakStart || model.mode == .flowPaused || model.mode == .breakPaused {
+            return true
         }
-        .padding(13)
-        .background(.ultraThinMaterial.opacity(0.55))
-        .cornerRadius(40)
+        return false
     }
-}
-
-struct FlowButton: View {
-    var body: some View {
-        ZStack {
-            Circle()
-                .stroke(Color.myBlue,style: StrokeStyle(lineWidth: 6, lineCap: .round))
-                .myBlue()
-                .frame(width: 90, height: 50)
-            Circle()
-                .stroke(Color.myBlue,style: StrokeStyle(lineWidth: 1, lineCap: .round))
-                .myBlue()
-                .frame(width: 90, height: 50)
-                .blur(radius: 5)
+    
+    var flow: Bool {
+        if model.mode == .flowStart {
+            return true
         }
+        return false
     }
 }

@@ -12,6 +12,27 @@ final class NotificationManager: NSObject, ObservableObject, UNUserNotificationC
     @Published private(set) var notifications: [UNNotificationRequest] = []
     @Published private(set) var authorizationStatus: UNAuthorizationStatus?
     
+    // Set Notification
+    func Set(flow: Bool, time: Int, elapsed: Int, id: String = "timer") {
+        if settings.notificationsOn {
+            
+        let content = UNMutableNotificationContent()
+        content.title = flow ? "Flow Completed" : "Break Completed"
+        content.sound = UNNotificationSound.init(named:UNNotificationSoundName(rawValue: "AquaSound.aif"))
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(time - elapsed), repeats: false)
+        let req = UNNotificationRequest(identifier: id, content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(req, withCompletionHandler: nil) // Show in background
+        UNUserNotificationCenter.current().delegate = self // Play in foreground
+        }
+    }
+    
+    // Remove Notifications
+    func removeAllPendingNotificationRequests() {
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+    }
+    
     // Reload Authorization
     func reloadAuthorizationStatus() {
         UNUserNotificationCenter.current().getNotificationSettings { settings in

@@ -258,28 +258,3 @@ struct SettingsView_Previews: PreviewProvider {
         SettingsView(model: FlowModel())
     }
 }
-
-// Customization
-//                Headline(text: "Customization")
-//                VStack(spacing: 16) {
-//                    // Theme
-//                    NavigationLink { }
-//                label: { NavigationList(text: "Theme", icon: "paintpalette") }
-//                    Div
-//                    // Sound
-//                    NavigationLink { }
-//                label: { NavigationList(text: "Sounds", icon: "speaker") }
-//                }
-
-// Flows
-//                CustomHeadline(text: "Flow")
-//                VStack {
-//                    ToggleBar(text: "Start flow automatically", isOn: $settings.startFlowAutomatically)
-//                    Div
-//                        .padding(.vertical, 2)
-//                    ToggleBar(text: "Start break automatically", isOn: $settings.startBreakAutomatically)
-//                }
-//                .padding(.vertical, 12)
-//                .background(.black.opacity(0.6))
-//                .cornerRadius(25.0)
-//                .padding(.horizontal)

@@ -17,7 +17,8 @@ struct FlowCompleted: View {
                 .animation(.default.speed(show ? 2.0 : 1.0), value: show)
             
             VStack(alignment: .center, spacing: 16) {
-                Title2(text: "\(model.flow.title) Completed")
+                Text("\(model.flow.title) Completed")
+                    .font(.title2)
                 HStack {
                     Text("Total flow time: ")
                         .font(.footnote)

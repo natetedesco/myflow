@@ -8,30 +8,33 @@ import SwiftUI
 
 struct BlockView: View {
     @Binding var flow: Flow
-    @Binding var block: Block
     @State var index: Int
     
+    @Binding var block: Block
     @Binding var selectedBlock: Bool
     @Binding var showBlockEditor: Bool
-
     @Binding var selectedIndex: Int
     
     @State private var isDeleting = false
-    @State private var xOffset: CGFloat = 0 // New state for X offset
+    @State private var xOffset: CGFloat = 0
     @State private var deleteIconOpacity: Double = 0 // New state for delete icon opacity
-    @State private var isDragging = false // Track if the user is dragging the block
+    @State private var isSliding = false
     
     var body: some View {
+        
+        // Button Action
         Button {
             if let selectedBlockIndex = flow.blocks.firstIndex(where: { $0.id == block.id }) {
                 selectedBlock = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
                     showBlockEditor = true
-                                }
+                }
                 selectedIndex = selectedBlockIndex
                 mediumHaptic()
             }
         } label: {
+            
+            // Button Label
             HStack() {
                 Circle()
                     .foregroundColor(block.flow ? .myBlue : .gray)
@@ -41,7 +44,7 @@ struct BlockView: View {
                     .padding(.leading, 8)
                 
                 Spacer()
-                Text(formatTime(seconds: (block.seconds) + (block.minutes * 60)))
+                Text(formatTime(seconds: (block.seconds) + (block.minutes * 60) + (block.hours * 3600)))
                     .font(.body)
             }
             .foregroundColor(.white)
@@ -52,15 +55,17 @@ struct BlockView: View {
             .background(.ultraThinMaterial)
             .cornerRadius(25)
             .padding(.horizontal)
-            .offset(x: xOffset) // Apply the X offset here
+            .offset(x: xOffset)
             .overlay(
                 GeometryReader { geometry in
                     Image(systemName: "trash")
+                    
+                        .opacity(deleteIconOpacity)
+                        .animation(isSliding ? .default : .none, value: deleteIconOpacity)
                         .frame(maxHeight: .infinity, alignment: .center)
                         .font(.title2)
-                        .foregroundColor(.gray)
-                        .opacity(deleteIconOpacity)
-                        .offset(x: xOffset + geometry.size.width + 16) // Offset by block width
+                        .foregroundColor(isDeleting ? .red : .gray)
+                        .offset(x: xOffset + geometry.size.width) // Offset by block width
                 }
             )
             .background(
@@ -68,7 +73,7 @@ struct BlockView: View {
                     // Check if the user is dragging
                     if xOffset < 0 {
                         Color.black.opacity(0.001)
-                            .background(.ultraThinMaterial)// You can change this to any color you like
+                            .background(.ultraThinMaterial)
                             .frame(width: max(-xOffset, 0), height: geometry.size.height) // Adjust the width based on xOffset
                             .cornerRadius(25)
                             .offset(x: max(xOffset + geometry.size.width, 0)) // Animate the offset for sliding in from the right
@@ -76,60 +81,49 @@ struct BlockView: View {
                     }
                 }
             )
+            
+            // Slide to Delete
             .gesture(
-                DragGesture()
-                    .onChanged { value in
-                        let translationX = value.translation.width
-                        
-                        if translationX < -20 {
-                            withAnimation {
+                withAnimation {
+                    DragGesture()
+                        .onChanged { value in
+                            if value.translation.width < -20 { // prevents block from moving, fixes stuck when scrolling
+                            let translationX = value.translation.width
+                            
+                            if translationX < -10 {
                                 deleteIconOpacity = 1
-                            }
-                            if translationX < -200 {
-                                isDeleting = true
-                                withAnimation {
+                                
+                                if translationX < -175 && isDeleting == false {
+                                    isDeleting = true
                                     deleteIconOpacity = 1
+                                    heavyHaptic()
                                 }
                             }
-                        } else if translationX > 20 && isDeleting {
-                            // User has swiped back to the right, cancel delete
-                            isDeleting = false
                             
-                            withAnimation {
-                                deleteIconOpacity = 0
-                            }
-                        }
-                        
-                        if isDeleting && translationX > -200 {
                             // User has gone back below -200, cancel delete
-                            isDeleting = false
+                            if isDeleting && translationX > -175 {
+                                isDeleting = false
+                                heavyHaptic()
+                            }
                             
-                            withAnimation {
-                                deleteIconOpacity = 0
-                            }
+                            xOffset = translationX
+                            isSliding = true
                         }
-                        
-                        xOffset = translationX
-                        isDragging = true
-                    }
-                    .onEnded { value in
-                        isDragging = false
-                        
-                        if isDeleting {
-                            withAnimation {
-                                xOffset = -200
-                                deleteIconOpacity = 0
+                        }
+                        .onEnded { value in
+                            isSliding = false
+                            deleteIconOpacity = 0
+
+                            if isDeleting {
+                                xOffset = -175
+                                deleteBlock()
                             }
-                            //                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                            deleteBlock()
-                            //                                    }
-                        } else {
-                            withAnimation {
+                            else {
                                 xOffset = 0
                             }
+                            isDeleting = false
                         }
-                        isDeleting = false
-                    }
+                }
             )
         }
     }

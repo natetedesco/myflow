@@ -13,7 +13,7 @@ extension FlowModel {
         let attributes = TimerWidgetAttributes(name: "flow")
         let initialContentState = TimerWidgetAttributes.TimerStatus(
             flow: flow,
-            name: flow ? self.flow.title : "Break",
+            name: self.flow.title,
             blockName: self.flow.blocks[blocksCompleted].title,
             value: start...end,
             paused: paused,
@@ -31,6 +31,7 @@ extension FlowModel {
                 pushType: nil)
             print("error \(activity.id)")
         } catch (let error) {
+            print("error")
             print("error \(error.localizedDescription)")
         }
     }

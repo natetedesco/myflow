@@ -25,8 +25,9 @@ struct BlockEditingView: View {
                     .frame(height: 16)
                 TextField(flow.blocks[index].flow ? "Focus" : "Break", text: $flow.blocks[index].title)
                     .focused($focusedField, equals: .blockName)
+                    
                     .keyboardType(.alphabet)
-                    .disableAutocorrection(true)
+//                    .disableAutocorrection(true)
                     .onAppear {
                         focusedField = .blockName
                     }
@@ -43,11 +44,29 @@ struct BlockEditingView: View {
                     }
                     .multilineTextAlignment(.leading)
                     .frame(maxWidth: .infinity, alignment: .leading)
+                
+//                Button("Save") {
+//                    if flow.blocks[index].title.isEmpty {
+//                        flow.blocks[index].title = flow.blocks[index].flow ? "Focus" : "Break"
+//                    }
+//                    model.save()
+//                    selectedBlock = false
+//                    showBlockEditor = false
+//                    focusedField = nil
+//                }
+//                .foregroundColor(.myBlue)
+                Text(formatTime(seconds: (flow.blocks[index].seconds) + (flow.blocks[index].minutes * 60) + (flow.blocks[index].hours * 3600)))
             }
             .padding(.top)
         
             Divider()
-            MultiComponentPicker(columns: columns, selections: [$flow.blocks[index].hours, $flow.blocks[index].minutes, $flow.blocks[index].seconds])
+            HStack {
+//                Text("Time:")
+//                    .font(.headline)
+//                    .padding(.trailing)
+                MultiComponentPicker(columns: columns, selections: [$flow.blocks[index].hours, $flow.blocks[index].minutes, $flow.blocks[index].seconds])
+                    
+            }
         }
         .foregroundColor(.white)
         .frame(maxWidth: .infinity, alignment: .center)
@@ -56,6 +75,5 @@ struct BlockEditingView: View {
         .background(.ultraThinMaterial)
         .cornerRadius(30)
         .padding()
-        
     }
 }

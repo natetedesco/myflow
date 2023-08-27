@@ -76,5 +76,4 @@ class PurchaseManager: ObservableObject {
                 }
             }
         }
-    
 }

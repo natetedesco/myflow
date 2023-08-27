@@ -28,13 +28,6 @@ struct AboutUs: View {
             }
             .padding(.bottom, 16)
             
-            
-
-            
-                
-                
-            
-            
             Text("In a world full of distractions how can we create an environment to focus on the things that really matter. Because we owe that to ourselves. That is the idea that created MyFlow.")
                 .fontWeight(.light)
                 .padding(.bottom)

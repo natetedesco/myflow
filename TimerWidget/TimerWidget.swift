@@ -9,6 +9,14 @@ import WidgetKit
 import SwiftUI
 import Intents
 
+@main
+struct TimerWidgetBundle: WidgetBundle {
+    var body: some Widget {
+        TimerWidget()
+        TimerWidgetLiveActivity()
+    }
+}
+
 struct Provider: IntentTimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
         SimpleEntry(date: Date(), configuration: ConfigurationIntent())

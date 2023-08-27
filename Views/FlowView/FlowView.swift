@@ -11,9 +11,6 @@ struct FlowView: View {
     @State var disable = false
     @AppStorage("Onboarding") var onboarding: Bool = true
     @AppStorage("showCreateFlow") var showCreateFlow: Bool = true
-    @AppStorage("showYourFlowHasBeenAdded") var showYourFlowHasBeenAdded: Bool = false
-    @AppStorage("showPause") var showPause: Bool = false
-    
     @FocusState var focusedField: Field?
     
     init(model: FlowModel) { self.model = model }
@@ -24,22 +21,42 @@ struct FlowView: View {
                 
                 // Control Bar
                 ControlBar(model: model, mode: $model.mode, disable: $disable)
-                    .padding(.top)
                 
+                // Extend
+                VStack {
+                    Spacer()
+                    if (model.mode == .flowStart || model.mode == .breakStart || model.flowContinue) && model.blocksCompleted != 0 {
+                        Button {
+                            model.flowContinue ? model.completeContinueFlow() : model.continueFlow()
+                        } label: {
+                            HStack {
+                                Text(model.flowContinue ? "Complete" : "Extend")
+                            }
+                            .foregroundColor(.myBlue)
+                            .padding(.vertical, 8)
+                            .padding(.horizontal, 12)
+                            .background(.ultraThinMaterial.opacity(0.8))
+                            .cornerRadius(30)
+                            .compositingGroup()
+                            
+                        }
+                        .padding(.bottom, 128)
+                    }
+                }
+
                 // Flow Center
                 Button {
-                    mediumHaptic()
-                    disable = false
-                    model.showingSheet = true
-                    if showCreateFlow == true {
-                        showYourFlowHasBeenAdded = true
+                    if disable {
+                        disable = false
+                    } else {
+                        mediumHaptic()
+                        model.showingSheet = true
                     }
                     showCreateFlow = false
                 } label: {
                     FlowCenter
                 }
-                .disabled(model.mode != .Initial)
-                .disabled(disable)
+                .disabled(model.mode != .Initial || disable)
                 
                 VStack {
                     
@@ -53,38 +70,34 @@ struct FlowView: View {
                     HStack {
                         Text(model.flow.title)
                             .font(.title)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.white)
+                            .fontWeight(.medium)
+                            .animation(.default, value: model.flow.title)
                         Image(systemName: "chevron.down")
-                            .foregroundColor(.white)
                             .font(.footnote)
                     }
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.4) // if title is too long
+                    .frame(maxWidth: 200)
+                    .foregroundColor(.white)
                     .padding(.leading)
+                }
+                .transaction { transaction in
+                    transaction.animation = nil // disables ...
                 }
                 .onTapGesture {
                     print("disable on")
                     disable = true
-                    showYourFlowHasBeenAdded = false
-                    if showYourFlowHasBeenAdded == true {
-                        showYourFlowHasBeenAdded = false
-                    }
                 }
                 .padding(.bottom, 128)
                 }
                 
-                // Tool Bar
+                // ToolBar
                 Toolbar(model: model)
             }
             .background(AnimatedBlur(opacity: 0.3))
             .background(.ultraThinMaterial.opacity(0.5))
             .ignoresSafeArea(.keyboard)
-            .onTapGesture {
-                disable = false
-                print("disable off")
-                if showYourFlowHasBeenAdded == true {
-                    showYourFlowHasBeenAdded = false
-                }
-            }
+            .onTapGesture { disable = false }
             FlowCompleted(model: model, show: $model.completed)
         }
         .fullScreenCover(isPresented: $model.showingSheet) {
@@ -95,29 +108,6 @@ struct FlowView: View {
     var FlowCenter: some View {
         ZStack {
             Circles(model: model)
-            if showPause {
-                VStack {
-                    Spacer()
-                    Text("Pause to access skip, restart, and reset")
-                        .foregroundColor(.white)
-                        .font(.footnote)
-                    Image(systemName: "arrow.down")
-                        .padding(.bottom, 120)
-                        .padding(.top, 1)
-                        .foregroundColor(.white)
-                        .font(.footnote)
-                }
-                .foregroundColor(.myBlue)
-                .onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                        onboarding = false
-                        showPause = false
-                    }
-                }
-            }
-            if showYourFlowHasBeenAdded {
-                yourFlowHasBeenAdded
-            }
             if showCreateFlow {
                 createYourFlow
             } else {
@@ -133,22 +123,6 @@ struct FlowView: View {
             .frame(maxWidth: 400)
             .font(.title2)
             .fontWeight(.light)
-    }
-    
-    var yourFlowHasBeenAdded: some View {
-        VStack() {
-            Image(systemName: "arrow.up")
-                .padding(.top, 75)
-                .padding(.bottom, 1)
-                .foregroundColor(.white)
-                .font(.footnote)
-            Text("Your flow has been added to the list")
-                .foregroundColor(.white)
-                .font(.footnote)
-            Spacer()
-            
-        }
-        .foregroundColor(.myBlue)
     }
     
     var EditFlowButton: some View {

@@ -27,8 +27,10 @@ struct OverviewLabel: View {
     
     var body: some View {
         VStack(alignment: .center, spacing: 6) {
-            FootNote(text: label)
-            SubHeadline(text: "\(formatHoursAndMinutes(time: time))")
+            Text(label)
+                .font(.footnote)
+            Text("\(formatHoursAndMinutes(time: time))")
+                .font(.subheadline)
                 .myBlue()
         }
         .maxWidth()

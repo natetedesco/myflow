@@ -19,7 +19,6 @@ extension FlowModel {
     
     // Skip
     func Skip() {
-        invalidateTimer()
         elapsed = 0
         endTimer()
     }
@@ -27,20 +26,36 @@ extension FlowModel {
     // Restart
     func Restart() {
         elapsed = 0
-        if flowPaused() {
-            setFlowTime(time: (flowList[selection].blocks[blocksCompleted].minutes * 60) + flowList[selection].blocks[blocksCompleted].seconds)
+        if flowRunning() {
+            setFlowTime(time: flowTime)
             setFlowStart()
-            
+            invalidateTimer()
         }
-        else if breakPaused() || flowStart() {
+        else if breakRunning() {
             setBreakTimeLeft(time: breakTime)
             setBreakStart()
-        }
-        else if breakStart() {
-            blocksCompleted -= 1
-            setFlowTime(time: (flowList[selection].blocks[blocksCompleted].minutes * 60) + flowList[selection].blocks[blocksCompleted].seconds)
-            setFlowStart()
+            invalidateTimer()
             
+        }
+        else {
+            if blocksCompleted != 0 {
+                
+                blocksCompleted -= 1
+                let block = flowList[selection].blocks[blocksCompleted]
+                let time = (block.hours * 3600) + (block.minutes * 60) + (block.seconds)
+                
+                if block.flow {
+                    type = .Flow
+                    setFlowTime(time: time)
+                    setFlowStart()
+                }
+                if !block.flow {
+                    type = .Break
+                    setBreakTime(time: time)
+                    setBreakStart()
+                    print(blocksCompleted)
+                }
+            }
         }
     }
     
@@ -62,6 +77,8 @@ extension FlowModel {
     // Continue Flow
     func continueFlow() {
         var start = Date()
+        type = .Flow
+        
         if flowContinue {
             start = Calendar.current.date(byAdding: .second, value: (-flowTimeLeft), to: start)!
         }
@@ -82,6 +99,5 @@ extension FlowModel {
         flowTimeLeft = flowTime
         elapsed = 0
         setNextBlock()
-        
     }
 }

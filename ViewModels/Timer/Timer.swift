@@ -8,6 +8,17 @@ import Foundation
 
 extension FlowModel {
     
+    // Initialize
+    func Initialize() {
+        if flowList.count != 0 {
+            self.flow = flowList[selection]
+        } else {
+            self.flow = Flow(new: true, title: "Flow")
+        }
+        type = .Flow
+        setFlowTime(time: (flow.blocks[0].hours * 3600) + (flow.blocks[0].minutes * 60) + (flow.blocks[0].seconds))
+    }
+    
     // Start
     func Start() {
         if timesSet() {
@@ -45,6 +56,7 @@ extension FlowModel {
                 endTimer()
             }
         }
+//        print(mode)
     }
     
     // End
@@ -55,5 +67,30 @@ extension FlowModel {
         elapsed = 0
         completeBlock()
     }
+    
+    // Complete Block
+    func completeBlock() {
+        blocksCompleted += 1
+        if blocksCompleted == flowList[selection].blocks.count {
+            completeSession()
+        }
+        else {
+            setNextBlock()
+        }
+    }
+    
+    // Set Next Block
+    func setNextBlock() {
+        
+        let block = flowList[selection].blocks[blocksCompleted]
+        let time = (block.hours * 3600) + (block.minutes * 60) + (block.seconds)
+        
+        if block.flow {
+            setFlowTime(time: (block.minutes * 60) + block.seconds)
+            setFlowStart()
+        } else {
+            setBreakTime(time: (block.minutes * 60) + block.seconds)
+            setBreakStart()
+        }
+    }
 }
-

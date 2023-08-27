@@ -14,8 +14,10 @@ struct WeekCard: View {
     var body: some View {
         VStack(alignment: .center, spacing: 16) {
             HStack {
-                FootNote(text: "Daily flow time goal:")
-                SubHeadline(text: "\(data.goalSelection)h")
+                Text("Daily flow time goal:")
+                    .font(.footnote)
+                Text("\(data.goalSelection)h")
+                    .font(.subheadline)
             }
             
             VStack {
@@ -37,7 +39,8 @@ struct WeekCard: View {
                 }
                 HStack(alignment: .center, spacing: 16) {
                     ForEach(0..<self.data.thisWeekDays.count, id: \.self) { i in
-                        FootNote(text: days[i])
+                        Text(days[i])
+                            .font(.footnote)
                             .foregroundColor(i == data.dayOfTheWeek ? .myBlue : .gray)
                             .frame(width: 25)
                     }

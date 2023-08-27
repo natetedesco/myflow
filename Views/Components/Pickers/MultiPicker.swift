@@ -12,7 +12,7 @@ var minutes = [Int](0...60)
 var seconds = [Int](0...60)
 
 var columns = [
-    MultiComponentPicker.Column(label: "hr", options: Array(0...12).map { MultiComponentPicker.Column.Option(text: "\($0)", tag: $0) }),
+    MultiComponentPicker.Column(label: "hours", options: Array(0...5).map { MultiComponentPicker.Column.Option(text: "\($0)", tag: $0) }),
     MultiComponentPicker.Column(label: "min", options: Array(0...59).map { MultiComponentPicker.Column.Option(text: "\($0)", tag: $0) }),
     MultiComponentPicker.Column(label: "sec", options: Array(0...59).map { MultiComponentPicker.Column.Option(text: "\($0)", tag: $0) }),
 ]
@@ -44,7 +44,6 @@ struct MultiComponentPicker<Tag: Hashable>: View  {
                 .frame(maxWidth: .infinity)
                 .cornerRadius(10)
                 .frame(height: 32)
-//                .padding(.horizontal, 4)
             
             HStack {
                 ForEach(0 ..< columns.count, id: \.self) { index in
@@ -70,10 +69,11 @@ struct MultiComponentPicker<Tag: Hashable>: View  {
                         .pickerStyle(WheelPickerStyle())
                     }
                 }
+
             }
-            
-            .frame(height: 128)
+            .frame(height: 160)
         }
+        
     }
 }
 

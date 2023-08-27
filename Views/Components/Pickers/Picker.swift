@@ -33,7 +33,8 @@ struct PickerLabel: View {
     
     var body: some View {
         HStack {
-            Headline(text: text)
+            Text(text)
+                .font(.headline)
             Text(formatTime(seconds: time))
         }
         .foregroundColor(color)

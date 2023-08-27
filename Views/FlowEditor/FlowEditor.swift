@@ -43,6 +43,9 @@ struct FlowView2: View {
                                 }
                                 .onSubmit {
                                     if !rename {
+                                        if model.flow.title.isEmpty {
+                                            model.flow.title = "Flow"
+                                        }
                                         model.showFlow = false
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { // animation delay
                                             updateView.toggle()
@@ -55,13 +58,12 @@ struct FlowView2: View {
                         // Blocks
                         VStack {
                             ForEach(Array(flow.blocks.enumerated()), id: \.element.id) { index, block in
-                                BlockView(flow: $flow,block: $flow.blocks[index], index: index,selectedBlock: $selectedBlock, showBlockEditor: $showBlockEditor, selectedIndex: $selectedIndex)
+                                BlockView(flow: $flow, index: index, block: $flow.blocks[index], selectedBlock: $selectedBlock, showBlockEditor: $showBlockEditor, selectedIndex: $selectedIndex)
                                     .dragAndDrop(block: $flow.blocks[index], draggingItem: $draggingItem, dragging: $dragging, blocks: $flow.blocks)
                             }.animation(.default, value: flow.blocks)
                         }
                         .padding(.top) // must apply padding here to seperate from title
                     }
-                    
                     Spacer()
                     
                     // ToolBar
@@ -75,32 +77,51 @@ struct FlowView2: View {
                 }
                 // Navigation Title and Toolbar
                 .navigationBarTitle(model.showFlow || rename ? "" : flow.title)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        HStack {
-                            Menu {
-                                RenameButton
-                                Divider()
-                                DeleteFlowButton
-                            } label: {
-                                Image(systemName: "ellipsis")
-                                    .font(.footnote)
-                                    .foregroundColor(.myBlue)
-                                    .CircularGlassButton()
-                            }
-                            if !model.showFlow { saveButton }
-                        }
-                    }
-                    ToolbarItem(placement: .keyboard) {
-                        if model.showFlow {
+                    .toolbar {
+                        if !showBlockEditor {
+                        ToolbarItem(placement: .navigationBarTrailing) {
                             HStack {
-                                Button("Cancel") {
-                                    model.showFlow = false
-                                    model.showingSheet = false
-                                    model.deleteFlow(id: model.flow.id)
-                                }.foregroundColor(.gray)
-                                Spacer()
+                                Menu {
+                                    RenameButton
+                                    Divider()
+                                    DeleteFlowButton
+                                } label: {
+                                    Image(systemName: "ellipsis")
+                                        .font(.footnote)
+                                        .foregroundColor(.myBlue)
+//                                        .CircularGlassButton()
+                                }
+                                if !model.showFlow {
+                                    doneButton
+                                }
+                            }
+                        }
+                        ToolbarItem(placement: .keyboard) {
+                            if model.showFlow {
+                                HStack {
+                                    Button("Cancel") {
+                                        model.showFlow = false
+                                        model.showingSheet = false
+                                        model.deleteFlow(id: model.flow.id)
+                                    }.foregroundColor(.gray)
+                                    Spacer()
+                                    Button("Save") {
+                                        if !rename {
+                                            if model.flow.title.isEmpty {
+                                                model.flow.title = "Flow"
+                                            }
+                                            model.showFlow = false
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { // animation delay
+                                                updateView.toggle()
+                                            }
+                                        }
+                                        rename = false
+                                    }.foregroundColor(.myBlue)
+                                }
+                            }
+                            if rename {
                                 Button("Save") {
+                                    rename = false
                                     model.showFlow = false
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { // animation delay
                                         updateView.toggle()
@@ -108,20 +129,11 @@ struct FlowView2: View {
                                 }.foregroundColor(.myBlue)
                             }
                         }
-                        if rename {
-                            Button("Save") {
-                                rename = false
-                                model.showFlow = false
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { // animation delay
-                                    updateView.toggle()
-                                }
-                            }.foregroundColor(.myBlue)
-                        }
                     }
                 }
                 .customOnDrop(draggingItem: $draggingItem, items: $flow.blocks, dragging: $dragging)
                 .background(AnimatedBlur(opacity: 0.3).ignoresSafeArea()) // prevents it from moving when renaming
-                .background(.ultraThinMaterial.opacity(0.5))
+                .background(.ultraThinMaterial.opacity(0.75))
                 .ignoresSafeArea(.keyboard)
             }
             .customOnDrop(draggingItem: $draggingItem, items: $flow.blocks, dragging: $dragging)
@@ -149,7 +161,18 @@ struct FlowView2: View {
                         .opacity(showBlockEditor ? 1.0 : 0.01)
                         .scaleEffect(showBlockEditor ? 1.0 : 0.97)
                         .animation(.default.speed(2.0), value: showBlockEditor)
-                    
+                        .toolbar {
+                            ToolbarItemGroup(placement: .keyboard) {
+                                Button("Save") {
+                                    if flow.blocks[selectedIndex].title.isEmpty {
+                                        flow.blocks[selectedIndex].title = flow.blocks[selectedIndex].flow ? "Focus" : "Break"
+                                    }
+                                    model.save()
+                                    selectedBlock = false
+                                    showBlockEditor = false
+                                }.foregroundColor(.myBlue)
+                            }
+                        }
                 }
             }
         }
@@ -183,13 +206,13 @@ struct FlowView2: View {
         }
     }
     
-    var saveButton: some View {
+    var doneButton: some View {
         Button {
             mediumHaptic()
             dismiss()
             model.saveFlow(id: flow.id, flow: flow)
         } label: {
-            Text("Save")
+            Text("Done")
                 .foregroundColor(.myBlue)
                 .fontWeight(.medium)
         }

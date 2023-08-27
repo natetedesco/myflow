@@ -29,7 +29,7 @@ class FlowModel: ObservableObject {
     
     @Published var showFlow = false
     @Published var showingSheet = false
-
+    
     @Published var completed = false
     @Published var flowContinue = false
     @Published var flowList: [Flow] { didSet { Initialize() } }
@@ -107,10 +107,13 @@ class FlowModel: ObservableObject {
     
     // Delete Flow
     func deleteFlow(id: UUID) {
-        if let index = flowList.firstIndex(where: { $0.id == id }) {
-            self.selection = 0 // select first in list
-            flowList.remove(at: index)
-            save()
+            if let index = flowList.firstIndex(where: { $0.id == id }) {
+                self.selection = 0 // select first in list
+                flowList.remove(at: index)
+                save()
+            }
+        if flowList.count == 0 {
+            createFlow()
         }
     }
     

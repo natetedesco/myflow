@@ -41,11 +41,37 @@ extension FlowModel {
         return timeLeft
     }
     
+    // Set Notification
+    func setNotification(flow: Bool, time: Int, id: String = "timer") {
+        notifications.Set(flow: flow, time: time, elapsed: elapsed, id: id)
+    }
+    
     // Set End
     func setEnd(time: Int) -> Date {
         start = Date()
         let end = Calendar.current.date(byAdding: .second, value: (time - elapsed), to: start)!
         return end
+    }
+    
+    // Complete Session
+    func completeSession() {
+        mode = .Initial
+        Initialize()
+        elapsed = 0
+        blocksCompleted = 0
+        completed = true
+    }
+    
+    // Invalidate Timer
+    func invalidateTimer() {
+        timer.invalidate()
+        notifications.removeAllPendingNotificationRequests()
+    }
+    
+    // Dismiss Completed
+    func dismissCompleted() {
+        totalTime = 0
+        completed = false
     }
     
     // Set Flow Time

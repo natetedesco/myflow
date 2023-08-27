@@ -21,7 +21,8 @@ struct GoalView: View {
                 .opacity(show ? 1.0 : 0.0)
                 .animation(.default.speed(show ? 2.0 : 1.0), value: show)
             VStack {
-                Title2(text: "Daily Flow Time Goal")
+                Text("Daily Flow Time Goal")
+                    .font(.title2)
                     .padding(.bottom, 12)
                 ZStack {
                     Picker(selection: $data.goalSelection, label: Text("")) {

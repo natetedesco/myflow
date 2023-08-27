@@ -177,15 +177,34 @@ class FlowData: ObservableObject {
         }
         return presentedDays
     }
+    
+    // Get day of the week
+    func getDayOfTheWeek() -> Int {
+        var day = calendar.component(.weekday, from: date)
+        if day != 1 {
+            day = day - 1
+        }
+        else if day == 1 {
+            day = 7
+        }
+        day = day - 1
+        
+        return day
+    }
+    
 }
 
-// Add if day is less than or equal to today
-//            if days.indices.contains(counted) {
-//                if days[counted].day == Date.from(year: comp.year!, month: comp.month!, day: (comp.day! + numDays) - i) {
-//                    presentedDays.insert(days[counted], at: 0)
-//                    counted = counted + 1
-//                }
-//            }
-//            else {
-//                presentedDays.insert(Day(day: Date.from(year: comp.year!, month: comp.month!, day: comp.day! + numDays - i), time: 0), at: 0)
-//            }
+extension Date {
+    static func from(year: Int, month: Int, day: Int) -> Date {
+        let components = DateComponents(year: year, month: month, day: day)
+        return Calendar.current.date(from: components)!
+    }
+    
+    func startOfWeek(using calendar: Calendar = Calendar(identifier: .iso8601)) -> Date {
+        calendar.dateComponents([.calendar, .yearForWeekOfYear, .weekOfYear], from: self).date!
+    }
+    
+    func startOfMonth(using calendar: Calendar = Calendar(identifier: .iso8601)) -> Date {
+        calendar.dateComponents([.calendar, .year, .month], from: self).date!
+    }
+}
