@@ -61,7 +61,6 @@ struct SettingsView: View {
                 } label: {
                     Text("Try Pro")
                         .smallButtonGlass()
-                    
                 }
             }
         }
@@ -73,10 +72,9 @@ struct SettingsView: View {
     }
     
     var VersionNumber: some View {
-        Text("v2.3")
+        Text("v2.3.1")
             .myBlue()
             .padding(16)
-//            .kerning(1.0)
             .centered()
             .monospaced()
     }
