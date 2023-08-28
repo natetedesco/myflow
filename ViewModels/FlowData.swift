@@ -34,10 +34,12 @@ class FlowData: ObservableObject {
         if let data = UserDefaults.standard.data(forKey: "SavedFlowData") {
             if let decoded = try? JSONDecoder().decode([Day].self, from: data) {
                 days = decoded
+//                days = exampleDays
                 return
             }
         }
         days = []
+//        days = exampleDays
     }
     
     // Save

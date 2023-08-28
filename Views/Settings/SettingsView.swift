@@ -76,8 +76,9 @@ struct SettingsView: View {
         Text("v2.3")
             .myBlue()
             .padding(16)
-            .kerning(2.0)
+//            .kerning(1.0)
             .centered()
+            .monospaced()
     }
     
     var UpgradeButton: some View {

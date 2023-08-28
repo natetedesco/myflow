@@ -25,7 +25,7 @@ struct TimerLabels: View {
                     .fontWeight(.light)
                     .foregroundColor(model.type == .Flow ? .myBlue : .gray)
                     .kerning(3.0)
-                .monospacedDigit()
+                    .monospacedDigit()
             }
             
             // Block

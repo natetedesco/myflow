@@ -20,28 +20,50 @@ struct StartButton: View {
                 UNUserNotificationCenter.current()
                     .requestAuthorization(options:[.badge,.sound,.alert]) { (_, _) in }
             } label: {
-                    HStack {
-                        // Button icon
-                        Image(systemName: start ? "play.fill" : "pause.fill")
-                            .font(.system(size: 32))
-                            .foregroundStyle(.ultraThinMaterial)
-                            .blendMode(.destinationOut)
+                HStack {
+                    // Button icon
+                    Image(systemName: start ? "play.fill" : "pause.fill")
+                        .font(.system(size: 32))
+                        .foregroundColor(.myBlue)
+//                        .blendMode(.destinationOut)
 
-                        if next {
-                            Text(flow ? "Focus" : "Break")
-                                .font(.title3)
-                                .foregroundStyle(.ultraThickMaterial)
-                                .padding(.leading, 8)
-                                .blendMode(.destinationOut)
-                        }
+                    if next {
+                        Text(flow ? "Focus" : "Break")
+                            .font(.title3)
+                            .foregroundColor(.myBlue)
+                            .padding(.leading, 8)
+                            
                     }
-                    .padding(.vertical, next ? 16 : 14)
-                    .padding(.horizontal, next ? 24 : 16)
-                    .background(Color.myBlue.opacity(0.95))
-                    .cornerRadius(next ? 40 : 50)
-                    .animation(nil, value: start)
-                .animation(.default, value: flow)
-                .compositingGroup()
+                }
+                .padding(.vertical, next ? 16 : 14)
+                .padding(.horizontal, next ? 24 : 16)
+                .background(.ultraThinMaterial.opacity(0.65))
+                .cornerRadius(next ? 40 : 50)
+                .animation(nil, value: start)
+            .animation(.default, value: flow)
+            
+//                    HStack {
+//                        // Button icon
+//                        Image(systemName: start ? "play.fill" : "pause.fill")
+//                            .font(.system(size: 32))
+//                            .foregroundStyle(.ultraThinMaterial)
+//                            .blendMode(.destinationOut)
+//
+//                        if next {
+//                            Text(flow ? "Focus" : "Break")
+//                                .font(.title3)
+//                                .foregroundStyle(.ultraThickMaterial)
+//                                .padding(.leading, 8)
+//                                .blendMode(.destinationOut)
+//                        }
+//                    }
+//                    .padding(.vertical, next ? 16 : 14)
+//                    .padding(.horizontal, next ? 24 : 16)
+//                    .background(Color.myBlue.opacity(0.95))
+//                    .cornerRadius(next ? 40 : 50)
+//                    .animation(nil, value: start)
+//                .animation(.default, value: flow)
+//                .compositingGroup()
                 }
         }
         

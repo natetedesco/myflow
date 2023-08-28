@@ -7,6 +7,8 @@
 import SwiftUI
 
 struct FlowView2: View {
+    @AppStorage("ProAccess") var proAccess: Bool = false
+    
     @ObservedObject var model: FlowModel
     @Binding var flow: Flow
     
@@ -21,6 +23,8 @@ struct FlowView2: View {
     
     @FocusState var focusedField: Field?
     @Environment(\.dismiss) var dismiss
+    
+    @State private var showingSheet = false
     
     var body: some View {
         ZStack {
@@ -61,24 +65,43 @@ struct FlowView2: View {
                                 BlockView(flow: $flow, index: index, block: $flow.blocks[index], selectedBlock: $selectedBlock, showBlockEditor: $showBlockEditor, selectedIndex: $selectedIndex)
                                     .dragAndDrop(block: $flow.blocks[index], draggingItem: $draggingItem, dragging: $dragging, blocks: $flow.blocks)
                             }.animation(.default, value: flow.blocks)
+                                .disabled(focusedField == .flowName)
                         }
                         .padding(.top) // must apply padding here to seperate from title
+                        
+                        Text(flow.totalFlowTimeFormatted())
+                            .font(.caption)
+                            .foregroundColor(.white.opacity(0.3))
+                            .padding(.top, 8)
+                            .monospacedDigit()
+                        
                     }
                     Spacer()
                     
                     // ToolBar
                     HStack {
                         addBreakButton
+                        
+                        Spacer()
+                        if !proAccess {
+                            Button {
+                                showingSheet = true
+                            } label: {
+                                Image(systemName: "camera.filters")
+                                    .font(.title2)
+                                    .myBlue()
+                            }
+                        }
                         Spacer()
                         addFlowButton
                     }
                     .padding(.horizontal, 32)
-                    .padding(.top)
+                    .padding(.top, 8)
                 }
                 // Navigation Title and Toolbar
                 .navigationBarTitle(model.showFlow || rename ? "" : flow.title)
-                    .toolbar {
-                        if !showBlockEditor {
+                .toolbar {
+                    if !showBlockEditor {
                         ToolbarItem(placement: .navigationBarTrailing) {
                             HStack {
                                 Menu {
@@ -89,7 +112,7 @@ struct FlowView2: View {
                                     Image(systemName: "ellipsis")
                                         .font(.footnote)
                                         .foregroundColor(.myBlue)
-//                                        .CircularGlassButton()
+                                    //                                        .CircularGlassButton()
                                 }
                                 if !model.showFlow {
                                     doneButton
@@ -133,7 +156,7 @@ struct FlowView2: View {
                 }
                 .customOnDrop(draggingItem: $draggingItem, items: $flow.blocks, dragging: $dragging)
                 .background(AnimatedBlur(opacity: 0.3).ignoresSafeArea()) // prevents it from moving when renaming
-                .background(.ultraThinMaterial.opacity(0.3))
+                .background(.ultraThinMaterial.opacity(0.5))
                 .ignoresSafeArea(.keyboard)
             }
             .customOnDrop(draggingItem: $draggingItem, items: $flow.blocks, dragging: $dragging)
@@ -176,6 +199,17 @@ struct FlowView2: View {
                 }
             }
         }
+        .sheet(isPresented: $showingSheet) {
+            if !proAccess {
+                PayWall()
+            } else {
+//                FlowControls(model: model)
+//                    .presentationDetents([.fraction(1/3), .medium])
+//                    .presentationBackground(.thickMaterial)
+//                    .presentationCornerRadius(20)
+//                    .presentationDragIndicator(.hidden)
+            }
+        }
         .ignoresSafeArea(.keyboard)
     }
     
@@ -188,7 +222,7 @@ struct FlowView2: View {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { // animation delay
                 showBlockEditor = true
             }        } label: {
-                AddButtonLabel(title: "plus", color: .gray)
+                AddButtonLabel(color: .gray)
             }
     }
     
@@ -202,7 +236,20 @@ struct FlowView2: View {
                 showBlockEditor = true
             }
         } label: {
-            AddButtonLabel(title: "plus", color: .myBlue)
+            AddButtonLabel(color: .myBlue)
+        }
+    }
+    
+    struct AddButtonLabel: View {
+        var color: Color
+        
+        var body: some View {
+            Image(systemName: "plus")
+                .font(.title)
+                .padding(12)
+                .background(Circle()
+                    .fill(.ultraThinMaterial.opacity(0.55)))
+                .foregroundColor(color)
         }
     }
     
@@ -236,21 +283,6 @@ struct FlowView2: View {
     }
 }
 
-struct AddButtonLabel: View {
-    var title: String
-    var color: Color
-    
-    var body: some View {
-        HStack {
-            Image(systemName: "plus")
-                .font(.largeTitle)
-                .CircularGlassButton()
-                .fontWeight(.medium)
-        }
-        .foregroundColor(color)
-    }
-}
-
 struct FlowView2_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
@@ -263,20 +295,135 @@ enum Field: Hashable {
     case time
 }
 
-extension View {
-    func customOnDrop(draggingItem: Binding<Block?>, items: Binding<[Block]>, dragging: Binding<Bool>) -> some View {
-        self.onDrop(of: [.item], delegate: DropViewDelegate(currentItem: draggingItem.wrappedValue ?? Block(), items: items, draggingItem: draggingItem, dragging: dragging))
+extension Flow {
+    func totalFlowTimeInSeconds() -> TimeInterval {
+        var totalSeconds: TimeInterval = 0
+        
+        for block in blocks {
+            totalSeconds += block.totalTimeInSeconds
+        }
+        return totalSeconds
     }
     
-    func dragAndDrop(block: Binding<Block>, draggingItem: Binding<Block?>, dragging: Binding<Bool>, blocks: Binding<[Block]>) -> some View {
-        self
-            .contentShape([.dragPreview], CornerShape(radius: 25, corners: [.allCorners]))
-            .opacity(block.wrappedValue.id == draggingItem.wrappedValue?.id && dragging.wrappedValue ? 0.001 : 1)
-            .drag(if: block.wrappedValue.draggable) {
-                heavyHaptic()
-                draggingItem.wrappedValue = block.wrappedValue
-                return NSItemProvider(contentsOf: URL(string: "\(block.wrappedValue.id)"))!
-            }
-            .onDrop(of: [.item], delegate: DropViewDelegate(currentItem: block.wrappedValue, items: blocks, draggingItem: draggingItem, dragging: dragging))
+    func totalFlowTimeFormatted() -> String {
+        let totalSeconds = totalFlowTimeInSeconds()
+        let hours = Int(totalSeconds) / 3600
+        let minutes = (Int(totalSeconds) % 3600) / 60
+        let seconds = Int(totalSeconds) % 60
+        
+        var formattedTime = ""
+        if hours > 0 {
+            formattedTime += "\(hours):"
+        }
+        formattedTime += String(format: "%02d:%02d", minutes, seconds)
+        
+        return formattedTime
+    }}
+
+extension Block {
+    var totalTimeInSeconds: TimeInterval {
+        let totalSeconds = TimeInterval(hours * 3600 + minutes * 60 + seconds)
+        return totalSeconds
     }
 }
+
+import FamilyControls
+
+//struct FlowControls: View {
+//    @AppStorage("ProAccess") var proAccess: Bool = false
+//
+//    @Environment(\.dismiss) var dismiss
+//
+//    let center = AuthorizationCenter.shared
+//    @AppStorage("ScreenTimeAuthorized") var isAuthorized: Bool = false
+//    @State var isPresented = false
+//    @ObservedObject var model: FlowModel
+//    @StateObject var settings = Settings()
+//    @State private var showingSheet = false
+//
+//    var body: some View {
+//        NavigationView {
+//
+//            List {
+//                Text("Category")
+//                    .listRowBackground(Color.black.opacity(0.6))
+//
+//
+//                Section {
+//                    FlowPicker
+//                        .listRowBackground(Color.black.opacity(0.6))
+//                    BreakPicker
+//                        .listRowBackground(Color.black.opacity(0.6))
+//                }
+//
+//            }
+//            .scrollContentBackground(.hidden)
+//            .navigationTitle("Advanced")
+//            .navigationBarTitleDisplayMode(.inline)
+//            .navigationBarItems(leading:
+//                                    Button { dismiss()
+//            } label: {
+//                Text("Cancel")
+//                    .foregroundColor(.gray)
+//            }
+//            )
+//            .navigationBarItems(trailing:
+//                                    Button { dismiss()
+//            } label: {
+//                Text("Save")
+//                    .foregroundColor(.myBlue)
+//            }
+//            )
+//        }
+//    }
+//
+//    @State var chooseFlow = false
+//    var FlowPicker: some View {
+//        Button(action: toggleFlowPicker) {
+//            VStack {
+//                HStack {
+//                    Text("Focus blocks")
+//                        .foregroundColor(.white)
+//                    Spacer()
+//                    Text(formatTime(seconds: (model.flow.blocks[0].minutes * 60) + model.flow.blocks[0].seconds))
+//                        .foregroundColor(.gray)
+//                }
+//
+//                .leading()
+//                if chooseFlow {
+//                    MultiComponentPicker(columns: columns, selections: [$model.flow.blocks[0].hours, $model.flow.blocks[0].minutes, $model.flow.blocks[0].seconds])
+//                }
+//            }
+//        }
+//    }
+//
+//    @State var chooseBreak = false
+//    var BreakPicker: some View {
+//        Button(action: toggleFlowPicker) {
+//            VStack {
+//                HStack {
+//                    Text("Break blocks")
+//                        .foregroundColor(.white)
+//                    Spacer()
+//                    Text(formatTime(seconds: (model.flow.blocks[0].minutes * 60) + model.flow.blocks[0].seconds))
+//                        .foregroundColor(.gray)
+//                }
+//
+//                .leading()
+//                if chooseFlow {
+//                    MultiComponentPicker(columns: columns, selections: [$model.flow.blocks[0].hours, $model.flow.blocks[0].minutes, $model.flow.blocks[0].seconds])
+//                }
+//            }
+//        }
+//    }
+//
+//    func toggleFlowPicker() {
+//        chooseFlow.toggle()
+//        chooseBreak = false
+//    }
+//    func toggleBreakPicker() {
+//        chooseBreak.toggle()
+//        chooseFlow = false
+//    }
+//
+//}

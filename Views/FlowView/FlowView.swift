@@ -7,12 +7,13 @@
 import SwiftUI
 
 struct FlowView: View {
+    @AppStorage("ProAccess") var proAccess: Bool = false
+    
     @ObservedObject var model: FlowModel
     @State var disable = false
     @AppStorage("showCreateFlow") var showCreateFlow: Bool = true
     @AppStorage("showPayWall") var showPayWall = false
     @FocusState var focusedField: Field?
-    @AppStorage("ProAccess") var proAccess: Bool = false
     
     init(model: FlowModel) { self.model = model }
     
@@ -44,7 +45,7 @@ struct FlowView: View {
                             .foregroundColor(.myBlue)
                             .padding(.vertical, 8)
                             .padding(.horizontal, 12)
-                            .background(.ultraThinMaterial.opacity(0.8))
+//                            .background(.ultraThinMaterial.opacity(0.8))
                             .cornerRadius(30)
                             .compositingGroup()
                         }

@@ -77,3 +77,21 @@ struct CornerShape: Shape {
         return path
     }
 }
+
+extension View {
+    func customOnDrop(draggingItem: Binding<Block?>, items: Binding<[Block]>, dragging: Binding<Bool>) -> some View {
+        self.onDrop(of: [.item], delegate: DropViewDelegate(currentItem: draggingItem.wrappedValue ?? Block(), items: items, draggingItem: draggingItem, dragging: dragging))
+    }
+    
+    func dragAndDrop(block: Binding<Block>, draggingItem: Binding<Block?>, dragging: Binding<Bool>, blocks: Binding<[Block]>) -> some View {
+        self
+            .contentShape([.dragPreview], CornerShape(radius: 25, corners: [.allCorners]))
+            .opacity(block.wrappedValue.id == draggingItem.wrappedValue?.id && dragging.wrappedValue ? 0.001 : 1)
+            .drag(if: block.wrappedValue.draggable) {
+                heavyHaptic()
+                draggingItem.wrappedValue = block.wrappedValue
+                return NSItemProvider(contentsOf: URL(string: "\(block.wrappedValue.id)"))!
+            }
+            .onDrop(of: [.item], delegate: DropViewDelegate(currentItem: block.wrappedValue, items: blocks, draggingItem: draggingItem, dragging: dragging))
+    }
+}
