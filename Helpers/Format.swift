@@ -29,3 +29,8 @@ func formatProgress(time: Int, timeLeft: Int) -> CGFloat {
     let progress = (CGFloat(time) - CGFloat(timeLeft)) / CGFloat(time)
     return(progress)
 }
+
+func format360(time: Int, timeLeft: Int) -> Int {
+        let progress = Int(Double(time - timeLeft) / Double(time) * 360)
+        return progress
+    }

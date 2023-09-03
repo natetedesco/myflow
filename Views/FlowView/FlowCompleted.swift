@@ -12,9 +12,9 @@ struct FlowCompleted: View {
 
     var body: some View {
         ZStack {
-            MaterialBackGround()
-                .opacity(show ? 1.0 : 0.0)
-                .animation(.default.speed(show ? 2.0 : 1.0), value: show)
+//            MaterialBackGround()
+//                .opacity(show ? 1.0 : 0.0)
+//                .animation(.default.speed(show ? 2.0 : 1.0), value: show)
             
             VStack(alignment: .center, spacing: 16) {
                 Text("\(model.flow.title) Completed")
@@ -23,7 +23,7 @@ struct FlowCompleted: View {
                     Text("Total flow time: ")
                         .font(.footnote)
                     Text(formatHoursAndMinutes(time: model.totalTime/60))
-                        .myBlue()
+                        .foregroundColor(.myColor)
                         .font(.subheadline)
                 }
             }

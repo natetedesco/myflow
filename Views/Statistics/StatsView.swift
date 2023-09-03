@@ -12,48 +12,55 @@ struct StatsView: View {
     @State private var showingSheet = false
     @AppStorage("ProAccess") var proAccess: Bool = false
     
+    @Environment(\.dismiss) var dismiss
+    
+    
     var hours = [Int](0...8)
-
+    
     var body: some View {
-        ZStack {
+        NavigationView {
             ZStack {
                 ScrollView {
-                    VStack(spacing: 12) {
+                    VStack(spacing: 16) {
                         
-                    CustomHeadline(text: "Overview")
-                    ZStack {
-                        OverViewCard(data: data)
-                            .blur(radius: proAccess ? 0 : 3)
-                        if !proAccess { lock }
-                    }
-                    
-                    CustomHeadline(text: "This Week")
-                    ZStack {
-                        WeekCard(data: data)
-                            .blur(radius: proAccess ? 0 : 3)
-                        if !proAccess { lock }
-                    }
-                    
-                    CustomHeadline(text: "This Month")
-                    ZStack {
-                        MonthCard(data: data)
-                            .blur(radius: proAccess ? 0 : 3)
-                        if !proAccess { lock }
-                    }
+                        CustomHeadline(text: "Overview")
+                        ZStack {
+                            OverViewCard(data: data)
+                                .blur(radius: proAccess ? 0 : 3)
+                            if !proAccess { lock }
+                        }
+                        
+                        CustomHeadline(text: "This Week")
+                        ZStack {
+                            WeekCard(data: data)
+                                .blur(radius: proAccess ? 0 : 3)
+                            if !proAccess { lock }
+                        }
+                        
+                        CustomHeadline(text: "This Month")
+                        ZStack {
+                            MonthCard(data: data)
+                                .blur(radius: proAccess ? 0 : 3)
+                            if !proAccess { lock }
+                        }
                     }
                 }
-                .navigationView(title: "Statistics", button: goalMenu)
+                .background(.regularMaterial)
+                .navigationTitle("Statistics")
+                .toolbar {
+                    GoalButton
+                }
                 .sheet(isPresented: $showingSheet) {
                     PayWall()
                 }
-                Toolbar()
+                //                Toolbar()
             }
         }
     }
     
     var lock: some View {
         Image(systemName: "lock.fill")
-            .foregroundColor(.myBlue)
+            .foregroundColor(.myColor)
             .font(.system(size: 20))
     }
     
@@ -93,7 +100,7 @@ struct StatsView: View {
     var GoalButton: some View {
         Button(action: showGoalCard) {
             Text(proAccess ? "Goal" : "Unlock")
-                .smallButtonGlass()
+                .foregroundColor(.myColor)
         }
     }
     
@@ -107,3 +114,15 @@ struct StatsView_Previews: PreviewProvider {
         StatsView()
     }
 }
+
+//Button {
+//    dismiss()
+//} label: {
+//    RoundedRectangle(cornerRadius: 16)
+//        .foregroundStyle(.ultraThickMaterial)
+//        .environment(\.colorScheme, .light)
+//        .frame(width: 36, height: 5)
+//        .padding(.horizontal)
+//        .padding(.top, 8)
+//        .padding(.bottom, 24)
+//}

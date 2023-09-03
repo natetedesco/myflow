@@ -16,7 +16,7 @@ struct AboutUs: View {
                     .padding(.bottom)
                 
                 Text("MyFlow")
-                    .myBlue()
+                    .foregroundColor(.myColor)
                     .font(.largeTitle)
                     .fontWeight(.ultraLight)
                     .kerning(3.0)
@@ -34,11 +34,11 @@ struct AboutUs: View {
                 
             Link("Privacy Policy", destination: URL(string: "https://myflow.notion.site/Privacy-Policy-0002d1598beb401e9801a0c7fe497fd3?pvs=4")!)
                 .padding(.bottom)
-                .foregroundColor(.myBlue)
+                .foregroundColor(.myColor)
             
             Link("Terms Of Use", destination: URL(string: "https://myflow.notion.site/Terms-Of-Use-50feabde93874a54b823a6627e0fa5ca?pvs=4")!)
                 .padding(.bottom)
-                .foregroundColor(.myBlue)
+                .foregroundColor(.myColor)
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
             

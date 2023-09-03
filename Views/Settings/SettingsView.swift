@@ -10,61 +10,183 @@ import FamilyControls
 struct SettingsView: View {
     @StateObject var settings = Settings()
     @ObservedObject var model: FlowModel
+    
     @State private var showingSheet = false
     @AppStorage("ProAccess") var proAccess: Bool = false
+    @AppStorage("showLiveActivities") var showLiveActivities: Bool = true
+    let center = AuthorizationCenter.shared
+    @AppStorage("ScreenTimeAuthorized") var isAuthorized: Bool = false
+    @State var isPresented = false
+    
+    
+    
     
     var body: some View {
-        ZStack {
-            ScrollView {
-                
-                CustomHeadline(text: "General")
-                VStack(spacing: 16) {
-                    ToggleBar(text: "Notifications", isOn: settings.$notificationsOn)
-                    Div
+        NavigationView {
+            ZStack {
+                ScrollView {
                     
-//                     Only for demoing
-//                    ToggleBar(text: "Pro Access", isOn: $proAccess)
-//                    Div
+                    if !proAccess
+                    {
+                        VStack {
+                            ZStack {
+                                Image("Live Activities")
+                                    .resizable()
+                                    .offset(y: 35)
+                                    .scaledToFill()
+                                    .frame(height: 136)
+                                    .clipped()
+                                    .padding(-16)
+                                    .padding(.bottom)
+                                
+                                Button {
+                                    showLiveActivities = false
+                                } label: {
+                                    Image(systemName: "xmark")
+                                        .foregroundColor(.gray)
+                                        .font(.caption)
+                                        .CircularGlassButton(padding: 8)
+                                        .trailing()
+                                        .padding(.trailing, -4)
+                                        .top()
+                                }
+                            }
+                            
+                            HStack {
+                                Text("Live Activities")
+                                    .font(.title3.bold())
+                                Text("New")
+                                    .foregroundColor(.myColor)
+                                    .font(.caption2)
+                                    .padding(.vertical, 2)
+                                    .padding(.horizontal, 4)
+                                    .background(.ultraThinMaterial)
+                                    .cornerRadius(5)
+                            }
+                            .padding(.top, 8)
+                            .padding(.bottom, 4)
+                            
+                            
+                            Button {
+                                showingSheet = true
+                            } label: {
+                                Text("View MyFlow Pro")
+                                    .frame(maxWidth: .infinity)
+                                    .font(.footnote)
+                                    .foregroundColor(.white)
+                                    .padding(8)
+                                    .background(Color.myColor)
+                                    .cornerRadius(10)
+                            }
+                        }
+                        .cardGlass()
+                        .padding(.top)
+                    }
                     
-                    NavigationLink(destination: DistractionBlocker(model: model)) { NLT(text: "Block Distractions", icon: "shield", model: model) }
+                    
+                    CustomHeadline(text: "General")
+                    VStack(spacing: 16) {
+                        ToggleBar(text: "Notifications", icon: "bell", isOn: settings.$notificationsOn)
+                        Div
+                        
+                        //                     Only for demoing
+                        ToggleBar(text: "Pro Access", icon: "bell", isOn: $proAccess)
+                        Div
+                        
+                        
+                        HStack {
+                            Image(systemName: "shield")
+                                .frame(width: 20)
+                            Text("App Blocker")
+                            
+                            Spacer()
+                            
+                            if !isAuthorized {
+                                Button { Task { do {
+                                    try await center.requestAuthorization(for: .individual)
+                                    isAuthorized = true
+                                } catch { print("error") } }
+                                } label: {
+                                    Text("Authorize")
+                                        .foregroundColor(.gray)
+                                        .padding(.vertical, 4)
+                                        .padding(.horizontal, 12)
+                                        .background(.ultraThinMaterial)
+                                        .cornerRadius(5)
+                                }
+                            } else {
+                                
+                                HStack {
+                                    if settings.blockDistractions {
+                                        Button {
+                                            if proAccess {
+                                                isPresented = true
+                                            }
+                                        } label: {
+                                            Spacer()
+                                            Text("List")
+                                                .foregroundColor(.gray)
+                                                .padding(.vertical, 4)
+                                                .padding(.horizontal, 12)
+                                                .background(.ultraThinMaterial)
+                                                .cornerRadius(5)
+                                                .padding(.trailing)
+                                                .familyActivityPicker(isPresented: $isPresented, selection: $model.activitySelection)
+                                        }
+                                    }
+                                    Toggle(isOn: proAccess ? $settings.blockDistractions : $showingSheet) {
+                                        Text("")
+                                    }
+                                    .toggleStyle(SwitchToggleStyle(tint: Color.myColor))
+                                }
+                            }
+                        }
+                        .padding(.horizontal)
+                        
+                        Div
+                        
+                        NavigationLink(destination: ThemePicker()) { NL(text: "Themes", icon: "photo") }
+                        
+                    }
+                    .cardGlassNP()
+                    
+                    
+                    // About
+                    CustomHeadline(text: "About")
+                    VStack(spacing: 16) {
+                        NavigationLink(destination: AboutUs()) { NL(text: "About us", icon: "info.circle") }
+                        Div
+                        NavigationLink(destination: HowItWorks()) { NL(text: "How it works", icon: "questionmark.circle") }
+                        Div
+                        NavigationLink(destination: Feedback()) { NL(text: "Feedback & support", icon: "message") }
+                    }
+                    .cardGlassNP()
+                    
+                    VersionNumber
                 }
-                .cardGlassNP()
-                
-                // About
-                CustomHeadline(text: "About")
-                VStack(spacing: 16) {
-                    NavigationLink(destination: AboutUs()) { NL(text: "About us", icon: "info.circle") }
-                    Div
-                    NavigationLink(destination: HowItWorks()) { NL(text: "How it works", icon: "questionmark.circle") }
-                    Div
-                    NavigationLink(destination: Feedback()) { NL(text: "Feedback & support", icon: "message") }
-                }
-                .cardGlassNP()
-                
-                VersionNumber
             }
-            .navigationView(title: "Settings", button: upgradeButton)
-            
-            Toolbar()
-        }
-        .sheet(isPresented: $showingSheet) {
-            PayWall()
+            .background(.regularMaterial)
+            .navigationTitle("Settings")
+//            .toolbar{ upgradeButton }
+            .accentColor(.myColor)
+            .sheet(isPresented: $showingSheet) {
+                PayWall()
+            }
         }
     }
     
-    @ViewBuilder var upgradeButton: some View {
-        if !proAccess {
-            
-            ZStack {
-                Button {
-                    showingSheet.toggle()
-                } label: {
-                    Text("Try Pro")
-                        .smallButtonGlass()
-                }
-            }
-        }
-    }
+//    @ViewBuilder var upgradeButton: some View {
+//        if !proAccess {
+//
+//            ZStack {
+//                Button {
+//                    dismiss()
+//                } label: {
+//                    Text("Done")
+//                }
+//            }
+//        }
+//    }
     
     var Div: some View {
         Divider()
@@ -73,7 +195,8 @@ struct SettingsView: View {
     
     var VersionNumber: some View {
         Text("v2.3.1")
-            .myBlue()
+            .foregroundColor(.myColor)
+            .font(.footnote)
             .padding(16)
             .centered()
             .monospaced()
@@ -84,92 +207,6 @@ struct SettingsView: View {
         } label: {
             Text("Upgrade")
                 .smallButtonGlass()
-        }
-    }
-}
-
-struct DistractionBlocker: View {
-    let center = AuthorizationCenter.shared
-    @AppStorage("ScreenTimeAuthorized") var isAuthorized: Bool = false
-    @State var isPresented = false
-    @ObservedObject var model: FlowModel
-    @StateObject var settings = Settings()
-    @State private var showingSheet = false
-    
-    @AppStorage("ProAccess") var proAccess: Bool = false
-    
-    var body: some View {
-        NavigationView {
-            List {
-                
-                if isAuthorized {
-                    if !proAccess {
-                        Button {
-                            showingSheet.toggle()
-                        } label: {
-                            Text("Try Pro")
-                                .foregroundColor(.myBlue)
-                        }
-                    } else {
-                        Toggle(isOn: settings.$blockDistractions) {
-                            Text("Block Distractions")
-                            
-                        }
-                        .toggleStyle(SwitchToggleStyle(tint: Color.myBlue))
-                    }
-                }
-                Section {
-                    if isAuthorized {
-                        Button {
-                            if proAccess {
-                                isPresented = true
-                            }
-                        } label: {
-                            HStack {
-                                Text("Blocked Apps")
-                                    .foregroundColor(.white)
-                                Spacer()
-                                if model.activitySelection.applicationTokens.isEmpty && model.activitySelection.categoryTokens.isEmpty &&
-                                    model.activitySelection.webDomainTokens.isEmpty {
-                                    Text("None")
-                                        .foregroundColor(.gray)
-                                } else {
-                                    if !proAccess {
-                                        Image(systemName: "lock.fill")
-                                            .foregroundColor(.gray)
-                                    } else {
-                                        Text(Image(systemName: "chevron.right"))
-                                            .foregroundColor(.gray)
-                                    }
-                                    
-                                }
-                            }
-                        }
-                        .familyActivityPicker(isPresented: $isPresented, selection: $model.activitySelection)
-                    } else {
-                        Button {
-                            Task {
-                                do {
-                                    try await center.requestAuthorization(for: .individual)
-                                    isAuthorized = true
-                                } catch {
-                                    print("error")
-                                }
-                            }
-                        } label: {
-                            Text("Authorize")
-                        }
-                    }
-                    
-                } footer: {
-                    Text(isAuthorized ? "You wont have access to these apps during flow": "MyFlow needs to access Screen Time")
-                }
-            }
-        }
-        .navigationTitle("Block Distractions")
-        .navigationBarTitleDisplayMode(.inline)
-        .sheet(isPresented: $showingSheet) {
-            PayWall()
         }
     }
 }
@@ -205,11 +242,14 @@ struct NLT: View {
                 .frame(width: 20)
             Text(text)
             Spacer()
-            Text(settings.blockDistractions ? "On" : "Off")
-            .opacity(0.5)
-            Image(systemName: "chevron.right")
-                .font(.system(size: 15))
-                .opacity(0.5)
+            
+            HStack {
+                Text(settings.blockDistractions ? "On" : "Authorize")
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 15))
+            }
+            .opacity(settings.blockDistractions ? 0.5 : 1.0)
+            .foregroundColor(settings.blockDistractions ? .gray : .gray)
         }
         .padding(.horizontal)
         .foregroundColor(.white)
@@ -236,16 +276,18 @@ struct NavigationList: View {
 
 struct ToggleBar: View {
     var text: String
+    var icon: String
+    
     @Binding var isOn: Bool
     var body: some View {
         Toggle(isOn: $isOn) {
             HStack {
-                Image(systemName: "bell")
+                Image(systemName: icon)
                     .frame(width: 20)
                 Text(text)
             }
         }
-        .toggleStyle(SwitchToggleStyle(tint: Color.myBlue))
+        .toggleStyle(SwitchToggleStyle(tint: Color.myColor))
         .padding(.horizontal)
     }
 }
@@ -255,3 +297,5 @@ struct SettingsView_Previews: PreviewProvider {
         SettingsView(model: FlowModel())
     }
 }
+
+            //            .background(Image(theme).resizable().ignoresSafeArea().opacity(theme == "default" ? 0.0 : 1.0))

@@ -11,7 +11,6 @@ extension FlowModel {
     
     // Time Set?
     func timesSet() -> Bool {
-        mediumHaptic()
         if (flowTime > 0 && breakTime > 0) || (flowTime > 0 || breakTime > 0) {
             return true
         }

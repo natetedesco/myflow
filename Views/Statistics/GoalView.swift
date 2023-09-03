@@ -14,12 +14,12 @@ struct GoalView: View {
     
     var body: some View {
         ZStack {
-            MaterialBackGround()
-                .onTapGesture {
-                    show = false
-                }
-                .opacity(show ? 1.0 : 0.0)
-                .animation(.default.speed(show ? 2.0 : 1.0), value: show)
+//            MaterialBackGround()
+//                .onTapGesture {
+//                    show = false
+//                }
+//                .opacity(show ? 1.0 : 0.0)
+//                .animation(.default.speed(show ? 2.0 : 1.0), value: show)
             VStack {
                 Text("Daily Flow Time Goal")
                     .font(.title2)

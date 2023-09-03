@@ -22,21 +22,24 @@ class FlowModel: ObservableObject {
     var blocksCompleted = 0
     var type: FlowType = .Flow
     
+    @Published var newFlow = false
+    
     @Published var flow: Flow = Flow()
+    @Published var flowList: [Flow] { didSet { Initialize() } }
+    @Published var selection = 0 { didSet { Initialize() } }
+    
     @Published var mode: TimerMode
     @Published var flowTimeLeft = 0
     @Published var breakTimeLeft = 0
     
-    @Published var showFlow = false
-    @Published var showingSheet = false
-    
-    @Published var completed = false
     @Published var flowContinue = false
-    @Published var flowList: [Flow] { didSet { Initialize() } }
-    @Published var selection = 0 { didSet { Initialize() } }
+    @Published var completed = false
+    
+    @Published var showingFlowSheet = false
+    @Published var showFlowSheetAnimation = false
     
     let store = ManagedSettingsStore()
-    @Published var activitySelection = FamilyActivitySelection() { didSet { saveActivitySelection() } }
+    @Published var activitySelection = FamilyActivitySelection() { didSet { saveActivitySelection()}}
     
     init(mode: TimerMode = .Initial) {
         if let data = UserDefaults.standard.data(forKey: "activitySelection") {
@@ -57,40 +60,27 @@ class FlowModel: ObservableObject {
         Initialize()
     }
     
-    
-    // Save
-    func saveActivitySelection() {
-        if let encoded = try? JSONEncoder().encode(activitySelection) {
-            UserDefaults.standard.set(encoded, forKey: "activitySelection")
+    func showFlowSheet() {
+        softHaptic()
+        showingFlowSheet = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+            self.showFlowSheetAnimation = true
         }
-    }
-    
-    func startRestriction() {
-        let applications = activitySelection.applicationTokens
-        let categories = activitySelection.categoryTokens
-        let webCategories = activitySelection.webDomainTokens
-        store.shield.applications = applications.isEmpty ? nil : applications
-        store.shield.applicationCategories = ShieldSettings.ActivityCategoryPolicy.specific(categories, except: Set())
-        store.shield.webDomains = webCategories
-    }
-    
-    func stopRestrictions() {
-        store.shield.applications = nil
     }
     
     func createFlow() {
         flow = Flow(new: true)
-        showingSheet = true
-        showFlow = true
         addFlow(flow: flow)
+        newFlow = true
     }
     
     func editFlow() {
-        showFlow = true
+        showingFlowSheet = true
     }
     
     // Add Flow
     func addFlow(flow: Flow) {
+        newFlow = false
         let updatedFlow = updateFlow(flow: flow)
         flowList.insert(updatedFlow, at: 0)
         selection = 0

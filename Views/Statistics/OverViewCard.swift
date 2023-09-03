@@ -31,7 +31,7 @@ struct OverviewLabel: View {
                 .font(.footnote)
             Text("\(formatHoursAndMinutes(time: time))")
                 .font(.subheadline)
-                .myBlue()
+                .foregroundColor(.myColor)
         }
         .maxWidth()
     }

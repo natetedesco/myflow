@@ -21,3 +21,18 @@ func heavyHaptic() {
     impactHev.impactOccurred()
 }
 
+func softHaptic() {
+    let impactSoft = UIImpactFeedbackGenerator(style: .soft)
+    impactSoft.impactOccurred()
+}
+
+func rigidHaptic() {
+    let impactRig = UIImpactFeedbackGenerator(style: .rigid)
+    impactRig.impactOccurred()
+}
+
+func successHaptic() {
+    let generator = UINotificationFeedbackGenerator()
+    generator.notificationOccurred(.success)
+}
+

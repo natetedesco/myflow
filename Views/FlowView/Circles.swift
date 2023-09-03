@@ -14,33 +14,40 @@ struct Circles: View {
             
             // Background
             Circle()
-                .fill(.ultraThinMaterial)
+                .fill(.thinMaterial)
+            
             Circle()
+//                .fill(Color.black.opacity(0.5))
                 .fill(RadialGradient(
                     gradient: Gradient(
-                        colors: [.black.opacity(0.5), .black.opacity(0.7)]),
-                    center: .center, startRadius: 10, endRadius: 320))
+                        colors: [.black.opacity(0.25), .black.opacity(0.5)]),
+                    center: .center, startRadius: 10, endRadius: 312))
+            
+            
             
             // Ring
             Circle()
                 .trim(from: 0, to: circleFill)
                 .stroke(showFlowCircle ? Color.myBlue : Color.gray,
-                        style: StrokeStyle(lineWidth: 8,lineCap: .round))
-                .frame(width: 312)
+                        style: StrokeStyle(lineWidth: 10,lineCap: .round))
+                .frame(width: 304)
+            
             
             Circle()
                 .trim(from: 0, to: circleFill)
                 .stroke(showFlowCircle ? Color.myBlue : Color.gray,
-                        style: StrokeStyle(lineWidth: 8,lineCap: .round))
+                        style: StrokeStyle(lineWidth: 10,lineCap: .round))
                 .opacity(0.3)
                 .blur(radius: 10)
-                .frame(width: 312)
+                .frame(width: 304)
+            
+            
             
         }
         .animation(.none, value: showFlowCircle)
         .animation(.default.speed(0.3), value: [model.flowTimeLeft, model.breakTimeLeft])
         .rotationEffect(.degrees(-90))
-        .frame(width: 320)
+        .frame(width: 312)
     }
     
     var showFlowCircle: Bool {
@@ -56,7 +63,7 @@ struct Circles: View {
         if model.mode == .Initial {
             return 0
         }
-            
+        
         // Flow Start
         if model.mode == .flowStart {
             return 0
@@ -80,7 +87,7 @@ struct Circles: View {
         if model.mode == .breakRunning {
             return formatProgress(time: model.breakTime, timeLeft: model.breakTimeLeft - 1)
         }
-
+        
         if model.flowTime - model.flowTimeLeft == 0 {
             return 0
         }
@@ -88,4 +95,16 @@ struct Circles: View {
     }
 }
 
+//            if model.mode == flowRunning {
+//                Circle()
+//                    .stroke(.regularMaterial, style: StrokeStyle(lineWidth: 12,lineCap: .round))
+//                    .frame(width: 312)
+////                    .environment(\.colorScheme, .light)
+//
+////                Circle()
+////                    .stroke(.black.opacity(0.2), style: StrokeStyle(lineWidth: 15,lineCap: .round))
+////                    .frame(width: 312)
+//
+//
+//        }
 

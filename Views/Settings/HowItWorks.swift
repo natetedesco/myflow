@@ -14,7 +14,7 @@ struct HowItWorks: View {
             
             HStack {
                 Image(systemName: "circle")
-                    .myBlue()
+                    .foregroundColor(.myColor)
                     .font(.largeTitle)
                     .padding(.trailing, 4)
                     .background(Circle()
@@ -34,7 +34,7 @@ struct HowItWorks: View {
             
             HStack {
                 Image(systemName: "chart.bar")
-                    .myBlue()
+                    .foregroundColor(.myColor)
                     .CircularGlassButton()
                     .padding(.leading, -4) // no idea
                 VStack {
@@ -50,7 +50,7 @@ struct HowItWorks: View {
             
             HStack {
                 Image(systemName: "bell")
-                    .myBlue()
+                    .foregroundColor(.myColor)
                     .CircularGlassButton()
                 VStack {
                     Text("Allow Notifications")

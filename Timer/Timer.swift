@@ -5,6 +5,7 @@
 //
 
 import Foundation
+import UserNotifications
 
 extension FlowModel {
     
@@ -34,6 +35,7 @@ extension FlowModel {
             }
             createDay()
         }
+        UNUserNotificationCenter.current().requestAuthorization(options:[.badge,.sound,.alert]) { (_, _) in}
     }
     
     // Run

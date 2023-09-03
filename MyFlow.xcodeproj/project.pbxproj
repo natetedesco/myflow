@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F06862102A93B5C100E64686 /* FlowEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F068620F2A93B5C100E64686 /* FlowEditor.swift */; };
+		F0435CD12A9E8C6D0073E7E1 /* DistractionBlocker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0435CD02A9E8C6D0073E7E1 /* DistractionBlocker.swift */; };
+		F0435CD52A9F965C0073E7E1 /* Backgrounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0435CD42A9F965C0073E7E1 /* Backgrounds.swift */; };
+		F0435CD72A9F97E10073E7E1 /* Glass Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0435CD62A9F97E10073E7E1 /* Glass Components.swift */; };
+		F0435CD92A9FA5850073E7E1 /* ThemePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0435CD82A9FA5850073E7E1 /* ThemePicker.swift */; };
+		F0435CDB2AA110160073E7E1 /* FlowSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0435CDA2AA110160073E7E1 /* FlowSheet.swift */; };
+		F0435CDD2AA12FC30073E7E1 /* App Blocker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0435CDC2AA12FC30073E7E1 /* App Blocker.swift */; };
 		F0954B122A95360F009E212E /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0954B112A95360F009E212E /* Block.swift */; };
 		F0954B152A9580DE009E212E /* Drag & Drop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0954B142A9580DE009E212E /* Drag & Drop.swift */; };
 		F0954B182A95B6C2009E212E /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = F0954B172A95B6C2009E212E /* Introspect */; };
@@ -33,17 +38,14 @@
 		F0EBC1292A8D3C0B006F9616 /* Paywall.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09861FE26968B4B00A61B42 /* Paywall.swift */; };
 		F0EBC12A2A8D3C0B006F9616 /* MonthCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291F1297B448F00C25E0E /* MonthCard.swift */; };
 		F0EBC12C2A8D3C0B006F9616 /* MyFlowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0899DEA292EA83200A35D4D /* MyFlowApp.swift */; };
-		F0EBC12D2A8D3C0B006F9616 /* ControlBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291E82979FB4B00C25E0E /* ControlBar.swift */; };
 		F0EBC12F2A8D3C0B006F9616 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E35E122A246A11009D020E /* Settings.swift */; };
 		F0EBC1302A8D3C0B006F9616 /* FlowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB4B28FF66B30058E66D /* FlowModel.swift */; };
 		F0EBC1312A8D3C0B006F9616 /* Checkers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EABDD5297F313500F508A5 /* Checkers.swift */; };
 		F0EBC1322A8D3C0B006F9616 /* Pickers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0729202297B78B200C25E0E /* Pickers.swift */; };
 		F0EBC1332A8D3C0B006F9616 /* Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F4332911C96E00BC8E16 /* Flow.swift */; };
 		F0EBC1342A8D3C0B006F9616 /* Circles.swift in Sources */ = {isa = PBXBuildFile; fileRef = F074D677271D100600CE1AB4 /* Circles.swift */; };
-		F0EBC1352A8D3C0B006F9616 /* StartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C146A270FA679002FE382 /* StartButton.swift */; };
 		F0EBC1372A8D3C0B006F9616 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08315292888A55100153CD7 /* StatsView.swift */; };
 		F0EBC1382A8D3C0B006F9616 /* Examples.swift in Sources */ = {isa = PBXBuildFile; fileRef = F096A2AF2980613800D3DF6F /* Examples.swift */; };
-		F0EBC1392A8D3C0B006F9616 /* Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C1468270FA679002FE382 /* Labels.swift */; };
 		F0EBC13C2A8D3C0B006F9616 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0391316285FA0990074CF33 /* Haptics.swift */; };
 		F0EBC13D2A8D3C0B006F9616 /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E35E152A26ADF8009D020E /* PurchaseManager.swift */; };
 		F0EBC13F2A8D3C0B006F9616 /* OverViewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291ED297B42FF00C25E0E /* OverViewCard.swift */; };
@@ -109,22 +111,24 @@
 		F01962A02931255D00336821 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		F01962B0293184BD00336821 /* Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		F02C1466270FA679002FE382 /* Toolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toolbar.swift; sourceTree = "<group>"; };
-		F02C1468270FA679002FE382 /* Labels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Labels.swift; sourceTree = "<group>"; };
 		F02C1469270FA679002FE382 /* UI Elements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UI Elements.swift"; sourceTree = "<group>"; };
-		F02C146A270FA679002FE382 /* StartButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartButton.swift; sourceTree = "<group>"; };
 		F03256422721308C009D3EFB /* AnimatedBlur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedBlur.swift; sourceTree = "<group>"; };
 		F032564A272251A5009D3EFB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		F0391313285EBF860074CF33 /* Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Format.swift; sourceTree = "<group>"; };
 		F0391316285FA0990074CF33 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
+		F0435CD02A9E8C6D0073E7E1 /* DistractionBlocker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistractionBlocker.swift; sourceTree = "<group>"; };
+		F0435CD42A9F965C0073E7E1 /* Backgrounds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backgrounds.swift; sourceTree = "<group>"; };
+		F0435CD62A9F97E10073E7E1 /* Glass Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Glass Components.swift"; sourceTree = "<group>"; };
+		F0435CD82A9FA5850073E7E1 /* ThemePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePicker.swift; sourceTree = "<group>"; };
+		F0435CDA2AA110160073E7E1 /* FlowSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowSheet.swift; sourceTree = "<group>"; };
+		F0435CDC2AA12FC30073E7E1 /* App Blocker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "App Blocker.swift"; sourceTree = "<group>"; };
 		F04FFB4B28FF66B30058E66D /* FlowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowModel.swift; sourceTree = "<group>"; };
 		F04FFB5D29033EC70058E66D /* Controls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controls.swift; sourceTree = "<group>"; };
 		F05FC0D629FAE96600A9B503 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		F05FC0ED29FAF9CD00A9B503 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		F066923326FB9C3800DB905E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		F068620F2A93B5C100E64686 /* FlowEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowEditor.swift; sourceTree = "<group>"; };
 		F06FDAF52A030ADD00C58F3B /* LiveActivities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivities.swift; sourceTree = "<group>"; };
 		F07291E62979F6A100C25E0E /* FlowCompleted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowCompleted.swift; sourceTree = "<group>"; };
-		F07291E82979FB4B00C25E0E /* ControlBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlBar.swift; sourceTree = "<group>"; };
 		F07291EA297B41BF00C25E0E /* GoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalView.swift; sourceTree = "<group>"; };
 		F07291ED297B42FF00C25E0E /* OverViewCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverViewCard.swift; sourceTree = "<group>"; };
 		F07291EF297B441200C25E0E /* WeekCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekCard.swift; sourceTree = "<group>"; };
@@ -197,6 +201,7 @@
 				F04FFB4B28FF66B30058E66D /* FlowModel.swift */,
 				F0A025C6294796A500AF723F /* FlowData.swift */,
 				F0E35E152A26ADF8009D020E /* PurchaseManager.swift */,
+				F0435CDC2AA12FC30073E7E1 /* App Blocker.swift */,
 				F0948C4B2681907A00A5F48D /* Notifications.swift */,
 			);
 			path = ViewModels;
@@ -207,10 +212,14 @@
 			children = (
 				F09861FE26968B4B00A61B42 /* Paywall.swift */,
 				F001C23828D3A12100134EB5 /* Modifiers.swift */,
+				F0435CD62A9F97E10073E7E1 /* Glass Components.swift */,
+				F0435CD42A9F965C0073E7E1 /* Backgrounds.swift */,
 				F02C1469270FA679002FE382 /* UI Elements.swift */,
-				F02C1466270FA679002FE382 /* Toolbar.swift */,
+				F0435CD82A9FA5850073E7E1 /* ThemePicker.swift */,
 				F03256422721308C009D3EFB /* AnimatedBlur.swift */,
 				F0729202297B78B200C25E0E /* Pickers.swift */,
+				F0954B142A9580DE009E212E /* Drag & Drop.swift */,
+				F0391316285FA0990074CF33 /* Haptics.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -253,11 +262,10 @@
 			isa = PBXGroup;
 			children = (
 				F066923326FB9C3800DB905E /* ContentView.swift */,
+				F028E6DE269D406A0022A555 /* Components */,
 				F0954B132A95795C009E212E /* FlowView */,
-				F0954B102A95359D009E212E /* FlowEditor */,
 				F07291EC297B427600C25E0E /* Statistics */,
 				F07291F6297B6C6000C25E0E /* Settings */,
-				F028E6DE269D406A0022A555 /* Components */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -266,6 +274,7 @@
 			isa = PBXGroup;
 			children = (
 				F032564A272251A5009D3EFB /* SettingsView.swift */,
+				F0435CD02A9E8C6D0073E7E1 /* DistractionBlocker.swift */,
 				F07291F4297B6B0A00C25E0E /* AboutUs.swift */,
 				F07291F7297B6CA200C25E0E /* HowItWorks.swift */,
 				F07291F9297B6DBD00C25E0E /* Feedback.swift */,
@@ -321,25 +330,15 @@
 			path = MyFlow;
 			sourceTree = "<group>";
 		};
-		F0954B102A95359D009E212E /* FlowEditor */ = {
-			isa = PBXGroup;
-			children = (
-				F068620F2A93B5C100E64686 /* FlowEditor.swift */,
-				F0954B112A95360F009E212E /* Block.swift */,
-				F0954B192A95C456009E212E /* BlockEditor.swift */,
-				F0954B142A9580DE009E212E /* Drag & Drop.swift */,
-			);
-			path = FlowEditor;
-			sourceTree = "<group>";
-		};
 		F0954B132A95795C009E212E /* FlowView */ = {
 			isa = PBXGroup;
 			children = (
 				F074D679271D124900CE1AB4 /* FlowView.swift */,
-				F07291E82979FB4B00C25E0E /* ControlBar.swift */,
-				F02C146A270FA679002FE382 /* StartButton.swift */,
+				F0435CDA2AA110160073E7E1 /* FlowSheet.swift */,
 				F074D677271D100600CE1AB4 /* Circles.swift */,
-				F02C1468270FA679002FE382 /* Labels.swift */,
+				F0954B112A95360F009E212E /* Block.swift */,
+				F0954B192A95C456009E212E /* BlockEditor.swift */,
+				F02C1466270FA679002FE382 /* Toolbar.swift */,
 				F07291E62979F6A100C25E0E /* FlowCompleted.swift */,
 			);
 			path = FlowView;
@@ -381,7 +380,6 @@
 			children = (
 				F0E35E122A246A11009D020E /* Settings.swift */,
 				F096A2AF2980613800D3DF6F /* Examples.swift */,
-				F0391316285FA0990074CF33 /* Haptics.swift */,
 				F0391313285EBF860074CF33 /* Format.swift */,
 			);
 			path = Helpers;
@@ -504,18 +502,20 @@
 				F0EBC11E2A8D3C0B006F9616 /* FlowData.swift in Sources */,
 				F0EBC11F2A8D3C0B006F9616 /* AnimatedBlur.swift in Sources */,
 				F0EBC1212A8D3C0B006F9616 /* TimerWidget.intentdefinition in Sources */,
+				F0435CD92A9FA5850073E7E1 /* ThemePicker.swift in Sources */,
 				F0EBC1222A8D3C0B006F9616 /* AboutUs.swift in Sources */,
 				F0EBC1232A8D3C0B006F9616 /* Toolbar.swift in Sources */,
 				F0EBC1242A8D3C0B006F9616 /* StartAutomatically.swift in Sources */,
-				F06862102A93B5C100E64686 /* FlowEditor.swift in Sources */,
+				F0435CD52A9F965C0073E7E1 /* Backgrounds.swift in Sources */,
 				F0EBC1252A8D3C0B006F9616 /* GoalView.swift in Sources */,
 				F0EBC1262A8D3C0B006F9616 /* HowItWorks.swift in Sources */,
 				F0EBC1272A8D3C0B006F9616 /* FlowView.swift in Sources */,
+				F0435CD72A9F97E10073E7E1 /* Glass Components.swift in Sources */,
 				F0EBC1282A8D3C0B006F9616 /* UI Elements.swift in Sources */,
 				F0EBC1292A8D3C0B006F9616 /* Paywall.swift in Sources */,
+				F0435CDD2AA12FC30073E7E1 /* App Blocker.swift in Sources */,
 				F0EBC12A2A8D3C0B006F9616 /* MonthCard.swift in Sources */,
 				F0EBC12C2A8D3C0B006F9616 /* MyFlowApp.swift in Sources */,
-				F0EBC12D2A8D3C0B006F9616 /* ControlBar.swift in Sources */,
 				F0954B1A2A95C456009E212E /* BlockEditor.swift in Sources */,
 				F0EBC12F2A8D3C0B006F9616 /* Settings.swift in Sources */,
 				F0EBC1302A8D3C0B006F9616 /* FlowModel.swift in Sources */,
@@ -523,10 +523,8 @@
 				F0EBC1322A8D3C0B006F9616 /* Pickers.swift in Sources */,
 				F0EBC1332A8D3C0B006F9616 /* Flow.swift in Sources */,
 				F0EBC1342A8D3C0B006F9616 /* Circles.swift in Sources */,
-				F0EBC1352A8D3C0B006F9616 /* StartButton.swift in Sources */,
 				F0EBC1372A8D3C0B006F9616 /* StatsView.swift in Sources */,
 				F0EBC1382A8D3C0B006F9616 /* Examples.swift in Sources */,
-				F0EBC1392A8D3C0B006F9616 /* Labels.swift in Sources */,
 				F0EBC13C2A8D3C0B006F9616 /* Haptics.swift in Sources */,
 				F0EBC13D2A8D3C0B006F9616 /* PurchaseManager.swift in Sources */,
 				F0EBC13F2A8D3C0B006F9616 /* OverViewCard.swift in Sources */,
@@ -536,9 +534,11 @@
 				F0EBC1452A8D3C0B006F9616 /* Format.swift in Sources */,
 				F0EBC1472A8D3C0B006F9616 /* Modifiers.swift in Sources */,
 				F0EBC1482A8D3C0B006F9616 /* WeekCard.swift in Sources */,
+				F0435CDB2AA110160073E7E1 /* FlowSheet.swift in Sources */,
 				F0954B152A9580DE009E212E /* Drag & Drop.swift in Sources */,
 				F0EBC1492A8D3C0B006F9616 /* SettingsView.swift in Sources */,
 				F0954B122A95360F009E212E /* Block.swift in Sources */,
+				F0435CD12A9E8C6D0073E7E1 /* DistractionBlocker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -794,7 +794,7 @@
 				INFOPLIST_FILE = "MyFlow copy2-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = MyFlow;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -828,7 +828,7 @@
 				INFOPLIST_FILE = "MyFlow copy2-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = MyFlow;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -862,7 +862,7 @@
 				INFOPLIST_FILE = "MyFlow copy2-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = MyFlow;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

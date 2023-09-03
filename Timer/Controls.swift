@@ -61,7 +61,7 @@ extension FlowModel {
     
     // Reset
     func Reset() {
-        mediumHaptic()
+        rigidHaptic()
         if isFlow() {
             if !flowContinue {
                 addTime(time: flowTime - flowTimeLeft)

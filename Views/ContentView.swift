@@ -9,6 +9,8 @@ import SwiftUI
 struct ContentView: View {
     @AppStorage("SelectedTab") var selectedTab: Tab = .home
     @StateObject var model = FlowModel()
+    @StateObject var theme = AppSettings()
+    
     
     init() {
         selectedTab = .home

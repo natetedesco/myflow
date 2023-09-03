@@ -23,7 +23,7 @@ struct MonthCard: View {
                 )
                 .foregroundStyle(curGradient)
             }
-            .accentColor(.myBlue)
+            .accentColor(.myColor)
             .frame(height: 130)
             .padding(.top, 8)
             .padding(.horizontal, 8)
@@ -35,9 +35,9 @@ struct MonthCard: View {
 let curGradient = LinearGradient(
     gradient: Gradient (
         colors: [
-            .myBlue.opacity(0.5),
-            .myBlue.opacity(0.2),
-            .myBlue.opacity(0.05),
+            .myColor.opacity(0.5),
+            .myColor.opacity(0.2),
+            .myColor.opacity(0.05),
         ]
     ),
     startPoint: .top,

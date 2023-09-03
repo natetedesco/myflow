@@ -42,11 +42,11 @@ struct TimerWidgetLiveActivity: Widget {
             VStack {
                 HStack {
                     //                    Image(systemName: "circle")
-                    //                        .foregroundColor(context.flow ? .myBlue : .gray)
+                    //                        .foregroundColor(context.flow ? .myColor : .gray)
                     //                        .font(.system(size: 28))
                     
                     Circle()
-                        .stroke(Color.myBlue, style: StrokeStyle(lineWidth: 3,lineCap: .round))
+                        .stroke(Color.myColor, style: StrokeStyle(lineWidth: 3,lineCap: .round))
                         .frame(width: 24)
                     
                     Text(context.name)
@@ -57,10 +57,10 @@ struct TimerWidgetLiveActivity: Widget {
                 
                 HStack {
                     //                    Circle()
-                    //                        .fill(context.flow ? Color.myBlue : Color.gray)
+                    //                        .fill(context.flow ? Color.myColor : Color.gray)
                     //                        .frame(height: 8)
                     Text(context.blockName)
-                        .foregroundColor(context.flow ? .myBlue : .gray)
+                        .foregroundColor(context.flow ? .myColor : .gray)
                         .font(.headline)
                         .fontWeight(.medium)
                     
@@ -88,7 +88,7 @@ struct TimerWidgetLiveActivity: Widget {
                 }, currentValueLabel: {
                     Text("")
                 })
-                .tint(context.flow ? .myBlue : .gray)
+                .tint(context.flow ? .myColor : .gray)
                 .scaleEffect(x: 1, y: 1.2, anchor: .center)
             }
             .padding(.horizontal)
@@ -105,7 +105,7 @@ struct TimerWidgetLiveActivity: Widget {
             DynamicIslandExpandedRegion(.leading) {
                 HStack {
                     Circle()
-                        .stroke(Color.myBlue, style: StrokeStyle(lineWidth: 3,lineCap: .round))
+                        .stroke(Color.myColor, style: StrokeStyle(lineWidth: 3,lineCap: .round))
                         .frame(width: 24)
                     
                     Text(context.state.name)
@@ -122,7 +122,7 @@ struct TimerWidgetLiveActivity: Widget {
                         
                         HStack {
                             Text(context.state.blockName)
-                                .foregroundColor(context.state.flow ? .myBlue : .gray)
+                                .foregroundColor(context.state.flow ? .myColor : .gray)
                                 .font(.headline)
                             Spacer()
                         }
@@ -149,7 +149,7 @@ struct TimerWidgetLiveActivity: Widget {
                     }, currentValueLabel: {
                         Text("")
                     })
-                    .tint(context.state.flow ? .myBlue : .gray)
+                    .tint(context.state.flow ? .myColor : .gray)
                 }
                 .padding(.top, 4)
                 .padding(.bottom, -12)
@@ -158,7 +158,7 @@ struct TimerWidgetLiveActivity: Widget {
             // Compact
         } compactLeading: {
             Image(systemName: "circle")
-                .foregroundColor(context.state.flow ? .myBlue : .gray)
+                .foregroundColor(context.state.flow ? .myColor : .gray)
                 .font(.system(size: 20))
         } compactTrailing: {
             if context.state.paused {
@@ -225,7 +225,7 @@ extension Color {
         return Color(red: r / 255, green: g / 255, blue: b / 255)
     }
     static let darkBackground = Color(#colorLiteral(red: 0.05882352941, green: 0.07058823529, blue: 0.08235294118, alpha: 1))
-    static let myBlue = Color(#colorLiteral(red: 0, green: 0.8217858727, blue: 1, alpha: 1))
+    static let myColor = Color(#colorLiteral(red: 0, green: 0.8217858727, blue: 1, alpha: 1))
 }
 
 
