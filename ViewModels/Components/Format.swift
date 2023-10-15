@@ -25,6 +25,12 @@ func formatHoursAndMinutes(time: Int) -> String {
     return ("\(hourStamp)h \(minuteStamp)m")
 }
 
+
+func formatHours(time: Int) -> String {
+    let hours = Double(time) / 60.0
+    return String(format: "%.1fhr", hours)
+}
+
 func formatProgress(time: Int, timeLeft: Int) -> CGFloat {
     let progress = (CGFloat(time) - CGFloat(timeLeft)) / CGFloat(time)
     return(progress)

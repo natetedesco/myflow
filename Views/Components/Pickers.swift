@@ -73,8 +73,10 @@ struct MultiComponentPicker<Tag: Hashable>: View  {
                 }
 
             }
-            .frame(height: 160)
+            .frame(height: 128)
         }
+        .padding(.horizontal)
+        .padding(.vertical, -4)
         
     }
 }

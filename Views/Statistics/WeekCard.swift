@@ -12,42 +12,47 @@ struct WeekCard: View {
     var days = ["M", "T", "W", "T", "F", "S", "S"]
     
     var body: some View {
-        VStack(alignment: .center, spacing: 16) {
+        VStack(alignment: .leading, spacing: 16) {
             HStack {
                 Text("Daily flow time goal:")
                     .font(.footnote)
+                    .fontWeight(.medium)
+                    .foregroundStyle(.secondary)
                 Text("\(data.goalSelection)h")
-                    .font(.subheadline)
+                    .font(.footnote)
+                    .fontWeight(.medium)
             }
             
-            VStack {
-                ZStack {
-                    HStack(alignment: .center, spacing: 16) {
-                        ForEach(data.thisWeekDays) {_ in
-                            Rectangle()
-                                .frame(width: 25, height: 60)
-                                .foregroundColor(.white)
-                                .cornerRadius(25)
+            HStack {
+            ForEach(0..<data.thisWeekDays.count, id: \.self) { i in
+                HStack {
+                    VStack {
+                        ZStack {
+                            BarGraph(value: (CGFloat(data.thisWeekDays[i].time/data.goalSelection)))
+                            //                            Rectangle()
+                            //                                .frame(width: 24, height: 60)
+                            //                                .foregroundColor(.white)
+                            //                                .cornerRadius(25)
+                            //                                .blendMode(.destinationOut)
                         }
+                        .compositingGroup()
+                        
+                        Text(days[i])
+                            .font(.subheadline)
+                            .fontWeight(.medium)
+                            .foregroundColor(i == data.dayOfTheWeek ? .myColor : .gray)
+                            .frame(width: 24)
+                            .padding(.top, 4)
                     }
-                    .blendMode(.destinationOut)
-                    HStack(alignment: .center, spacing: 16) {
-                        ForEach(data.thisWeekDays) { day in
-                            BarGraph(value: (CGFloat(day.time/data.goalSelection)))
-                        }
+                    if i != 6 {
+                        Spacer()
                     }
                 }
-                HStack(alignment: .center, spacing: 16) {
-                    ForEach(0..<self.data.thisWeekDays.count, id: \.self) { i in
-                        Text(days[i])
-                            .font(.footnote)
-                            .foregroundColor(i == data.dayOfTheWeek ? .myColor : .gray)
-                            .frame(width: 25)
-                    }
                 }
             }
         }
-        .compositingGroup()
+//        .padding(.top, 8)
+        .padding(.horizontal, 24)
         .cardGlass()
     }
 }
@@ -71,7 +76,8 @@ struct BarGraph: View {
                 Rectangle()
                     .frame(width: 25, height: 60)
                     .foregroundColor(.clear)
-                    .background(.ultraThinMaterial.opacity(0.5))
+                    .background(Color.myColor.opacity(0.1))
+                //                    .background(.ultraThinMaterial.opacity(0.5))
                 
                 Rectangle()
                     .frame(width: 25, height: min(value, 60))
@@ -85,6 +91,5 @@ struct BarGraph: View {
 struct WeekCard_Previews: PreviewProvider {
     static var previews: some View {
         WeekCard(data: FlowData())
-            .previewBackGround()
     }
 }

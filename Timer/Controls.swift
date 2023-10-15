@@ -10,10 +10,10 @@ extension FlowModel {
     
     // Pause
     func Pause(flow: Bool) {
-        mode = flow ? .flowPaused : .breakPaused
+        mode = .flowPaused
         setElapsedTime()
         invalidateTimer()
-        startActivity(flow: flow, start: Date(), end: Date(), paused: true)
+
         stopRestrictions()
     }
     
@@ -26,35 +26,17 @@ extension FlowModel {
     // Restart
     func Restart() {
         elapsed = 0
+        mode = .flowStart
         if flowRunning() {
             setFlowTime(time: flowTime)
-            setFlowStart()
             invalidateTimer()
-        }
-        else if breakRunning() {
-            setBreakTimeLeft(time: breakTime)
-            setBreakStart()
-            invalidateTimer()
-            
-        }
-        else {
+        } else {
             if blocksCompleted != 0 {
                 
                 blocksCompleted -= 1
-                let block = flowList[selection].blocks[blocksCompleted]
+                let block = flow.blocks[blocksCompleted]
                 let time = (block.hours * 3600) + (block.minutes * 60) + (block.seconds)
-                
-                if block.flow {
-                    type = .Flow
                     setFlowTime(time: time)
-                    setFlowStart()
-                }
-                if !block.flow {
-                    type = .Break
-                    setBreakTime(time: time)
-                    setBreakStart()
-                    print(blocksCompleted)
-                }
             }
         }
     }
@@ -62,11 +44,9 @@ extension FlowModel {
     // Reset
     func Reset() {
         rigidHaptic()
-        if isFlow() {
             if !flowContinue {
                 addTime(time: flowTime - flowTimeLeft)
             }
-        }
         invalidateTimer()
         stopActivity()
         completeSession()
@@ -77,14 +57,15 @@ extension FlowModel {
     // Continue Flow
     func continueFlow() {
         var start = Date()
-        type = .Flow
         
         if flowContinue {
             start = Calendar.current.date(byAdding: .second, value: (-flowTimeLeft), to: start)!
         }
         mode = .flowRunning
         flowContinue = true
-        startActivity(flow: true, start: start, end: start, extend: true)
+        if settings.liveActivities {
+            startActivity(start: start, end: start, extend: true)
+        }
         
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [self] timer in
             flowTimeLeft = (Calendar.current.dateComponents([.second], from: start, to: Date()).second ?? 0)
@@ -94,10 +75,27 @@ extension FlowModel {
     // Complete Continue Flow
     func completeContinueFlow() {
         invalidateTimer()
-        flowContinue = false
         addTime(time: flowTimeLeft)
+        
+        flowContinue = false
         flowTimeLeft = flowTime
         elapsed = 0
-        setNextBlock()
+        
+        blocksCompleted = blocksCompleted - 1
+        completeBlock()
+    }
+    
+    func completeSession() {
+        showFlow = false
+//        showFlowRunning = false
+        mode = .initial
+        elapsed = 0
+        blocksCompleted = 0
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.showFlowCompleted  = true
+            print("completed")
+        }
+        Initialize()
     }
 }

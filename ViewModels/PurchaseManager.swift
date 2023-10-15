@@ -4,13 +4,12 @@
 //  Created by Nate Tedesco on 5/30/23.
 //
 
-import Foundation
 import StoreKit
 import SwiftUI
 
 @MainActor
 class PurchaseManager: ObservableObject {
-    let productIds = ["MyFlowPro_0.99_1m_1w", "pro_yearly"]
+    let productIds = ["pro_yearly"]
     @Published private(set) var products: [Product] = []
     @Published private(set) var purchasedProductIDs = Set<String>()
     

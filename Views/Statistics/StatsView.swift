@@ -9,53 +9,84 @@ import SwiftUI
 struct StatsView: View {
     @StateObject var data = FlowData()
     @StateObject var settings = Settings()
-    @State private var showingSheet = false
     @AppStorage("ProAccess") var proAccess: Bool = false
+    
+    @State private var showPaywall = false
+    @State var detent = PresentationDetent.large
     
     @Environment(\.dismiss) var dismiss
     
-    
-    var hours = [Int](0...8)
+    @State var showingSettings = false
+    @State var blur = 0.0
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                ScrollView {
-                    VStack(spacing: 16) {
-                        
-                        CustomHeadline(text: "Overview")
-                        ZStack {
+            
+            NavigationView {
+                ZStack {
+                    Color.black.opacity(0.3).ignoresSafeArea()
+                    
+                    ScrollView {
+                        VStack(spacing: 16) {
+                            
+                            HStack {
+                                Text("Goal:")
+                                    .padding(.leading, 24)
+                                    .fontWeight(.semibold)
+                                
+                                goalMenu
+                                Spacer()
+                            }
+                            .padding(.top)
                             OverViewCard(data: data)
-                                .blur(radius: proAccess ? 0 : 3)
-                            if !proAccess { lock }
-                        }
-                        
-                        CustomHeadline(text: "This Week")
-                        ZStack {
+                            
+//                            Spacer()
+
+                            CustomHeadline(text: "This Week")
                             WeekCard(data: data)
-                                .blur(radius: proAccess ? 0 : 3)
-                            if !proAccess { lock }
-                        }
-                        
-                        CustomHeadline(text: "This Month")
-                        ZStack {
+                            
+//                            Spacer()
+
+                            CustomHeadline(text: "This Month")
                             MonthCard(data: data)
-                                .blur(radius: proAccess ? 0 : 3)
-                            if !proAccess { lock }
+                            
+                            
                         }
                     }
+                    .navigationTitle("Activity")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .topBarLeading) {}
+                        ToolbarItem(placement: .bottomBar) {
+                            if !proAccess {
+                                unlockButton
+                            }
+                        }
+                    }
+                    .onAppear {
+                        if !proAccess {
+                            blur = 4
+                        }
+                    }
+                    .blur(radius: proAccess ? 0 : blur)
+                    .animation(.easeIn(duration: 0.4), value: blur)
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            if !proAccess {
+                                showPaywall = true
+                            }
+                        }
+                    }
+                    .sheet(isPresented: $showPaywall) {
+                        PayWall(detent: $detent)
+                            .presentationCornerRadius(40)
+                            .presentationBackground(.bar)
+                            .presentationDetents([.large, .fraction(6/10)], selection: $detent)
+                            .interactiveDismissDisabled(detent == .large)
+                            .presentationDragIndicator(detent == .large ? .visible : .hidden)
+                    }
                 }
-                .background(.regularMaterial)
-                .navigationTitle("Statistics")
-                .toolbar {
-                    GoalButton
-                }
-                .sheet(isPresented: $showingSheet) {
-                    PayWall()
-                }
-                //                Toolbar()
             }
-        }
+        
     }
     
     var lock: some View {
@@ -64,6 +95,7 @@ struct StatsView: View {
             .font(.system(size: 20))
     }
     
+    var hours = [Int](0...8)
     @ViewBuilder var goalMenu: some View {
         if proAccess {
             Menu {
@@ -75,37 +107,21 @@ struct StatsView: View {
                 }
             }
         label: {
-            Text("Goal")
-                .smallButtonGlass()
-                .foregroundColor(.clear)
+            Text("\(data.goalSelection) hours")
+                .foregroundColor(.myColor)
+//                .font(.title3)
+                .fontWeight(.medium)
         }
-        } else {
-            Button {
-                showingSheet.toggle()
-            } label: {
-                Text("Try Pro")
-                    .smallButtonGlass()
-            }
         }
     }
     
-    var moreBlur: Bool {
-        if data.showGoal {
-            return true
-        }
-        return false
-    }
-    
-    // Goal Button
-    var GoalButton: some View {
-        Button(action: showGoalCard) {
-            Text(proAccess ? "Goal" : "Unlock")
+    var unlockButton: some View {
+        Button {
+            showPaywall = true
+        } label: {
+            Text("Unlock")
                 .foregroundColor(.myColor)
         }
-    }
-    
-    func showGoalCard() {
-        data.showGoal.toggle()
     }
 }
 
@@ -115,14 +131,3 @@ struct StatsView_Previews: PreviewProvider {
     }
 }
 
-//Button {
-//    dismiss()
-//} label: {
-//    RoundedRectangle(cornerRadius: 16)
-//        .foregroundStyle(.ultraThickMaterial)
-//        .environment(\.colorScheme, .light)
-//        .frame(width: 36, height: 5)
-//        .padding(.horizontal)
-//        .padding(.top, 8)
-//        .padding(.bottom, 24)
-//}

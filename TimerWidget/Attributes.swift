@@ -11,7 +11,6 @@ struct TimerWidgetAttributes: ActivityAttributes {
     public typealias TimerStatus = ContentState
     
     public struct ContentState: Codable, Hashable {
-        var flow: Bool
         var name: String
         var blockName: String
         

@@ -11,7 +11,7 @@ extension FlowModel {
     
     // Time Set?
     func timesSet() -> Bool {
-        if (flowTime > 0 && breakTime > 0) || (flowTime > 0 || breakTime > 0) {
+        if (flowTime > 0) {
             return true
         }
         return false
@@ -25,24 +25,20 @@ extension FlowModel {
     // Add Time
     func addTime(time: Int) {
         data.addTime(time: time)
-        totalTime = totalTime + time
+        totalFlowTime = totalFlowTime + time
     }
     
     // Time Left
     func timeLeft(end: Date) -> Int {
         let timeLeft = Calendar.current.dateComponents([.second], from: Date(), to: end + 1).second ?? 0
+        setFlowTimeLeft(time: timeLeft)
         
-        if isFlow() {
-            setFlowTimeLeft(time: timeLeft)
-        } else {
-            setBreakTimeLeft(time: timeLeft)
-        }
         return timeLeft
     }
     
     // Set Notification
-    func setNotification(flow: Bool, time: Int, id: String = "timer") {
-        notifications.Set(flow: flow, time: time, elapsed: elapsed, id: id)
+    func setNotification(time: Int, id: String = "timer") {
+        notifications.Set(time: time, elapsed: elapsed, id: id)
     }
     
     // Set End
@@ -50,15 +46,6 @@ extension FlowModel {
         start = Date()
         let end = Calendar.current.date(byAdding: .second, value: (time - elapsed), to: start)!
         return end
-    }
-    
-    // Complete Session
-    func completeSession() {
-        mode = .Initial
-        Initialize()
-        elapsed = 0
-        blocksCompleted = 0
-        completed = true
     }
     
     // Invalidate Timer
@@ -69,8 +56,7 @@ extension FlowModel {
     
     // Dismiss Completed
     func dismissCompleted() {
-        totalTime = 0
-        completed = false
+        totalFlowTime = 0
     }
     
     // Set Flow Time
@@ -79,26 +65,9 @@ extension FlowModel {
         flowTimeLeft = time
     }
     
-    // Set Break Time
-    func setBreakTime(time: Int) {
-        breakTime = time
-        breakTimeLeft = time
-    }
-    
     // Set Flow Time Left
     func setFlowTimeLeft(time: Int) {
         flowTimeLeft = time
-    }
-    
-    // Set Break Time Left
-    func setBreakTimeLeft(time: Int) {
-        breakTimeLeft = time
-    }
-    
-    // Set Both
-    func setTimes(flowTime: Int, breakTime: Int) {
-        setFlowTime(time: flowTime)
-        setBreakTime(time: breakTime)
     }
     
     // Set Elapsed Time
@@ -107,39 +76,26 @@ extension FlowModel {
         elapsed = elapsed + newTime
     }
     
-    // Set Modes
-    func setFlowStart() {
-        mode = .flowStart
-        type = .Flow
-    }
-    
-    // Set Running
-    func setRunning(flow: Bool) {
-        if flow {
-            mode = .flowRunning
-            type = .Flow
-        } else {
-            mode = .breakRunning
-            type = .Break
+    func flowRunning() -> Bool {
+        if mode == .flowRunning {
+            return true
         }
+        return false
+    }
+ 
+    func flowPaused() -> Bool {
+        if mode == .flowPaused {
+            return true
+        }
+        return false
     }
     
-    // Set Break Start
-    func setBreakStart() {
-        mode = .breakStart
-        type = .Break
-    }
     
-    // Start FLow
-    func startFlow() {
-        type = .Flow ;
-        mode = .flowRunning
-    }
-    
-    // Start Break
-    func startBreak() {
-        mode = .breakRunning
-        type = .Break
+    func flowStart() -> Bool {
+        if mode == .flowStart {
+            return true
+        }
+        return false
     }
 }
 

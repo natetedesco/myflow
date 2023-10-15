@@ -8,21 +8,21 @@ import SwiftUI
 
 // Drop Delegate
 struct DropViewDelegate: DropDelegate {
+    var model: FlowModel
     var currentItem: Block
     var items: Binding<[Block]>
     var draggingItem: Binding<Block?>
     @Binding var dragging: Bool
     
-    
     func performDrop(info: DropInfo) -> Bool {
         print("dragging off")
         dragging = false
         draggingItem.wrappedValue = nil
+        model.saveFlow()
         return true
     }
     
     func dropEntered(info: DropInfo) {
-        //        print("dragging on")
         dragging = true
         if currentItem.id != draggingItem.wrappedValue?.id {
             let from = items.wrappedValue.firstIndex(of: draggingItem.wrappedValue!)!
@@ -34,7 +34,6 @@ struct DropViewDelegate: DropDelegate {
         }
     }
     func dropUpdated(info: DropInfo) -> DropProposal? {
-        //        print("Drop updated")
         return DropProposal(operation: .move)
     }
 }
@@ -68,10 +67,8 @@ struct CornerShape: Shape {
     func path(in rect: CGRect) -> Path {
         var path = Path()
 
-        // Calculate the adjusted width
         let adjustedWidth = rect.size.width - 2 * horizontalTrim
 
-        // Create the main rounded rectangle path with adjusted width
         path.addRoundedRect(in: CGRect(x: horizontalTrim, y: rect.minY, width: adjustedWidth, height: rect.size.height), cornerSize: CGSize(width: radius, height: radius))
 
         return path
@@ -79,11 +76,11 @@ struct CornerShape: Shape {
 }
 
 extension View {
-    func customOnDrop(draggingItem: Binding<Block?>, items: Binding<[Block]>, dragging: Binding<Bool>) -> some View {
-        self.onDrop(of: [.item], delegate: DropViewDelegate(currentItem: draggingItem.wrappedValue ?? Block(), items: items, draggingItem: draggingItem, dragging: dragging))
+    func customOnDrop(model: FlowModel, draggingItem: Binding<Block?>, items: Binding<[Block]>, dragging: Binding<Bool>) -> some View {
+        self.onDrop(of: [.item], delegate: DropViewDelegate(model: model, currentItem: draggingItem.wrappedValue ?? Block(), items: items, draggingItem: draggingItem, dragging: dragging))
     }
     
-    func dragAndDrop(block: Binding<Block>, draggingItem: Binding<Block?>, dragging: Binding<Bool>, blocks: Binding<[Block]>) -> some View {
+    func dragAndDrop(model: FlowModel, block: Binding<Block>, draggingItem: Binding<Block?>, dragging: Binding<Bool>, blocks: Binding<[Block]>) -> some View {
         self
             .contentShape([.dragPreview], CornerShape(radius: 25, corners: [.allCorners]))
             .opacity(block.wrappedValue.id == draggingItem.wrappedValue?.id && dragging.wrappedValue ? 0.001 : 1)
@@ -92,6 +89,7 @@ extension View {
                 draggingItem.wrappedValue = block.wrappedValue
                 return NSItemProvider(contentsOf: URL(string: "\(block.wrappedValue.id)"))!
             }
-            .onDrop(of: [.item], delegate: DropViewDelegate(currentItem: block.wrappedValue, items: blocks, draggingItem: draggingItem, dragging: dragging))
+            .onDrop(of: [.item], delegate: DropViewDelegate(model: model, currentItem: block.wrappedValue, items: blocks, draggingItem: draggingItem, dragging: dragging))
     }
 }
+

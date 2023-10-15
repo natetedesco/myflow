@@ -12,28 +12,45 @@ struct OverViewCard: View {
     
     var body: some View {
         
-        HStack(alignment: .center) {
-            OverviewLabel(label: "Today", time: data.todayTime)
-            OverviewLabel(label: "This Week", time: data.thisWeekTime)
-            OverviewLabel(label: "This Month", time: data.thisMonthTime)
+        HStack() {
+            OverviewLabel(
+                label: "Today",
+                time: CGFloat(data.todayTime / data.goalSelection),
+                totalTime: data.todayTime
+            )
+            Spacer()
+            OverviewLabel(
+                label: "This Week",
+                time: CGFloat(data.thisWeekTime / (data.goalSelection * 7)),
+                totalTime: data.thisWeekTime
+            )
+            Spacer()
+            OverviewLabel(
+                label: "This Month",
+                time: CGFloat(data.thisMonthTime / (data.goalSelection * daysInCurrentMonth())),
+                totalTime: data.thisMonthTime
+            )
         }
+        .padding(.horizontal)
         .cardGlass()
     }
 }
 
 struct OverviewLabel: View {
     var label: String
-    var time: Int
+    var time: CGFloat
+    var totalTime: Int
     
     var body: some View {
-        VStack(alignment: .center, spacing: 6) {
+        VStack(alignment: .center, spacing: 8) {
             Text(label)
                 .font(.footnote)
-            Text("\(formatHoursAndMinutes(time: time))")
-                .font(.subheadline)
-                .foregroundColor(.myColor)
+                .fontWeight(.medium)
+                .foregroundStyle(.secondary)
+            Gauge(value: (time/60), label: {Text("\(formatHours(time: totalTime))")})
+                .gaugeStyle(.accessoryCircularCapacity)
+                .tint(.myColor)
         }
-        .maxWidth()
     }
 }
 
@@ -41,7 +58,20 @@ struct OverViewCard_Previews: PreviewProvider {
     static var previews: some View {
         
         OverViewCard(data: FlowData())
-            .previewBackGround()
-        
     }
+}
+
+func daysInCurrentMonth() -> Int {
+    let calendar = Calendar.current
+    let date = Date()
+    
+    let year = calendar.component(.year, from: date)
+    let month = calendar.component(.month, from: date)
+    
+    let startOfMonth = calendar.date(from: DateComponents(year: year, month: month, day: 1))!
+    let endOfMonth = calendar.date(byAdding: DateComponents(month: 1, day: -1), to: startOfMonth)!
+    
+    let numberOfDays = calendar.range(of: .day, in: .month, for: endOfMonth)?.count ?? 0
+    
+    return numberOfDays
 }

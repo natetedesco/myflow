@@ -6,93 +6,73 @@
 
 import SwiftUI
 import FamilyControls
+import MessageUI
 
 struct SettingsView: View {
     @StateObject var settings = Settings()
-    @ObservedObject var model: FlowModel
+    @Bindable var model: FlowModel
     
-    @State private var showingSheet = false
     @AppStorage("ProAccess") var proAccess: Bool = false
-    @AppStorage("showLiveActivities") var showLiveActivities: Bool = true
+    
+    @State private var showPayWall = false
+    @State var detent = PresentationDetent.large
+
     let center = AuthorizationCenter.shared
     @AppStorage("ScreenTimeAuthorized") var isAuthorized: Bool = false
-    @State var isPresented = false
     
+    @State var isPresented = false // distraction blocker
     
+    @State private var isShowingMailView = false
     
+    @Environment(\.requestReview) var requestReview
+
     
     var body: some View {
+        
         NavigationView {
             ZStack {
+                Color.black.opacity(0.3).ignoresSafeArea()
+                
                 ScrollView {
                     
-                    if !proAccess
-                    {
-                        VStack {
-                            ZStack {
-                                Image("Live Activities")
-                                    .resizable()
-                                    .offset(y: 35)
-                                    .scaledToFill()
-                                    .frame(height: 136)
-                                    .clipped()
-                                    .padding(-16)
-                                    .padding(.bottom)
-                                
-                                Button {
-                                    showLiveActivities = false
-                                } label: {
-                                    Image(systemName: "xmark")
-                                        .foregroundColor(.gray)
-                                        .font(.caption)
-                                        .CircularGlassButton(padding: 8)
-                                        .trailing()
-                                        .padding(.trailing, -4)
-                                        .top()
-                                }
-                            }
-                            
-                            HStack {
-                                Text("Live Activities")
-                                    .font(.title3.bold())
-                                Text("New")
-                                    .foregroundColor(.myColor)
-                                    .font(.caption2)
-                                    .padding(.vertical, 2)
-                                    .padding(.horizontal, 4)
-                                    .background(.ultraThinMaterial)
-                                    .cornerRadius(5)
-                            }
-                            .padding(.top, 8)
-                            .padding(.bottom, 4)
-                            
-                            
-                            Button {
-                                showingSheet = true
-                            } label: {
-                                Text("View MyFlow Pro")
-                                    .frame(maxWidth: .infinity)
-                                    .font(.footnote)
-                                    .foregroundColor(.white)
-                                    .padding(8)
-                                    .background(Color.myColor)
-                                    .cornerRadius(10)
-                            }
+                    Spacer()
+                    
+                    VStack(alignment: .leading) {
+                        Button {
+                                    isShowingMailView.toggle()
+                        } label: {
+                            NL(text: "Send Feedback", icon: "envelope", color: .white)
+
                         }
-                        .cardGlass()
-                        .padding(.top)
+                                .sheet(isPresented: $isShowingMailView) {
+                                    MailComposeViewControllerWrapper(isShowing: $isShowingMailView)
+                                }
+                        NavigationLink(destination: Feedback()) {
+                        }
                     }
+                    .padding(.vertical)
+                    .background(LinearGradient(
+                        gradient: Gradient(colors: [.myColor.opacity(0.8), .myColor.opacity(0.4)]),
+                        startPoint: .leading,
+                        endPoint: .trailing
+                    ))
+                    .background(.bar)
+                    .cornerRadius(24)
+                    .shadow(color: Color.myColor.opacity(0.3), radius: 6)
+                    .padding(.horizontal)
+                    .padding(.top)
                     
                     
+                    // General
                     CustomHeadline(text: "General")
-                    VStack(spacing: 16) {
-                        ToggleBar(text: "Notifications", icon: "bell", isOn: settings.$notificationsOn)
+                    VStack(spacing: 12) {
+                        ToggleBar(text: "Notifications", icon: "bell", isOn: $settings.notificationsOn)
+                        
                         Div
                         
-                        //                     Only for demoing
-                        ToggleBar(text: "Pro Access", icon: "bell", isOn: $proAccess)
-                        Div
+                        ToggleBar(text: "Live Activity", icon: "circle.square", isOn: $settings.liveActivities)
                         
+                        Div
                         
                         HStack {
                             Image(systemName: "shield")
@@ -108,7 +88,7 @@ struct SettingsView: View {
                                 } catch { print("error") } }
                                 } label: {
                                     Text("Authorize")
-                                        .foregroundColor(.gray)
+                                        .foregroundColor(.myColor)
                                         .padding(.vertical, 4)
                                         .padding(.horizontal, 12)
                                         .background(.ultraThinMaterial)
@@ -116,77 +96,61 @@ struct SettingsView: View {
                                 }
                             } else {
                                 
-                                HStack {
-                                    if settings.blockDistractions {
-                                        Button {
-                                            if proAccess {
-                                                isPresented = true
-                                            }
-                                        } label: {
-                                            Spacer()
-                                            Text("List")
-                                                .foregroundColor(.gray)
-                                                .padding(.vertical, 4)
-                                                .padding(.horizontal, 12)
-                                                .background(.ultraThinMaterial)
-                                                .cornerRadius(5)
-                                                .padding(.trailing)
-                                                .familyActivityPicker(isPresented: $isPresented, selection: $model.activitySelection)
-                                        }
-                                    }
-                                    Toggle(isOn: proAccess ? $settings.blockDistractions : $showingSheet) {
-                                        Text("")
-                                    }
-                                    .toggleStyle(SwitchToggleStyle(tint: Color.myColor))
+                                Toggle(isOn: proAccess ? $settings.blockDistractions : $showPayWall) {
+                                    Text("")
                                 }
+                                .toggleStyle(SwitchToggleStyle(tint: Color.myColor))
+                                
                             }
                         }
                         .padding(.horizontal)
-                        
-                        Div
-                        
-                        NavigationLink(destination: ThemePicker()) { NL(text: "Themes", icon: "photo") }
-                        
                     }
                     .cardGlassNP()
                     
                     
                     // About
                     CustomHeadline(text: "About")
-                    VStack(spacing: 16) {
-                        NavigationLink(destination: AboutUs()) { NL(text: "About us", icon: "info.circle") }
+                    VStack(spacing: 12) {
+                                
+                        Link(destination: URL(string: "https://myflow.notion.site/Privacy-Policy-0002d1598beb401e9801a0c7fe497fd3?pvs=4")!) {
+                            NL(text: "Privacy & Terms", icon: "hand.raised")
+                        }
+                        
                         Div
-                        NavigationLink(destination: HowItWorks()) { NL(text: "How it works", icon: "questionmark.circle") }
-                        Div
-                        NavigationLink(destination: Feedback()) { NL(text: "Feedback & support", icon: "message") }
+                        
+                        Button {
+                            requestReview()
+                        } label: {
+                            NL(text: "Rate the App", icon: "star")
+                        }
+                        
                     }
                     .cardGlassNP()
+                    
+                    // DEMO
+//                    CustomHeadline(text: "Demo")
+//                    VStack {
+//                        ToggleBar(text: "Pro Access", icon: "bell", isOn: $proAccess)
+//                    }
+//                    .cardGlassNP()
                     
                     VersionNumber
                 }
             }
-            .background(.regularMaterial)
-            .navigationTitle("Settings")
-//            .toolbar{ upgradeButton }
+            .navigationTitle("Settings").navigationBarTitleDisplayMode(.inline)
+            //            .toolbar{ upgradeButton }
             .accentColor(.myColor)
-            .sheet(isPresented: $showingSheet) {
-                PayWall()
-            }
+                            .sheet(isPresented: $showPayWall) {
+                                PayWall(detent: $detent)
+                                    .presentationCornerRadius(40)
+                                    .presentationBackground(.bar)
+                                    .presentationDetents([.large, .fraction(6/10)], selection: $detent)
+                                    .interactiveDismissDisabled(detent == .large)
+                                    .presentationDragIndicator(detent == .large ? .visible : .hidden)
+                            }
         }
     }
     
-//    @ViewBuilder var upgradeButton: some View {
-//        if !proAccess {
-//
-//            ZStack {
-//                Button {
-//                    dismiss()
-//                } label: {
-//                    Text("Done")
-//                }
-//            }
-//        }
-//    }
     
     var Div: some View {
         Divider()
@@ -194,9 +158,10 @@ struct SettingsView: View {
     }
     
     var VersionNumber: some View {
-        Text("v2.3.1")
+        Text("v3.0")
             .foregroundColor(.myColor)
-            .font(.footnote)
+            .font(.callout)
+            .fontWeight(.medium)
             .padding(16)
             .centered()
             .monospaced()
@@ -214,6 +179,8 @@ struct SettingsView: View {
 struct NL: View {
     var text: String
     var icon: String
+    var color: Color = .white
+    
     var body: some View {
         HStack {
             Image(systemName: icon)
@@ -225,7 +192,7 @@ struct NL: View {
                 .opacity(0.5)
         }
         .padding(.horizontal)
-        .foregroundColor(.white)
+        .foregroundColor(color)
         .padding(.vertical, 4)
     }
 }
@@ -233,7 +200,7 @@ struct NL: View {
 struct NLT: View {
     var text: String
     var icon: String
-    @ObservedObject var model: FlowModel
+    var model: FlowModel
     @StateObject var settings = Settings()
     
     var body: some View {
@@ -298,4 +265,36 @@ struct SettingsView_Previews: PreviewProvider {
     }
 }
 
-            //            .background(Image(theme).resizable().ignoresSafeArea().opacity(theme == "default" ? 0.0 : 1.0))
+//            .background(Image(theme).resizable().ignoresSafeArea().opacity(theme == "default" ? 0.0 : 1.0))
+
+struct MailComposeViewControllerWrapper: UIViewControllerRepresentable {
+    @Binding var isShowing: Bool
+
+    func makeUIViewController(context: Context) -> MFMailComposeViewController {
+        let mailComposeVC = MFMailComposeViewController()
+        mailComposeVC.mailComposeDelegate = context.coordinator
+        mailComposeVC.setToRecipients(["natetedesco@icloud.com"])
+        mailComposeVC.setSubject("MyFlow 3.0")
+        mailComposeVC.setMessageBody("", isHTML: false)
+        return mailComposeVC
+    }
+
+    func updateUIViewController(_ uiViewController: MFMailComposeViewController, context: Context) {}
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(isShowing: $isShowing)
+    }
+
+    class Coordinator: NSObject, MFMailComposeViewControllerDelegate {
+        @Binding var isShowing: Bool
+
+        init(isShowing: Binding<Bool>) {
+            _isShowing = isShowing
+        }
+
+        func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+            isShowing = false
+        }
+    }
+}
+

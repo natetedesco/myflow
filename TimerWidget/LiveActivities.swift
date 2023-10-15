@@ -9,18 +9,17 @@ import ActivityKit
 
 extension FlowModel {
     
-    func startActivity(flow: Bool, start: Date, end: Date, paused: Bool = false, extend: Bool = false) {
+    func startActivity(start: Date, end: Date, paused: Bool = false, extend: Bool = false) {
         let attributes = TimerWidgetAttributes(name: "flow")
         let initialContentState = TimerWidgetAttributes.TimerStatus(
-            flow: flow,
             name: self.flow.title,
             blockName: self.flow.blocks[blocksCompleted].title,
             value: start...end,
             paused: paused,
-            time: flow ? flowTimeLeft : breakTimeLeft,
+            time: flowTimeLeft,
             start: Date(),
             extend: extend,
-            blocks: flowList[selection].blocks.count,
+            blocks: flow.blocks.count,
             blocksCompleted: blocksCompleted
         )
         
@@ -31,7 +30,6 @@ extension FlowModel {
                 pushType: nil)
             print("error \(activity.id)")
         } catch (let error) {
-            print("error")
             print("error \(error.localizedDescription)")
         }
     }

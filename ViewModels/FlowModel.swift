@@ -8,40 +8,47 @@ import Foundation
 import FamilyControls
 import ManagedSettings
 
-class FlowModel: ObservableObject {
+
+@Observable class FlowModel {
     var data = FlowData()
     var settings = Settings()
     var notifications = NotificationManager()
+    
+    var flow: Flow = Flow() 
+    var flowList: [Flow] { didSet { Initialize() } }
+    var selection = 0 { didSet { Initialize() } }
+    
+    var mode: TimerMode
+    
     var timer = Timer()
+    
     var start = Date()
+    var end = Date()
+
     
     var flowTime = 0
-    var breakTime = 0
+    var flowTimeLeft = 0
     var elapsed = 0
-    var totalTime = 0
+    var totalFlowTime = 0
+    var flowContinue = false
+    
+    // Blocks
     var blocksCompleted = 0
-    var type: FlowType = .Flow
+    var blockSelected = false
+    var showBlock = false
+    var selectedIndex = 0
+
+    var draggingItem: Block?
+    var dragging = false
     
-    @Published var newFlow = false
-    
-    @Published var flow: Flow = Flow()
-    @Published var flowList: [Flow] { didSet { Initialize() } }
-    @Published var selection = 0 { didSet { Initialize() } }
-    
-    @Published var mode: TimerMode
-    @Published var flowTimeLeft = 0
-    @Published var breakTimeLeft = 0
-    
-    @Published var flowContinue = false
-    @Published var completed = false
-    
-    @Published var showingFlowSheet = false
-    @Published var showFlowSheetAnimation = false
+    var showFlowRunning = false
+    var showFlowCompleted = false
+    var showFlow = false
     
     let store = ManagedSettingsStore()
-    @Published var activitySelection = FamilyActivitySelection() { didSet { saveActivitySelection()}}
+    var activitySelection = FamilyActivitySelection() { didSet { saveActivitySelection()}}
     
-    init(mode: TimerMode = .Initial) {
+    init(mode: TimerMode = .initial) {
         if let data = UserDefaults.standard.data(forKey: "activitySelection") {
             if let decoded = try? JSONDecoder().decode(FamilyActivitySelection.self, from: data) {
                 activitySelection = decoded
@@ -55,56 +62,59 @@ class FlowModel: ObservableObject {
                 return
             }
         }
-        flowList = exampleFlows
+        flowList = []
         self.mode = mode
         Initialize()
     }
     
-    func showFlowSheet() {
-        softHaptic()
-        showingFlowSheet = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-            self.showFlowSheetAnimation = true
+    // Initialize
+    
+    func Initialize() {
+        if flowList.isEmpty {
+//            createFlow(title: "Flow")
+        } else if let firstBlock = flow.blocks.first {
+            setFlowTime(time: (firstBlock.hours * 3600) + (firstBlock.minutes * 60) + (firstBlock.seconds))
+        } else {
+            print("No blocks available in the flow.")
         }
     }
     
-    func createFlow() {
-        flow = Flow(new: true)
-        addFlow(flow: flow)
-        newFlow = true
-    }
-    
-    func editFlow() {
-        showingFlowSheet = true
-    }
-    
-    // Add Flow
-    func addFlow(flow: Flow) {
-        newFlow = false
-        let updatedFlow = updateFlow(flow: flow)
-        flowList.insert(updatedFlow, at: 0)
+    // Create Flow
+    func createFlow(title: String) {
+        flow = Flow(title: title)
+        let updatedFlow = Flow(title: flow.title, blocks: flow.blocks)
+//        flowList.insert(updatedFlow, at: 0)
+        flowList.append(updatedFlow)
         selection = 0
         save()
     }
     
-    // Edit Flow
-    func saveFlow(id: UUID, flow: Flow) {
-        if let updatedFlow = flowList.first(where: {$0.id == id}) {
+    func renameFlow(index: Int, newTitle: String) {
+        flowList[index].title = newTitle
+        save()
+    }
+    
+    func duplicateFlow(flow: Flow) {
+        let duplicatedFlow = flow
+        flowList.append(duplicatedFlow)
+        save()
+    }
+    
+    // Save Flow
+    func saveFlow() {
+        if let updatedFlow = flowList.first(where: {$0.id == flow.id}) {
             let index = flowList.firstIndex(of: updatedFlow)
-            flowList[index!] = updateFlow(flow: flow)
+            flowList[index!] = Flow(title: flow.title, blocks: flow.blocks)
         }
         save()
     }
     
     // Delete Flow
     func deleteFlow(id: UUID) {
-            if let index = flowList.firstIndex(where: { $0.id == id }) {
-                self.selection = 0 // select first in list
-                flowList.remove(at: index)
-                save()
-            }
-        if flowList.count == 0 {
-            createFlow()
+        if let index = flowList.firstIndex(where: { $0.id == id }) {
+            self.selection = 0 // select first in list
+            flowList.remove(at: index)
+            save()
         }
     }
     
@@ -113,39 +123,36 @@ class FlowModel: ObservableObject {
         if let encoded = try? JSONEncoder().encode(flowList) {
             UserDefaults.standard.set(encoded, forKey: "SavedData")
         }
+        Initialize()
     }
     
-    // update Flow
-    func updateFlow(flow: Flow) -> Flow {
-        let changedFlow =
-        Flow(
-            title: flow.title,
-            blocks: flow.blocks
-        )
-        return changedFlow
+    func addBlock() {
+        let newBlock = Block(title: "", minutes: 20)
+        flow.blocks.append(newBlock)
+        blockSelected = true
+        selectedIndex = flow.blocks.firstIndex(where: { $0.id == newBlock.id }) ?? 0
+        saveFlow()
     }
-}
-
-enum FlowType {
-    case Flow
-    case Break
+    
+    func deleteBlock(id: UUID) {
+        if let index = flow.blocks.firstIndex(where: { $0.id == id }) {
+            flow.blocks.remove(at: index)
+            saveFlow()
+        }
+    }
 }
 
 enum TimerMode {
-    case Initial
+    case initial
     case flowStart
     case flowRunning
     case flowPaused
-    case breakStart
-    case breakRunning
-    case breakPaused
+    case completed
 }
-
-var Initial = TimerMode.Initial
+var initial = TimerMode.initial
 var flowStart = TimerMode.flowStart
-var breakStart = TimerMode.breakStart
 var flowRunning = TimerMode.flowRunning
-var breakRunning = TimerMode.breakRunning
 var flowPaused = TimerMode.flowPaused
-var breakPaused = TimerMode.breakPaused
+var completed = TimerMode.completed
+
 

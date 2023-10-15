@@ -7,448 +7,213 @@
 import SwiftUI
 
 struct FlowView: View {
-    @ObservedObject var model: FlowModel
-    
     @AppStorage("ProAccess") var proAccess: Bool = false
-    @AppStorage("showCreateFlow") var showCreateFlow: Bool = true
     @AppStorage("showPayWall") var showPayWall = false
     
-    @FocusState var focusedField: Field?
+    @State var model: FlowModel
     
-    @State var disable = false
     @State var showStatistics = false
     @State var showSettings = false
-    @State var showFlowSheet = false
+    @State var showAppBlocker = false
+    @State var showPaywall = false
     
+    @State var flowDetent = PresentationDetent.large
+    @State var size: CGFloat = .zero
     
-    // put in model
-    @State var selectedIndex = 0
-    @State var selectedBlock = false
-    @State var showBlockEditor = false
-    @State var draggingItem: Block?
-    @State var dragging = false
+    @Environment(\.dismiss) var dismiss
     
-    
-    init(model: FlowModel) { self.model = model }
+    @FocusState var focusedBlockID: UUID?
     
     var body: some View {
         
-        ZStack {
-            
-            Menu {
-                FlowList
-                CreateFlow
-                EditFlowButton
-                DeleteFlowButton
+        NavigationView {
+            ZStack {
+                Color.black.opacity(0.4)
+                    .ignoresSafeArea()
                 
-            } label: {
-                HStack {
-                    Text(model.flow.title)
-                        .font(.system(size: 34))
-                        .padding(.leading, initial ? 24 : 0)
-                    if initial {
-                        Image(systemName: "chevron.down")
-                    }
-                }
-                .foregroundColor(.white)
-                .animation(.default, value: model.flow.title)
-                .lineLimit(1)
-                .minimumScaleFactor(0.4)
-                .kerning(1.0)
-                    .menuOrder(.fixed)
-                    .transaction { transaction in
-                        transaction.animation = nil // disables ...
-                    }
-                    .disabled(model.mode != .Initial)
-            }
-            .onTapGesture { disable = true }
-            .top()
-            .padding(.top, 12)
-            
-            
-            // Circle
-            Circles(model: model)
-                .frame(width: 312)
-            
-            
-            
-            // Labels
-            VStack(spacing: 16) {
-                
-                BlockLabel
-                
-                TimerLabel
-                
-                
-                // Control Bar
-                HStack(spacing: 48) {
+                VStack {
                     
-                    //                    if !initial {
-                    //                        // Restart
-                    //                        Button {
-                    //                            model.Restart()
-                    //                            rigidHaptic()
-                    //                        } label: {
-                    //                            Image(systemName: "chevron.left")
-                    //                        }
-                    //                    }
+                    // Blocks
+                    ScrollView {
+                        
+                        Text(model.flow.totalFlowTimeFormatted())
+                            .font(.callout)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(.secondary)
+                            .leading()
+                            .padding(.leading)
+                            .padding(.bottom )
+                        
+                        if model.flow.blocks.count == 0 {
+                            VStack {
+                                Spacer()
+                                Text("No Focus")
+                                    .font(.title2)
+                                Spacer()
+                            }
+                        } else {
+                            
+                            ForEach($model.flow.blocks) { $block in
+                                BlockView(model: model, block: $block)
+                                    .focused($focusedBlockID, equals: block.id)
+                                    .dragAndDrop(
+                                        model: model,
+                                        block: $block,
+                                        draggingItem: $model.draggingItem,
+                                        dragging: $model.dragging,
+                                        blocks: $model.flow.blocks)
+                                
+                                Divider()
+                                    .padding(.leading, 32)
+                            }
+                            .animation(.default, value: model.flow.blocks)
+                        }
+                        
+                    }
+                    .customOnDrop(
+                        model: model,
+                        draggingItem: $model.draggingItem,
+                        items: $model.flow.blocks,
+                        dragging: $model.dragging
+                    )
                     
-                    Button {
-                        model.Start()
-                        rigidHaptic()
-                    } label: {
-                        Image(systemName: start ? "play.fill" : "pause.fill")
-                        //                            .foregroundStyle(.ultraThickMaterial)
-                        //                            .environment(\.colorScheme, .light)
-                            .foregroundColor(.myColor)
-                            .font(.system(size: 38))
+                    // Time Picker
+                    if model.blockSelected {
+                        Spacer()
+                        
+                        VStack {
+                            MultiComponentPicker(columns: columns, selections: [
+                                $model.flow.blocks[model.selectedIndex].hours,
+                                $model.flow.blocks[model.selectedIndex].minutes,
+                                $model.flow.blocks[model.selectedIndex].seconds]
+                            )
+                            .padding(.vertical, 4)
+                        }
+                        .background(.regularMaterial)
+                        .cornerRadius(30, corners: [.topLeft, .topRight])
+                        .padding(.top, -8)
+                        .animation(.default.speed(0.5), value: model.blockSelected)
                     }
                     
-                    //                    if !initial {
-                    //                        // Skip
-                    //                        Button {
-                    //                            model.Skip()
-                    //                            rigidHaptic()
-                    //                        } label: {
-                    //                            Image(systemName: "chevron.right")
-                    //                        }
-                    //                    }
                 }
-                //                .padding(.top)
-                .foregroundStyle(.ultraThickMaterial)
-                .environment(\.colorScheme, .light)
-                .font(.system(size: 20))
+                .navigationTitle(model.flowList[model.selection].title)
                 
-                
-                
-            }
-            
-            if model.mode == .flowRunning {
-                // Extend
-                Button {
-                    
-                } label: {
-                    HStack {
-                        Text("Complete")
+                .toolbar {
+                    ToolbarItem(placement: .bottomBar) {
+                        HStack {
+                            
+                            // Add Block
+                            if model.mode == .initial {
+                                Button {
+                                    model.addBlock()
+                                    lightHaptic()
+                                    if let lastBlock = model.flow.blocks.last {
+                                        focusedBlockID = lastBlock.id
+                                        model.selectedIndex = model.flow.blocks.count - 1
+                                    }
+                                } label: {
+                                    HStack {
+                                        Image(systemName: "plus")
+                                            .font(.title2)
+                                            .fontWeight(.medium)
+                                            .padding(10)
+                                            .background(Circle().foregroundStyle(.ultraThinMaterial))
+                                            .padding(.leading, -6)
+                                    }
+                                }
+                            } 
+//                            else {
+//                                Button {
+//                                    model.Skip()
+//                                } label: {
+//                                    HStack {
+//                                        Image(systemName: "goforward")
+//                                            .font(.title3)
+//                                        Text("Complete")
+//                                            .fontWeight(.semibold)
+//                                    }
+//                                }
+//                            }
+                            
+                            Spacer()
+                            
+                            // Start Flow
+                            Button {
+                                softHaptic()
+                                model.Start()
+                            } label: {
+                                Text("Start Flow")
+                                    .fontWeight(.semibold)
+                            }
+                        }
                     }
-                    .foregroundColor(.white)
-                    .padding(.vertical, 8)
-                    .padding(.horizontal, 12)
-                    .background(.ultraThinMaterial)
-                    .cornerRadius(30)
                     
-                }
-                .padding(.top, 480) // fix later
-            }
-            
-            HStack(alignment: .bottom) {
-                
-                // Statistics
-                Button {
-                    showStatistics = true
-                    
-                } label: {
-                    ToolBarButton(image: "chart.bar.fill", size: 20)
-                }
-                
-                Spacer()
-                
-                // Start
-                // Show Flow Sheet
-                Button {
-                    showFlowSheet = true
-                    softHaptic()
-                } label: {
-                    Image(systemName: "circle")
-                        .font(.system(size: 50))
-                        .fontWeight(.medium)
-                        .foregroundColor(.myColor)
-                    //                        .foregroundStyle(.ultraThickMaterial)
-                    //                        .environment(\.colorScheme, .light)
-                    //                        .padding(.bottom)
-                    
-                }.disabled(disable)
-                
-                Spacer()
-                
-                // Settings
-                Button {
-                    showSettings = true
-                }  label: {
-                    ToolBarButton(image: "person.fill",size: 25)
-                }
-            }
-            .padding(.horizontal, 40)
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
-        }
-        
-        
-        
-        
-        .FlowViewBackGround()
-        .ignoresSafeArea(.keyboard)
-        .onTapGesture { disable = false }
-        FlowCompleted(model: model, show: $model.completed)
-            .sheet(isPresented: $showPayWall) {
-                PayWall()
-            }
-            .sheet(isPresented: $showStatistics) {
-                StatsView()
-                    .presentationBackground(Color.clear)
-            }
-        
-            .sheet(isPresented: $showSettings) {
-                SettingsView(model: model)
-                    .presentationBackground(Color.clear)
-            }
-            .sheet(isPresented: $showFlowSheet) {
-                FlowSheet(model: model)
-                    .presentationBackground(Color.clear)
-            }
-        
-        
-    }
-    
-    var initial: Bool {
-        if model.mode == .Initial {
-            return true
-        }
-        return false
-    }
-    
-    var timerValue: Double {
-        return Double(format360(time: model.flowTime, timeLeft: model.flowTimeLeft))
-    }
-    
-    var block: Block {
-        return model.flow.blocks[model.blocksCompleted]
-    }
-    
-    var timerLabel: String {
-        if model.type == .Flow {
-            return formatTime(seconds: model.flowTimeLeft)
-        }
-        return formatTime(seconds: model.breakTimeLeft)
-    }
-    
-    var CreateFlow: some View {
-        Button {
-            softHaptic()
-            model.createFlow()
-            model.showFlowSheet()
-            disable = false
-        } label: {
-            Label("Create", systemImage: "plus")
-        }
-    }
-    
-    var EditFlowButton: some View {
-        Button {
-            model.showingFlowSheet = true
-            disable = false
-        } label: {
-            Label("Edit", systemImage: "pencil")
-        }
-    }
-    
-    var DeleteFlowButton: some View {
-        Button {
-            model.deleteFlow(id: model.flow.id)
-            disable = false
-            successHaptic()
-        } label: {
-            Label("Delete", systemImage: "trash")
-        }
-    }
-    
-    var FlowList: some View {
-        Picker("", selection: $model.selection) {
-            ForEach(0..<$model.flowList.count, id: \.self) { i in
-                Text(model.flowList[i].title)
-                    .onChange(of: model.selection) { newValue in
-                        disable = false
+                    ToolbarItem(placement: .topBarTrailing) {
+                        if model.mode == .initial && !model.blockSelected {
+                            
+                            Button {
+                                dismiss()
+                            } label: {
+                                Text("Done")
+                                    .foregroundStyle(Color.myColor)
+                            }
+                        }
                     }
+                    ToolbarItemGroup(placement: .topBarLeading) { // Top Bar
+                        
+                        if model.mode != .initial && flowDetent != .large {
+                            Button {
+                                model.Reset()
+                            } label: {//
+                                Text("Reset")
+                                    .foregroundColor(.myColor)
+                            }
+                        }
+                    }
+                }
             }
         }
-    }
-    
-    
-    var TimerLabel: some View {
-        HStack {
-            
-            if model.flowContinue {
-                Image(systemName: "plus")
-                    .foregroundColor(.myColor)
-                    .font(.largeTitle)
-            }
-            
-            Text(timerLabel)
-                .font(.system(size: 72))
-                .fontWeight(.light)
-                .foregroundColor(.white)
-                .kerning(5.0)
-                .monospacedDigit()
-        }
-    }
-    
-    var BlockLabel: some View {
-        HStack {
-            //            Circle()
-            //                .foregroundColor(block.flow ? .myColor : .gray)
-            //                .frame(height: 12)
-            Text(block.title)
-                .font(.title)
-                .fontWeight(.medium)
-                .foregroundColor(.white)
-            //            .foregroundColor(block.flow ? .myColor : .gray)
-            //            .opacity(0.8)
-                .lineLimit(1)
-        }
-    }
-    
-    
-    var menuLabel: some View {
-        Image(systemName: "chevron.down")
-            .font(.title2)
-            .padding(.leading)
+        .customOnDrop(model: model, draggingItem: $model.draggingItem, items: $model.flow.blocks, dragging: $model.dragging)
         
-    }
-    
-    
-    var createYourFlow: some View {
-        VStack {
-            Text("Create your first flow")
-                .foregroundColor(.white)
-                .padding(.top, 112)
-                .font(.title2)
-                .fontWeight(.light)
-            Spacer()
+        .sheet(isPresented: $model.showFlowRunning) {
+            FlowRunning(model: model, detent: $flowDetent)
+                .presentationBackground(.bar)
+                .presentationDetents([.height(80), .large], selection: $flowDetent)
+                .presentationBackgroundInteraction(.enabled(upThrough: .large))
+                .presentationCornerRadius(40)
+                .interactiveDismissDisabled()
         }
-    }
-    
-    var start: Bool {
-        if model.mode == .Initial || model.mode == .flowStart || model.mode == .breakStart || model.mode == .flowPaused || model.mode == .breakPaused {
-            return true
-        }
-        return false
-    }
-    
-    var flow: Bool {
-        if model.mode == .flowStart {
-            return true
-        }
-        return false
-    }
-    
-}
-
-struct I: PreviewProvider {
-    @State static var model = FlowModel()
-    static var previews: some View {
-        FlowView(model: model)
-    }
-}
-struct P: PreviewProvider {
-    @State static var model = FlowModel(mode: .flowPaused)
-    static var previews: some View {
-        FlowView(model: model)
-    }
-}
-
-struct FS: PreviewProvider {
-    @State static var model = FlowModel(mode: .flowStart)
-    static var previews: some View {
-        FlowView(model: model)
-    }
-}
-struct FR: PreviewProvider {
-    @State static var model = FlowModel(mode: .flowRunning)
-    static var previews: some View {
-        FlowView(model: model)
-    }
-}
-
-struct BS: PreviewProvider {
-    @State static var model = FlowModel(mode: .breakStart)
-    static var previews: some View {
-        FlowView(model: model)
-    }
-}
-struct BR: PreviewProvider {
-    @State static var model = FlowModel(mode: .breakRunning)
-    static var previews: some View {
-        FlowView(model: model)
-    }
-}
-
-enum Field: Hashable {
-    case flowName
-    case blockName
-    case time
-}
-
-extension Flow {
-    func totalFlowTimeInSeconds() -> TimeInterval {
-        var totalSeconds: TimeInterval = 0
         
-        for block in blocks {
-            totalSeconds += block.totalTimeInSeconds
-        }
-        return totalSeconds
+        //            .sheet(isPresented: $showPaywall) {
+        //                PayWall()
+        //                    .presentationCornerRadius(40)
+        //                    .presentationBackground(.bar)
+        //                    .presentationDragIndicator(.visible)
+        //            }
     }
     
-    func totalFlowTimeFormatted() -> String {
-        let totalSeconds = totalFlowTimeInSeconds()
-        let hours = Int(totalSeconds) / 3600
-        let minutes = (Int(totalSeconds) % 3600) / 60
-        let seconds = Int(totalSeconds) % 60
-        
-        var formattedTime = ""
-        if hours > 0 {
-            formattedTime += "\(hours):"
+    var startLabel: String {
+        switch model.mode {
+        case .initial: "Start"
+        case .flowStart: ("Start " + model.flow.blocks[model.blocksCompleted].title)
+        case .flowRunning: "Pause"
+        case .flowPaused: "Start"
+        case .completed: "Start"
         }
-        formattedTime += String(format: "%02d:%02d", minutes, seconds)
-        
-        return formattedTime
-    }}
-
-extension Block {
-    var totalTimeInSeconds: TimeInterval {
-        let totalSeconds = TimeInterval(hours * 3600 + minutes * 60 + seconds)
-        return totalSeconds
     }
 }
 
 
+extension View {
+    func navigationBarTitleTextColor(_ color: Color) -> some View {
+        let uiColor = UIColor(color)
+
+        // Set appearance for both normal and large sizes.
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: uiColor ]
+        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: uiColor ]
+//        .withDesign(.rounded)
 
 
-
-
-struct ToolBarButton: View {
-    var image: String
-    var size: CGFloat
-    
-    
-    var body: some View {
-        Image(systemName: image)
-            .font(Font.system(size: size))
-            .frame(width: 32, height: 20)
-            .padding(.top, 36)
-            .foregroundColor(.gray)
-            .opacity(0.6)
-        //            .foregroundStyle(.ultraThickMaterial)
-        //            .environment(\.colorScheme, .light)
-        
+        return self
     }
 }
-
-
-
-//            AngularGradient(gradient: Gradient(stops: [
-//                .init(color: .myColor, location: 0),
-//                .init(color: .black.opacity(0.0), location: CGFloat(timerValue / 360))
-//            ]), center: .center)
-//            .rotationEffect(.degrees(-timerValue - 90))
-//            .frame(width: 312, height: 312)
-//            .clipShape(Circle())
-//            .scaleEffect(x: -1, y: 1)  // flip horizontally

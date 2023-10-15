@@ -22,12 +22,14 @@ struct MonthCard: View {
                     y: .value("Views", Double(day.time) / 60)
                 )
                 .foregroundStyle(curGradient)
+                .blur(radius: 1)
             }
             .accentColor(.myColor)
             .frame(height: 130)
             .padding(.top, 8)
             .padding(.horizontal, 8)
         }
+        .padding(.horizontal)
         .cardGlass()
     }
 }
@@ -35,9 +37,9 @@ struct MonthCard: View {
 let curGradient = LinearGradient(
     gradient: Gradient (
         colors: [
-            .myColor.opacity(0.5),
-            .myColor.opacity(0.2),
-            .myColor.opacity(0.05),
+            .myColor.opacity(0.6),
+//            .myColor.opacity(0.2),
+            .myColor.opacity(0.0),
         ]
     ),
     startPoint: .top,
@@ -47,6 +49,5 @@ let curGradient = LinearGradient(
 struct MonthCard_Previews: PreviewProvider {
     static var previews: some View {
         MonthCard(data: FlowData())
-            .previewBackGround()
     }
 }

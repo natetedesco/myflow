@@ -26,6 +26,7 @@ class FlowData: ObservableObject {
     var todayTime: Int { getTodayTime() }
     var thisWeekTime: Int { getThisWeekTime() }
     var thisMonthTime: Int { getThisMonthTime() }
+    
     var dayOfTheWeek: Int { getDayOfTheWeek() }
     var thisWeekDays: [Day] { getThisWeekDays() }
     var thisMonthDays: [Day] { getThisMonthDays() }
@@ -209,4 +210,5 @@ extension Date {
     func startOfMonth(using calendar: Calendar = Calendar(identifier: .iso8601)) -> Date {
         calendar.dateComponents([.calendar, .year, .month], from: self).date!
     }
+    
 }

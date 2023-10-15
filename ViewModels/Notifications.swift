@@ -9,15 +9,16 @@ import UserNotifications
 
 final class NotificationManager: NSObject, ObservableObject, UNUserNotificationCenterDelegate  {
     var settings = Settings()
+    
     @Published private(set) var notifications: [UNNotificationRequest] = []
     @Published private(set) var authorizationStatus: UNAuthorizationStatus?
     
     // Set Notification
-    func Set(flow: Bool, time: Int, elapsed: Int, id: String = "timer") {
+    func Set(time: Int, elapsed: Int, id: String = "timer") {
         if settings.notificationsOn {
             
         let content = UNMutableNotificationContent()
-        content.title = flow ? "Flow Completed" : "Break Completed"
+        content.title = "Flow Completed"
         content.sound = UNNotificationSound.init(named:UNNotificationSoundName(rawValue: "AquaSound.aif"))
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(time - elapsed), repeats: false)

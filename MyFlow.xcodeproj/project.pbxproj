@@ -3,53 +3,43 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 53;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F01E848B2AB1249900CF418D /* FlowRunning.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E848A2AB1249900CF418D /* FlowRunning.swift */; };
 		F0435CD12A9E8C6D0073E7E1 /* DistractionBlocker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0435CD02A9E8C6D0073E7E1 /* DistractionBlocker.swift */; };
-		F0435CD52A9F965C0073E7E1 /* Backgrounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0435CD42A9F965C0073E7E1 /* Backgrounds.swift */; };
+		F0435CD52A9F965C0073E7E1 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0435CD42A9F965C0073E7E1 /* Background.swift */; };
 		F0435CD72A9F97E10073E7E1 /* Glass Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0435CD62A9F97E10073E7E1 /* Glass Components.swift */; };
 		F0435CD92A9FA5850073E7E1 /* ThemePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0435CD82A9FA5850073E7E1 /* ThemePicker.swift */; };
-		F0435CDB2AA110160073E7E1 /* FlowSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0435CDA2AA110160073E7E1 /* FlowSheet.swift */; };
 		F0435CDD2AA12FC30073E7E1 /* App Blocker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0435CDC2AA12FC30073E7E1 /* App Blocker.swift */; };
 		F0954B122A95360F009E212E /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0954B112A95360F009E212E /* Block.swift */; };
 		F0954B152A9580DE009E212E /* Drag & Drop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0954B142A9580DE009E212E /* Drag & Drop.swift */; };
 		F0954B182A95B6C2009E212E /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = F0954B172A95B6C2009E212E /* Introspect */; };
-		F0954B1A2A95C456009E212E /* BlockEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0954B192A95C456009E212E /* BlockEditor.swift */; };
 		F0A16C872A9BB79A00378E4C /* Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EDD0532A0171AF00223505 /* Attributes.swift */; };
 		F0A16C892A9C4B4D00378E4C /* MyFlow copy2-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F0A16C882A9C4B4D00378E4C /* MyFlow copy2-Info.plist */; };
 		F0A16C8A2A9C4B4D00378E4C /* MyFlow copy2-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F0A16C882A9C4B4D00378E4C /* MyFlow copy2-Info.plist */; };
+		F0B7A2F92AA6BA1400E5B715 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0391313285EBF860074CF33 /* Format.swift */; };
 		F0EBC1182A8D3C0B006F9616 /* Controls.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB5D29033EC70058E66D /* Controls.swift */; };
 		F0EBC11A2A8D3C0B006F9616 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0948C4B2681907A00A5F48D /* Notifications.swift */; };
 		F0EBC11B2A8D3C0B006F9616 /* LiveActivities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06FDAF52A030ADD00C58F3B /* LiveActivities.swift */; };
 		F0EBC11C2A8D3C0B006F9616 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962B0293184BD00336821 /* Timer.swift */; };
 		F0EBC11D2A8D3C0B006F9616 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962A02931255D00336821 /* Helpers.swift */; };
 		F0EBC11E2A8D3C0B006F9616 /* FlowData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A025C6294796A500AF723F /* FlowData.swift */; };
-		F0EBC11F2A8D3C0B006F9616 /* AnimatedBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03256422721308C009D3EFB /* AnimatedBlur.swift */; };
 		F0EBC1212A8D3C0B006F9616 /* TimerWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = F0EDD0462A01717400223505 /* TimerWidget.intentdefinition */; };
 		F0EBC1222A8D3C0B006F9616 /* AboutUs.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291F4297B6B0A00C25E0E /* AboutUs.swift */; };
-		F0EBC1232A8D3C0B006F9616 /* Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C1466270FA679002FE382 /* Toolbar.swift */; };
-		F0EBC1242A8D3C0B006F9616 /* StartAutomatically.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EE5E80298332D0007A42C8 /* StartAutomatically.swift */; };
-		F0EBC1252A8D3C0B006F9616 /* GoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291EA297B41BF00C25E0E /* GoalView.swift */; };
-		F0EBC1262A8D3C0B006F9616 /* HowItWorks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291F7297B6CA200C25E0E /* HowItWorks.swift */; };
 		F0EBC1272A8D3C0B006F9616 /* FlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F074D679271D124900CE1AB4 /* FlowView.swift */; };
-		F0EBC1282A8D3C0B006F9616 /* UI Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C1469270FA679002FE382 /* UI Elements.swift */; };
 		F0EBC1292A8D3C0B006F9616 /* Paywall.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09861FE26968B4B00A61B42 /* Paywall.swift */; };
 		F0EBC12A2A8D3C0B006F9616 /* MonthCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291F1297B448F00C25E0E /* MonthCard.swift */; };
 		F0EBC12C2A8D3C0B006F9616 /* MyFlowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0899DEA292EA83200A35D4D /* MyFlowApp.swift */; };
-		F0EBC12F2A8D3C0B006F9616 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E35E122A246A11009D020E /* Settings.swift */; };
 		F0EBC1302A8D3C0B006F9616 /* FlowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB4B28FF66B30058E66D /* FlowModel.swift */; };
-		F0EBC1312A8D3C0B006F9616 /* Checkers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EABDD5297F313500F508A5 /* Checkers.swift */; };
 		F0EBC1322A8D3C0B006F9616 /* Pickers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0729202297B78B200C25E0E /* Pickers.swift */; };
 		F0EBC1332A8D3C0B006F9616 /* Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F4332911C96E00BC8E16 /* Flow.swift */; };
-		F0EBC1342A8D3C0B006F9616 /* Circles.swift in Sources */ = {isa = PBXBuildFile; fileRef = F074D677271D100600CE1AB4 /* Circles.swift */; };
 		F0EBC1372A8D3C0B006F9616 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08315292888A55100153CD7 /* StatsView.swift */; };
 		F0EBC1382A8D3C0B006F9616 /* Examples.swift in Sources */ = {isa = PBXBuildFile; fileRef = F096A2AF2980613800D3DF6F /* Examples.swift */; };
 		F0EBC13C2A8D3C0B006F9616 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0391316285FA0990074CF33 /* Haptics.swift */; };
 		F0EBC13D2A8D3C0B006F9616 /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E35E152A26ADF8009D020E /* PurchaseManager.swift */; };
 		F0EBC13F2A8D3C0B006F9616 /* OverViewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291ED297B42FF00C25E0E /* OverViewCard.swift */; };
-		F0EBC1402A8D3C0B006F9616 /* FlowCompleted.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291E62979F6A100C25E0E /* FlowCompleted.swift */; };
 		F0EBC1432A8D3C0B006F9616 /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291F9297B6DBD00C25E0E /* Feedback.swift */; };
 		F0EBC1442A8D3C0B006F9616 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066923326FB9C3800DB905E /* ContentView.swift */; };
 		F0EBC1452A8D3C0B006F9616 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0391313285EBF860074CF33 /* Format.swift */; };
@@ -68,7 +58,6 @@
 		F0EDD0482A01717600223505 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0EDD0472A01717600223505 /* Assets.xcassets */; };
 		F0EDD04A2A01717600223505 /* TimerWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = F0EDD0462A01717400223505 /* TimerWidget.intentdefinition */; };
 		F0EDD0552A0171AF00223505 /* Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EDD0532A0171AF00223505 /* Attributes.swift */; };
-		F0EDD0562A01755400223505 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0391313285EBF860074CF33 /* Format.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,17 +99,14 @@
 		F012E42A2A2115BF00CA4CA2 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		F01962A02931255D00336821 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		F01962B0293184BD00336821 /* Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
-		F02C1466270FA679002FE382 /* Toolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toolbar.swift; sourceTree = "<group>"; };
-		F02C1469270FA679002FE382 /* UI Elements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UI Elements.swift"; sourceTree = "<group>"; };
-		F03256422721308C009D3EFB /* AnimatedBlur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedBlur.swift; sourceTree = "<group>"; };
+		F01E848A2AB1249900CF418D /* FlowRunning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowRunning.swift; sourceTree = "<group>"; };
 		F032564A272251A5009D3EFB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		F0391313285EBF860074CF33 /* Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Format.swift; sourceTree = "<group>"; };
 		F0391316285FA0990074CF33 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		F0435CD02A9E8C6D0073E7E1 /* DistractionBlocker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistractionBlocker.swift; sourceTree = "<group>"; };
-		F0435CD42A9F965C0073E7E1 /* Backgrounds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backgrounds.swift; sourceTree = "<group>"; };
+		F0435CD42A9F965C0073E7E1 /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
 		F0435CD62A9F97E10073E7E1 /* Glass Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Glass Components.swift"; sourceTree = "<group>"; };
 		F0435CD82A9FA5850073E7E1 /* ThemePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePicker.swift; sourceTree = "<group>"; };
-		F0435CDA2AA110160073E7E1 /* FlowSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowSheet.swift; sourceTree = "<group>"; };
 		F0435CDC2AA12FC30073E7E1 /* App Blocker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "App Blocker.swift"; sourceTree = "<group>"; };
 		F04FFB4B28FF66B30058E66D /* FlowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowModel.swift; sourceTree = "<group>"; };
 		F04FFB5D29033EC70058E66D /* Controls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controls.swift; sourceTree = "<group>"; };
@@ -128,16 +114,12 @@
 		F05FC0ED29FAF9CD00A9B503 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		F066923326FB9C3800DB905E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F06FDAF52A030ADD00C58F3B /* LiveActivities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivities.swift; sourceTree = "<group>"; };
-		F07291E62979F6A100C25E0E /* FlowCompleted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowCompleted.swift; sourceTree = "<group>"; };
-		F07291EA297B41BF00C25E0E /* GoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalView.swift; sourceTree = "<group>"; };
 		F07291ED297B42FF00C25E0E /* OverViewCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverViewCard.swift; sourceTree = "<group>"; };
 		F07291EF297B441200C25E0E /* WeekCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekCard.swift; sourceTree = "<group>"; };
 		F07291F1297B448F00C25E0E /* MonthCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCard.swift; sourceTree = "<group>"; };
 		F07291F4297B6B0A00C25E0E /* AboutUs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUs.swift; sourceTree = "<group>"; };
-		F07291F7297B6CA200C25E0E /* HowItWorks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowItWorks.swift; sourceTree = "<group>"; };
 		F07291F9297B6DBD00C25E0E /* Feedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feedback.swift; sourceTree = "<group>"; };
 		F0729202297B78B200C25E0E /* Pickers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pickers.swift; sourceTree = "<group>"; };
-		F074D677271D100600CE1AB4 /* Circles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Circles.swift; sourceTree = "<group>"; };
 		F074D679271D124900CE1AB4 /* FlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowView.swift; sourceTree = "<group>"; };
 		F08315292888A55100153CD7 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		F0899DEA292EA83200A35D4D /* MyFlowApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFlowApp.swift; sourceTree = "<group>"; };
@@ -147,7 +129,6 @@
 		F0948C4B2681907A00A5F48D /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		F0954B112A95360F009E212E /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
 		F0954B142A9580DE009E212E /* Drag & Drop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Drag & Drop.swift"; sourceTree = "<group>"; };
-		F0954B192A95C456009E212E /* BlockEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockEditor.swift; sourceTree = "<group>"; };
 		F096A2AF2980613800D3DF6F /* Examples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Examples.swift; sourceTree = "<group>"; };
 		F09861FE26968B4B00A61B42 /* Paywall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paywall.swift; sourceTree = "<group>"; };
 		F09862002696C80E00A61B42 /* AquaSound.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = AquaSound.aif; sourceTree = "<group>"; };
@@ -155,10 +136,8 @@
 		F0A16C882A9C4B4D00378E4C /* MyFlow copy2-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MyFlow copy2-Info.plist"; sourceTree = "<group>"; };
 		F0B3518E2A1BE3AE001186BB /* TimerWidgetExtension.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = TimerWidgetExtension.entitlements; sourceTree = "<group>"; };
 		F0C6CE7426913C240026E415 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		F0E35E122A246A11009D020E /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		F0E35E142A26965D009D020E /* Main.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Main.storekit; sourceTree = "<group>"; };
 		F0E35E152A26ADF8009D020E /* PurchaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseManager.swift; sourceTree = "<group>"; };
-		F0EABDD5297F313500F508A5 /* Checkers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkers.swift; sourceTree = "<group>"; };
 		F0EBC15A2A8D3C0B006F9616 /* MyFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0EDD03C2A01717400223505 /* TimerWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TimerWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0EDD0422A01717400223505 /* TimerWidgetLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerWidgetLiveActivity.swift; sourceTree = "<group>"; };
@@ -167,7 +146,6 @@
 		F0EDD0472A01717600223505 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F0EDD0492A01717600223505 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F0EDD0532A0171AF00223505 /* Attributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attributes.swift; sourceTree = "<group>"; };
-		F0EE5E80298332D0007A42C8 /* StartAutomatically.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartAutomatically.swift; sourceTree = "<group>"; };
 		F0F510642963518C00CFE3C7 /* MyFlow.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyFlow.entitlements; sourceTree = "<group>"; };
 		F0F7F4332911C96E00BC8E16 /* Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -197,6 +175,7 @@
 		F018B2B62928263E00FCD857 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				F088D2782AAA58F200A1909C /* Components */,
 				F0F7F4332911C96E00BC8E16 /* Flow.swift */,
 				F04FFB4B28FF66B30058E66D /* FlowModel.swift */,
 				F0A025C6294796A500AF723F /* FlowData.swift */,
@@ -210,16 +189,12 @@
 		F028E6DE269D406A0022A555 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				F09861FE26968B4B00A61B42 /* Paywall.swift */,
+				F096A2AF2980613800D3DF6F /* Examples.swift */,
 				F001C23828D3A12100134EB5 /* Modifiers.swift */,
 				F0435CD62A9F97E10073E7E1 /* Glass Components.swift */,
-				F0435CD42A9F965C0073E7E1 /* Backgrounds.swift */,
-				F02C1469270FA679002FE382 /* UI Elements.swift */,
 				F0435CD82A9FA5850073E7E1 /* ThemePicker.swift */,
-				F03256422721308C009D3EFB /* AnimatedBlur.swift */,
+				F0435CD42A9F965C0073E7E1 /* Background.swift */,
 				F0729202297B78B200C25E0E /* Pickers.swift */,
-				F0954B142A9580DE009E212E /* Drag & Drop.swift */,
-				F0391316285FA0990074CF33 /* Haptics.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -230,8 +205,6 @@
 				F01962B0293184BD00336821 /* Timer.swift */,
 				F04FFB5D29033EC70058E66D /* Controls.swift */,
 				F01962A02931255D00336821 /* Helpers.swift */,
-				F0EABDD5297F313500F508A5 /* Checkers.swift */,
-				F0EE5E80298332D0007A42C8 /* StartAutomatically.swift */,
 			);
 			path = Timer;
 			sourceTree = "<group>";
@@ -250,7 +223,6 @@
 			isa = PBXGroup;
 			children = (
 				F08315292888A55100153CD7 /* StatsView.swift */,
-				F07291EA297B41BF00C25E0E /* GoalView.swift */,
 				F07291ED297B42FF00C25E0E /* OverViewCard.swift */,
 				F07291EF297B441200C25E0E /* WeekCard.swift */,
 				F07291F1297B448F00C25E0E /* MonthCard.swift */,
@@ -261,8 +233,10 @@
 		F07291F3297B45E600C25E0E /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F066923326FB9C3800DB905E /* ContentView.swift */,
 				F028E6DE269D406A0022A555 /* Components */,
+				F066923326FB9C3800DB905E /* ContentView.swift */,
+				F09861FE26968B4B00A61B42 /* Paywall.swift */,
+				F0435CD02A9E8C6D0073E7E1 /* DistractionBlocker.swift */,
 				F0954B132A95795C009E212E /* FlowView */,
 				F07291EC297B427600C25E0E /* Statistics */,
 				F07291F6297B6C6000C25E0E /* Settings */,
@@ -274,9 +248,7 @@
 			isa = PBXGroup;
 			children = (
 				F032564A272251A5009D3EFB /* SettingsView.swift */,
-				F0435CD02A9E8C6D0073E7E1 /* DistractionBlocker.swift */,
 				F07291F4297B6B0A00C25E0E /* AboutUs.swift */,
-				F07291F7297B6CA200C25E0E /* HowItWorks.swift */,
 				F07291F9297B6DBD00C25E0E /* Feedback.swift */,
 			);
 			path = Settings;
@@ -290,6 +262,16 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		F088D2782AAA58F200A1909C /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				F0954B142A9580DE009E212E /* Drag & Drop.swift */,
+				F0391316285FA0990074CF33 /* Haptics.swift */,
+				F0391313285EBF860074CF33 /* Format.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		F0948C0C26818EE000A5F48D = {
 			isa = PBXGroup;
 			children = (
@@ -300,7 +282,6 @@
 				F07291F3297B45E600C25E0E /* Views */,
 				F018B2B62928263E00FCD857 /* ViewModels */,
 				F04FFB55290339000058E66D /* Timer */,
-				F0FD718728ECD7B9008D9DC1 /* Helpers */,
 				F0EDD03F2A01717400223505 /* TimerWidget */,
 				F05FC0D329FAE96600A9B503 /* Frameworks */,
 				F0948C1626818EE000A5F48D /* Products */,
@@ -334,12 +315,8 @@
 			isa = PBXGroup;
 			children = (
 				F074D679271D124900CE1AB4 /* FlowView.swift */,
-				F0435CDA2AA110160073E7E1 /* FlowSheet.swift */,
-				F074D677271D100600CE1AB4 /* Circles.swift */,
+				F01E848A2AB1249900CF418D /* FlowRunning.swift */,
 				F0954B112A95360F009E212E /* Block.swift */,
-				F0954B192A95C456009E212E /* BlockEditor.swift */,
-				F02C1466270FA679002FE382 /* Toolbar.swift */,
-				F07291E62979F6A100C25E0E /* FlowCompleted.swift */,
 			);
 			path = FlowView;
 			sourceTree = "<group>";
@@ -373,16 +350,6 @@
 				F0EDD0492A01717600223505 /* Info.plist */,
 			);
 			path = TimerWidget;
-			sourceTree = "<group>";
-		};
-		F0FD718728ECD7B9008D9DC1 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				F0E35E122A246A11009D020E /* Settings.swift */,
-				F096A2AF2980613800D3DF6F /* Examples.swift */,
-				F0391313285EBF860074CF33 /* Format.swift */,
-			);
-			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -500,41 +467,30 @@
 				F0EBC11C2A8D3C0B006F9616 /* Timer.swift in Sources */,
 				F0EBC11D2A8D3C0B006F9616 /* Helpers.swift in Sources */,
 				F0EBC11E2A8D3C0B006F9616 /* FlowData.swift in Sources */,
-				F0EBC11F2A8D3C0B006F9616 /* AnimatedBlur.swift in Sources */,
 				F0EBC1212A8D3C0B006F9616 /* TimerWidget.intentdefinition in Sources */,
 				F0435CD92A9FA5850073E7E1 /* ThemePicker.swift in Sources */,
 				F0EBC1222A8D3C0B006F9616 /* AboutUs.swift in Sources */,
-				F0EBC1232A8D3C0B006F9616 /* Toolbar.swift in Sources */,
-				F0EBC1242A8D3C0B006F9616 /* StartAutomatically.swift in Sources */,
-				F0435CD52A9F965C0073E7E1 /* Backgrounds.swift in Sources */,
-				F0EBC1252A8D3C0B006F9616 /* GoalView.swift in Sources */,
-				F0EBC1262A8D3C0B006F9616 /* HowItWorks.swift in Sources */,
+				F0435CD52A9F965C0073E7E1 /* Background.swift in Sources */,
 				F0EBC1272A8D3C0B006F9616 /* FlowView.swift in Sources */,
 				F0435CD72A9F97E10073E7E1 /* Glass Components.swift in Sources */,
-				F0EBC1282A8D3C0B006F9616 /* UI Elements.swift in Sources */,
 				F0EBC1292A8D3C0B006F9616 /* Paywall.swift in Sources */,
 				F0435CDD2AA12FC30073E7E1 /* App Blocker.swift in Sources */,
 				F0EBC12A2A8D3C0B006F9616 /* MonthCard.swift in Sources */,
 				F0EBC12C2A8D3C0B006F9616 /* MyFlowApp.swift in Sources */,
-				F0954B1A2A95C456009E212E /* BlockEditor.swift in Sources */,
-				F0EBC12F2A8D3C0B006F9616 /* Settings.swift in Sources */,
 				F0EBC1302A8D3C0B006F9616 /* FlowModel.swift in Sources */,
-				F0EBC1312A8D3C0B006F9616 /* Checkers.swift in Sources */,
 				F0EBC1322A8D3C0B006F9616 /* Pickers.swift in Sources */,
 				F0EBC1332A8D3C0B006F9616 /* Flow.swift in Sources */,
-				F0EBC1342A8D3C0B006F9616 /* Circles.swift in Sources */,
 				F0EBC1372A8D3C0B006F9616 /* StatsView.swift in Sources */,
 				F0EBC1382A8D3C0B006F9616 /* Examples.swift in Sources */,
 				F0EBC13C2A8D3C0B006F9616 /* Haptics.swift in Sources */,
 				F0EBC13D2A8D3C0B006F9616 /* PurchaseManager.swift in Sources */,
 				F0EBC13F2A8D3C0B006F9616 /* OverViewCard.swift in Sources */,
-				F0EBC1402A8D3C0B006F9616 /* FlowCompleted.swift in Sources */,
 				F0EBC1432A8D3C0B006F9616 /* Feedback.swift in Sources */,
 				F0EBC1442A8D3C0B006F9616 /* ContentView.swift in Sources */,
 				F0EBC1452A8D3C0B006F9616 /* Format.swift in Sources */,
 				F0EBC1472A8D3C0B006F9616 /* Modifiers.swift in Sources */,
+				F01E848B2AB1249900CF418D /* FlowRunning.swift in Sources */,
 				F0EBC1482A8D3C0B006F9616 /* WeekCard.swift in Sources */,
-				F0435CDB2AA110160073E7E1 /* FlowSheet.swift in Sources */,
 				F0954B152A9580DE009E212E /* Drag & Drop.swift in Sources */,
 				F0EBC1492A8D3C0B006F9616 /* SettingsView.swift in Sources */,
 				F0954B122A95360F009E212E /* Block.swift in Sources */,
@@ -547,8 +503,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0EDD0432A01717400223505 /* TimerWidgetLiveActivity.swift in Sources */,
-				F0EDD0562A01755400223505 /* Format.swift in Sources */,
 				F0EDD04A2A01717600223505 /* TimerWidget.intentdefinition in Sources */,
+				F0B7A2F92AA6BA1400E5B715 /* Format.swift in Sources */,
 				F0EDD0552A0171AF00223505 /* Attributes.swift in Sources */,
 				F0EDD0452A01717400223505 /* TimerWidget.swift in Sources */,
 			);
@@ -617,7 +573,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_KEY_NSMainNibFile = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -711,7 +667,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_KEY_NSMainNibFile = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -767,7 +723,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_KEY_NSMainNibFile = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -782,7 +738,6 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = MyFlow/MyFlow.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -794,12 +749,12 @@
 				INFOPLIST_FILE = "MyFlow copy2-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = MyFlow;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.3.1;
+				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -816,7 +771,6 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = MyFlow/MyFlow.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -828,12 +782,12 @@
 				INFOPLIST_FILE = "MyFlow copy2-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = MyFlow;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.3.1;
+				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -850,7 +804,6 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = MyFlow/MyFlow.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -862,12 +815,12 @@
 				INFOPLIST_FILE = "MyFlow copy2-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = MyFlow;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.3.1;
+				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

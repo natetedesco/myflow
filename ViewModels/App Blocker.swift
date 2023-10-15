@@ -28,5 +28,4 @@ extension FlowModel {
     func stopRestrictions() {
         store.shield.applications = nil
     }
-    
 }

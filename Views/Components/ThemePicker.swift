@@ -6,6 +6,12 @@
 
 import SwiftUI
 
+class Settings: ObservableObject {
+    @AppStorage("NotificationsOn") var notificationsOn: Bool = true
+    @AppStorage("BlockDistractions") var blockDistractions: Bool = false
+    @AppStorage("LiveActivities") var liveActivities: Bool = true
+}
+
 extension Color {
     static func rgb(r: Double, g: Double, b: Double ) -> Color {
         return Color(red: r / 255, green: g / 255, blue: b / 255)
@@ -24,8 +30,10 @@ class AppSettings: ObservableObject {
     
     @AppStorage("theme") var theme: String = ""
     @AppStorage("colorData") var colorData: Data = Data()
+    @AppStorage("background") var background = false
+
     
-    @Published var selectedColor: Color = .clear {
+    @Published var selectedColor: Color = .cyan {
         didSet {
             saveColor()
         }
@@ -33,9 +41,9 @@ class AppSettings: ObservableObject {
     
     init() {
             if let color = Color(data: colorData) {
-                selectedColor = color
+                selectedColor = .teal
             } else {
-                selectedColor = .black
+                selectedColor = .teal
             }
         }
     
@@ -45,21 +53,15 @@ class AppSettings: ObservableObject {
 }
 
 struct ThemePicker: View {
-    var imageNames = [
-        "papers.co-vs13-blue-paint-rainbow-art-pattern-41-iphone-wallpaper",
-        "-3",
-        "no_se"
-    ]
-    
     var predefinedColors: [Color] = [
-        .red, .green, .blue, .orange, .purple,
-        .pink, .yellow, .teal, .gray, .myBlue
+        .red, .orange, .yellow, .green, .mint, .teal, .cyan, .blue, .indigo, .purple, .pink
     ]
     
     @ObservedObject var appSettings = AppSettings.shared
     
     var body: some View {
         ScrollView {
+            ToggleBar(text: "Background", icon: "circle.lefthalf.filled", isOn: $appSettings.background)
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))]) {
                 // Predefined color buttons
                 ForEach(predefinedColors, id: \.self) { color in
@@ -70,29 +72,6 @@ struct ThemePicker: View {
                             .frame(width: 25, height: 25)
                             .cornerRadius(10)
                             .overlay(appSettings.selectedColor == color ? RoundedRectangle(cornerRadius: 10).stroke(Color.blue, lineWidth: 2) : nil)
-                    }
-                }
-            }
-            
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))]) {
-                Button {
-                    appSettings.theme = "default"
-                } label: {
-                    Text("default")
-                }
-                
-                ForEach(imageNames, id: \.self) { imageName in
-                    Button(action: {
-                        appSettings.theme = imageName
-                        // Set the selected image as the background of your app here
-                    }) {
-                        Image(imageName)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 125)
-                            .cornerRadius(10)
-                            .padding(10)
-                            .overlay(appSettings.theme == imageName ? RoundedRectangle(cornerRadius: 10).stroke(Color.blue, lineWidth: 2) : nil)
                     }
                 }
             }
