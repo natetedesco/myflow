@@ -77,7 +77,7 @@ extension FlowModel {
     }
     
     func flowRunning() -> Bool {
-        if mode == .flowRunning {
+        if mode == .flowRunning || mode == .flowPaused {
             return true
         }
         return false

@@ -7,55 +7,47 @@
 import SwiftUI
 
 struct FlowView: View {
-    @AppStorage("ProAccess") var proAccess: Bool = false
-    @AppStorage("showPayWall") var showPayWall = false
-    
     @State var model: FlowModel
-    
-    @State var showStatistics = false
-    @State var showSettings = false
-    @State var showAppBlocker = false
-    @State var showPaywall = false
-    
-    @State var flowDetent = PresentationDetent.large
-    @State var size: CGFloat = .zero
-    
-    @Environment(\.dismiss) var dismiss
-    
     @FocusState var focusedBlockID: UUID?
+    @State var flowDetent = PresentationDetent.large
     
     var body: some View {
+        ZStack {
+            
+            Color.black.opacity(0.4).ignoresSafeArea()
         
-        NavigationView {
-            ZStack {
-                Color.black.opacity(0.4)
-                    .ignoresSafeArea()
+        NavigationStack {
+            
+            VStack {
                 
-                VStack {
+                Text("Total: " + model.flow.totalFlowTimeFormatted())
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+//                    .fontWeight(.medium)
+//                    .padding(.top, 8)
+                    .leading()
+                    .padding(.leading)
+                
+                
+                Divider()
+                    .padding(.leading)
+                
+                // Blocks
+                ScrollView {
                     
-                    // Blocks
-                    ScrollView {
+                    if model.flow.blocks.count == 0 {
+                        VStack {
+                            Spacer()
+                            Text("No Focus")
+                                .font(.title2)
+                            Spacer()
+                        }
+                    } else {
                         
-                        Text(model.flow.totalFlowTimeFormatted())
-                            .font(.callout)
-                            .fontWeight(.semibold)
-                            .foregroundStyle(.secondary)
-                            .leading()
-                            .padding(.leading)
-                            .padding(.bottom )
-                        
-                        if model.flow.blocks.count == 0 {
-                            VStack {
-                                Spacer()
-                                Text("No Focus")
-                                    .font(.title2)
-                                Spacer()
-                            }
-                        } else {
-                            
+                        VStack {
                             ForEach($model.flow.blocks) { $block in
                                 BlockView(model: model, block: $block)
-                                    .focused($focusedBlockID, equals: block.id)
+                                //                                    .focused($focusedBlockID, equals: block.id)
                                     .dragAndDrop(
                                         model: model,
                                         block: $block,
@@ -64,132 +56,155 @@ struct FlowView: View {
                                         blocks: $model.flow.blocks)
                                 
                                 Divider()
-                                    .padding(.leading, 32)
+                                    .padding(.leading)
                             }
                             .animation(.default, value: model.flow.blocks)
                         }
+//                        .padding(.top, 8)
+                        
                         
                     }
-                    .customOnDrop(
-                        model: model,
-                        draggingItem: $model.draggingItem,
-                        items: $model.flow.blocks,
-                        dragging: $model.dragging
-                    )
-                    
-                    // Time Picker
-                    if model.blockSelected {
-                        Spacer()
-                        
-                        VStack {
-                            MultiComponentPicker(columns: columns, selections: [
-                                $model.flow.blocks[model.selectedIndex].hours,
-                                $model.flow.blocks[model.selectedIndex].minutes,
-                                $model.flow.blocks[model.selectedIndex].seconds]
-                            )
-                            .padding(.vertical, 4)
-                        }
-                        .background(.regularMaterial)
-                        .cornerRadius(30, corners: [.topLeft, .topRight])
-                        .padding(.top, -8)
-                        .animation(.default.speed(0.5), value: model.blockSelected)
-                    }
+                }
+                .customOnDrop(
+                    model: model,
+                    draggingItem: $model.draggingItem,
+                    items: $model.flow.blocks,
+                    dragging: $model.dragging
+                )
+            }
+            .navigationTitle(model.flowList[model.selection].title)
+            
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
                     
                 }
-                .navigationTitle(model.flowList[model.selection].title)
                 
-                .toolbar {
-                    ToolbarItem(placement: .bottomBar) {
+                ToolbarItemGroup(placement: .topBarLeading) {
+                    
+                    if model.mode == .initial {
+                        
+                        Button {
+                            dismiss()
+                        } label: {
+                            HStack {
+                                Image(systemName: "chevron.down")
+                                    .fontWeight(.semibold)
+                                    .padding(.trailing, -4)
+                                Text("Flows")
+                            }
+                            .padding(.leading, -12)
+                        }
+                    } else {
+                        Button {
+                            model.Reset()
+                            dismiss()
+                        } label: {
+//                            Text("Reset")
+                            Image(systemName: "gobackward")
+                                .foregroundColor(.myColor)
+                        }
+                    }
+                }
+                
+                ToolbarItem(placement: .bottomBar) {
+                        
                         HStack {
-                            
-                            // Add Block
                             if model.mode == .initial {
+                                
                                 Button {
-                                    model.addBlock()
                                     lightHaptic()
+                                    model.showBlock.toggle()
+                                    model.addBlock()
+                                    
                                     if let lastBlock = model.flow.blocks.last {
                                         focusedBlockID = lastBlock.id
                                         model.selectedIndex = model.flow.blocks.count - 1
                                     }
+                                    
                                 } label: {
-                                    HStack {
-                                        Image(systemName: "plus")
-                                            .font(.title2)
-                                            .fontWeight(.medium)
-                                            .padding(10)
-                                            .background(Circle().foregroundStyle(.ultraThinMaterial))
-                                            .padding(.leading, -6)
-                                    }
+                                    Image(systemName: "plus")
+                                        .fontWeight(.semibold)
+                                        .font(.title2)
+                                    //                                .padding(12)
+                                        .foregroundStyle(.teal)
+                                    //                                .background(Circle().foregroundStyle(.teal))
+                                    //                                .padding(.trailing, -4)
                                 }
-                            } 
-//                            else {
-//                                Button {
-//                                    model.Skip()
-//                                } label: {
-//                                    HStack {
-//                                        Image(systemName: "goforward")
-//                                            .font(.title3)
-//                                        Text("Complete")
-//                                            .fontWeight(.semibold)
-//                                    }
-//                                }
-//                            }
+                            } else {
+                                
+                                Button {
+                                    model.Skip()
+                                    softHaptic()
+                                } label: {
+                                    Text("Complete")
+                                        .foregroundColor(.myColor)
+//                                        .font(.footnote)
+                                }
+                                
+                                
+                            }
+                            
                             
                             Spacer()
                             
-                            // Start Flow
+                            
+                            // Add Block
                             Button {
                                 softHaptic()
                                 model.Start()
                             } label: {
-                                Text("Start Flow")
-                                    .fontWeight(.semibold)
+                                Image(systemName: model.mode == .flowRunning ? "pause.fill" : "play.fill")
+                                    .font(.title3)
+                                    .padding()
+                                    .foregroundStyle(.teal)
+                                    .background(Circle().foregroundStyle(.teal.quinary))
+                                                                    .padding(.trailing, -4)
+                                
                             }
-                        }
-                    }
-                    
-                    ToolbarItem(placement: .topBarTrailing) {
-                        if model.mode == .initial && !model.blockSelected {
                             
-                            Button {
-                                dismiss()
-                            } label: {
-                                Text("Done")
-                                    .foregroundStyle(Color.myColor)
-                            }
                         }
-                    }
-                    ToolbarItemGroup(placement: .topBarLeading) { // Top Bar
+                        .padding(.top, 4)
                         
-                        if model.mode != .initial && flowDetent != .large {
-                            Button {
-                                model.Reset()
-                            } label: {//
-                                Text("Reset")
-                                    .foregroundColor(.myColor)
-                            }
-                        }
-                    }
+//                    }
+//                    else {
+//                        Button {
+//                            model.showFlowRunning.toggle()
+//                        } label: {
+//                            
+//                            Gauge(value: formatProgress(time: model.flowTime, timeLeft: model.flowTimeLeft)) {
+//                                
+//                            } currentValueLabel: {
+//                                Text(formatTime(seconds: model.flowTimeLeft))
+//                                    .foregroundStyle(.white)
+//                            }
+//                            .gaugeStyle(.accessoryCircularCapacity)
+//                            .tint(.accentColor)
+//                        }
+//                        .padding(.bottom, -4)
+//                    }
                 }
             }
+            
+            .toolbar(.hidden, for: .tabBar)
+            .ignoresSafeArea(.keyboard)
+            .customOnDrop(model: model, draggingItem: $model.draggingItem, items: $model.flow.blocks, dragging: $model.dragging)
+            .navigationBarBackButtonHidden(model.mode == .flowRunning ? true : false)
+            
         }
-        .customOnDrop(model: model, draggingItem: $model.draggingItem, items: $model.flow.blocks, dragging: $model.dragging)
-        
-        .sheet(isPresented: $model.showFlowRunning) {
-            FlowRunning(model: model, detent: $flowDetent)
-                .presentationBackground(.bar)
-                .presentationDetents([.height(80), .large], selection: $flowDetent)
+    }
+        .sheet(isPresented: $model.showBlock) {
+            BlockSheetView(model: model)
+                .accentColor(.teal)
+                .presentationCornerRadius(32)
+                .presentationDetents([.fraction(1/3)])
                 .presentationBackgroundInteraction(.enabled(upThrough: .large))
-                .presentationCornerRadius(40)
-                .interactiveDismissDisabled()
+                .presentationBackground(.regularMaterial)
+                .presentationDragIndicator(.hidden)
         }
         
-        //            .sheet(isPresented: $showPaywall) {
-        //                PayWall()
-        //                    .presentationCornerRadius(40)
-        //                    .presentationBackground(.bar)
-        //                    .presentationDragIndicator(.visible)
-        //            }
+        .fullScreenCover(isPresented: $model.showFlowRunning) {
+            FlowRunning(model: model, detent: $flowDetent)
+        }
     }
     
     var startLabel: String {
@@ -201,19 +216,88 @@ struct FlowView: View {
         case .completed: "Start"
         }
     }
+    
+    @AppStorage("ProAccess") var proAccess: Bool = false
+    @AppStorage("showPayWall") var showPayWall = false
+    
+    @State var showStatistics = false
+    @State var showSettings = false
+    @State var showAppBlocker = false
+    @State var showPaywall = false
+    
+    @State var size: CGFloat = .zero
+    
+    @Environment(\.dismiss) var dismiss
 }
 
-
-extension View {
-    func navigationBarTitleTextColor(_ color: Color) -> some View {
-        let uiColor = UIColor(color)
-
-        // Set appearance for both normal and large sizes.
-        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: uiColor ]
-        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: uiColor ]
-//        .withDesign(.rounded)
-
-
-        return self
+struct BlockSheetView: View {
+    @State var model: FlowModel
+    
+    @State var blockText = ""
+    @State private var selectedOption = 0
+    let options = ["Focus", "Break"]
+    
+    @FocusState var isFocused
+    @Environment(\.dismiss) var dismiss
+    
+    
+    var body: some View {
+        
+        ZStack {
+            Color.black.opacity(0.4).ignoresSafeArea()
+            NavigationStack {
+                VStack {
+                    HStack {
+                        TextField("Block Title", text: $blockText)
+                            .leading()
+                            .focused($isFocused)
+                            .onAppear {
+                                isFocused = true
+                            }
+                            .onSubmit {
+                                model.showBlock.toggle()
+                            }
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 12)
+                            .background(.regularMaterial)
+                            .cornerRadius(16)
+                        
+                        Button {
+                            dismiss()
+                        } label: {
+                            
+                            Image(systemName: "xmark")
+                                .font(.callout)
+                                .foregroundStyle(.white.tertiary)
+                                .padding(12)
+                                .background(Circle().foregroundStyle(.ultraThinMaterial))
+                        }
+                    }
+                    
+                    MultiComponentPicker(columns: columns, selections: [
+                        $model.flow.blocks[model.selectedIndex].hours,
+                        $model.flow.blocks[model.selectedIndex].minutes,
+                        $model.flow.blocks[model.selectedIndex].seconds]
+                    )
+                    .padding(.vertical, -12)
+                    
+                    Button {
+                        dismiss()
+                    } label : {
+                        Text("Add Block")
+                            .foregroundStyle(.white)
+                            .font(.headline)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(.teal)
+                            .cornerRadius(16)
+                            .padding(.bottom)
+                    }
+                    
+                }
+                .padding(.horizontal)
+                .padding(.top)
+            }
+        }
     }
 }

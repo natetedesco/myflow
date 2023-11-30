@@ -19,6 +19,8 @@
 		F0A16C872A9BB79A00378E4C /* Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EDD0532A0171AF00223505 /* Attributes.swift */; };
 		F0A16C892A9C4B4D00378E4C /* MyFlow copy2-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F0A16C882A9C4B4D00378E4C /* MyFlow copy2-Info.plist */; };
 		F0A16C8A2A9C4B4D00378E4C /* MyFlow copy2-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F0A16C882A9C4B4D00378E4C /* MyFlow copy2-Info.plist */; };
+		F0A6718D2B190BF2003B3071 /* CreateFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A6718C2B190BF2003B3071 /* CreateFlow.swift */; };
+		F0A6718F2B190C18003B3071 /* FlowCompleted.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A6718E2B190C18003B3071 /* FlowCompleted.swift */; };
 		F0B7A2F92AA6BA1400E5B715 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0391313285EBF860074CF33 /* Format.swift */; };
 		F0EBC1182A8D3C0B006F9616 /* Controls.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB5D29033EC70058E66D /* Controls.swift */; };
 		F0EBC11A2A8D3C0B006F9616 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0948C4B2681907A00A5F48D /* Notifications.swift */; };
@@ -134,6 +136,8 @@
 		F09862002696C80E00A61B42 /* AquaSound.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = AquaSound.aif; sourceTree = "<group>"; };
 		F0A025C6294796A500AF723F /* FlowData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowData.swift; sourceTree = "<group>"; };
 		F0A16C882A9C4B4D00378E4C /* MyFlow copy2-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MyFlow copy2-Info.plist"; sourceTree = "<group>"; };
+		F0A6718C2B190BF2003B3071 /* CreateFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFlow.swift; sourceTree = "<group>"; };
+		F0A6718E2B190C18003B3071 /* FlowCompleted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowCompleted.swift; sourceTree = "<group>"; };
 		F0B3518E2A1BE3AE001186BB /* TimerWidgetExtension.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = TimerWidgetExtension.entitlements; sourceTree = "<group>"; };
 		F0C6CE7426913C240026E415 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		F0E35E142A26965D009D020E /* Main.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Main.storekit; sourceTree = "<group>"; };
@@ -172,16 +176,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F01514452AF42B4E00835775 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				F0A025C6294796A500AF723F /* FlowData.swift */,
+				F0435CDC2AA12FC30073E7E1 /* App Blocker.swift */,
+				F0E35E152A26ADF8009D020E /* PurchaseManager.swift */,
+				F0948C4B2681907A00A5F48D /* Notifications.swift */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
 		F018B2B62928263E00FCD857 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				F088D2782AAA58F200A1909C /* Components */,
 				F0F7F4332911C96E00BC8E16 /* Flow.swift */,
 				F04FFB4B28FF66B30058E66D /* FlowModel.swift */,
-				F0A025C6294796A500AF723F /* FlowData.swift */,
-				F0E35E152A26ADF8009D020E /* PurchaseManager.swift */,
-				F0435CDC2AA12FC30073E7E1 /* App Blocker.swift */,
-				F0948C4B2681907A00A5F48D /* Notifications.swift */,
+				F01514452AF42B4E00835775 /* Other */,
+				F088D2782AAA58F200A1909C /* Components */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -235,6 +247,7 @@
 			children = (
 				F028E6DE269D406A0022A555 /* Components */,
 				F066923326FB9C3800DB905E /* ContentView.swift */,
+				F0A6718B2B190BE3003B3071 /* Sheets */,
 				F09861FE26968B4B00A61B42 /* Paywall.swift */,
 				F0435CD02A9E8C6D0073E7E1 /* DistractionBlocker.swift */,
 				F0954B132A95795C009E212E /* FlowView */,
@@ -279,8 +292,8 @@
 				F0B3518E2A1BE3AE001186BB /* TimerWidgetExtension.entitlements */,
 				F0A16C882A9C4B4D00378E4C /* MyFlow copy2-Info.plist */,
 				F0948C1726818EE000A5F48D /* MyFlow */,
-				F07291F3297B45E600C25E0E /* Views */,
 				F018B2B62928263E00FCD857 /* ViewModels */,
+				F07291F3297B45E600C25E0E /* Views */,
 				F04FFB55290339000058E66D /* Timer */,
 				F0EDD03F2A01717400223505 /* TimerWidget */,
 				F05FC0D329FAE96600A9B503 /* Frameworks */,
@@ -319,6 +332,15 @@
 				F0954B112A95360F009E212E /* Block.swift */,
 			);
 			path = FlowView;
+			sourceTree = "<group>";
+		};
+		F0A6718B2B190BE3003B3071 /* Sheets */ = {
+			isa = PBXGroup;
+			children = (
+				F0A6718C2B190BF2003B3071 /* CreateFlow.swift */,
+				F0A6718E2B190C18003B3071 /* FlowCompleted.swift */,
+			);
+			path = Sheets;
 			sourceTree = "<group>";
 		};
 		F0C6CE7126913C240026E415 /* Frameworks */ = {
@@ -474,6 +496,7 @@
 				F0EBC1272A8D3C0B006F9616 /* FlowView.swift in Sources */,
 				F0435CD72A9F97E10073E7E1 /* Glass Components.swift in Sources */,
 				F0EBC1292A8D3C0B006F9616 /* Paywall.swift in Sources */,
+				F0A6718F2B190C18003B3071 /* FlowCompleted.swift in Sources */,
 				F0435CDD2AA12FC30073E7E1 /* App Blocker.swift in Sources */,
 				F0EBC12A2A8D3C0B006F9616 /* MonthCard.swift in Sources */,
 				F0EBC12C2A8D3C0B006F9616 /* MyFlowApp.swift in Sources */,
@@ -487,6 +510,7 @@
 				F0EBC13F2A8D3C0B006F9616 /* OverViewCard.swift in Sources */,
 				F0EBC1432A8D3C0B006F9616 /* Feedback.swift in Sources */,
 				F0EBC1442A8D3C0B006F9616 /* ContentView.swift in Sources */,
+				F0A6718D2B190BF2003B3071 /* CreateFlow.swift in Sources */,
 				F0EBC1452A8D3C0B006F9616 /* Format.swift in Sources */,
 				F0EBC1472A8D3C0B006F9616 /* Modifiers.swift in Sources */,
 				F01E848B2AB1249900CF418D /* FlowRunning.swift in Sources */,

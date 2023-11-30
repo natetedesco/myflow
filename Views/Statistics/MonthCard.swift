@@ -25,12 +25,11 @@ struct MonthCard: View {
                 .blur(radius: 1)
             }
             .accentColor(.myColor)
-            .frame(height: 130)
-            .padding(.top, 8)
-            .padding(.horizontal, 8)
+            .frame(height: 160)
+//            .padding(.top, 8)
+//            .padding(.horizontal, 8)
         }
-        .padding(.horizontal)
-        .cardGlass()
+//        .cardGlass()
     }
 }
 

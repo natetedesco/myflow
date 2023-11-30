@@ -31,8 +31,6 @@ struct OverViewCard: View {
                 totalTime: data.thisMonthTime
             )
         }
-        .padding(.horizontal)
-        .cardGlass()
     }
 }
 
@@ -43,13 +41,13 @@ struct OverviewLabel: View {
     
     var body: some View {
         VStack(alignment: .center, spacing: 8) {
-            Text(label)
-                .font(.footnote)
-                .fontWeight(.medium)
-                .foregroundStyle(.secondary)
             Gauge(value: (time/60), label: {Text("\(formatHours(time: totalTime))")})
                 .gaugeStyle(.accessoryCircularCapacity)
+            
                 .tint(.myColor)
+            Text(label)
+                .font(.footnote)
+                .foregroundStyle(.secondary)
         }
     }
 }

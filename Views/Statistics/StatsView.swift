@@ -9,83 +9,87 @@ import SwiftUI
 struct StatsView: View {
     @StateObject var data = FlowData()
     @StateObject var settings = Settings()
-    @AppStorage("ProAccess") var proAccess: Bool = false
     
+    @AppStorage("ProAccess") var proAccess: Bool = false
     @State private var showPaywall = false
     @State var detent = PresentationDetent.large
-    
-    @Environment(\.dismiss) var dismiss
-    
-    @State var showingSettings = false
     @State var blur = 0.0
     
     var body: some View {
+        
+        NavigationView {
             
-            NavigationView {
-                ZStack {
-                    Color.black.opacity(0.3).ignoresSafeArea()
+            ScrollView {
+                VStack(alignment: .leading, spacing: 16) {
                     
-                    ScrollView {
-                        VStack(spacing: 16) {
-                            
-                            HStack {
-                                Text("Goal:")
-                                    .padding(.leading, 24)
-                                    .fontWeight(.semibold)
-                                
-                                goalMenu
-                                Spacer()
-                            }
-                            .padding(.top)
-                            OverViewCard(data: data)
-                            
-//                            Spacer()
+                    // Overview
+                    Text("Overview")
+                        .fontWeight(.medium)
+                        .padding(.top)
+                    OverViewCard(data: data)
+                        .padding(.horizontal)
+                    
+                    Divider()
+                        .padding(.vertical)
+                        .padding(.trailing, -16)
 
-                            CustomHeadline(text: "This Week")
-                            WeekCard(data: data)
-                            
-//                            Spacer()
+                    // Weekly
+                    Text("Weekly")
+                        .fontWeight(.medium)
+                    WeekCard(data: data)
+                        .padding(.horizontal)
+                    
+                    Divider()
+                        .padding(.vertical)
+                        .padding(.trailing, -16)
+                    
+                    // Monthly
+                    Text("Monthly")
+                        .fontWeight(.medium)
+                    MonthCard(data: data)
+                        .padding(.horizontal)
+                    
 
-                            CustomHeadline(text: "This Month")
-                            MonthCard(data: data)
-                            
-                            
-                        }
-                    }
-                    .navigationTitle("Activity")
-                    .navigationBarTitleDisplayMode(.inline)
-                    .toolbar {
-                        ToolbarItem(placement: .topBarLeading) {}
-                        ToolbarItem(placement: .bottomBar) {
-                            if !proAccess {
-                                unlockButton
-                            }
-                        }
-                    }
-                    .onAppear {
-                        if !proAccess {
-                            blur = 4
-                        }
-                    }
-                    .blur(radius: proAccess ? 0 : blur)
-                    .animation(.easeIn(duration: 0.4), value: blur)
-                    .onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            if !proAccess {
-                                showPaywall = true
-                            }
-                        }
-                    }
-                    .sheet(isPresented: $showPaywall) {
-                        PayWall(detent: $detent)
-                            .presentationCornerRadius(40)
-                            .presentationBackground(.bar)
-                            .presentationDetents([.large, .fraction(6/10)], selection: $detent)
-                            .interactiveDismissDisabled(detent == .large)
-                            .presentationDragIndicator(detent == .large ? .visible : .hidden)
+                    
+                }
+                .padding(.horizontal)
+            }
+            .navigationTitle("Activity")
+            .toolbar {
+                
+                ToolbarItem(placement: .topBarLeading) {
+                    goalMenu
+                }
+                
+                ToolbarItem(placement: .bottomBar) {
+                    if !proAccess {
+                        unlockButton
                     }
                 }
             }
+            .onAppear {
+                if !proAccess {
+                    blur = 4
+                }
+            }
+            .blur(radius: proAccess ? 0 : blur)
+            .animation(.easeIn(duration: 0.4), value: blur)
+            .onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    if !proAccess {
+                        showPaywall = true
+                    }
+                }
+            }
+            .sheet(isPresented: $showPaywall) {
+                PayWall(detent: $detent)
+                    .presentationCornerRadius(40)
+                    .presentationBackground(.bar)
+                    .presentationDetents([.large, .fraction(6/10)], selection: $detent)
+                    .interactiveDismissDisabled(detent == .large)
+                    .presentationDragIndicator(.visible)
+            }
+        }
         
     }
     
@@ -107,10 +111,15 @@ struct StatsView: View {
                 }
             }
         label: {
-            Text("\(data.goalSelection) hours")
+//            Text("\(data.goalSelection) hours")
+            Text("Goal")
                 .foregroundColor(.myColor)
-//                .font(.title3)
-                .fontWeight(.medium)
+//                .font(.callout)
+            //                .fontWeight(.medium)
+//                .padding(.vertical, 12)
+//                .padding(.horizontal)
+//                .background(.ultraThinMaterial)
+//                .cornerRadius(16)
         }
         }
     }

@@ -68,7 +68,6 @@ import ManagedSettings
     }
     
     // Initialize
-    
     func Initialize() {
         if flowList.isEmpty {
 //            createFlow(title: "Flow")
@@ -127,7 +126,7 @@ import ManagedSettings
     }
     
     func addBlock() {
-        let newBlock = Block(title: "", minutes: 20)
+        let newBlock = Block(title: "Focus", minutes: 20)
         flow.blocks.append(newBlock)
         blockSelected = true
         selectedIndex = flow.blocks.firstIndex(where: { $0.id == newBlock.id }) ?? 0

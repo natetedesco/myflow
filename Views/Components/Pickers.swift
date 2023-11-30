@@ -42,7 +42,7 @@ struct MultiComponentPicker<Tag: Hashable>: View  {
         ZStack {
             
             Rectangle()
-                .fill(.gray.opacity(0.15))
+                .foregroundStyle(.ultraThinMaterial)
                 .frame(maxWidth: .infinity)
                 .cornerRadius(10)
                 .frame(height: 32)
@@ -73,10 +73,10 @@ struct MultiComponentPicker<Tag: Hashable>: View  {
                 }
 
             }
-            .frame(height: 128)
+//            .frame(height: 128)
         }
-        .padding(.horizontal)
-        .padding(.vertical, -4)
+//        .padding(.horizontal)
+//        .padding(.vertical, -4)
         
     }
 }

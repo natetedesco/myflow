@@ -1,3 +1,4 @@
+
 //
 //  ContentView.swift
 //  MyFlow
@@ -7,197 +8,133 @@
 import SwiftUI
 
 struct ContentView: View {
-    
     @State var model = FlowModel()
-    @StateObject var settings = Settings()
-    @AppStorage("ProAccess") var proAccess: Bool = false
-    
-    @AppStorage("showOnboarding") var showOnboarding: Bool = true
-    @State var showBlur = true
-    
-    @State var showPaywall = false
-    @State var detent = PresentationDetent.large
-    
-    @State var showStatistics = false
-    @State var showSettings = false
-    @State var showAppBlocker = false
-    @State var createFlow = false
-    
-    @State var showCreateFlow = false
-    @State var newFlowTitle = ""
-    @State var renameIndex = 0
-    @State var renameFlow = false
-    @State var renamedFlow = ""
-    @State var showDeleteAlert = false
+    @State var showFlow = false
     
     var body: some View {
         
         ZStack {
             NavigationStack {
-                ZStack {
-                    
-                    VStack {
-                        
-                        if model.flowList.count == 0 {
-                            VStack(spacing: 16) {
-                                Spacer()
-                                Image(systemName: "camera.filters")
-                                    .font(.largeTitle)
-                                    .foregroundStyle(Color.myColor)
-                                Text("No Flows")
-                                    .font(.title2)
-                                    .fontWeight(.bold)
-                                Button {
-                                    showCreateFlow.toggle()
-                                } label : {
-                                    Text("Create Your Flow")
-                                        .foregroundStyle(.white)
-                                        .font(.headline)
-                                }
-                                .padding()
-                                //                            .padding(.horizontal)
-                                .background(Color.myColor)
-                                .cornerRadius(8)
-                                Spacer()
-                            }
-                        } else {
-                            
-                            ScrollView {
-                                Text("All")
+                VStack {
+                    if model.flowList.count == 0 {
+                        VStack(spacing: 16) {
+                            Spacer()
+                            Image(systemName: "camera.filters")
+                                .font(.largeTitle)
+                                .foregroundStyle(Color.myColor)
+                            Text("No Flows")
+                                .font(.title2)
+                                .fontWeight(.bold)
+                            Button {
+                                showCreateFlow.toggle()
+                            } label : {
+                                Text("Create Your Flow")
+                                    .foregroundStyle(.white)
                                     .font(.headline)
-                                    .leading()
-                                    .padding(.leading)
+                            }
+                            .padding()
+                            .background(Color.myColor)
+                            .cornerRadius(8)
+                            Spacer()
+                        }
+                    } else {
+                        
+                        ScrollView {
+                            Text("All")
+                                .font(.headline)
+                                .leading()
+                                .padding(.leading)
+                            
+                            
+                            LazyVGrid(columns: [GridItem(.flexible(), spacing: 16), GridItem(.flexible(), spacing: 16)], spacing: 16) {
                                 
-                                LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
-                                    
-                                    ForEach(0..<model.flowList.count, id: \.self) { i in
-                                        if i < model.flowList.count {
-                                            let flow = model.flowList[i]
+                                
+                                ForEach(0..<model.flowList.count, id: \.self) { i in
+                                    if i < model.flowList.count {
+                                        let flow = model.flowList[i]
+                                        
+                                        Button {
                                             
+                                            showFlow.toggle()
+                                        } label: {
                                             ZStack {
-                                                Button {
-                                                    model.showFlow = true
-                                                } label: {
-                                                    ZStack {
-                                                        Rectangle()
-                                                            .fill(
-                                                                LinearGradient(
-                                                                    gradient: Gradient(colors: [.myColor.opacity(0.8), .myColor.opacity(0.6)]),
-                                                                    startPoint: .topLeading,
-                                                                    endPoint: .bottomTrailing
-                                                                )
-                                                            )
-                                                            .background(.ultraThinMaterial)
-                                                            .cornerRadius(24)
-                                                            .padding(-16)
-                                                        
-                                                        
-                                                        VStack(alignment: .leading) {
-                                                            Text(flow.title)
-                                                                .foregroundStyle(.white)
-                                                                .font(.title2)
-                                                                .fontWeight(.semibold)
-                                                                .multilineTextAlignment(.leading)
-                                                            Text(flow.totalFlowTimeFormatted())
-                                                                .font(.footnote)
-                                                                .foregroundStyle(.white.secondary)
-                                                                .fontWeight(.semibold)
-                                                        }
-                                                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
-                                                        
-                                                        // Menu
-                                                        Menu {
-                                                            Button {
-                                                                renameIndex = i
-                                                                renameFlow.toggle()
-                                                            } label: {
-                                                                Label("Rename", systemImage: "pencil")
-                                                            }
-                                                            Button {
-                                                                model.duplicateFlow(flow: flow)
-                                                            } label: {
-                                                                Label("Duplicate", systemImage: "plus.square.on.square")
-                                                            }
-                                                            Divider()
-                                                            Button(role: .destructive) {
-                                                                model.deleteFlow(id: flow.id)
-                                                            } label: {
-                                                                Label("Delete", systemImage: "trash")
-                                                            }
-                                                        } label: {
-                                                            Image(systemName: "ellipsis")
-                                                                .foregroundStyle(.white.secondary)
-                                                                .padding(12)
-                                                                .background(Circle().foregroundStyle(.ultraThinMaterial))
-                                                                .padding(.trailing, -6)
-                                                        }
-                                                        .simultaneousGesture(TapGesture().onEnded{
-                                                            lightHaptic()
-                                                        })
-                                                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-                                                        .shadow(color: .black.opacity(0.1), radius: 8)
+                                                Text(flow.title)
+                                                    .foregroundStyle(.white)
+                                                    .font(.title3)
+                                                    .fontWeight(.medium)
+                                                    .multilineTextAlignment(.leading)
+                                                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
+                                                
+                                                Spacer()
+                                                
+                                                Menu {
+                                                    Button {
+                                                        renameIndex = i
+                                                        renameFlow.toggle()
+                                                    } label: {
+                                                        Label("Rename", systemImage: "pencil")
                                                     }
+                                                    Button {
+                                                        model.duplicateFlow(flow: flow)
+                                                    } label: {
+                                                        Label("Duplicate", systemImage: "plus.square.on.square")
+                                                    }
+                                                    Button(role: .destructive) {
+                                                        model.deleteFlow(id: flow.id)
+                                                    } label: {
+                                                        Label("Delete", systemImage: "trash")
+                                                    }
+                                                } label: {
+                                                    Image(systemName: "ellipsis")
+                                                        .font(.callout)
+                                                        .foregroundStyle(.teal)
+                                                        .padding(12)
+                                                        .background(Circle().foregroundStyle(.regularMaterial))
+                                                    //                                                            .rotationEffect(.degrees(90))
                                                 }
+                                                .padding(.trailing, -4)
+                                                //                                                    .padding(.leading, -8)
                                                 .simultaneousGesture(TapGesture().onEnded{
-                                                    model.selection = i
-                                                    model.selectedIndex = i
+                                                    lightHaptic()
                                                 })
-                                                .padding()
+                                                .shadow(color: .black.opacity(0.1), radius: 8)
+                                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+                                                
                                                 
                                             }
+                                            .padding()
                                             .frame(maxWidth: .infinity)
                                             .frame(height: 112)
+                                            
+                                            .background(LinearGradient(
+                                                gradient: Gradient(colors: [.myColor.opacity(0.8), .myColor.opacity(0.6)]),
+                                                startPoint: .leading,
+                                                endPoint: .trailing
+                                            ))
+                                            .background(.bar)
+                                            .cornerRadius(24)
+                                            .shadow(color: Color.myColor.opacity(0.3), radius: 3)
+                                            
                                         }
+                                        .simultaneousGesture(TapGesture().onEnded{
+                                            model.selection = i
+                                            model.selectedIndex = i
+                                        })
                                     }
                                 }
-                                .padding(.horizontal)
                             }
-                            .animation(.default, value: model.flowList)
+                            .padding(.horizontal)
                         }
+                        .animation(.default, value: model.flowList)
                     }
                 }
+                
                 .navigationTitle("Flows")
                 .toolbar {
                     
-                    ToolbarItem(placement: .bottomBar) {
-                        HStack {
-                            
-                            // Statistics
-                            Button {
-                                showStatistics = true
-                                lightHaptic()
-                            } label: {
-                                Image(systemName: "bolt.fill")
-                                    .font(.headline)
-                                    .padding(12)
-                                    .background(Circle().foregroundStyle(.ultraThinMaterial))
-                            }
-                            
-                            Spacer()
-                            
-                            // Profile
-                            Button {
-                                showSettings = true
-                                lightHaptic()
-                            } label: {
-                                Image(systemName: "person.fill")
-                                    .padding(12)
-                                    .background(Circle().foregroundStyle(.ultraThinMaterial))
-                            }
-                        }
-                        //                    .padding(.top, 8)
-                        
-                    }
-                    
                     // Top Bar
-                    ToolbarItem(placement: .topBarTrailing) {
+                    ToolbarItem(placement: .topBarLeading) {
                         HStack {
-                            Button {
-                                showAppBlocker.toggle()
-                                lightHaptic()
-                            } label: {
-                                Image(systemName: settings.blockDistractions ? "shield.fill" : "shield")
-                            }
                             
                             if  model.flowList.count != 0 {
                                 Button {
@@ -209,7 +146,8 @@ struct ContentView: View {
                                     }
                                 } label: {
                                     Image(systemName: "plus")
-                                        .font(.title3)
+                                    //                                        .font(.title3)
+                                        .fontWeight(.medium)
                                 }
                             }
                         }
@@ -218,22 +156,6 @@ struct ContentView: View {
                 .ignoresSafeArea(.keyboard)
             }
             
-            
-            // Create Flow
-            .alert("Create Flow", isPresented: $showCreateFlow) { // Create Flow Alert
-                TextField("Flow Title", text: $newFlowTitle)
-                Button("Create", action: {
-                    if !newFlowTitle.isEmpty {
-                        model.createFlow(title: newFlowTitle == "" ? "Flow" : newFlowTitle)
-                        newFlowTitle = ""
-                        model.selection = model.flowList.count - 1
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-                            model.showFlow = true
-                        }
-                    }
-                })
-                Button("Cancel", role: .cancel, action: {})
-            }
             
             // Rename Flow
             .alert("Rename Flow", isPresented: $renameFlow) { // Create Flow Alert
@@ -246,74 +168,35 @@ struct ContentView: View {
                 })
                 Button("Cancel", role: .cancel, action: {})
             }
-            
             .accentColor(.myColor)
-            .fullScreenCover(isPresented: $model.showFlow) {
+            
+            .fullScreenCover(isPresented: $showFlow) {
                 FlowView(model: model)
-                    .presentationCornerRadius(40)
-                    .presentationDetents([.large])
-                    .presentationBackgroundInteraction(.enabled)
-                    .presentationDragIndicator(.visible)
-                    .accentColor(.myColor)
+                    .accentColor(.teal)
             }
             
-            .sheet(isPresented: $showStatistics) {
-                StatsView()
-                    .presentationBackground(.regularMaterial)
-                    .presentationCornerRadius(40)
-                    .presentationDetents([.large])
-                    .presentationBackgroundInteraction(.enabled)
-                    .presentationDragIndicator(.visible)
-                
-            }
-            .sheet(isPresented: $showSettings) {
-                SettingsView(model: model)
-                    .presentationBackground(.regularMaterial)
-                    .presentationCornerRadius(40)
-                    .presentationDragIndicator(.visible)
-                
-            }
             
             .sheet(isPresented: $showAppBlocker) {
                 DistractionBlocker(model: model)
-                    .presentationCornerRadius(40)
+                    .presentationCornerRadius(32)
                     .presentationBackground(.regularMaterial)
-                    .presentationDetents([.fraction(3/7)])
-                    .presentationDragIndicator(.visible)
+                    .presentationDragIndicator(.hidden)
+                    .accentColor(.teal)
             }
+            .sheet(isPresented: $showCreateFlow) {
+                CreateFlowView(model: model)
+                    .accentColor(.teal)
+                    .presentationBackground(.regularMaterial)
+                    .presentationCornerRadius(32)
+            }
+            
+            
             .sheet(isPresented: $model.showFlowCompleted) {
-                ZStack {
-                    
-                    VStack {
-                        Circles(model: model, size: 160, width: 16.0, fill: true)
-                            .padding(.top)
-                        
-                        Spacer()
-                        
-                        Text("Flow Completed")
-                            .font(.largeTitle)
-                            .fontWeight(.semibold)
-                        
-                        Spacer()
-                        
-                        HStack {
-                            Text("Total FlowTime: ")
-                                .foregroundStyle(.secondary)
-                                .font(.footnote)
-                                .fontWeight(.medium)
-                            Text(formatHoursAndMinutes(time: model.totalFlowTime/60))
-                                .fontWeight(.semibold)
-                                .foregroundStyle(Color.myColor)
-                        }
-                        .padding(.bottom, 32)
-                    }
-                }
-                .padding(.top, 32)
-                .padding(.horizontal)
-                .presentationBackground(.bar)
-                .presentationCornerRadius(40)
-                .presentationDetents([.medium])
-                .presentationDragIndicator(.visible)
+                ShowFlowCompletedView(model: model)
+                    .presentationBackground(.regularMaterial)
+                    .presentationCornerRadius(40)
+                    .presentationDetents([.medium])
+                    .presentationDragIndicator(.visible)
             }
             .sheet(isPresented: $showPaywall) {
                 PayWall(detent: $detent)
@@ -342,7 +225,6 @@ struct ContentView: View {
                         .padding(2)
                     Text("In a world of distractions, focus on what truly matters to you. We hope this app will help.")
                         .font(.callout)
-//                        .fontWeight(.medium)
                         .foregroundStyle(.secondary)
                         .padding(.horizontal, 64)
                         .multilineTextAlignment(.center)
@@ -375,6 +257,25 @@ struct ContentView: View {
             .animation(.easeInOut(duration: 2.0), value: showOnboarding)
         }
     }
+    
+    @StateObject var settings = Settings()
+    @AppStorage("ProAccess") var proAccess: Bool = false
+    @AppStorage("showOnboarding") var showOnboarding: Bool = true
+    @State var showBlur = true
+    
+    @State var showStatistics = false
+    @State var showSettings = false
+    @State var showAppBlocker = false
+    
+    @State var showPaywall = false
+    @State var detent = PresentationDetent.large
+    @State var showCreateFlow = false
+    @State var newFlowTitle = ""
+    @State var renameIndex = 0
+    @State var renameFlow = false
+    @State var renamedFlow = ""
+    @State var showDeleteAlert = false
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
@@ -384,3 +285,7 @@ struct ContentView_Previews: PreviewProvider {
         }
     }
 }
+
+
+
+

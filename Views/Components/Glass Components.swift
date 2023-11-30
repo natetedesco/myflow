@@ -10,11 +10,11 @@ struct CustomHeadline: View {
     var text: String
     var body: some View {
         Text(text)
-            .font(.headline)
-            .foregroundColor(.white)
-            .fontWeight(.semibold)
-            .padding(.leading, 24)
-            .padding(.top, 32)
+            .font(.footnote)
+            .foregroundStyle(.secondary)
+            .fontWeight(.light)
+            .padding(.leading, 32)
+            .padding(.top)
             .leading()
     }
 }
@@ -52,9 +52,9 @@ extension View {
             .maxWidth()
             .padding(.vertical)
             .background(.black.opacity(0.0))
-            .background(.regularMaterial)
-            .cornerRadius(24.0)
-            .padding(.horizontal, 24)
+            .background(.ultraThinMaterial)
+            .cornerRadius(20.0)
+            .padding(.horizontal)
     }
     
     func cardGlassNP() -> some View {
@@ -62,7 +62,7 @@ extension View {
             .padding(.vertical, 12)
             .background(.black.opacity(0.0))
             .background(.regularMaterial)
-            .cornerRadius(24.0)
+            .cornerRadius(20)
             .padding(.horizontal)
     }
 }

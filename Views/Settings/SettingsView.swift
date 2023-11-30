@@ -11,27 +11,20 @@ import MessageUI
 struct SettingsView: View {
     @StateObject var settings = Settings()
     @Bindable var model: FlowModel
+    @Environment(\.requestReview) var requestReview
     
     @AppStorage("ProAccess") var proAccess: Bool = false
-    
     @State private var showPayWall = false
     @State var detent = PresentationDetent.large
-
+    
     let center = AuthorizationCenter.shared
     @AppStorage("ScreenTimeAuthorized") var isAuthorized: Bool = false
     
-    @State var isPresented = false // distraction blocker
-    
     @State private var isShowingMailView = false
-    
-    @Environment(\.requestReview) var requestReview
-
     
     var body: some View {
         
         NavigationView {
-            ZStack {
-                Color.black.opacity(0.3).ignoresSafeArea()
                 
                 ScrollView {
                     
@@ -39,14 +32,15 @@ struct SettingsView: View {
                     
                     VStack(alignment: .leading) {
                         Button {
-                                    isShowingMailView.toggle()
+                            isShowingMailView.toggle()
                         } label: {
                             NL(text: "Send Feedback", icon: "envelope", color: .white)
-
+                                .fontWeight(.medium)
+                            
                         }
-                                .sheet(isPresented: $isShowingMailView) {
-                                    MailComposeViewControllerWrapper(isShowing: $isShowingMailView)
-                                }
+                        .sheet(isPresented: $isShowingMailView) {
+                            MailComposeViewControllerWrapper(isShowing: $isShowingMailView)
+                        }
                         NavigationLink(destination: Feedback()) {
                         }
                     }
@@ -57,14 +51,14 @@ struct SettingsView: View {
                         endPoint: .trailing
                     ))
                     .background(.bar)
-                    .cornerRadius(24)
+                    .cornerRadius(20)
                     .shadow(color: Color.myColor.opacity(0.3), radius: 6)
                     .padding(.horizontal)
-                    .padding(.top)
+                    .padding(.top, 8)
                     
                     
                     // General
-                    CustomHeadline(text: "General")
+                    CustomHeadline(text: "GENERAL")
                     VStack(spacing: 12) {
                         ToggleBar(text: "Notifications", icon: "bell", isOn: $settings.notificationsOn)
                         
@@ -104,14 +98,84 @@ struct SettingsView: View {
                             }
                         }
                         .padding(.horizontal)
+                        
+//                        VStack {
+//                            if isAuthorized {
+//                                Button {
+////                                    if proAccess {
+////                                        isPresented = true
+////                                    }
+//                                } label: {
+//                                    HStack {
+//                                        Text("Blocked Apps")
+//                                            .foregroundColor(.white)
+////                                            .fontWeight(.medium)
+//                                        Spacer()
+//                                        if model.activitySelection.applicationTokens.isEmpty && model.activitySelection.categoryTokens.isEmpty &&
+//                                            model.activitySelection.webDomainTokens.isEmpty {
+//                                            Text("None")
+//                                                .foregroundColor(.gray)
+//                                        } else {
+//                                            if !proAccess {
+//                                                Image(systemName: "lock.fill")
+//                                                    .foregroundColor(.gray)
+//                                            } else {
+//                                                Text(Image(systemName: "chevron.right"))
+//                                                    .foregroundColor(.gray)
+//                                                    .fontWeight(.semibold)
+//                                            }
+//                                            
+//                                        }
+//                                    }
+//                                }
+////                                .familyActivityPicker(isPresented: $isPresented, selection: $model.activitySelection)
+//                            } else {
+//                                Button {
+//                                    Task {
+//                                        do {
+//                                            try await center.requestAuthorization(for: .individual)
+//                                            isAuthorized = true
+//                                        } catch {
+//                                            print("error")
+//                                        }
+//                                    }
+//                                } label: {
+//                                    Text("Authorize")
+//                                        .foregroundColor(.myColor)
+//                                }
+//                            }
+//                            
+//                            // App Icons
+//                            if !model.activitySelection.applicationTokens.isEmpty {
+////                                LazyVGrid(columns: [GridItem(.adaptive(minimum: 48))], spacing: 16) {
+//                                ScrollView(.horizontal) {
+//
+//                                    HStack {
+//                                        ForEach(Array(model.activitySelection.applicationTokens), id: \.self) { applicationToken in
+//                                            Label(applicationToken)
+//                                                .labelStyle(.iconOnly)
+//                                                .scaleEffect(1.5)
+//                                            
+//                                        }
+//                                    }
+//                                }
+//                                .padding(.vertical, 8)
+//                            }
+//                        }
+//                        .padding(.horizontal)
+//                        .frame(maxWidth: .infinity)
+//                        .background(.ultraThickMaterial)
+//                        .cornerRadius(24)
+                        
+                        
                     }
                     .cardGlassNP()
                     
                     
                     // About
-                    CustomHeadline(text: "About")
+                    CustomHeadline(text: "ABOUT")
                     VStack(spacing: 12) {
-                                
+                        
                         Link(destination: URL(string: "https://myflow.notion.site/Privacy-Policy-0002d1598beb401e9801a0c7fe497fd3?pvs=4")!) {
                             NL(text: "Privacy & Terms", icon: "hand.raised")
                         }
@@ -128,26 +192,24 @@ struct SettingsView: View {
                     .cardGlassNP()
                     
                     // DEMO
-//                    CustomHeadline(text: "Demo")
-//                    VStack {
-//                        ToggleBar(text: "Pro Access", icon: "bell", isOn: $proAccess)
-//                    }
-//                    .cardGlassNP()
+                    CustomHeadline(text: "DEMO")
+                    VStack {
+                        ToggleBar(text: "Pro Access", icon: "bell", isOn: $proAccess)
+                    }
+                    .cardGlassNP()
                     
                     VersionNumber
                 }
-            }
-            .navigationTitle("Settings").navigationBarTitleDisplayMode(.inline)
-            //            .toolbar{ upgradeButton }
+            .navigationTitle("Settings")
             .accentColor(.myColor)
-                            .sheet(isPresented: $showPayWall) {
-                                PayWall(detent: $detent)
-                                    .presentationCornerRadius(40)
-                                    .presentationBackground(.bar)
-                                    .presentationDetents([.large, .fraction(6/10)], selection: $detent)
-                                    .interactiveDismissDisabled(detent == .large)
-                                    .presentationDragIndicator(detent == .large ? .visible : .hidden)
-                            }
+            .sheet(isPresented: $showPayWall) {
+                PayWall(detent: $detent)
+                    .presentationCornerRadius(40)
+                    .presentationBackground(.bar)
+                    .presentationDetents([.large, .fraction(6/10)], selection: $detent)
+                    .interactiveDismissDisabled(detent == .large)
+                    .presentationDragIndicator(.visible)
+            }
         }
     }
     
@@ -269,7 +331,7 @@ struct SettingsView_Previews: PreviewProvider {
 
 struct MailComposeViewControllerWrapper: UIViewControllerRepresentable {
     @Binding var isShowing: Bool
-
+    
     func makeUIViewController(context: Context) -> MFMailComposeViewController {
         let mailComposeVC = MFMailComposeViewController()
         mailComposeVC.mailComposeDelegate = context.coordinator
@@ -278,20 +340,20 @@ struct MailComposeViewControllerWrapper: UIViewControllerRepresentable {
         mailComposeVC.setMessageBody("", isHTML: false)
         return mailComposeVC
     }
-
+    
     func updateUIViewController(_ uiViewController: MFMailComposeViewController, context: Context) {}
-
+    
     func makeCoordinator() -> Coordinator {
         Coordinator(isShowing: $isShowing)
     }
-
+    
     class Coordinator: NSObject, MFMailComposeViewControllerDelegate {
         @Binding var isShowing: Bool
-
+        
         init(isShowing: Binding<Bool>) {
             _isShowing = isShowing
         }
-
+        
         func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
             isShowing = false
         }

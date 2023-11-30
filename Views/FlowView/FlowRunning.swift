@@ -11,110 +11,105 @@ struct FlowRunning: View {
     @State var model: FlowModel
     @Binding var detent: PresentationDetent
     @State var showResetAlert = false
-
+    
     
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
         
-            NavigationView {
-                    ZStack {
-//                        Color.black.opacity(detent == .large ? 0.3 : 0.0).ignoresSafeArea()
-//                        AnimatedBlur(opacity: 0.3)
-                        
-                        if detent == .large {
-                            VStack {
-                                Text(model.flow.blocks[model.blocksCompleted].title)
-                                    .font(.largeTitle)
-                                    .fontWeight(.semibold)
-                                    .padding(.top, 32)
-                                    .padding(.horizontal)
-                                
-                                Spacer()
-                                
-                                ZStack {
-                                    Circles(model: model)
-                                    Text(formatTime(seconds: model.flowTimeLeft))
-                                        .font(.system(size: 64))
-//                                        .fontWeight(.thin)
-                                        .monospacedDigit()
-                                }
-                                
-                                Spacer()
-                                
-                                if model.mode == .flowPaused {
-                                    Button {
-                                        model.Reset()
-                                    } label: {
-                                        HStack {
-                                            Text("Reset")
-                                            Image(systemName: "gobackward")
-                                        }
-                                        .foregroundColor(.myColor)
-                                    }
-                                } else {
-                                    Button {
-                                        model.Skip()
-                                        softHaptic()
-                                    } label: {
-                                        HStack {
-                                            Image(systemName: "checkmark.circle")
-                                            Text("Complete")
-                                        }
-                                        .foregroundColor(.myColor)
-                                    }
-                                }
-                                Spacer()
-                            }
-                        } else {
-                            HStack {
-                                
-                                Gauge(value: formatProgress(time: model.flowTime, timeLeft: model.flowTimeLeft), label: {Text("")})
-                                    .gaugeStyle(.accessoryCircularCapacity)
-                                    .tint(.myColor)
-                                
-                                Text(model.flow.blocks[model.blocksCompleted].title)
-                                    .font(.title)
-                                    .fontWeight(.semibold)
-                                    .leading()
-                                    .padding(.leading, 8)
-                                
-                                Spacer()
-                                
-                                Text(formatTime(seconds: model.flowTimeLeft))
-                                    .font(.headline)
-                                    .monospacedDigit()
-                                    .trailing()
-                            }
-                            .padding(.horizontal)
-                            .padding(.top)
-                        }
-                    }
+        NavigationStack {
+            VStack {
+                
+                Button {
+                    model.showFlowRunning.toggle()
+                } label: {
+                    Capsule()
+                        .foregroundStyle(.white.quinary)
+                        .frame(width: 36, height: 5)
+                }
+                
+                
+                
+                Text(model.flowList[model.selection].title)
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .padding(.horizontal)
+                    .padding(.top)
+                
+                
+                
+                
+                Spacer()
+                
+                ZStack {
+                    Circles(model: model)
+                    Text(formatTime(seconds: model.flowTimeLeft))
+                        .font(.system(size: 72))
+                        .fontWeight(.thin)
+                        .monospacedDigit()
                     
-                    .toolbar {
-                        
-                        ToolbarItem(placement: .bottomBar) {
-                            
-                            if detent == .large {
-                                
-                                Button {
-                                    model.Start()
-                                    softHaptic()
-                                } label: {
-                                    Text(model.mode == .flowRunning ? "Pause" : "Start")
-                                        .foregroundColor(.myColor)
-                                        .font(.title2)
-                                        .padding(.vertical, 12)
-                                        .padding(.horizontal)
-                                        .background(.ultraThinMaterial)
-                                        .cornerRadius(20)
-                                }
-                            }
-                        }
+                    Button {
+                        model.Skip()
+                        softHaptic()
+                    } label: {
+                        Text("Complete")
+                            .foregroundColor(.myColor)
+                            .font(.footnote)  
                     }
+                    .padding(.top, 120)
+                    
+                    Text(model.flow.blocks[model.blocksCompleted].title)
+                        .font(.title2)
+                        .foregroundStyle(.secondary)
+                        .padding(.horizontal)
+                        .padding(.top)
+                        .padding(.bottom, 128)
+                }
+                
+                Spacer()
+                
+                Button {
+                    model.Start()
+                    softHaptic()
+                } label: {
+//                    Text(model.mode == .flowRunning ? "Pause" : "Start")
+                    Image(systemName: model.mode == .flowRunning ? "pause.fill" : "play.fill")
+                        .font(.title)
+                        .foregroundStyle(.teal)
+                        .padding(20)
+                        .background(Circle().foregroundStyle(.teal.quinary))
+                }
+                
+                
+                
                 
             }
-        .frame(maxWidth: .infinity)
+            .toolbar {
+//                ToolbarItem(placement: .bottomBar) {
+//                    HStack {
+//                        
+//                        
+//                        Button {
+//                            model.showFlowRunning.toggle()
+//                        } label: {
+//                            Image(systemName: "gobackward")
+//                                .foregroundStyle(.teal)
+//                        }
+//
+//                        
+//                        Spacer()
+//                        
+//                        
+//
+//                        
+//
+//                    }
+//                    
+//                }
+            }
+        }
+        
+        
         // Reset Alert
         .confirmationDialog("", isPresented: $showResetAlert) {  // Delete Flow Alert
             Button("Cancel", role: .cancel) { }
@@ -123,7 +118,7 @@ struct FlowRunning: View {
             }
         }
         
-            
+        
     }
 }
 
@@ -150,12 +145,12 @@ struct Circles: View {
                 .stroke(Color.myColor.opacity(0.2), style: StrokeStyle(lineWidth: width,lineCap: .round))
                 .frame(width: size)
             
-//            Circle()
-//                .trim(from: 0, to: circleFill)
-//                .stroke(Color.myColor.opacity(0.6), style: StrokeStyle(lineWidth: width,lineCap: .round))
-//                .opacity(0.1)
-//                .blur(radius: 10)
-//                .frame(width: size)
+            //            Circle()
+            //                .trim(from: 0, to: circleFill)
+            //                .stroke(Color.myColor.opacity(0.6), style: StrokeStyle(lineWidth: width,lineCap: .round))
+            //                .opacity(0.1)
+            //                .blur(radius: 10)
+            //                .frame(width: size)
             
         }
         .rotationEffect(.degrees(-90))

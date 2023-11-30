@@ -13,15 +13,15 @@ struct WeekCard: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            HStack {
-                Text("Daily flow time goal:")
-                    .font(.footnote)
-                    .fontWeight(.medium)
-                    .foregroundStyle(.secondary)
-                Text("\(data.goalSelection)h")
-                    .font(.footnote)
-                    .fontWeight(.medium)
-            }
+//            HStack {
+//                Text("Daily flow time goal:")
+//                    .font(.footnote)
+//                    .fontWeight(.medium)
+//                    .foregroundStyle(.secondary)
+//                Text("\(data.goalSelection)h")
+//                    .font(.footnote)
+//                    .fontWeight(.medium)
+//            }
             
             HStack {
             ForEach(0..<data.thisWeekDays.count, id: \.self) { i in
@@ -29,16 +29,11 @@ struct WeekCard: View {
                     VStack {
                         ZStack {
                             BarGraph(value: (CGFloat(data.thisWeekDays[i].time/data.goalSelection)))
-                            //                            Rectangle()
-                            //                                .frame(width: 24, height: 60)
-                            //                                .foregroundColor(.white)
-                            //                                .cornerRadius(25)
-                            //                                .blendMode(.destinationOut)
                         }
                         .compositingGroup()
                         
                         Text(days[i])
-                            .font(.subheadline)
+                            .font(.footnote)
                             .fontWeight(.medium)
                             .foregroundColor(i == data.dayOfTheWeek ? .myColor : .gray)
                             .frame(width: 24)
@@ -52,8 +47,7 @@ struct WeekCard: View {
             }
         }
 //        .padding(.top, 8)
-        .padding(.horizontal, 24)
-        .cardGlass()
+//        .cardGlass()
     }
 }
 
@@ -74,9 +68,9 @@ struct BarGraph: View {
         VStack {
             ZStack(alignment: .bottom) {
                 Rectangle()
-                    .frame(width: 25, height: 60)
+                    .frame(width: 28, height: 68)
                     .foregroundColor(.clear)
-                    .background(Color.myColor.opacity(0.1))
+                    .background(Color.myColor.quaternary)
                 //                    .background(.ultraThinMaterial.opacity(0.5))
                 
                 Rectangle()

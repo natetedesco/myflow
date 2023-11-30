@@ -10,7 +10,7 @@ import SwiftUI
 struct Flow: Codable, Equatable, Identifiable {
     var id = UUID()
     var title: String = ""
-    var blocks = [Block(title: "", minutes: 20)]
+    var blocks = [Block(title: "Focus", minutes: 20)]
 }
 
 struct Block: Codable, Hashable, Identifiable {
@@ -19,14 +19,13 @@ struct Block: Codable, Hashable, Identifiable {
     var hours: Int = 0
     var minutes: Int = 0
     var seconds: Int = 0
+    var isBreak: Bool = false
     
-    var tasks: [BlockTask] = [BlockTask()]
-    
+//    var tasks: [BlockTask] = [BlockTask()]
     var currentFocus = false
     
     var draggable = true
     var pickTime = false
-    
     
 }
 
@@ -37,7 +36,6 @@ struct BlockTask: Codable, Hashable, Identifiable {
 
 
 extension Flow {
-    
     func totalFlowTimeInSeconds() -> TimeInterval {
         var totalSeconds: TimeInterval = 0
         
@@ -46,7 +44,6 @@ extension Flow {
         }
         return totalSeconds
     }
-    
     
     func totalFlowTimeFormatted() -> String {
         let totalSeconds = totalFlowTimeInSeconds()

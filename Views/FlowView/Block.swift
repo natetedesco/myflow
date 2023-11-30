@@ -8,16 +8,13 @@ import SwiftUI
 
 struct BlockView: View {
     @Bindable var model: FlowModel
-    
     @Binding var block: Block
     
     @State var showCompleteBlock = false
     
     @FocusState var focusedBlockID: UUID?
     @FocusState var focusedTaskIndex: Int?
-    @State var showTasks = true
-    @State var newTask = ""
-    
+
     
     var body: some View {
         
@@ -32,39 +29,55 @@ struct BlockView: View {
         } label: {
             
             HStack {
-                Gauge(value: gaugeValue, label: {Text("")})
-                    .gaugeStyle(.accessoryCircularCapacity)
-                    .tint(.accentColor)
-                    .scaleEffect(0.8)
                 
-                FocusTitle
-                    .font(.title2)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.white)
-                    .onAppear {
-                        if block.title.isEmpty {
-                            if let selectedBlockIndex = model.flow.blocks.firstIndex(where: { $0.id == block.id }) {
-                                focusedBlockID = block.id
-                                model.selectedIndex = selectedBlockIndex
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                    model.blockSelected = true
-                                }
-                            }
-                        }
-                    }
+                VStack(alignment: .leading) {
+//                    FocusTitle
+                    Text(block.title)
+                        .font(.title2)
+                        .fontWeight(.medium)
+                        .foregroundColor(.white)
+                        .multilineTextAlignment(.leading)
+
+//                        .onAppear {
+//                            if block.title.isEmpty {
+//                                if let selectedBlockIndex = model.flow.blocks.firstIndex(where: { $0.id == block.id }) {
+//                                    focusedBlockID = block.id
+//                                    model.selectedIndex = selectedBlockIndex
+//                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                                        model.blockSelected = true
+//                                    }
+//                                }
+//                            }
+//                        }
+                    Text(timerLabel)
+                        .font(.title)
+                        .fontWeight(.thin)
+                        .monospacedDigit()
+                        .foregroundStyle(.white.secondary)
+                }
+                .frame(maxHeight: .infinity, alignment: .center)
+                .padding(.bottom, -8)
                 
                 Spacer()
                 
-                Text(timerLabel)
-//                    .font(.title3)
-//                    .fontWeight(.light)
-                    .font(.title3)
-//                    .fontWeight(.medium)
-                    .monospacedDigit()
-                    .foregroundStyle(.white.secondary)
-//                    .padding(.trailing)
+                ZStack {
+                    Gauge(value: gaugeValue, label: {Text("")})
+                        .gaugeStyle(.accessoryCircularCapacity)
+                        .tint(.accentColor)
+                        .scaleEffect(0.9)
+                        .padding(.trailing, 4)
+                        .animation(.default, value: gaugeValue)
+                    
+//                    if gaugeValue != 1.0 && gaugeValue != 0 {
+//                        Image(systemName: "pause.fill")
+//                            .padding(.trailing, 4)
+//                    }
+
+                    
+                }
                 
                 
+
             }
             .leading()
             .padding(.horizontal)
@@ -131,23 +144,13 @@ struct BlockView: View {
                 model.Skip()
             }
         }
-        //        .sheet(isPresented: $model.showBlock) {
-        //            BlockSheet(block: $block)
-        //                .fontDesign(.rounded)
-        //                .presentationDetents([.height(144)])
-        //                .presentationCornerRadius(30)
-        //                .presentationBackgroundInteraction(.enabled(upThrough: .large))
-        //                .presentationBackground(.bar)
-        //                .presentationDragIndicator(.hidden)
-        //        }
     }
     
     var FocusTitle: some View {
         TextField("Focus", text: $block.title)
-            .disabled(model.dragging || model.mode != .initial)
-            .focused($focusedBlockID, equals: block.id)
+//            .disabled(model.dragging || model.mode != .initial)
+//            .focused($focusedBlockID, equals: block.id)
             .disabled(model.dragging)
-            .multilineTextAlignment(.leading)
             .onSubmit {
                 model.blockSelected = false
 //                if !block.title.isEmpty {
@@ -160,7 +163,7 @@ struct BlockView: View {
 //                }
                 if block.title.isEmpty {
                     block.title = "Focus"
-                    focusedTaskIndex = block.tasks.count // Focus on the newly added task
+//                    focusedTaskIndex = block.tasks.count
                 }
                 model.saveFlow()
             }
@@ -199,80 +202,8 @@ struct BlockView: View {
     @State var xOffset: CGFloat = 0
     @State var deleteIconOpacity: Double = 0
     @State var isSliding = false
+    
+    @State var showTasks = true
+    @State var newTask = ""
 }
 
-
-
-//struct BlockSheet: View {
-//    @Binding var block: Block
-//    @FocusState var focused: Bool
-//    @Environment(\.dismiss) var dismiss
-//
-//
-//    var body: some View {
-//        VStack {
-//
-//            HStack {
-//                TextField("Block", text: $block.title)
-//                    .focused($focused)
-//                    .font(.title)
-//                    .fontWeight(.semibold)
-//                    .leading()
-//                    .padding(.leading)
-////                    .padding(.top, 8)
-//                    .keyboardType(.alphabet)
-//                    .disableAutocorrection(true)
-//                    .onSubmit {
-//                        dismiss()
-//                    }
-//                Spacer()
-//                Text("Create")
-//                    .foregroundColor(.myColor)
-//                    .padding(.trailing)
-//                    .padding(.top, 8)
-//
-//            }
-//
-//            MultiComponentPicker(columns: columns, selections: [
-//                $block.hours,
-//                $block.minutes,
-//                $block.seconds]
-//            )
-//
-//
-//        }
-//        .onAppear {
-//            focused = true
-//        }
-//    }
-//
-//    //
-//    //            VStack(spacing: 4) {\
-//    //
-//    //                ForEach(Array(block.tasks.enumerated()), id: \.element.id) { (index, task) in
-//    //                    HStack {
-//    //                        Image(systemName: "circle")
-//    //                            .foregroundStyle(task.title.isEmpty ? .tertiary : .secondary)
-//    //
-//    //                        TextField("Add Focus", text: $block.tasks[index].title)
-//    //                            .focused($focusedTaskIndex, equals: index)
-//    //                            .font(.system(.callout, design: .rounded))
-//    //                            .onSubmit {
-//    //                                if !task.title.isEmpty {
-//    //                                    block.tasks.append(BlockTask())
-//    //                                    focusedTaskIndex = block.tasks.count - 1 // Focus on the newly added task
-//    //                                }
-//    //                                if task.title.isEmpty && block.tasks.count > 1 {
-//    //                                    block.tasks.removeLast()
-//    //                                }
-//    //                            }
-//    //                    }
-//    //                }
-//    //                .foregroundStyle(.secondary)
-//    //                .leading()
-//    //            }
-//    //            .frame(maxWidth: .infinity)
-//    //            .padding(.leading, 64)
-//    //            .padding(.top, -16)
-//
-//}

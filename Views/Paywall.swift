@@ -138,16 +138,16 @@ struct PayWall: View {
 //                        Spacer()
                         
                         
-                        Button {
-                            dismiss()
-                        } label: {
-                            Image(systemName: "xmark")
-                                .foregroundStyle(.white.secondary)
-                                .font(.caption2)
-                                .fontWeight(.semibold)
-                                .CircularGlassButton(padding: 8)
-                                .trailing()
-                        }
+//                        Button {
+//                            dismiss()
+//                        } label: {
+//                            Image(systemName: "xmark")
+//                                .foregroundStyle(.white.secondary)
+//                                .font(.caption2)
+//                                .fontWeight(.semibold)
+//                                .CircularGlassButton(padding: 8)
+//                                .trailing()
+//                        }
                     }
                     .padding(.top)
                     
@@ -267,7 +267,6 @@ struct PayWall: View {
                             }
                         } label: {
                             Text("Terms • Privacy")
-                                .foregroundStyle(.white.secondary)
                                 .font(.caption)
                             
                         }
@@ -282,12 +281,12 @@ struct PayWall: View {
                             }
                         } label: {
                             Text("• Restore")
-                                .foregroundStyle(.white.secondary)
                                 .font(.caption)
                         }
                         .padding(.leading, -4)
                         
                     }
+                    .foregroundStyle(.white)
                     .padding(.top)
                 } else {
                         Text("Swipe up for details")
