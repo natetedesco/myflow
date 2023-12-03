@@ -44,7 +44,7 @@ struct OverviewLabel: View {
             Gauge(value: (time/60), label: {Text("\(formatHours(time: totalTime))")})
                 .gaugeStyle(.accessoryCircularCapacity)
             
-                .tint(.myColor)
+                .tint(.teal)
             Text(label)
                 .font(.footnote)
                 .foregroundStyle(.secondary)

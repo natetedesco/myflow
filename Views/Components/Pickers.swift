@@ -13,26 +13,6 @@ var hours = [Int](0...12)
 var minutes = [Int](0...60)
 var seconds = [Int](0...60)
 
-var columns = [
-    MultiComponentPicker.Column(label: "hours", options: Array(0...5).map { MultiComponentPicker.Column.Option(text: "\($0)", tag: $0) }),
-    MultiComponentPicker.Column(label: "min", options: Array(0...59).map { MultiComponentPicker.Column.Option(text: "\($0)", tag: $0) }),
-    MultiComponentPicker.Column(label: "sec", options: Array(0...59).map { MultiComponentPicker.Column.Option(text: "\($0)", tag: $0) }),
-]
-
-extension View {
-    public func introspectUIPickerView(customize: @escaping (UIPickerView) -> ()) -> some View {
-        return inject(UIKitIntrospectionView(
-            selector: { introspectionView in
-                guard let viewHost = Introspect.findViewHost(from: introspectionView) else {
-                    return nil
-                }
-                return Introspect.findAncestorOrAncestorChild(ofType: UIPickerView.self, from: viewHost)
-            },
-            customize: customize
-        ))
-    }
-}
-
 struct MultiComponentPicker<Tag: Hashable>: View  {
     let columns: [Column]
     var selections: [Binding<Tag>]
@@ -40,7 +20,6 @@ struct MultiComponentPicker<Tag: Hashable>: View  {
     var body: some View {
         
         ZStack {
-            
             Rectangle()
                 .foregroundStyle(.ultraThinMaterial)
                 .frame(maxWidth: .infinity)
@@ -71,13 +50,28 @@ struct MultiComponentPicker<Tag: Hashable>: View  {
                         .pickerStyle(WheelPickerStyle())
                     }
                 }
-
             }
-//            .frame(height: 128)
         }
-//        .padding(.horizontal)
-//        .padding(.vertical, -4)
-        
+    }
+}
+
+var columns = [
+    MultiComponentPicker.Column(label: "hours", options: Array(0...5).map { MultiComponentPicker.Column.Option(text: "\($0)", tag: $0) }),
+    MultiComponentPicker.Column(label: "min", options: Array(0...59).map { MultiComponentPicker.Column.Option(text: "\($0)", tag: $0) }),
+    MultiComponentPicker.Column(label: "sec", options: Array(0...59).map { MultiComponentPicker.Column.Option(text: "\($0)", tag: $0) }),
+]
+
+extension View {
+    public func introspectUIPickerView(customize: @escaping (UIPickerView) -> ()) -> some View {
+        return inject(UIKitIntrospectionView(
+            selector: { introspectionView in
+                guard let viewHost = Introspect.findViewHost(from: introspectionView) else {
+                    return nil
+                }
+                return Introspect.findAncestorOrAncestorChild(ofType: UIPickerView.self, from: viewHost)
+            },
+            customize: customize
+        ))
     }
 }
 
@@ -100,39 +94,3 @@ extension MultiComponentPicker {
     }
 }
 
-
-struct PickerView: View {
-    @Binding var selection: Int
-    var unit: [Int]
-    var label: String
-    
-    var body: some View {
-        
-        GeometryReader { geometry in
-            Picker(selection: $selection, label: Text("")) {
-                ForEach(unit, id: \.self) { unit in
-                    Text("\(unit) \(label)")
-                }
-            }
-            .pickerStyle(.wheel)
-        }
-        .frame(height: 150)
-        .padding(.vertical, -8)
-    }
-}
-
-//struct PickerLabel: View {
-//    var text: String
-//    var time: Int
-//    var color: Color
-//    
-//    var body: some View {
-//        HStack {
-//            Text(text)
-//                .font(.headline)
-//            Text(formatTime(seconds: time))
-//        }
-//        .foregroundColor(color)
-//        .leading()
-//    }
-//}

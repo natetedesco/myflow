@@ -35,7 +35,7 @@ struct WeekCard: View {
                         Text(days[i])
                             .font(.footnote)
                             .fontWeight(.medium)
-                            .foregroundColor(i == data.dayOfTheWeek ? .myColor : .gray)
+                            .foregroundColor(i == data.dayOfTheWeek ? .teal : .gray)
                             .frame(width: 24)
                             .padding(.top, 4)
                     }
@@ -56,8 +56,8 @@ struct BarGraph: View {
     let curGradient = LinearGradient(
         gradient: Gradient (
             colors: [
-                .myColor.opacity(1.0),
-                .myColor.opacity(0.5),
+                .teal.opacity(1.0),
+                .teal.opacity(0.5),
             ]
         ),
         startPoint: .top,
@@ -70,12 +70,12 @@ struct BarGraph: View {
                 Rectangle()
                     .frame(width: 28, height: 68)
                     .foregroundColor(.clear)
-                    .background(Color.myColor.quaternary)
+                    .background(Color.teal.quaternary)
                 //                    .background(.ultraThinMaterial.opacity(0.5))
                 
                 Rectangle()
                     .frame(width: 25, height: min(value, 60))
-                    .foregroundColor(.myColor)
+                    .foregroundColor(.teal)
             }
             .cornerRadius(25)
         }

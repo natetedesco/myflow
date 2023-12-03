@@ -1,7 +1,6 @@
 //
 //  Flow.swift
 //  MyFlow
-//
 //  Created by Nate Tedesco on 9/12/23.
 //
 
@@ -9,17 +8,12 @@ import SwiftUI
 
 struct FlowRunning: View {
     @State var model: FlowModel
-    @Binding var detent: PresentationDetent
-    @State var showResetAlert = false
-    
-    
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
         
         NavigationStack {
             VStack {
-                
                 Button {
                     model.showFlowRunning.toggle()
                 } label: {
@@ -28,16 +22,11 @@ struct FlowRunning: View {
                         .frame(width: 36, height: 5)
                 }
                 
-                
-                
                 Text(model.flowList[model.selection].title)
                     .font(.title)
                     .fontWeight(.bold)
                     .padding(.horizontal)
                     .padding(.top)
-                
-                
-                
                 
                 Spacer()
                 
@@ -48,18 +37,9 @@ struct FlowRunning: View {
                         .fontWeight(.thin)
                         .monospacedDigit()
                     
-                    Button {
-                        model.Skip()
-                        softHaptic()
-                    } label: {
-                        Text("Complete")
-                            .foregroundColor(.myColor)
-                            .font(.footnote)  
-                    }
-                    .padding(.top, 120)
-                    
                     Text(model.flow.blocks[model.blocksCompleted].title)
                         .font(.title2)
+                        .fontWeight(.medium)
                         .foregroundStyle(.secondary)
                         .padding(.horizontal)
                         .padding(.top)
@@ -69,56 +49,31 @@ struct FlowRunning: View {
                 Spacer()
                 
                 Button {
+                    model.Skip()
+                    softHaptic()
+                } label: {
+                    Text("Complete")
+                    
+                        .font(.callout)
+                }
+                
+                Spacer()
+                
+                Button {
                     model.Start()
                     softHaptic()
                 } label: {
-//                    Text(model.mode == .flowRunning ? "Pause" : "Start")
                     Image(systemName: model.mode == .flowRunning ? "pause.fill" : "play.fill")
                         .font(.title)
-                        .foregroundStyle(.teal)
                         .padding(20)
                         .background(Circle().foregroundStyle(.teal.quinary))
                 }
                 
                 
-                
-                
             }
-            .toolbar {
-//                ToolbarItem(placement: .bottomBar) {
-//                    HStack {
-//                        
-//                        
-//                        Button {
-//                            model.showFlowRunning.toggle()
-//                        } label: {
-//                            Image(systemName: "gobackward")
-//                                .foregroundStyle(.teal)
-//                        }
-//
-//                        
-//                        Spacer()
-//                        
-//                        
-//
-//                        
-//
-//                    }
-//                    
-//                }
-            }
+            .accentColor(.teal)
+            .toolbar {}
         }
-        
-        
-        // Reset Alert
-        .confirmationDialog("", isPresented: $showResetAlert) {  // Delete Flow Alert
-            Button("Cancel", role: .cancel) { }
-            Button("Reset", role: .destructive) {
-                model.Reset()
-            }
-        }
-        
-        
     }
 }
 
@@ -136,22 +91,14 @@ struct Circles: View {
             // Ring
             Circle()
                 .trim(from: 0, to: circleFill)
-                .stroke(Color.myColor, style: StrokeStyle(lineWidth: width,lineCap: .round))
+                .stroke(Color.teal, style: StrokeStyle(lineWidth: width,lineCap: .round))
                 .frame(width: size)
-                .shadow(color: .myColor.opacity(0.5), radius: 5)
+                .shadow(color: .teal.opacity(0.5), radius: 5)
             
             Circle()
                 .trim(from: 0, to: 1)
-                .stroke(Color.myColor.opacity(0.2), style: StrokeStyle(lineWidth: width,lineCap: .round))
+                .stroke(Color.teal.opacity(0.2), style: StrokeStyle(lineWidth: width,lineCap: .round))
                 .frame(width: size)
-            
-            //            Circle()
-            //                .trim(from: 0, to: circleFill)
-            //                .stroke(Color.myColor.opacity(0.6), style: StrokeStyle(lineWidth: width,lineCap: .round))
-            //                .opacity(0.1)
-            //                .blur(radius: 10)
-            //                .frame(width: size)
-            
         }
         .rotationEffect(.degrees(-90))
         .frame(width: size)

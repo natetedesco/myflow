@@ -1,24 +1,13 @@
 //
 //  Backgrounds.swift
 //  MyFlow
-//
 //  Created by Nate Tedesco on 8/30/23.
 //
 
 
 import SwiftUI
 
-extension View {
-        func FlowViewBackGround() -> some View {
-            let settings = AppSettings()
-
-            return self
-                .background(AnimatedBlur(opacity: settings.background ? 1.0 : 0.0).ignoresSafeArea(.keyboard))
-        }
-}
-
 struct AnimatedBlur: View {
-    @StateObject var theme = AppSettings()
     
     var offset: Bool = false
 
@@ -29,7 +18,7 @@ struct AnimatedBlur: View {
     var body: some View {
         GeometryReader { proxy in
             ZStack {
-                Cloud(proxy: proxy, color: .myColor, rotationStart: 0, duration: 100, size: size)
+                Cloud(proxy: proxy, color: .teal, rotationStart: 0, duration: 100, size: size)
             }
             .blur(radius: blur)
             .ignoresSafeArea()
@@ -50,7 +39,6 @@ struct Cloud: View {
     
     var body: some View {
         Circle()
-//            .fill(color)
             .fill(Gradient(colors: [.cyan, .mint]))
             .frame(height: proxy.size.height /  provider.frameHeightRatio/size)
             .offset(provider.offset)

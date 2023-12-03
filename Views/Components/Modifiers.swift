@@ -6,12 +6,31 @@
 
 import SwiftUI
 
-extension View {
-    
-    func gray() -> some View {
-        self
-            .foregroundColor(.gray)
+struct CustomHeadline: View {
+    var text: String
+    var body: some View {
+        Text(text)
+            .font(.footnote)
+            .foregroundStyle(.secondary)
+            .fontWeight(.light)
+            .padding(.leading, 32)
+            .padding(.top)
+            .leading()
     }
+}
+
+extension View {
+    func cardGlassNP() -> some View {
+        self
+            .padding(.vertical, 12)
+            .background(.black.opacity(0.0))
+            .background(.regularMaterial)
+            .cornerRadius(20)
+            .padding(.horizontal)
+    }
+}
+
+extension View {
     
     func maxWidth() -> some View {
         self
@@ -36,22 +55,5 @@ extension View {
     func top() -> some View {
         self
             .frame(maxHeight: .infinity, alignment: .top)
-    }
-}
-
-// Corner for top only - picker
-extension View {
-    func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
-        clipShape( RoundedCorner(radius: radius, corners: corners) )
-    }
-}
-struct RoundedCorner: Shape {
-    
-    var radius: CGFloat = .infinity
-    var corners: UIRectCorner = .allCorners
-    
-    func path(in rect: CGRect) -> Path {
-        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-        return Path(path.cgPath)
     }
 }

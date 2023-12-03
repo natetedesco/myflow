@@ -41,8 +41,6 @@ struct SettingsView: View {
                         .sheet(isPresented: $isShowingMailView) {
                             MailComposeViewControllerWrapper(isShowing: $isShowingMailView)
                         }
-                        NavigationLink(destination: Feedback()) {
-                        }
                     }
                     .padding(.vertical)
                     .background(LinearGradient(
