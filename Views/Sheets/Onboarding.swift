@@ -1,0 +1,73 @@
+//
+//  Onboarding.swift
+//  MyFlow
+//
+//  Created by Nate Tedesco on 12/3/23.
+//
+
+import SwiftUI
+
+struct OnboardingView: View {
+    @AppStorage("showOnboarding") var showOnboarding: Bool = true
+    @State var showBlur = true
+    
+    
+    var body: some View {
+        ZStack {
+            AnimatedBlur(opacity: showBlur ? 0.5 : 0.0)
+                .animation(.default.speed(2.0), value: showBlur)
+            
+            VStack {
+                Spacer()
+                
+                Circles(model: FlowModel(), size: 160, width: 16.0, fill: true)
+                
+                Spacer()
+                
+                Text("Experience Flow")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .padding(2)
+                Text("In a world of distractions, focus on what truly matters to you.")
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+                    .padding(.horizontal, 64)
+                    .multilineTextAlignment(.center)
+                
+                Spacer()
+                
+                Button {
+                    showBlur = false
+                    //                        detent = .fraction(6/10)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.0001) {
+                        showOnboarding = false
+                    }
+                    //                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
+                    //                            showPaywall = true
+                    //                        }
+                    softHaptic()
+                } label: {
+                    Text("Let's Flow")
+                        .font(.title2)
+                        .fontWeight(.medium)
+                        .foregroundStyle(
+                            LinearGradient(
+                                gradient: Gradient(colors: [.teal.opacity(1.0), .teal.opacity(0.8)]),
+                                startPoint: .bottom,
+                                endPoint: .top
+                            )
+                        )
+                        .padding(.bottom)
+                }
+            }
+            .opacity(showOnboarding ? 1.0 : 0.0)
+            .animation(.easeOut, value: showOnboarding)
+        }
+        .background(Color.black)
+        .opacity(showOnboarding ? 1.0 : 0.0)
+        .animation(.easeInOut(duration: 2.0), value: showOnboarding)    }
+}
+
+#Preview {
+    OnboardingView()
+}

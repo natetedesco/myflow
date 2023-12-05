@@ -212,3 +212,28 @@ extension Date {
     }
     
 }
+
+func daysInCurrentMonth() -> Int {
+    let calendar = Calendar.current
+    let date = Date()
+    
+    let year = calendar.component(.year, from: date)
+    let month = calendar.component(.month, from: date)
+    
+    let startOfMonth = calendar.date(from: DateComponents(year: year, month: month, day: 1))!
+    let endOfMonth = calendar.date(byAdding: DateComponents(month: 1, day: -1), to: startOfMonth)!
+    
+    let numberOfDays = calendar.range(of: .day, in: .month, for: endOfMonth)?.count ?? 0
+    
+    return numberOfDays
+}
+
+var exampleDays = [
+    Day(day: Date.from(year: 2023, month: 10, day: 7), time: 45),
+    Day(day: Date.from(year: 2023, month: 10, day: 6), time: 83),
+    Day(day: Date.from(year: 2023, month: 10, day: 5), time: 135),
+    Day(day: Date.from(year: 2023, month: 10, day: 4), time: 230),
+    Day(day: Date.from(year: 2023, month: 10, day: 3), time: 60),
+    Day(day: Date.from(year: 2023, month: 10, day: 2), time: 135),
+    Day(day: Date.from(year: 2023, month: 10, day: 1), time: 250)
+]

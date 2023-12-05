@@ -36,8 +36,9 @@ extension FlowModel {
         if settings.liveActivities {
             startActivity(start: start, end: end)
         }
-        if settings.blockDistractions == true { startRestriction() }
-        flow.blocks[blocksCompleted].currentFocus = true
+        if settings.blockDistractions == true { settings.startRestriction() }
+        
+//        flow.blocks[blocksCompleted].currentFocus = true
         
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [self] timer in
             if timeLeft(end: end) <= 0 {
@@ -53,8 +54,11 @@ extension FlowModel {
         elapsed = 0
         invalidateTimer()
         stopActivity()
-        stopRestrictions()
+        settings.stopRestrictions()
         completeBlock()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.showFlowRunning.toggle()
+        }
     }
     
     // Complete Block
