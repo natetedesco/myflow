@@ -5,32 +5,43 @@
 //
 
 import SwiftUI
+import TipKit
 
 @main
 struct MyFlow: App {
     @StateObject private var purchaseManager = PurchaseManager()
-    @State private var selection = 0
+    @State var model = FlowModel()
+    @AppStorage("showOnboarding") var showOnboarding: Bool = true
+    @AppStorage("shouldResetTips") var shouldResetTips: Bool = true
+    
+    @AppStorage("showIntro") var showIntro: Bool = false
+    @State var detent = PresentationDetent.fraction(6/10)
     
     var body: some Scene {
         WindowGroup {
-            TabView(selection: $selection) {
-                    
-                ContentView()
-                    .tabItem {
-                        Image(systemName: "play.circle.fill")
-                            .fontWeight(.heavy)
-                            .environment(\.symbolVariants, .none)
-                        Text("Flows")
-                    }
+            
+            if showOnboarding {
+                OnboardingView()
+            } else {
                 
+                TabView {
+                    
+                    MainView(model: model)
+                        .tabItem {
+                            Image(systemName: "play.circle.fill")
+                                .fontWeight(.heavy)
+                                .environment(\.symbolVariants, .none)
+                            Text("Flows")
+                        }
+                    
                     StatsView()
                         .tabItem {
                             Image(systemName: "bolt.fill")
                             Text("Activity")
                         }
-                        
                     
-                    SettingsView(model: FlowModel())
+                    
+                    SettingsView(model: model)
                         .tabItem {
                             Image(systemName: "person")
                             Text("Settings")
@@ -38,12 +49,31 @@ struct MyFlow: App {
                         }
                     
                 }
-            .accentColor(.teal)
-            
-            .environmentObject(purchaseManager)
-            .task {
-                await purchaseManager.updatePurchasedProducts()
+                .accentColor(.teal)
+                .environmentObject(purchaseManager)
+                .task {
+                    await purchaseManager.updatePurchasedProducts()
+                }
+                .task {
+                    if shouldResetTips {
+                        try? Tips.resetDatastore()
+                    }
+                    
+                    try? Tips.configure([
+                        .displayFrequency(.immediate),
+                        .datastoreLocation(.applicationDefault)
+                    ])
+                }
+                .sheet(isPresented: $showIntro) {
+                    PayWall(detent: $detent)
+                        .presentationCornerRadius(32)
+                        .presentationBackground(.bar)
+                        .presentationDetents([.large, .fraction(6/10)], selection: $detent)
+                        .interactiveDismissDisabled(detent == .large)
+                        .presentationDragIndicator(detent != .large ? .visible : .hidden)
+                }
             }
         }
     }
 }
+

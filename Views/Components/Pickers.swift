@@ -93,4 +93,3 @@ extension MultiComponentPicker {
         var options: [Option]
     }
 }
-

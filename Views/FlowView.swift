@@ -5,17 +5,23 @@
 //
 
 import SwiftUI
+import TipKit
 
 struct FlowView: View {
     @State var model: FlowModel
     @Environment(\.dismiss) var dismiss
+    
+    var tip = BlocksTip()
+    
+    
+    @State var newBlock = false
     
     var body: some View {
         
         NavigationStack {
             
             List{
-                Section(header: Text("Total: " + model.flow.totalFlowTimeFormatted())) {
+                Section(header: Text(model.flow.totalFlowTimeFormatted())) {
                     ForEach($model.flow.blocks) { $block in
                         Button {
                             if let selectedIndex = model.flow.blocks.firstIndex(where: { $0.id == block.id }) {
@@ -30,7 +36,8 @@ struct FlowView: View {
                             Button {
                                 model.duplicateBlock(block: block)
                             } label: {
-                                Label("Duplicate", systemImage: "plus.square.on.square")
+                                Text("Duplicate")
+//                                Label("Duplicate", systemImage: "plus.square.on.square")
                             }
                             .tint(.teal)
                         }
@@ -38,9 +45,13 @@ struct FlowView: View {
                     .onDelete(perform: delete)
                     .onMove(perform: move)
                 }
+                TipView(tip, arrowEdge: .top)
+                    .listRowSeparator(.hidden, edges: [.bottom])
+                
+                
             }
             .listStyle(.plain)
-            .navigationTitle(model.flowList[model.selection].title)
+            .navigationTitle(model.flow.title)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     
@@ -48,16 +59,8 @@ struct FlowView: View {
                         Button {
                             model.showFlowRunning.toggle()
                         } label: {
-                            Gauge(value: formatProgress(time: model.flowTime, timeLeft: model.flowTimeLeft)) {
-                            } currentValueLabel: {
-                                Text(formatTime(seconds: model.flowTimeLeft))
-                                    .foregroundStyle(.white)
-                            }
-                            .gaugeStyle(.accessoryCircularCapacity)
-                            .scaleEffect(0.65)
-                            .tint(.accentColor)
+                            Image(systemName: "timer")
                         }
-                        .padding(.bottom, -4)
                     }
                 }
                 
@@ -78,7 +81,6 @@ struct FlowView: View {
                     } else {
                         Button {
                             model.Reset()
-                            dismiss()
                         } label: {
                             Text("Reset")
                         }
@@ -87,28 +89,40 @@ struct FlowView: View {
                 ToolbarItem(placement: .bottomBar) {
                     HStack {
                         if model.mode == .initial && model.mode != .flowStart {
+                            
                             Button {
                                 lightHaptic()
                                 model.addBlock()
                                 model.showBlock.toggle()
+                                model.newBlock.toggle()
                             } label: {
                                 Image(systemName: "plus")
                                     .fontWeight(.semibold)
                                     .font(.title2)
                             }
+                            .padding(.leading, -6)
+                            
                         } else {
                             Button {
-                                model.Skip()
+                                if model.mode == .flowStart {
+                                    model.continueFlow()
+                                } else {
+                                    model.Skip()
+                                }
                                 softHaptic()
                             } label: {
-                                Text("Complete")
-                                    .foregroundColor(.myColor)
+                                HStack {
+                                    Image(systemName: model.mode == .flowStart ? "goforward.plus" :"goforward")
+                                    Text(model.mode == .flowStart ? "Extend" : "Complete")
+                                }
+                                .font(.callout)
                             }
+                            .padding(.leading, -6)
                         }
                         
                         Spacer()
                         
-                        // Add Block
+                        // Start
                         Button {
                             softHaptic()
                             model.Start()
@@ -139,6 +153,14 @@ struct FlowView: View {
         }
         .fullScreenCover(isPresented: $model.showFlowRunning) {
             FlowRunning(model: model)
+                .accentColor(.teal)
+        }
+        .sheet(isPresented: $model.showFlowCompleted) {
+            ShowFlowCompletedView(model: model)
+                .presentationBackground(.regularMaterial)
+                .presentationCornerRadius(32)
+                .presentationDetents([.fraction(6/10)])
+                .presentationDragIndicator(.hidden)
         }
     }
     
@@ -151,4 +173,16 @@ struct FlowView: View {
     }
 }
 
-
+struct BlocksTip: Tip {
+    var title: Text {
+        Text("Focus Blocks")
+    }
+    
+    var message: Text? {
+        Text("Tap to edit. Drag to rearrange. Swipe left to delete. Swipe right to duplicate.")
+    }
+    
+    var image: Image? {
+        Image(systemName: "pencil")
+    }
+}

@@ -12,18 +12,17 @@ struct ShowFlowCompletedView: View {
     
     var body: some View {
         ZStack {
+            Color.black.opacity(0.3).ignoresSafeArea()
             
             VStack {
-                Circles(model: model, size: 160, width: 16.0, fill: true)
-                    .padding(.top)
+                Circles(model: model, size: 128, width: 14.0, fill: true)
+                    .padding(.vertical, 32)
                 
-                Spacer()
                 
                 Text("Flow Completed")
                     .font(.largeTitle)
                     .fontWeight(.semibold)
-                
-                Spacer()
+                    .padding(.bottom)
                 
                 HStack {
                     Text("Total FlowTime: ")
@@ -32,13 +31,34 @@ struct ShowFlowCompletedView: View {
                         .fontWeight(.medium)
                     Text(formatHoursAndMinutes(time: model.totalFlowTime/60))
                         .fontWeight(.semibold)
-                        .foregroundStyle(Color.myColor)
                 }
-                .padding(.bottom, 32)
+                
+                Spacer()
+                
+                Button {
+                    
+                } label: {
+                    Text("Extend")
+                        .font(.callout)
+                }
+                
+                Spacer()
+                
+                Button {
+                    
+                } label: {
+                    Text("Dismiss")
+                        .foregroundStyle(.white)
+                        .font(.headline)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(.teal)
+                        .cornerRadius(16)
+                }
             }
+            .padding(.horizontal, 24)
         }
-        .padding(.top, 32)
-        .padding(.horizontal)
+        .accentColor(.teal)
     }
 }
 

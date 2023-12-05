@@ -101,49 +101,54 @@ struct TimerWidgetLiveActivity: Widget {
             
             // Compact
         } compactLeading: {
-            ProgressView(timerInterval: context.state.value, countsDown: false, label: {
-                Text("")
-            }, currentValueLabel: {
-                Text("")
-            })
-            .progressViewStyle(CircularProgressViewStyle(tint: .teal))
-            .tint(.teal)
-            .frame(height: 26) // Swiftui Bug
-            
-        } compactTrailing: {
             if context.state.paused {
                 Text("\(formatTime(seconds: context.state.time))")
                     .foregroundColor(.teal)
-
-            } else if context.state.extend {
+                
+            }
+            else if context.state.extend {
                 Text(context.state.start, style: .timer)
                     .monospacedDigit()
                     .multilineTextAlignment(.center)
                     .frame(width: 36)
                     .font(.footnote)
                     .foregroundColor(.teal)
-
-            } else {
+                
+            }
+            else {
                 Text(timerInterval: context.state.value, countsDown: true)
                     .monospacedDigit()
-                    .multilineTextAlignment(.trailing)
-                    .frame(width: 36)
-                    .font(.footnote)
+                //                    .multilineTextAlignment(.leading)
+                                    .frame(width: 36)
+                //                    .font(.footnote)
                     .foregroundColor(.teal)
-
             }
+
+        } compactTrailing: {
+            
+            ProgressView(
+                timerInterval: context.state.value,
+                countsDown: false,
+                label: { },
+                currentValueLabel: { }
+            )
+            .progressViewStyle(.circular)
+            
+            ProgressView(timerInterval: context.state.value, countsDown: false, label: {
+                Text("")
+            }, currentValueLabel: {
+                Text("")
+            })
+            .progressViewStyle(CircularProgressViewStyle(tint: .teal))
+            
         }
         
         // Minimal
     minimal: {
         ProgressView(timerInterval: context.state.value, countsDown: false, label: {
-            Text("")
-        }, currentValueLabel: {
-            Text("")
-        })
+        }, currentValueLabel: {})
         .progressViewStyle(.circular)
         .tint(.teal)
-        .frame(height: 26)
     }}}
 }
 
@@ -172,7 +177,7 @@ extension Color {
         return Color(red: r / 255, green: g / 255, blue: b / 255)
     }
     static let darkBackground = Color(#colorLiteral(red: 0.05882352941, green: 0.07058823529, blue: 0.08235294118, alpha: 1))
-    static let myColor = Color(#colorLiteral(red: 0, green: 0.8217858727, blue: 1, alpha: 1))
+    static let teal = Color(#colorLiteral(red: 0, green: 0.8217858727, blue: 1, alpha: 1))
 }
 
 

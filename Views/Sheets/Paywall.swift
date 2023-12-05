@@ -9,31 +9,26 @@ import StoreKit
 
 struct PayWall: View {
     @StateObject var settings = Settings()
+    @StateObject var purchaseManager = PurchaseManager()
+    
     @Binding var detent: PresentationDetent
-    
-    
-    @State var monthlySelected = true
-    @State var oneTimeSelected = false
     @Environment(\.dismiss) var dismiss
     
     @State var showAlert = false
     @State var alertTitle = ""
     @State var alertDescription = ""
     
-    @StateObject var purchaseManager = PurchaseManager()
-    
     var body: some View {
         ZStack {
             Color.black.opacity(0.3).ignoresSafeArea()
-            AnimatedBlur(opacity: 0.8)
-                .offset(y: 50)
-
+            AnimatedBlur(opacity: 0.8).offset(y: 50)
+            
             VStack {
                 
                 Spacer()
                 
                 if detent == .large {
-                    VStack() {
+                    VStack {
                         Text("Enhance your")
                             .font(.system(size: 48))
                             .fontWeight(.bold)
@@ -41,116 +36,80 @@ struct PayWall: View {
                         Text("Flow")
                             .font(.system(size: 48))
                             .fontWeight(.bold)
-                            .foregroundColor(.myColor)
+                            .foregroundColor(.teal)
                             .leading()
                     }
-                    .padding(.top, 64)
-                    //                .leading()
                     
                     Spacer()
                     
-                    
-                    VStack(spacing: 32) {
-                        
+                    VStack(spacing: 40) {
                         HStack {
                             Image(systemName: "checkmark")
-                                .foregroundColor(.myColor)
-                                .fontWeight(.semibold)
+                                .foregroundColor(.teal)
+                                .fontWeight(.bold)
                             
                             Text("Unlimited Flows")
-                                .font(.subheadline)
-                                .fontWeight(.medium)
-                                .foregroundStyle(.secondary)
+//                                .fontWeight(.medium)
+//                                .foregroundStyle(.secondary)
                         }
                         .leading()
                         
                         HStack {
                             Image(systemName: "checkmark")
-                                .foregroundColor(.myColor)
-                                .fontWeight(.semibold)
+                                .foregroundColor(.teal)
+                                .fontWeight(.bold)
                             
                             Text("Advanced Controls")
-                                .font(.subheadline)
-                                .fontWeight(.medium)
-                                .foregroundStyle(.secondary)
-                            
+//                                .fontWeight(.medium)
+//                                .foregroundStyle(.secondary)
+
                         }
                         .leading()
                         
                         HStack {
                             Image(systemName: "checkmark")
-                                .foregroundColor(.myColor)
-                                .fontWeight(.semibold)
+                                .foregroundColor(.teal)
+                                .fontWeight(.bold)
                             
                             Text("Visualize Activity")
-                                .font(.subheadline)
-                                .fontWeight(.medium)
-                                .foregroundStyle(.secondary)
-                            
+//                                .fontWeight(.medium)
+//                                .foregroundStyle(.secondary)
+
                         }
                         .leading()
                         
                         HStack {
                             Image(systemName: "checkmark")
-                                .foregroundColor(.myColor)
-                                .fontWeight(.semibold)
+                                .foregroundColor(.teal)
+                                .fontWeight(.bold)
                             
                             Text("Block Apps & Websites")
-                                .font(.subheadline)
-                                .fontWeight(.medium)
-                                .foregroundStyle(.secondary)
-                            
-                            
+//                                .fontWeight(.medium)
+//                                .foregroundStyle(.secondary)
+
                         }
                         .leading()
                         
                         HStack {
                             Image(systemName: "checkmark")
-                                .foregroundColor(.myColor)
-                                .fontWeight(.semibold)
+                                .foregroundColor(.teal)
+                                .fontWeight(.bold)
                             
                             Text("Live Activity & Dynamic Island")
-                                .font(.subheadline)
-                                .fontWeight(.medium)
-                                .foregroundStyle(.secondary)
-                            
+//                                .fontWeight(.medium)
+//                                .foregroundStyle(.secondary)
+
                         }
                         .leading()
-                        
                     }
-                    .font(.title3)
                     
                     Spacer()
                     
-                    Text("7 days free, then only $9.99/year")
-                        .foregroundStyle(.white.secondary)
-                        .font(.footnote)
-                        .fontWeight(.medium)
-                        .padding(.bottom)
-                    
                 } else {
-                    ZStack {
-//                        Spacer()
-                        Text("Your free week")
-                            .font(.largeTitle)
-                            .fontWeight(.bold)
-                        
-//                        Spacer()
-                        
-                        
-//                        Button {
-//                            dismiss()
-//                        } label: {
-//                            Image(systemName: "xmark")
-//                                .foregroundStyle(.white.secondary)
-//                                .font(.caption2)
-//                                .fontWeight(.semibold)
-//                                .CircularGlassButton(padding: 8)
-//                                .trailing()
-//                        }
-                    }
-                    .padding(.top)
-                    
+                    Text("Your Free Week")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .padding(.top, 8)
                     
                     Spacer()
                     
@@ -162,7 +121,7 @@ struct PayWall: View {
                                 .frame(maxHeight: .infinity)
                                 .foregroundStyle(
                                     LinearGradient(
-                                        gradient: Gradient(colors: [.myColor.opacity(1.0), .myColor.opacity(0.0)]),
+                                        gradient: Gradient(colors: [.teal.opacity(1.0), .teal.opacity(0.0)]),
                                         startPoint: .top,
                                         endPoint: .bottom
                                     )
@@ -188,7 +147,7 @@ struct PayWall: View {
                                 Spacer()
                                 
                                 Image(systemName: "bolt.fill")
-                                    .foregroundStyle(Color.myColor)
+                                    .foregroundStyle(Color.teal)
                                     .frame(width: 16)
                                     .padding(8)
                                 
@@ -203,7 +162,8 @@ struct PayWall: View {
                                 .font(.callout)
                                 .fontWeight(.semibold)
                             Text("Unlock free access to all pro features")
-                                .font(.footnote)
+                                .font(.caption)
+                                .fontWeight(.medium)
                                 .foregroundStyle(.secondary)
                             
                             Spacer()
@@ -212,7 +172,8 @@ struct PayWall: View {
                                 .font(.callout)
                                 .fontWeight(.semibold)
                             Text("Your trial is about to end, you will not be charged if you cancel")
-                                .font(.footnote)
+                                .font(.caption)
+                                .fontWeight(.medium)
                                 .foregroundStyle(.secondary)
                             
                             Spacer()
@@ -220,10 +181,10 @@ struct PayWall: View {
                             Text("Day 7")
                                 .font(.callout)
                                 .fontWeight(.semibold)
-                            Text("Your $9.99/year subscription starts ($0.83/month)")
-                                .font(.footnote)
+                            Text("Your annual $19.99 subscription begins")
+                                .font(.caption)
+                                .fontWeight(.medium)
                                 .foregroundStyle(.secondary)
-                            
                         }
                     }
                     .padding(.vertical)
@@ -233,8 +194,27 @@ struct PayWall: View {
                     
                 }
                 
+                HStack {
+                    Button {
+                        if let url = URL(string: "https://myflow.notion.site/MyFlow-Privacy-Policy-0002d1598beb401e9801a0c7fe497fd3?pvs=4") {
+                            UIApplication.shared.open(url)
+                        }
+                    } label: {
+                        Text("Terms • Privacy")
+                            .font(.caption2)
+                    }
+                    
+                    Button { Task { do { try await AppStore.sync() } catch { print(error) }}
+                    } label: {
+                        Text("• Restore")
+                            .font(.caption2)
+                    }
+                    .padding(.leading, -6)
+                }
+                .foregroundStyle(.secondary)
+                .padding(.bottom, 8)
+                
                 // Subscribe Button
-                // add notify me option if detent is .medium
                 Button {
                     Task {
                         do {
@@ -248,55 +228,22 @@ struct PayWall: View {
                 } label: {
                     ZStack {
                         Text("Start my free week")
-                            .foregroundColor(.white)
-                            .font(.title3)
+                            .foregroundStyle(.white)
+                            .font(.title2)
                             .fontWeight(.medium)
                             .maxWidth()
                             .padding(.vertical)
-                            .background(Color.myColor)
-                            .cornerRadius(24)
+                            .background(Color.teal)
+                            .cornerRadius(20)
                     }
                 }
                 
-                if detent == .large {
-                    // Terms • Privacy • Restore
-                    HStack {
-                        Button {
-                            if let url = URL(string: "https://myflow.notion.site/MyFlow-Privacy-Policy-0002d1598beb401e9801a0c7fe497fd3?pvs=4") {
-                                UIApplication.shared.open(url)
-                            }
-                        } label: {
-                            Text("Terms • Privacy")
-                                .font(.caption)
-                            
-                        }
-                        
-                        Button {
-                            Task {
-                                do {
-                                    try await AppStore.sync()
-                                } catch {
-                                    print(error)
-                                }
-                            }
-                        } label: {
-                            Text("• Restore")
-                                .font(.caption)
-                        }
-                        .padding(.leading, -4)
-                        
-                    }
-                    .foregroundStyle(.white)
-                    .padding(.top)
-                } else {
-                        Text("Swipe up for details")
-                            .font(.caption)
-                            .foregroundStyle(.white.tertiary)
-                            .font(.footnote)
-                            .padding(.top, 4)
-                            .padding(.bottom, -8)
-                    
-                }
+                // Terms • Privacy • Restore
+                Text(detent == .large ? "7 days free, then $19.99/year." : "Swipe up for details")
+                    .font(.caption)
+//                    .foregroundStyle(.secondary)
+                    .padding(.top, 12)
+//                    .padding(.bottom, -4)
             }
             .padding(.horizontal, 32)
             .alert(isPresented: $showAlert) {
@@ -336,7 +283,7 @@ struct PlanSelectionButton: View {
             if selected {
                 Image(systemName: "checkmark")
                     .font(.footnote)
-                    .foregroundColor(.myColor)
+                    .foregroundColor(.teal)
                     .font(.title3)
                     .padding(8)
                     .background(Circle()
@@ -345,7 +292,7 @@ struct PlanSelectionButton: View {
         }
         .padding()
         .frame(maxWidth: .infinity)
-        .background(Color.myColor.opacity(selected ? 0.8 : 0.2))
+        .background(Color.teal.opacity(selected ? 0.8 : 0.2))
         .cornerRadius(20)
     }
 }

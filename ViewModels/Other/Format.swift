@@ -7,14 +7,19 @@
 import SwiftUI
 
 func formatTime(seconds: Int) -> String {
-    let minutes = "\(seconds / 60)"
-    let seconds = "\((seconds % 3600) % 60)"
+    let hours = seconds / 3600
+    let remainingSeconds = seconds % 3600
+    let minutes = remainingSeconds / 60
+    let remainingSecondsAfterMinutes = remainingSeconds % 60
     
-    let minuteStamp = minutes.count > 1 ? minutes : minutes
-    let secondStamp = seconds.count > 1 ? seconds : "0" + seconds
+    let hourStamp = hours > 0 ? "\(hours):" : ""
+    let minuteStamp = minutes > 9 ? "\(minutes):" : "0\(minutes):"
+    let secondStamp = remainingSecondsAfterMinutes > 9 ? "\(remainingSecondsAfterMinutes)" : "0\(remainingSecondsAfterMinutes)"
     
-    return ("\(minuteStamp):\(secondStamp)")
+    return hourStamp + minuteStamp + secondStamp
 }
+
+
 
 func formatHoursAndMinutes(time: Int) -> String {
     let hours = "\(time / 60)"

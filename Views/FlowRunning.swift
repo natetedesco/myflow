@@ -14,6 +14,7 @@ struct FlowRunning: View {
         
         NavigationStack {
             VStack {
+                
                 Button {
                     model.showFlowRunning.toggle()
                 } label: {
@@ -21,40 +22,66 @@ struct FlowRunning: View {
                         .foregroundStyle(.white.quinary)
                         .frame(width: 36, height: 5)
                 }
+
                 
-                Text(model.flowList[model.selection].title)
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .padding(.horizontal)
-                    .padding(.top)
+//                Text(model.flow.title)
+                Text(focusLabel)
+                    .font(.largeTitle)
+                    .fontWeight(.semibold)
+                    .padding(.top, 8)
+                
+//                Text(model.flow.blocks[model.blocksCompleted].title)
+//                    .font(.title3)
+//                    .fontWeight(.medium)
+//                    .foregroundStyle(.secondary)
                 
                 Spacer()
                 
                 ZStack {
+                    VStack {
+                        Spacer()
+                        
+                        if model.mode == .flowStart {
+                            Text("Next: " + model.flow.blocks[model.blocksCompleted].title)
+                                .font(.callout)
+                                .fontWeight(.medium)
+                                .foregroundStyle(.teal.secondary)
+                                .padding(.bottom, 48)
+                            
+                        }
+                    }
+                    
                     Circles(model: model)
-                    Text(formatTime(seconds: model.flowTimeLeft))
-                        .font(.system(size: 72))
-                        .fontWeight(.thin)
-                        .monospacedDigit()
-                    
-                    Text(model.flow.blocks[model.blocksCompleted].title)
-                        .font(.title2)
-                        .fontWeight(.medium)
-                        .foregroundStyle(.secondary)
-                        .padding(.horizontal)
-                        .padding(.top)
-                        .padding(.bottom, 128)
-                }
-                
-                Spacer()
-                
-                Button {
-                    model.Skip()
-                    softHaptic()
-                } label: {
-                    Text("Complete")
-                    
-                        .font(.callout)
+                    ZStack {
+                        Button {
+                            if model.mode == .flowStart {
+                                model.continueFlow()
+                            } else {
+                                model.Skip()
+                            }
+                            softHaptic()
+                        } label: {
+                            HStack {
+                                Image(systemName: model.mode == .flowStart ? "goforward.plus" :"goforward")
+                                Text(model.mode == .flowStart ? "Extend" : "Complete")
+                            }
+                            .font(.callout)
+                            .fontWeight(.medium)
+                        }
+                        .padding(.bottom, 112)
+
+                        Text(formatTime(seconds: model.flowTimeLeft))
+                            .font(.system(size: 72))
+                            .fontWeight(.thin)
+                            .monospacedDigit()
+                        
+                        if model.flowContinue {
+                            Image(systemName: "plus")
+                                .font(.title3)
+                                .padding(.top, 112)
+                        }
+                        
+                    }
                 }
                 
                 Spacer()
@@ -68,21 +95,26 @@ struct FlowRunning: View {
                         .padding(20)
                         .background(Circle().foregroundStyle(.teal.quinary))
                 }
-                
-                
             }
-            .accentColor(.teal)
             .toolbar {}
         }
     }
+    
+    var focusLabel: String {
+        if model.mode == .flowStart || model.flowContinue {
+            return model.flow.blocks[model.blocksCompleted - 1].title
+        }
+        return model.flow.blocks[model.blocksCompleted].title
+    }
+    
 }
 
 import SwiftUI
 
 struct Circles: View {
     var model: FlowModel
-    var size: CGFloat = 272
-    var width: CGFloat = 24
+    var size: CGFloat = 288
+    var width: CGFloat = 18
     var fill: Bool = false
     
     var body: some View {
@@ -104,7 +136,6 @@ struct Circles: View {
         .frame(width: size)
         .animation(.default, value: circleFill)
     }
-    
     
     var circleFill: CGFloat {
         if fill {

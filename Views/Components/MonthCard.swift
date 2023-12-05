@@ -24,12 +24,8 @@ struct MonthCard: View {
                 .foregroundStyle(curGradient)
                 .blur(radius: 1)
             }
-            .accentColor(.teal)
             .frame(height: 160)
-//            .padding(.top, 8)
-//            .padding(.horizontal, 8)
         }
-//        .cardGlass()
     }
 }
 
@@ -37,7 +33,6 @@ let curGradient = LinearGradient(
     gradient: Gradient (
         colors: [
             .teal.opacity(0.6),
-//            .teal.opacity(0.2),
             .teal.opacity(0.0),
         ]
     ),
@@ -45,8 +40,3 @@ let curGradient = LinearGradient(
     endPoint: .bottom
 )
 
-struct MonthCard_Previews: PreviewProvider {
-    static var previews: some View {
-        MonthCard(data: FlowData())
-    }
-}

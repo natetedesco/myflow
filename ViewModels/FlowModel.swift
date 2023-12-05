@@ -5,55 +5,36 @@
 //
 
 import Foundation
-import FamilyControls
-import ManagedSettings
-
 
 @Observable class FlowModel {
     var data = FlowData()
     var settings = Settings()
     var notifications = NotificationManager()
     
-    var flow: Flow = Flow() 
-    var flowList: [Flow] { didSet { Initialize() } }
-    var selection = 0 { didSet { Initialize() } }
+    var flow: Flow = Flow() { didSet { Initialize() }}
+    var flowList: [Flow] { didSet { Initialize() }}
     
     var mode: TimerMode
     
     var timer = Timer()
-    
     var start = Date()
-    var end = Date()
 
-    
     var flowTime = 0
     var flowTimeLeft = 0
     var elapsed = 0
     var totalFlowTime = 0
     var flowContinue = false
     
-    // Blocks
     var blocksCompleted = 0
-    var blockSelected = false
-    var showBlock = false
     var selectedIndex = 0
-
-    var draggingItem: Block?
-    var dragging = false
+    var newBlock = false
+    var showBlock = false
     
     var showFlowRunning = false
     var showFlowCompleted = false
     var showFlow = false
     
-    let store = ManagedSettingsStore()
-    var activitySelection = FamilyActivitySelection() { didSet { saveActivitySelection()}}
-    
     init(mode: TimerMode = .initial) {
-        if let data = UserDefaults.standard.data(forKey: "activitySelection") {
-            if let decoded = try? JSONDecoder().decode(FamilyActivitySelection.self, from: data) {
-                activitySelection = decoded
-            }
-        }
         if let data = UserDefaults.standard.data(forKey: "SavedData") {
             if let decoded = try? JSONDecoder().decode([Flow].self, from: data) {
                 flowList = decoded
@@ -70,7 +51,6 @@ import ManagedSettings
     // Initialize
     func Initialize() {
         if flowList.isEmpty {
-//            createFlow(title: "Flow")
         } else if let firstBlock = flow.blocks.first {
             setFlowTime(time: (firstBlock.hours * 3600) + (firstBlock.minutes * 60) + (firstBlock.seconds))
         } else {
@@ -82,9 +62,7 @@ import ManagedSettings
     func createFlow(title: String) {
         flow = Flow(title: title)
         let updatedFlow = Flow(title: flow.title, blocks: flow.blocks)
-//        flowList.insert(updatedFlow, at: 0)
         flowList.append(updatedFlow)
-        selection = 0
         save()
     }
     
@@ -101,17 +79,18 @@ import ManagedSettings
     
     // Save Flow
     func saveFlow() {
-        if let updatedFlow = flowList.first(where: {$0.id == flow.id}) {
-            let index = flowList.firstIndex(of: updatedFlow)
-            flowList[index!] = Flow(title: flow.title, blocks: flow.blocks)
+        if let index = flowList.firstIndex(where: { $0.id == flow.id }) {
+            flowList[index] = Flow(id: flow.id, title: flow.title, blocks: flow.blocks)
+            save()
+        } else {
+            print("Error: Flow not found.")
         }
-        save()
     }
+
     
     // Delete Flow
     func deleteFlow(id: UUID) {
         if let index = flowList.firstIndex(where: { $0.id == id }) {
-            self.selection = 0 // select first in list
             flowList.remove(at: index)
             save()
         }
@@ -128,8 +107,13 @@ import ManagedSettings
     func addBlock() {
         let newBlock = Block(title: "Focus", minutes: 20)
         flow.blocks.append(newBlock)
-        blockSelected = true
         selectedIndex = flow.blocks.firstIndex(where: { $0.id == newBlock.id }) ?? 0
+        saveFlow()
+    }
+    
+    func duplicateBlock(block: Block) {
+        let newBlock = Block(title: block.title, seconds: Int(block.totalTimeInSeconds))
+        flow.blocks.append(newBlock)
         saveFlow()
     }
     
@@ -148,10 +132,3 @@ enum TimerMode {
     case flowPaused
     case completed
 }
-var initial = TimerMode.initial
-var flowStart = TimerMode.flowStart
-var flowRunning = TimerMode.flowRunning
-var flowPaused = TimerMode.flowPaused
-var completed = TimerMode.completed
-
-

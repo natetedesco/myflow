@@ -4,11 +4,9 @@
 //  Created by Nate Tedesco on 8/30/23.
 //
 
-
 import SwiftUI
 
 struct AnimatedBlur: View {
-    
     var offset: Bool = false
 
     var opacity: CGFloat
@@ -35,7 +33,6 @@ struct Cloud: View {
     let rotationStart: Double
     let duration: Double
     var size: CGFloat
-    
     
     var body: some View {
         Circle()

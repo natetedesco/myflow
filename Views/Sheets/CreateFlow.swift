@@ -5,11 +5,12 @@
 //
 
 import SwiftUI
+import Introspect
 
 struct CreateFlowView: View {
     @State var model: FlowModel
     
-    @State var newFlowTitle = ""
+    @State var newFlowTitle = "New Flow"
     @FocusState var isFocused
     @Environment(\.dismiss) var dismiss
     
@@ -17,11 +18,12 @@ struct CreateFlowView: View {
         
         NavigationStack {
             ZStack {
-                Color.black.opacity(0.4).ignoresSafeArea()
+                Color.black.opacity(0.3).ignoresSafeArea()
                 
                 VStack {
+                    Spacer()
                     
-                    Circles(model: model, size: 96, width: 12, fill: true)
+                    Circles(model: model, size: 96, width: 10, fill: true)
                     
                     Spacer()
                     
@@ -36,21 +38,24 @@ struct CreateFlowView: View {
                         .background(.regularMaterial)
                         .cornerRadius(12)
                         .focused($isFocused)
-                        .onAppear {
-                            isFocused = true
+                        .onReceive(NotificationCenter.default.publisher(for: UITextField.textDidBeginEditingNotification)) { obj in
+                            if let textField = obj.object as? UITextField {
+                                textField.selectedTextRange = textField.textRange(from: textField.beginningOfDocument, to: textField.endOfDocument)
+                            }
                         }
-                    
-                    Spacer()
+                        .introspectTextField { textField in
+                                    textField.becomeFirstResponder()
+                                  }
                     
                     Button {
                         dismiss()
                         if !newFlowTitle.isEmpty {
                             model.createFlow(title: newFlowTitle == "" ? "Flow" : newFlowTitle)
                             newFlowTitle = ""
-                            model.selection = model.flowList.count - 1
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-                                model.showFlow = true
-                            }
+                        }
+                        model.flow = model.flowList.last ?? Flow()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            model.showFlow = true
                         }
                     } label : {
                         Text("Create")
@@ -58,12 +63,12 @@ struct CreateFlowView: View {
                             .font(.headline)
                             .frame(maxWidth: .infinity)
                             .padding()
-                            .background(Color.myColor)
+                            .background(Color.teal)
                             .cornerRadius(8)
                             .padding(.vertical)
                     }
                 }
-                .padding(.horizontal)
+                .padding(.horizontal, 24)
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -82,3 +87,4 @@ struct CreateFlowView: View {
 //#Preview {
 //    CreateFlowView()
 //}
+

@@ -9,9 +9,14 @@ import FamilyControls
 import ManagedSettings
 
 class Settings: ObservableObject {
+    
     @AppStorage("NotificationsOn") var notificationsOn: Bool = true
+    
     @AppStorage("BlockDistractions") var blockDistractions: Bool = false
+    
     @AppStorage("LiveActivities") var liveActivities: Bool = true
+    
+    @AppStorage("FocusMode") var focusMode: Bool = true
     
     let store = ManagedSettingsStore()
     var activitySelection = FamilyActivitySelection() { didSet { saveActivitySelection()}}

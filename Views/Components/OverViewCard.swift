@@ -1,7 +1,6 @@
 //
 //  OverViewCard.swift
 //  MyFlow
-//
 //  Created by Nate Tedesco on 1/20/23.
 //
 
@@ -50,26 +49,4 @@ struct OverviewLabel: View {
                 .foregroundStyle(.secondary)
         }
     }
-}
-
-struct OverViewCard_Previews: PreviewProvider {
-    static var previews: some View {
-        
-        OverViewCard(data: FlowData())
-    }
-}
-
-func daysInCurrentMonth() -> Int {
-    let calendar = Calendar.current
-    let date = Date()
-    
-    let year = calendar.component(.year, from: date)
-    let month = calendar.component(.month, from: date)
-    
-    let startOfMonth = calendar.date(from: DateComponents(year: year, month: month, day: 1))!
-    let endOfMonth = calendar.date(byAdding: DateComponents(month: 1, day: -1), to: startOfMonth)!
-    
-    let numberOfDays = calendar.range(of: .day, in: .month, for: endOfMonth)?.count ?? 0
-    
-    return numberOfDays
 }

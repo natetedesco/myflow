@@ -9,8 +9,9 @@ import SwiftUI
 
 struct OnboardingView: View {
     @AppStorage("showOnboarding") var showOnboarding: Bool = true
+    @AppStorage("showIntro") var showIntro: Bool = false
+
     @State var showBlur = true
-    
     
     var body: some View {
         ZStack {
@@ -28,7 +29,7 @@ struct OnboardingView: View {
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .padding(2)
-                Text("In a world of distractions, focus on what truly matters to you.")
+                Text("In a world of distractions, focus on what truly matters.")
                     .font(.callout)
                     .foregroundStyle(.secondary)
                     .padding(.horizontal, 64)
@@ -37,14 +38,13 @@ struct OnboardingView: View {
                 Spacer()
                 
                 Button {
-                    showBlur = false
-                    //                        detent = .fraction(6/10)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.0001) {
+//                    detent = .fraction(6/10)
+                    
                         showOnboarding = false
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
+                        showIntro = true
                     }
-                    //                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
-                    //                            showPaywall = true
-                    //                        }
                     softHaptic()
                 } label: {
                     Text("Let's Flow")
@@ -65,7 +65,8 @@ struct OnboardingView: View {
         }
         .background(Color.black)
         .opacity(showOnboarding ? 1.0 : 0.0)
-        .animation(.easeInOut(duration: 2.0), value: showOnboarding)    }
+        .animation(.easeInOut(duration: 2.0), value: showOnboarding)
+    }
 }
 
 #Preview {

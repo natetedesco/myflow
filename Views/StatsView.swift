@@ -8,9 +8,10 @@ import SwiftUI
 
 struct StatsView: View {
     @StateObject var data = FlowData()
-    @StateObject var settings = Settings()
+//    @StateObject var settings = Settings()
     
     @AppStorage("ProAccess") var proAccess: Bool = false
+    
     @State private var showPaywall = false
     @State var detent = PresentationDetent.large
     @State var blur = 0.0
@@ -24,8 +25,11 @@ struct StatsView: View {
                     
                     // Overview
                     Text("Overview")
+                        .font(.callout)
                         .fontWeight(.medium)
                         .padding(.top)
+                    
+                    
                     OverViewCard(data: data)
                         .padding(.horizontal)
                     
@@ -35,7 +39,9 @@ struct StatsView: View {
 
                     // Weekly
                     Text("Weekly")
+                        .font(.callout)
                         .fontWeight(.medium)
+                    
                     WeekCard(data: data)
                         .padding(.horizontal)
                     
@@ -45,10 +51,11 @@ struct StatsView: View {
                     
                     // Monthly
                     Text("Monthly")
+                        .font(.callout)
                         .fontWeight(.medium)
+                    
                     MonthCard(data: data)
                         .padding(.horizontal)
-                    
 
                     
                 }
@@ -69,34 +76,20 @@ struct StatsView: View {
             }
             .onAppear {
                 if !proAccess {
-                    blur = 4
+                    blur = 3.5
                 }
             }
             .blur(radius: proAccess ? 0 : blur)
             .animation(.easeIn(duration: 0.4), value: blur)
-            .onAppear {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    if !proAccess {
-                        showPaywall = true
-                    }
-                }
-            }
             .sheet(isPresented: $showPaywall) {
                 PayWall(detent: $detent)
-                    .presentationCornerRadius(40)
-                    .presentationBackground(.bar)
+                    .presentationCornerRadius(32)
+                    .presentationBackground(.regularMaterial)
                     .presentationDetents([.large, .fraction(6/10)], selection: $detent)
                     .interactiveDismissDisabled(detent == .large)
-                    .presentationDragIndicator(.visible)
+                    .presentationDragIndicator(detent != .large ? .visible : .hidden)
             }
         }
-        
-    }
-    
-    var lock: some View {
-        Image(systemName: "lock.fill")
-            .foregroundColor(.myColor)
-            .font(.system(size: 20))
     }
     
     var hours = [Int](0...8)
@@ -111,16 +104,9 @@ struct StatsView: View {
                 }
             }
         label: {
-//            Text("\(data.goalSelection) hours")
             Text("Goal")
-                .foregroundColor(.myColor)
-//                .font(.callout)
-            //                .fontWeight(.medium)
-//                .padding(.vertical, 12)
-//                .padding(.horizontal)
-//                .background(.ultraThinMaterial)
-//                .cornerRadius(16)
-        }
+                .foregroundColor(.teal)
+            }
         }
     }
     
@@ -129,7 +115,8 @@ struct StatsView: View {
             showPaywall = true
         } label: {
             Text("Unlock")
-                .foregroundColor(.myColor)
+                .fontWeight(.medium)
+                .foregroundColor(.teal)
         }
     }
 }

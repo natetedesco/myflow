@@ -8,28 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		F01E848B2AB1249900CF418D /* FlowRunning.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E848A2AB1249900CF418D /* FlowRunning.swift */; };
-		F0435CD12A9E8C6D0073E7E1 /* DistractionBlocker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0435CD02A9E8C6D0073E7E1 /* DistractionBlocker.swift */; };
 		F0435CD52A9F965C0073E7E1 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0435CD42A9F965C0073E7E1 /* Background.swift */; };
-		F0435CD72A9F97E10073E7E1 /* Glass Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0435CD62A9F97E10073E7E1 /* Glass Components.swift */; };
-		F0435CD92A9FA5850073E7E1 /* ThemePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0435CD82A9FA5850073E7E1 /* ThemePicker.swift */; };
-		F0435CDD2AA12FC30073E7E1 /* App Blocker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0435CDC2AA12FC30073E7E1 /* App Blocker.swift */; };
+		F0435CD92A9FA5850073E7E1 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0435CD82A9FA5850073E7E1 /* Settings.swift */; };
+		F066EB772B1D264B00BCAFC0 /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066EB762B1D264B00BCAFC0 /* Onboarding.swift */; };
 		F0954B122A95360F009E212E /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0954B112A95360F009E212E /* Block.swift */; };
 		F0954B152A9580DE009E212E /* Drag & Drop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0954B142A9580DE009E212E /* Drag & Drop.swift */; };
 		F0954B182A95B6C2009E212E /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = F0954B172A95B6C2009E212E /* Introspect */; };
+		F0A056422B1A5DD400AB430D /* BlockSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A056412B1A5DD400AB430D /* BlockSheet.swift */; };
 		F0A16C872A9BB79A00378E4C /* Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EDD0532A0171AF00223505 /* Attributes.swift */; };
 		F0A16C892A9C4B4D00378E4C /* MyFlow copy2-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F0A16C882A9C4B4D00378E4C /* MyFlow copy2-Info.plist */; };
 		F0A16C8A2A9C4B4D00378E4C /* MyFlow copy2-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F0A16C882A9C4B4D00378E4C /* MyFlow copy2-Info.plist */; };
 		F0A6718D2B190BF2003B3071 /* CreateFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A6718C2B190BF2003B3071 /* CreateFlow.swift */; };
 		F0A6718F2B190C18003B3071 /* FlowCompleted.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A6718E2B190C18003B3071 /* FlowCompleted.swift */; };
-		F0B7A2F92AA6BA1400E5B715 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0391313285EBF860074CF33 /* Format.swift */; };
-		F0EBC1182A8D3C0B006F9616 /* Controls.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04FFB5D29033EC70058E66D /* Controls.swift */; };
+		F0B953262B1A830600632050 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0391313285EBF860074CF33 /* Format.swift */; };
 		F0EBC11A2A8D3C0B006F9616 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0948C4B2681907A00A5F48D /* Notifications.swift */; };
 		F0EBC11B2A8D3C0B006F9616 /* LiveActivities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06FDAF52A030ADD00C58F3B /* LiveActivities.swift */; };
 		F0EBC11C2A8D3C0B006F9616 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962B0293184BD00336821 /* Timer.swift */; };
-		F0EBC11D2A8D3C0B006F9616 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962A02931255D00336821 /* Helpers.swift */; };
 		F0EBC11E2A8D3C0B006F9616 /* FlowData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A025C6294796A500AF723F /* FlowData.swift */; };
 		F0EBC1212A8D3C0B006F9616 /* TimerWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = F0EDD0462A01717400223505 /* TimerWidget.intentdefinition */; };
-		F0EBC1222A8D3C0B006F9616 /* AboutUs.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291F4297B6B0A00C25E0E /* AboutUs.swift */; };
 		F0EBC1272A8D3C0B006F9616 /* FlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F074D679271D124900CE1AB4 /* FlowView.swift */; };
 		F0EBC1292A8D3C0B006F9616 /* Paywall.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09861FE26968B4B00A61B42 /* Paywall.swift */; };
 		F0EBC12A2A8D3C0B006F9616 /* MonthCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291F1297B448F00C25E0E /* MonthCard.swift */; };
@@ -38,11 +34,9 @@
 		F0EBC1322A8D3C0B006F9616 /* Pickers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0729202297B78B200C25E0E /* Pickers.swift */; };
 		F0EBC1332A8D3C0B006F9616 /* Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F7F4332911C96E00BC8E16 /* Flow.swift */; };
 		F0EBC1372A8D3C0B006F9616 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08315292888A55100153CD7 /* StatsView.swift */; };
-		F0EBC1382A8D3C0B006F9616 /* Examples.swift in Sources */ = {isa = PBXBuildFile; fileRef = F096A2AF2980613800D3DF6F /* Examples.swift */; };
 		F0EBC13C2A8D3C0B006F9616 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0391316285FA0990074CF33 /* Haptics.swift */; };
 		F0EBC13D2A8D3C0B006F9616 /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E35E152A26ADF8009D020E /* PurchaseManager.swift */; };
 		F0EBC13F2A8D3C0B006F9616 /* OverViewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291ED297B42FF00C25E0E /* OverViewCard.swift */; };
-		F0EBC1432A8D3C0B006F9616 /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07291F9297B6DBD00C25E0E /* Feedback.swift */; };
 		F0EBC1442A8D3C0B006F9616 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066923326FB9C3800DB905E /* ContentView.swift */; };
 		F0EBC1452A8D3C0B006F9616 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0391313285EBF860074CF33 /* Format.swift */; };
 		F0EBC1472A8D3C0B006F9616 /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F001C23828D3A12100134EB5 /* Modifiers.swift */; };
@@ -99,28 +93,22 @@
 /* Begin PBXFileReference section */
 		F001C23828D3A12100134EB5 /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
 		F012E42A2A2115BF00CA4CA2 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		F01962A02931255D00336821 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		F01962B0293184BD00336821 /* Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		F01E848A2AB1249900CF418D /* FlowRunning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowRunning.swift; sourceTree = "<group>"; };
 		F032564A272251A5009D3EFB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		F0391313285EBF860074CF33 /* Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Format.swift; sourceTree = "<group>"; };
 		F0391316285FA0990074CF33 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
-		F0435CD02A9E8C6D0073E7E1 /* DistractionBlocker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistractionBlocker.swift; sourceTree = "<group>"; };
 		F0435CD42A9F965C0073E7E1 /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
-		F0435CD62A9F97E10073E7E1 /* Glass Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Glass Components.swift"; sourceTree = "<group>"; };
-		F0435CD82A9FA5850073E7E1 /* ThemePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePicker.swift; sourceTree = "<group>"; };
-		F0435CDC2AA12FC30073E7E1 /* App Blocker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "App Blocker.swift"; sourceTree = "<group>"; };
+		F0435CD82A9FA5850073E7E1 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		F04FFB4B28FF66B30058E66D /* FlowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowModel.swift; sourceTree = "<group>"; };
-		F04FFB5D29033EC70058E66D /* Controls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controls.swift; sourceTree = "<group>"; };
 		F05FC0D629FAE96600A9B503 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		F05FC0ED29FAF9CD00A9B503 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		F066923326FB9C3800DB905E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F066EB762B1D264B00BCAFC0 /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
 		F06FDAF52A030ADD00C58F3B /* LiveActivities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivities.swift; sourceTree = "<group>"; };
 		F07291ED297B42FF00C25E0E /* OverViewCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverViewCard.swift; sourceTree = "<group>"; };
 		F07291EF297B441200C25E0E /* WeekCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekCard.swift; sourceTree = "<group>"; };
 		F07291F1297B448F00C25E0E /* MonthCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCard.swift; sourceTree = "<group>"; };
-		F07291F4297B6B0A00C25E0E /* AboutUs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUs.swift; sourceTree = "<group>"; };
-		F07291F9297B6DBD00C25E0E /* Feedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feedback.swift; sourceTree = "<group>"; };
 		F0729202297B78B200C25E0E /* Pickers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pickers.swift; sourceTree = "<group>"; };
 		F074D679271D124900CE1AB4 /* FlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowView.swift; sourceTree = "<group>"; };
 		F08315292888A55100153CD7 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
@@ -131,10 +119,10 @@
 		F0948C4B2681907A00A5F48D /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		F0954B112A95360F009E212E /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
 		F0954B142A9580DE009E212E /* Drag & Drop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Drag & Drop.swift"; sourceTree = "<group>"; };
-		F096A2AF2980613800D3DF6F /* Examples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Examples.swift; sourceTree = "<group>"; };
 		F09861FE26968B4B00A61B42 /* Paywall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paywall.swift; sourceTree = "<group>"; };
 		F09862002696C80E00A61B42 /* AquaSound.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = AquaSound.aif; sourceTree = "<group>"; };
 		F0A025C6294796A500AF723F /* FlowData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowData.swift; sourceTree = "<group>"; };
+		F0A056412B1A5DD400AB430D /* BlockSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockSheet.swift; sourceTree = "<group>"; };
 		F0A16C882A9C4B4D00378E4C /* MyFlow copy2-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MyFlow copy2-Info.plist"; sourceTree = "<group>"; };
 		F0A6718C2B190BF2003B3071 /* CreateFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFlow.swift; sourceTree = "<group>"; };
 		F0A6718E2B190C18003B3071 /* FlowCompleted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowCompleted.swift; sourceTree = "<group>"; };
@@ -179,10 +167,11 @@
 		F01514452AF42B4E00835775 /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				F0A025C6294796A500AF723F /* FlowData.swift */,
-				F0435CDC2AA12FC30073E7E1 /* App Blocker.swift */,
 				F0E35E152A26ADF8009D020E /* PurchaseManager.swift */,
 				F0948C4B2681907A00A5F48D /* Notifications.swift */,
+				F0391316285FA0990074CF33 /* Haptics.swift */,
+				F0391313285EBF860074CF33 /* Format.swift */,
+				F0954B142A9580DE009E212E /* Drag & Drop.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -192,8 +181,10 @@
 			children = (
 				F0F7F4332911C96E00BC8E16 /* Flow.swift */,
 				F04FFB4B28FF66B30058E66D /* FlowModel.swift */,
+				F01962B0293184BD00336821 /* Timer.swift */,
+				F0435CD82A9FA5850073E7E1 /* Settings.swift */,
+				F0A025C6294796A500AF723F /* FlowData.swift */,
 				F01514452AF42B4E00835775 /* Other */,
-				F088D2782AAA58F200A1909C /* Components */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -201,12 +192,13 @@
 		F028E6DE269D406A0022A555 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				F096A2AF2980613800D3DF6F /* Examples.swift */,
+				F0954B112A95360F009E212E /* Block.swift */,
+				F07291ED297B42FF00C25E0E /* OverViewCard.swift */,
+				F07291EF297B441200C25E0E /* WeekCard.swift */,
+				F07291F1297B448F00C25E0E /* MonthCard.swift */,
 				F001C23828D3A12100134EB5 /* Modifiers.swift */,
-				F0435CD62A9F97E10073E7E1 /* Glass Components.swift */,
-				F0435CD82A9FA5850073E7E1 /* ThemePicker.swift */,
-				F0435CD42A9F965C0073E7E1 /* Background.swift */,
 				F0729202297B78B200C25E0E /* Pickers.swift */,
+				F0435CD42A9F965C0073E7E1 /* Background.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -214,9 +206,6 @@
 		F04FFB55290339000058E66D /* Timer */ = {
 			isa = PBXGroup;
 			children = (
-				F01962B0293184BD00336821 /* Timer.swift */,
-				F04FFB5D29033EC70058E66D /* Controls.swift */,
-				F01962A02931255D00336821 /* Helpers.swift */,
 			);
 			path = Timer;
 			sourceTree = "<group>";
@@ -231,40 +220,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		F07291EC297B427600C25E0E /* Statistics */ = {
-			isa = PBXGroup;
-			children = (
-				F08315292888A55100153CD7 /* StatsView.swift */,
-				F07291ED297B42FF00C25E0E /* OverViewCard.swift */,
-				F07291EF297B441200C25E0E /* WeekCard.swift */,
-				F07291F1297B448F00C25E0E /* MonthCard.swift */,
-			);
-			path = Statistics;
-			sourceTree = "<group>";
-		};
 		F07291F3297B45E600C25E0E /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F028E6DE269D406A0022A555 /* Components */,
 				F066923326FB9C3800DB905E /* ContentView.swift */,
+				F074D679271D124900CE1AB4 /* FlowView.swift */,
+				F08315292888A55100153CD7 /* StatsView.swift */,
+				F032564A272251A5009D3EFB /* SettingsView.swift */,
+				F01E848A2AB1249900CF418D /* FlowRunning.swift */,
 				F0A6718B2B190BE3003B3071 /* Sheets */,
-				F09861FE26968B4B00A61B42 /* Paywall.swift */,
-				F0435CD02A9E8C6D0073E7E1 /* DistractionBlocker.swift */,
-				F0954B132A95795C009E212E /* FlowView */,
-				F07291EC297B427600C25E0E /* Statistics */,
-				F07291F6297B6C6000C25E0E /* Settings */,
+				F028E6DE269D406A0022A555 /* Components */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		F07291F6297B6C6000C25E0E /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				F032564A272251A5009D3EFB /* SettingsView.swift */,
-				F07291F4297B6B0A00C25E0E /* AboutUs.swift */,
-				F07291F9297B6DBD00C25E0E /* Feedback.swift */,
-			);
-			path = Settings;
 			sourceTree = "<group>";
 		};
 		F0732D0526B63DDD00BA05CF /* Preview Content */ = {
@@ -275,16 +242,6 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		F088D2782AAA58F200A1909C /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				F0954B142A9580DE009E212E /* Drag & Drop.swift */,
-				F0391316285FA0990074CF33 /* Haptics.swift */,
-				F0391313285EBF860074CF33 /* Format.swift */,
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
 		F0948C0C26818EE000A5F48D = {
 			isa = PBXGroup;
 			children = (
@@ -292,8 +249,8 @@
 				F0B3518E2A1BE3AE001186BB /* TimerWidgetExtension.entitlements */,
 				F0A16C882A9C4B4D00378E4C /* MyFlow copy2-Info.plist */,
 				F0948C1726818EE000A5F48D /* MyFlow */,
-				F018B2B62928263E00FCD857 /* ViewModels */,
 				F07291F3297B45E600C25E0E /* Views */,
+				F018B2B62928263E00FCD857 /* ViewModels */,
 				F04FFB55290339000058E66D /* Timer */,
 				F0EDD03F2A01717400223505 /* TimerWidget */,
 				F05FC0D329FAE96600A9B503 /* Frameworks */,
@@ -324,21 +281,14 @@
 			path = MyFlow;
 			sourceTree = "<group>";
 		};
-		F0954B132A95795C009E212E /* FlowView */ = {
-			isa = PBXGroup;
-			children = (
-				F074D679271D124900CE1AB4 /* FlowView.swift */,
-				F01E848A2AB1249900CF418D /* FlowRunning.swift */,
-				F0954B112A95360F009E212E /* Block.swift */,
-			);
-			path = FlowView;
-			sourceTree = "<group>";
-		};
 		F0A6718B2B190BE3003B3071 /* Sheets */ = {
 			isa = PBXGroup;
 			children = (
 				F0A6718C2B190BF2003B3071 /* CreateFlow.swift */,
 				F0A6718E2B190C18003B3071 /* FlowCompleted.swift */,
+				F0A056412B1A5DD400AB430D /* BlockSheet.swift */,
+				F09861FE26968B4B00A61B42 /* Paywall.swift */,
+				F066EB762B1D264B00BCAFC0 /* Onboarding.swift */,
 			);
 			path = Sheets;
 			sourceTree = "<group>";
@@ -482,33 +432,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0EBC1182A8D3C0B006F9616 /* Controls.swift in Sources */,
 				F0A16C872A9BB79A00378E4C /* Attributes.swift in Sources */,
 				F0EBC11A2A8D3C0B006F9616 /* Notifications.swift in Sources */,
 				F0EBC11B2A8D3C0B006F9616 /* LiveActivities.swift in Sources */,
 				F0EBC11C2A8D3C0B006F9616 /* Timer.swift in Sources */,
-				F0EBC11D2A8D3C0B006F9616 /* Helpers.swift in Sources */,
 				F0EBC11E2A8D3C0B006F9616 /* FlowData.swift in Sources */,
 				F0EBC1212A8D3C0B006F9616 /* TimerWidget.intentdefinition in Sources */,
-				F0435CD92A9FA5850073E7E1 /* ThemePicker.swift in Sources */,
-				F0EBC1222A8D3C0B006F9616 /* AboutUs.swift in Sources */,
+				F0435CD92A9FA5850073E7E1 /* Settings.swift in Sources */,
 				F0435CD52A9F965C0073E7E1 /* Background.swift in Sources */,
 				F0EBC1272A8D3C0B006F9616 /* FlowView.swift in Sources */,
-				F0435CD72A9F97E10073E7E1 /* Glass Components.swift in Sources */,
 				F0EBC1292A8D3C0B006F9616 /* Paywall.swift in Sources */,
 				F0A6718F2B190C18003B3071 /* FlowCompleted.swift in Sources */,
-				F0435CDD2AA12FC30073E7E1 /* App Blocker.swift in Sources */,
 				F0EBC12A2A8D3C0B006F9616 /* MonthCard.swift in Sources */,
 				F0EBC12C2A8D3C0B006F9616 /* MyFlowApp.swift in Sources */,
 				F0EBC1302A8D3C0B006F9616 /* FlowModel.swift in Sources */,
 				F0EBC1322A8D3C0B006F9616 /* Pickers.swift in Sources */,
 				F0EBC1332A8D3C0B006F9616 /* Flow.swift in Sources */,
 				F0EBC1372A8D3C0B006F9616 /* StatsView.swift in Sources */,
-				F0EBC1382A8D3C0B006F9616 /* Examples.swift in Sources */,
 				F0EBC13C2A8D3C0B006F9616 /* Haptics.swift in Sources */,
 				F0EBC13D2A8D3C0B006F9616 /* PurchaseManager.swift in Sources */,
+				F066EB772B1D264B00BCAFC0 /* Onboarding.swift in Sources */,
 				F0EBC13F2A8D3C0B006F9616 /* OverViewCard.swift in Sources */,
-				F0EBC1432A8D3C0B006F9616 /* Feedback.swift in Sources */,
 				F0EBC1442A8D3C0B006F9616 /* ContentView.swift in Sources */,
 				F0A6718D2B190BF2003B3071 /* CreateFlow.swift in Sources */,
 				F0EBC1452A8D3C0B006F9616 /* Format.swift in Sources */,
@@ -518,7 +462,7 @@
 				F0954B152A9580DE009E212E /* Drag & Drop.swift in Sources */,
 				F0EBC1492A8D3C0B006F9616 /* SettingsView.swift in Sources */,
 				F0954B122A95360F009E212E /* Block.swift in Sources */,
-				F0435CD12A9E8C6D0073E7E1 /* DistractionBlocker.swift in Sources */,
+				F0A056422B1A5DD400AB430D /* BlockSheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -528,7 +472,7 @@
 			files = (
 				F0EDD0432A01717400223505 /* TimerWidgetLiveActivity.swift in Sources */,
 				F0EDD04A2A01717600223505 /* TimerWidget.intentdefinition in Sources */,
-				F0B7A2F92AA6BA1400E5B715 /* Format.swift in Sources */,
+				F0B953262B1A830600632050 /* Format.swift in Sources */,
 				F0EDD0552A0171AF00223505 /* Attributes.swift in Sources */,
 				F0EDD0452A01717400223505 /* TimerWidget.swift in Sources */,
 			);
