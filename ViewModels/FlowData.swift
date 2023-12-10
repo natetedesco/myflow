@@ -15,12 +15,16 @@ struct Day: Codable, Identifiable, Equatable {
 }
 
 class FlowData: ObservableObject {
+    var settings = Settings()
+
     @AppStorage("GoalTime") var goalSelection: Int = 2
     @Published var showGoal: Bool = false
     @Published var days: [Day]
     
     let date = Date()
     let firstDayOfTheWeek = Date().startOfWeek()
+    let firstDayOfMonth = Date().startOfMonth()
+    
     let calendar = Calendar.current
     
     var todayTime: Int { getTodayTime() }

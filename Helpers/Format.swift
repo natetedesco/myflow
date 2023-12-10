@@ -19,8 +19,6 @@ func formatTime(seconds: Int) -> String {
     return hourStamp + minuteStamp + secondStamp
 }
 
-
-
 func formatHoursAndMinutes(time: Int) -> String {
     let hours = "\(time / 60)"
     let minutes = "\((time % 3600) % 60)"
