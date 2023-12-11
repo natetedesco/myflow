@@ -10,6 +10,26 @@ import SwiftUI
 struct MainView: View {
     @State var model: FlowModel
     
+    @Environment(\.horizontalSizeClass) private var sizeClass
+    
+    @AppStorage("ProAccess") var proAccess: Bool = false
+    @State var showPaywall = false
+    @State var detent = PresentationDetent.large
+
+    @State var renamedFlow = ""
+    
+    @State var showFlow = false
+    @State var showCreateFlow = false
+    @State var showRenameFlow = false
+    @State var showDeleteAlert = false
+    
+    var spacing: CGFloat {
+        if sizeClass == .regular {
+            return 32
+        }
+        return 16
+    }
+    
     var body: some View {
         
         ZStack {
@@ -19,19 +39,19 @@ struct MainView: View {
                         VStack(spacing: 16) {
                             Spacer()
                             Text("No Flows")
-                                .font(.title2)
                                 .fontWeight(.medium)
                                 .foregroundStyle(.secondary)
                             Button {
                                 showCreateFlow.toggle()
                             } label : {
                                 Text("Create Your Flow")
+                                    .font(.title3)
+                                    .fontWeight(.semibold)
                                     .foregroundStyle(.white)
-                                    .font(.headline)
                             }
                             .padding()
                             .background(Color.teal)
-                            .cornerRadius(8)
+                            .cornerRadius(12)
                             Spacer()
                         }
                     } else {
@@ -44,75 +64,81 @@ struct MainView: View {
                                 .padding(.leading)
                                 .padding(.top)
                             
-                            LazyVGrid(columns: [GridItem(spacing: 16), GridItem(spacing: 16)], spacing: 16) {
-                                ForEach(0..<model.flowList.count, id: \.self) { i in
-                                    if i < model.flowList.count {
-                                        let flow = model.flowList[i]
-                                        
+                            LazyVGrid(columns: [GridItem(spacing: spacing), GridItem(spacing: spacing)], spacing: spacing) {
+                                ForEach($model.flowList) { $flow in
+                                    
+                                    ZStack {
                                         Button {
-                                            model.flow = model.flowList[i]
-                                            model.showFlow.toggle()
+                                            model.flow = flow
+                                            showFlow.toggle()
                                         } label: {
-                                            ZStack {
-                                                Text(flow.title)
-                                                    .foregroundStyle(.white)
-                                                    .font(.title3)
-                                                    .fontWeight(.medium)
-                                                    .multilineTextAlignment(.leading)
-                                                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
-                                                
-                                                Spacer()
-                                                
-                                                Menu {
-                                                    Button {
-                                                        renameIndex = i
-                                                        renameFlow.toggle()
-                                                    } label: {
-                                                        Label("Rename", systemImage: "pencil")
-                                                    }
-                                                    Button {
-                                                        model.duplicateFlow(flow: flow)
-                                                    } label: {
-                                                        Label("Duplicate", systemImage: "plus.square.on.square")
-                                                    }
-                                                    Button(role: .destructive) {
-                                                        model.deleteFlow(id: flow.id)
-                                                    } label: {
-                                                        Label("Delete", systemImage: "trash")
-                                                    }
-                                                } label: {
-                                                    Image(systemName: "ellipsis")
-                                                        .font(.callout)
-                                                        .foregroundStyle(.teal)
-                                                        .padding(12)
-                                                        .background(Circle().foregroundStyle(.regularMaterial))
-                                                }
-                                                .padding(.trailing, -4)
-                                                .simultaneousGesture(TapGesture().onEnded{
-                                                    lightHaptic()
-                                                })
-                                                .shadow(color: .black.opacity(0.1), radius: 8)
-                                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-                                                
-                                                
-                                            }
-                                            .padding()
-                                            .frame(maxWidth: .infinity)
-                                            .frame(height: 112)
                                             
-                                            .background(LinearGradient(
-                                                gradient: Gradient(colors: [.teal.opacity(0.8), .teal.opacity(0.6)]),
-                                                startPoint: .leading,
-                                                endPoint: .trailing
-                                            ))
-                                            .background(.bar)
-                                            .cornerRadius(24)
-                                            .shadow(color: Color.teal.opacity(0.3), radius: 3)
-                                            
+                                            Text(flow.title)
+                                                .foregroundStyle(.white)
+                                                .font(sizeClass == .regular ? .title : .title3)
+                                                .fontWeight(.medium)
+                                                .multilineTextAlignment(.leading)
+                                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
+                                                .padding()
+                                                .frame(height: sizeClass == .regular ? 224 : 112)
+                                                .background(LinearGradient(
+                                                    gradient: Gradient(colors: [.teal.opacity(0.8), .teal.opacity(0.6)]),
+                                                    startPoint: .bottomLeading,
+                                                    endPoint: .topTrailing
+                                                ))
+                                                .cornerRadius(24)
+                                                .shadow(color: Color.teal.opacity(0.3), radius: 3)
                                         }
-//                                        .simultaneousGesture(TapGesture().onEnded{
-//                                            model.selectedIndex = i
-//                                        })
+                                        .fullScreenCover(isPresented: $showFlow) {
+                                            FlowView(model: model)
+                                                .accentColor(.teal)
+                                        }
+                                        
+                                        // Menu
+                                        Menu {
+                                            Button {
+                                                model.flow = flow
+                                                showRenameFlow.toggle()
+                                            } label: {
+                                                Label("Rename", systemImage: "pencil")
+                                            }
+                                            Button {
+                                                model.duplicateFlow(flow: flow)
+                                            } label: {
+                                                Label("Duplicate", systemImage: "plus.square.on.square")
+                                            }
+                                            Button(role: .destructive) {
+                                                model.deleteFlow(id: flow.id)
+                                            } label: {
+                                                Label("Delete", systemImage: "trash")
+                                            }
+                                        } label: {
+                                            Image(systemName: "ellipsis")
+                                                .font(.callout)
+                                                .foregroundStyle(.teal)
+                                                .padding(12)
+                                                .background(Circle().foregroundStyle(.regularMaterial))
+                                        }
+                                        .padding()
+                                        .padding(.trailing, -4)
+                                        .simultaneousGesture(TapGesture().onEnded{
+                                            lightHaptic()
+                                        })
+                                        .shadow(color: .black.opacity(0.1), radius: 8)
+                                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+                                        
+                                        // Rename Flow
+                                        .alert("Rename Flow", isPresented: $showRenameFlow) { // Create Flow Alert
+                                            TextField("Flow Title", text: $renamedFlow)
+                                            Button("Rename", action: {
+                                                if !renamedFlow.isEmpty {
+                                                    model.flow.title = renamedFlow
+                                                    renamedFlow = ""
+                                                    model.saveFlow()
+                                                }
+                                            })
+                                            Button("Cancel", role: .cancel, action: {showRenameFlow = false})
+                                        }
                                     }
                                 }
                             }
@@ -121,14 +147,13 @@ struct MainView: View {
                         .animation(.default, value: model.flowList)
                     }
                 }
-                
                 .navigationTitle("Flows")
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
                         
                         if  model.flowList.count != 0 {
                             Button {
-                                if model.flowList.count >= 2 && !proAccess {
+                                if model.flowList.count >= 1 && !proAccess {
                                     detent = .large
                                     showPaywall.toggle()
                                 } else {
@@ -147,31 +172,14 @@ struct MainView: View {
                                 showPaywall.toggle()
                             } label: {
                                 Text("Pro")
+                                    .fontWeight(.medium)
                             }
                         }
                     }
                 }
-//                .ignoresSafeArea(.keyboard)
-            }
-            
-            // Rename Flow
-            .alert("Rename Flow", isPresented: $renameFlow) { // Create Flow Alert
-                TextField("Flow Title", text: $renamedFlow)
-                Button("Rename", action: {
-                    if !renamedFlow.isEmpty {
-                        model.renameFlow(index: renameIndex, newTitle: renamedFlow)
-                        renamedFlow = ""
-                    }
-                })
-                Button("Cancel", role: .cancel, action: {})
-            }
-            
-            .fullScreenCover(isPresented: $model.showFlow) {
-                FlowView(model: model)
-                    .accentColor(.teal)
             }
             .sheet(isPresented: $showCreateFlow) {
-                CreateFlowView(model: model)
+                CreateFlowView(model: model, showFlow: $showFlow)
                     .accentColor(.teal)
                     .presentationBackground(.regularMaterial)
                     .presentationCornerRadius(32)
@@ -184,30 +192,11 @@ struct MainView: View {
                     .interactiveDismissDisabled(detent == .large)
                     .presentationDragIndicator(detent != .large ? .visible : .hidden)
             }
-            
-            // Onboarding
         }
     }
-    
-    @StateObject var settings = Settings()
-    @AppStorage("ProAccess") var proAccess: Bool = false
-    @AppStorage("showOnboarding") var showOnboarding: Bool = true
-    @State var showBlur = true
-    
-    @State var showStatistics = false
-    @State var showSettings = false
-    @State var showAppBlocker = false
-    
-    @State var showPaywall = false
-    @State var detent = PresentationDetent.large
-    
-    @State var showCreateFlow = false
-    
-    @State var newFlowTitle = ""
-    @State var renameIndex = 0
-    @State var renameFlow = false
-    
-    @State var renamedFlow = ""
-    @State var showDeleteAlert = false
 }
 
+private func shouldUseLargeHeight() -> Bool {
+    let horizontalSizeClass = UITraitCollection(horizontalSizeClass: UIScreen.main.bounds.width > 500 ? .regular : .compact)
+    return horizontalSizeClass.containsTraits(in: UITraitCollection(horizontalSizeClass: .regular))
+}

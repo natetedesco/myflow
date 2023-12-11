@@ -10,6 +10,8 @@ import Introspect
 struct BlockSheetView: View {
     @State var model: FlowModel
     
+    @Binding var newBlock: Bool
+    
     @FocusState var isFocused
     @Environment(\.dismiss) var dismiss
     
@@ -18,73 +20,52 @@ struct BlockSheetView: View {
         ZStack {
             Color.black.opacity(0.3).ignoresSafeArea()
             
-                VStack {
-                    HStack {
-                        TextField("Block Title", text: $model.flow.blocks[model.selectedIndex].title)
-                            .leading()
-                            .focused($isFocused)
-                            .onSubmit {
-                                model.saveFlow()
-                                model.newBlock = false
-                                dismiss()
-                            }
-                            .padding(.horizontal, 12)
-                            .padding(.vertical, 12)
-                            .background(.regularMaterial)
-                            .cornerRadius(16)
-                            .onReceive(NotificationCenter.default.publisher(for: UITextField.textDidBeginEditingNotification)) { obj in
-                                            if let textField = obj.object as? UITextField {
-                                                textField.selectedTextRange = textField.textRange(from: textField.beginningOfDocument, to: textField.endOfDocument)
-                                            }
-                                        }
-                            .introspectTextField { textField in
-                                        textField.becomeFirstResponder()
-                                      }
-                        
-                        Button {
+            VStack {
+                HStack {
+                    TextField("Block Title", text: $model.flow.blocks[model.selectedIndex].title)
+                        .leading()
+                        .focused($isFocused)
+                        .onSubmit {
                             model.saveFlow()
-//                            if model.newBlock {
-//                                model.flow.blocks.removeLast()
-//                            }
-                            model.newBlock = false
                             dismiss()
-                        } label: {
-                            Image(systemName: "xmark")
-                                .font(.callout)
-                                .foregroundStyle(.white.secondary)
-                                .padding(12)
-                                .background(Circle().foregroundStyle(.ultraThinMaterial))
+                            newBlock = false
                         }
-                    }
-                    
-                    MultiComponentPicker(columns: columns, selections: [
-                        $model.flow.blocks[model.selectedIndex].hours,
-                        $model.flow.blocks[model.selectedIndex].minutes,
-                        $model.flow.blocks[model.selectedIndex].seconds]
-                    )
-                    .padding(.vertical, -12)
-                    
-                    Button {
-                        model.saveFlow()
-                        model.newBlock = false
-                        dismiss()
-                    } label : {
-                        Text(model.newBlock ? "Add Block" : "Save")
-                            .foregroundStyle(.white)
-                            .font(.headline)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(.teal)
-                            .cornerRadius(16)
-                            .padding(.bottom)
-                    }
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 12)
+                        .background(.regularMaterial)
+                        .cornerRadius(16)
+                        .onReceive(NotificationCenter.default.publisher(for: UITextField.textDidBeginEditingNotification)) { obj in
+                            if let textField = obj.object as? UITextField {
+                                textField.selectedTextRange = textField.textRange(from: textField.beginningOfDocument, to: textField.endOfDocument)
+                            }
+                        }
+                        .introspectTextField { textField in textField.becomeFirstResponder() }
                 }
-                .padding(.horizontal)
-                .padding(.top)
+                
+                MultiComponentPicker(columns: columns, selections: [
+                    $model.flow.blocks[model.selectedIndex].hours,
+                    $model.flow.blocks[model.selectedIndex].minutes,
+                    $model.flow.blocks[model.selectedIndex].seconds]
+                )
+                .padding(.vertical, -12)
+                
+                Button {
+                    model.saveFlow()
+                    dismiss()
+                    newBlock = false
+                } label : {
+                    Text(newBlock ? "Add Block" : "Save")
+                        .foregroundStyle(.white)
+                        .font(.headline)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(.teal)
+                        .cornerRadius(16)
+                        .padding(.bottom)
+                }
+            }
+            .padding(.horizontal)
+            .padding(.top)
         }
     }
 }
-
-//#Preview {
-//    BlockSheet()
-//}

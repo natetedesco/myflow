@@ -10,23 +10,23 @@ struct OverViewCard: View {
     @ObservedObject var data: FlowData
     
     var body: some View {
-        
+
         HStack() {
             OverviewLabel(
                 label: "Today",
-                time: CGFloat(data.todayTime / data.goalSelection),
+                time: CGFloat(Double(data.todayTime) / (data.goalMinutes/60)),
                 totalTime: data.todayTime
             )
             Spacer()
             OverviewLabel(
                 label: "This Week",
-                time: CGFloat(data.thisWeekTime / (data.goalSelection * 7)),
+                time: CGFloat(Double(data.thisWeekTime) / ((data.goalMinutes/60) * 7)),
                 totalTime: data.thisWeekTime
             )
             Spacer()
             OverviewLabel(
                 label: "This Month",
-                time: CGFloat(data.thisMonthTime / (data.goalSelection * daysInCurrentMonth())),
+                time: CGFloat(Double(data.thisMonthTime) / ((data.goalMinutes/60) * Double(data.daysInCurrentMonth()))),
                 totalTime: data.thisMonthTime
             )
         }

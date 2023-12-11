@@ -10,7 +10,7 @@
     "_applicationInternalID" : "1575798388",
     "_developerTeamID" : "AMU2LP62W2",
     "_failTransactionsEnabled" : false,
-    "_lastSynchronizedDate" : 707175038.33988595,
+    "_lastSynchronizedDate" : 723956294.60354102,
     "_locale" : "en_US",
     "_storefront" : "USA",
     "_storeKitErrors" : [
@@ -76,15 +76,15 @@
           "codeOffers" : [
 
           ],
-          "displayPrice" : "9.99",
+          "displayPrice" : "19.99",
           "familyShareable" : false,
-          "groupNumber" : 1,
+          "groupNumber" : 2,
           "internalID" : "6449721076",
           "introductoryOffer" : {
-            "internalID" : "6E2EBC33",
+            "internalID" : "7E247A4D",
             "numberOfPeriods" : 1,
             "paymentMode" : "free",
-            "subscriptionPeriod" : "P2W"
+            "subscriptionPeriod" : "P1W"
           },
           "localizations" : [
             {
@@ -95,7 +95,7 @@
           ],
           "productID" : "pro_yearly",
           "recurringSubscriptionPeriod" : "P1Y",
-          "referenceName" : "Yearly - $9.99",
+          "referenceName" : "Yearly - $19.99",
           "subscriptionGroupID" : "21345397",
           "type" : "RecurringSubscription"
         }

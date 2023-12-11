@@ -24,13 +24,11 @@ extension FlowModel {
                 blocks: flow.blocks.count,
                 blocksCompleted: blocksCompleted
             )
-            
             do {
                 let activity = try Activity<TimerWidgetAttributes>.request(
                     attributes: attributes,
                     contentState: initialContentState,
                     pushType: nil)
-                print("error \(activity.id)")
             } catch (let error) {
                 print("error \(error.localizedDescription)")
             }

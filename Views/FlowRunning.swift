@@ -9,31 +9,28 @@ import SwiftUI
 struct FlowRunning: View {
     @State var model: FlowModel
     @Environment(\.dismiss) var dismiss
+    @Environment(\.horizontalSizeClass) private var sizeClass
     
     var body: some View {
         
         NavigationStack {
             VStack {
-                
                 Button {
                     model.showFlowRunning.toggle()
                 } label: {
                     Capsule()
                         .foregroundStyle(.white.quinary)
                         .frame(width: 36, height: 5)
+                        .padding(.top, sizeClass == .regular ? 16 : 0)
                 }
-
+                
+                Spacer()
                 
 //                Text(model.flow.title)
                 Text(focusLabel)
-                    .font(.largeTitle)
+                    .font(sizeClass == .regular ? .largeTitle : .title)
                     .fontWeight(.semibold)
                     .padding(.top, 8)
-                
-//                Text(model.flow.blocks[model.blocksCompleted].title)
-//                    .font(.title3)
-//                    .fontWeight(.medium)
-//                    .foregroundStyle(.secondary)
                 
                 Spacer()
                 
@@ -43,44 +40,58 @@ struct FlowRunning: View {
                         
                         if model.mode == .flowStart {
                             Text("Next: " + model.flow.blocks[model.blocksCompleted].title)
-                                .font(.callout)
                                 .fontWeight(.medium)
                                 .foregroundStyle(.teal.secondary)
                                 .padding(.bottom, 48)
-                            
                         }
                     }
                     
-                    Circles(model: model)
-                    ZStack {
-                        Button {
-                            if model.mode == .flowStart {
-                                model.continueFlow()
-                            } else {
-                                model.Skip()
-                            }
-                            softHaptic()
-                        } label: {
-                            HStack {
-                                Image(systemName: model.mode == .flowStart ? "goforward.plus" :"goforward")
-                                Text(model.mode == .flowStart ? "Extend" : "Complete")
-                            }
-                            .font(.callout)
-                            .fontWeight(.medium)
+                    Circles(
+                        model: model,
+                        size: sizeClass == .regular ? 432: 288,
+                        width: sizeClass == .regular ? 30 : 20)
+                    
+                    Button { // used twice
+                        if model.mode == .flowStart {
+                            model.extend()
+                        } else if model.flowExtended {
+                            model.completeExtend()
+                        } else {
+                            model.Complete()
                         }
-                        .padding(.bottom, 112)
-
-                        Text(formatTime(seconds: model.flowTimeLeft))
+                        softHaptic()
+                    } label: {
+                        HStack {
+                            if !model.flowExtended {
+                                Image(systemName: model.mode == .flowStart ? "goforward.plus" :"checkmark.circle")
+                                    .font(.footnote)
+                                    .fontWeight(.semibold)
+                                    .padding(.trailing, -4)
+                            }
+                            Text(model.mode == .flowStart ? "Extend" : "Complete")
+                        }
+                        .font(.footnote)
+                        .fontWeight(.medium)
+                    }
+                    .padding(.top, 112)
+                    
+                    ZStack {
+                        Text(timerLabel)
                             .font(.system(size: 72))
-                            .fontWeight(.thin)
+                            .fontWeight(.light)
                             .monospacedDigit()
                         
-                        if model.flowContinue {
+                        if model.flowExtended {
                             Image(systemName: "plus")
                                 .font(.title3)
-                                .padding(.top, 112)
+                                .padding(.trailing, 216)
                         }
                         
+//                        Text(focusLabel)
+//                            .font(.title3)
+//                            .fontWeight(.medium)
+//                            .foregroundStyle(.secondary)
+//                            .padding(.bottom, 112)
                     }
                 }
                 
@@ -101,10 +112,17 @@ struct FlowRunning: View {
     }
     
     var focusLabel: String {
-        if model.mode == .flowStart || model.flowContinue {
+        if model.mode == .flowStart {
             return model.flow.blocks[model.blocksCompleted - 1].title
         }
         return model.flow.blocks[model.blocksCompleted].title
+    }
+    
+    var timerLabel: String {
+        if model.mode == .flowStart {
+            return "00:00"
+        }
+        return formatTime(seconds: model.flowTimeLeft)
     }
     
 }
@@ -114,7 +132,7 @@ import SwiftUI
 struct Circles: View {
     var model: FlowModel
     var size: CGFloat = 288
-    var width: CGFloat = 18
+    var width: CGFloat = 20
     var fill: Bool = false
     
     var body: some View {
@@ -124,8 +142,15 @@ struct Circles: View {
             Circle()
                 .trim(from: 0, to: circleFill)
                 .stroke(Color.teal, style: StrokeStyle(lineWidth: width,lineCap: .round))
+//                .shadow(color: .teal.opacity(0.5), radius: 5)
                 .frame(width: size)
-                .shadow(color: .teal.opacity(0.5), radius: 5)
+            
+            Circle()
+                .trim(from: 0, to: circleFill)
+                .stroke(Color.teal.opacity(0.5), style: StrokeStyle(lineWidth: width,lineCap: .round))
+                .blur(radius: 5)
+                .frame(width: size)
+            
             
             Circle()
                 .trim(from: 0, to: 1)
@@ -148,20 +173,24 @@ struct Circles: View {
             }
             
             // Flow Start
-            if model.mode == .flowStart {
+            else if model.mode == .flowStart {
+                return 1.0
+            }
+            
+            else if model.flowExtended {
                 return 1.0
             }
             
             // Flow Running
-            if model.mode == .flowRunning {
-                if model.flowContinue {
+            else if model.mode == .flowRunning {
+                if model.flowExtended {
                     return 1.0
                 } else {
                     return formatProgress(time: model.flowTime, timeLeft: model.flowTimeLeft - 1)
                 }
             }
             
-            if model.flowTime - model.flowTimeLeft == 0 {
+            else if model.flowTime - model.flowTimeLeft == 0 {
                 return 0
             }
             return formatProgress(time: model.flowTime, timeLeft: model.flowTimeLeft - 1)

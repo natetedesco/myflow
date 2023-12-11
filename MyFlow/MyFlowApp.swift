@@ -11,10 +11,10 @@ import TipKit
 struct MyFlow: App {
     @StateObject private var purchaseManager = PurchaseManager()
     @State var model = FlowModel()
-    @AppStorage("showOnboarding") var showOnboarding: Bool = true
-    @AppStorage("shouldResetTips") var shouldResetTips: Bool = true
     
-    @AppStorage("showIntro") var showIntro: Bool = false
+    @AppStorage("showOnboarding") var showOnboarding: Bool = true
+    @AppStorage("shouldResetTips") var shouldResetTips: Bool = false
+    @AppStorage("showIntro") var showIntroPayWall: Bool = false
     @State var detent = PresentationDetent.fraction(6/10)
     
     var body: some Scene {
@@ -25,7 +25,6 @@ struct MyFlow: App {
             } else {
                 
                 TabView {
-                    
                     MainView(model: model)
                         .tabItem {
                             Image(systemName: "play.circle.fill")
@@ -34,20 +33,17 @@ struct MyFlow: App {
                             Text("Flows")
                         }
                     
-                    StatsView()
+                    StatsView(data: model.data)
                         .tabItem {
                             Image(systemName: "bolt.fill")
                             Text("Activity")
                         }
                     
-                    
                     SettingsView(model: model)
                         .tabItem {
                             Image(systemName: "person")
                             Text("Settings")
-                            
                         }
-                    
                 }
                 .accentColor(.teal)
                 .environmentObject(purchaseManager)
@@ -58,13 +54,12 @@ struct MyFlow: App {
                     if shouldResetTips {
                         try? Tips.resetDatastore()
                     }
-                    
                     try? Tips.configure([
                         .displayFrequency(.immediate),
                         .datastoreLocation(.applicationDefault)
                     ])
                 }
-                .sheet(isPresented: $showIntro) {
+                .sheet(isPresented: $showIntroPayWall) {
                     PayWall(detent: $detent)
                         .presentationCornerRadius(32)
                         .presentationBackground(.bar)

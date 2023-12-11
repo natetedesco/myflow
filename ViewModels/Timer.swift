@@ -11,14 +11,19 @@ extension FlowModel {
     
     // Start
     func Start() {
-        if (flowTime > 0) {
+        // Reset from last run
+        if mode == .initial {
+            totalFlowTime = 0
+        }
+        
+        if flowTime > 0 {
             stopActivity()
             switch mode {
-            case .initial: Run(time: flowTime)
-            case .flowStart: Run(time: flowTime)
-            case .flowRunning: Pause(flow: true)
-            case .flowPaused: flowContinue ? continueFlow() : Run(time: flowTime)
-            case .completed: Initialize()
+            case .initial: Run()
+            case .flowStart: Run()
+            case .flowRunning: Pause()
+            case .flowPaused: flowExtended ? extend() : Run()
+            case .completed: initialize()
             }
             data.createDayStruct()
         }
@@ -26,23 +31,30 @@ extension FlowModel {
     }
     
     // Run
-    func Run(time: Int) {
+    func Run() {
         mode = .flowRunning
         
-        if settings.focusMode {
+        if settings.focusOnStart {
             showFlowRunning = true
         }
         
-        let end = setEnd(time: time)
+        // Set End
+        start = Date()
+        let end = Calendar.current.date(byAdding: .second, value: (flowTime - elapsed), to: start)!
         
-        setNotification(time: time)
+        notifications.Set(time: flowTime, elapsed: elapsed, id: "timer")
+        
         startActivity(start: start, end: end)
         settings.startRestriction()
         
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [self] timer in
             if timeLeft(end: end) <= 0 {
-                setFlowTimeLeft(time: 0)
-                addTime(time: time)
+                flowTimeLeft = 0
+                
+                // Add Time
+                data.addTime(time: flowTime)
+                addTotalFlowTime(time: flowTime)
+                
                 endTimer()
             }
         }
@@ -65,66 +77,77 @@ extension FlowModel {
         }
         else {
             let block = flow.blocks[blocksCompleted]
-            setFlowTime(time: (block.hours * 3600) + (block.minutes * 60) + (block.seconds))
+            
+            // Set Flow Time
+            let time = (block.hours * 3600) + (block.minutes * 60) + (block.seconds)
+            flowTime = time
+            flowTimeLeft = time
+            
             mode = .flowStart
+        }
+        if settings.dismissOnComplete {
+            showFlowRunning = false
         }
     }
     
     // Pause
-    func Pause(flow: Bool) {
+    func Pause() {
         mode = .flowPaused
-        setElapsedTime()
-        invalidateTimer()
         
+        // Set elapsed time
+        let newTime = Int(abs(start.timeIntervalSinceNow))
+        elapsed = elapsed + newTime
+        
+        invalidateTimer()
         settings.stopRestrictions()
     }
     
     // Skip
-    func Skip() {
+    func Complete() {
+        let time = flowTime - flowTimeLeft
+        data.addTime(time: time)
+        addTotalFlowTime(time: time)
+        
         elapsed = 0
         endTimer()
-    }
-    
-    // Restart
-    func Restart() {
-        elapsed = 0
-        mode = .flowStart
-        if flowRunning() {
-            setFlowTime(time: flowTime)
-            invalidateTimer()
-        } else {
-            if blocksCompleted != 0 {
-                blocksCompleted -= 1
-                let block = flow.blocks[blocksCompleted]
-                let time = (block.hours * 3600) + (block.minutes * 60) + (block.seconds)
-                setFlowTime(time: time)
-            }
-        }
     }
     
     // Reset
     func Reset() {
         rigidHaptic()
-        if !flowContinue {
-            addTime(time: flowTime - flowTimeLeft)
+        if !flowExtended {
+            let time = flowTime - flowTimeLeft
+            data.addTime(time: time)
+            addTotalFlowTime(time: time)
         }
         invalidateTimer()
         stopActivity()
         completeSession()
         settings.stopRestrictions()
-        flowContinue = false
+        flowExtended = false
     }
     
     // Continue Flow
-    func continueFlow() {
+    func extend() {
         var start = Date()
+        showFlowRunning = true
         
-        if flowContinue {
+        if mode == .flowStart { // dont want to do this after unpause
+            blocksCompleted = blocksCompleted - 1
+        }
+        
+        if flowExtended {
             start = Calendar.current.date(byAdding: .second, value: (-flowTimeLeft), to: start)!
         }
-        mode = .flowRunning
-        flowContinue = true
+        if !flowExtended {
+            flowTimeLeft = 0 // so label doesnt display original flowtime
+        }
+        
         startActivity(start: start, end: start, extend: true)
+        
+        mode = .flowRunning
+        flowExtended = true
+        
         
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [self] timer in
             flowTimeLeft = (Calendar.current.dateComponents([.second], from: start, to: Date()).second ?? 0)
@@ -132,62 +155,41 @@ extension FlowModel {
     }
     
     // Complete Continue Flow
-    func completeContinueFlow() {
+    func completeExtend() {
         invalidateTimer()
-        addTime(time: flowTimeLeft)
         
-        flowContinue = false
+        // Add Time
+        data.addTime(time: flowTimeLeft)
+        addTotalFlowTime(time: flowTimeLeft)
+        
+        flowExtended = false
         flowTimeLeft = flowTime
         elapsed = 0
         
-        blocksCompleted = blocksCompleted - 1
+        
+        stopActivity()
         completeBlock()
     }
     
     func completeSession() {
-//        showFlow = false
         showFlowRunning = false
         mode = .initial
         elapsed = 0
         blocksCompleted = 0
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.showFlowCompleted  = true
-            print("completed")
         }
-        Initialize()
+        initialize()
     }
-}
-
-// Helprs
-
-extension FlowModel {
     
-    
-    // Add Time
-    func addTime(time: Int) {
-        data.addTime(time: time)
-        totalFlowTime = totalFlowTime + time
-    }
+    // Helpers
     
     // Time Left
     func timeLeft(end: Date) -> Int {
         let timeLeft = Calendar.current.dateComponents([.second], from: Date(), to: end + 1).second ?? 0
-        setFlowTimeLeft(time: timeLeft)
-        
+        flowTimeLeft = timeLeft
         return timeLeft
-    }
-    
-    // Set Notification
-    func setNotification(time: Int, id: String = "timer") {
-        notifications.Set(time: time, elapsed: elapsed, id: id)
-    }
-    
-    // Set End
-    func setEnd(time: Int) -> Date {
-        start = Date()
-        let end = Calendar.current.date(byAdding: .second, value: (time - elapsed), to: start)!
-        return end
     }
     
     // Invalidate Timer
@@ -196,48 +198,26 @@ extension FlowModel {
         notifications.removeAllPendingNotificationRequests()
     }
     
-    // Dismiss Completed
-    func dismissCompleted() {
-        totalFlowTime = 0
-    }
-    
-    // Set Flow Time
-    func setFlowTime(time: Int) {
-        flowTime = time
-        flowTimeLeft = time
-    }
-    
-    // Set Flow Time Left
-    func setFlowTimeLeft(time: Int) {
-        flowTimeLeft = time
-    }
-    
-    // Set Elapsed Time
-    func setElapsedTime() {
-        let newTime = Int(abs(start.timeIntervalSinceNow))
-        elapsed = elapsed + newTime
-    }
-    
-    func flowRunning() -> Bool {
-        if mode == .flowRunning || mode == .flowPaused {
-            return true
-        }
-        return false
-    }
- 
-    func flowPaused() -> Bool {
-        if mode == .flowPaused {
-            return true
-        }
-        return false
-    }
-    
-    
-    func flowStart() -> Bool {
-        if mode == .flowStart {
-            return true
-        }
-        return false
+    func addTotalFlowTime(time: Int) {
+        totalFlowTime = totalFlowTime + time
     }
 }
 
+
+// Restart
+//    func Restart() {
+//        elapsed = 0
+//        mode = .flowStart
+//        if mode == .flowRunning || mode == .flowPaused {
+//            flowTimeLeft = flowTime
+//            invalidateTimer()
+//        } else {
+//            if blocksCompleted != 0 {
+//                blocksCompleted -= 1
+//                let block = flow.blocks[blocksCompleted]
+//                let time = (block.hours * 3600) + (block.minutes * 60) + (block.seconds)
+//                flowTime = time
+//                flowTimeLeft = time
+//            }
+//        }
+//    }

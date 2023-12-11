@@ -1,8 +1,6 @@
-//
 //  FlowModel.swift
 //  MyFlow
 //  Created by Nate Tedesco on 10/18/22.
-//
 
 import Foundation
 
@@ -11,11 +9,10 @@ import Foundation
     var settings = Settings()
     var notifications = NotificationManager()
     
-    var flow: Flow = Flow() { didSet { Initialize() }}
-    var flowList: [Flow] { didSet { Initialize() }}
+    var flow: Flow = Flow() { didSet { initialize() }}
+    var flowList: [Flow] { didSet { initialize() }}
     
     var mode: TimerMode
-    
     var timer = Timer()
     var start = Date()
 
@@ -23,42 +20,41 @@ import Foundation
     var flowTimeLeft = 0
     var elapsed = 0
     var totalFlowTime = 0
-    var flowContinue = false
+    var flowExtended = false
     
     var blocksCompleted = 0
     var selectedIndex = 0
-    var newBlock = false
     var showBlock = false
     
     var showFlowRunning = false
     var showFlowCompleted = false
-    var showFlow = false
     
     init(mode: TimerMode = .initial) {
+        // Load flowList from UserDefaults
         if let data = UserDefaults.standard.data(forKey: "SavedData") {
             if let decoded = try? JSONDecoder().decode([Flow].self, from: data) {
                 flowList = decoded
                 self.mode = mode
-                Initialize()
+                initialize()
                 return
             }
         }
         flowList = []
         self.mode = mode
-        Initialize()
+        initialize()
     }
     
     // Initialize
-    func Initialize() {
-        if flowList.isEmpty {
-        } else if let firstBlock = flow.blocks.first {
-            setFlowTime(time: (firstBlock.hours * 3600) + (firstBlock.minutes * 60) + (firstBlock.seconds))
-        } else {
-            print("No blocks available in the flow.")
+    func initialize() {
+        if let firstBlock = flow.blocks.first {
+            // Set Flow Time based on the duration of the first block
+            let time = (firstBlock.hours * 3600) + (firstBlock.minutes * 60) + (firstBlock.seconds)
+            flowTime = time
+            flowTimeLeft = time
         }
     }
     
-    // Create Flow
+    // Create
     func createFlow(title: String) {
         flow = Flow(title: title)
         let updatedFlow = Flow(title: flow.title, blocks: flow.blocks)
@@ -66,29 +62,14 @@ import Foundation
         save()
     }
     
-    func renameFlow(index: Int, newTitle: String) {
-        flowList[index].title = newTitle
-        save()
-    }
-    
+    // Duplicate
     func duplicateFlow(flow: Flow) {
-        let duplicatedFlow = flow
+        let duplicatedFlow = Flow(id: UUID(), title: flow.title, blocks: flow.blocks)
         flowList.append(duplicatedFlow)
         save()
     }
     
-    // Save Flow
-    func saveFlow() {
-        if let index = flowList.firstIndex(where: { $0.id == flow.id }) {
-            flowList[index] = Flow(id: flow.id, title: flow.title, blocks: flow.blocks)
-            save()
-        } else {
-            print("Error: Flow not found.")
-        }
-    }
-
-    
-    // Delete Flow
+    // Delete
     func deleteFlow(id: UUID) {
         if let index = flowList.firstIndex(where: { $0.id == id }) {
             flowList.remove(at: index)
@@ -96,14 +77,28 @@ import Foundation
         }
     }
     
-    // Save
+    // Save Flow
+    func saveFlow() {
+        // Find the index of the current flow in flowList and update it
+        if let index = flowList.firstIndex(where: { $0.id == flow.id }) {
+            flowList[index] = Flow(id: flow.id, title: flow.title, blocks: flow.blocks)
+            save()
+        } else {
+            print("Error: Flow not found.")
+        }
+    }
+    
+    // Save Data
     func save() {
         if let encoded = try? JSONEncoder().encode(flowList) {
             UserDefaults.standard.set(encoded, forKey: "SavedData")
         }
-        Initialize()
+        initialize()
     }
     
+    // BLOCKS
+    
+    // Add
     func addBlock() {
         let newBlock = Block(title: "Focus", minutes: 20)
         flow.blocks.append(newBlock)
@@ -111,12 +106,14 @@ import Foundation
         saveFlow()
     }
     
+    // Duplicate
     func duplicateBlock(block: Block) {
-        let newBlock = Block(title: block.title, seconds: Int(block.totalTimeInSeconds))
+        let newBlock = Block(title: block.title, hours: block.hours, minutes: block.minutes, seconds: block.seconds)
         flow.blocks.append(newBlock)
         saveFlow()
     }
     
+    // Delete
     func deleteBlock(id: UUID) {
         if let index = flow.blocks.firstIndex(where: { $0.id == id }) {
             flow.blocks.remove(at: index)

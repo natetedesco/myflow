@@ -7,23 +7,15 @@
 import SwiftUI
 import Foundation
 
-struct Day: Codable, Identifiable, Equatable {
-    let day: Date
-    var time: Int
-    var today: Bool = false
-    var id: Date { day }
-}
-
 class FlowData: ObservableObject {
     var settings = Settings()
 
-    @AppStorage("GoalTime") var goalSelection: Int = 2
-    @Published var showGoal: Bool = false
+    @AppStorage("GoalMinutes") var goalMinutes: Double = 120
     @Published var days: [Day]
     
-    let date = Date()
-    let firstDayOfTheWeek = Date().startOfWeek()
-    let firstDayOfMonth = Date().startOfMonth()
+    var date = Date()
+    var firstDayOfTheWeek = Date().startOfWeek()
+    var firstDayOfMonth = Date().startOfMonth()
     
     let calendar = Calendar.current
     
@@ -36,27 +28,39 @@ class FlowData: ObservableObject {
     var thisMonthDays: [Day] { getThisMonthDays() }
     
     init() {
-        if let data = UserDefaults.standard.data(forKey: "SavedFlowData") {
-            if let decoded = try? JSONDecoder().decode([Day].self, from: data) {
-                days = decoded
-//                days = exampleDays
-                return
+        if settings.useDummyData {
+            // Dummy Data
+            date = Calendar.current.date(from: DateComponents(year: 2023, month: 12, day: 15))!
+            firstDayOfTheWeek = Calendar.current.date(from: DateComponents(year: 2023, month: 12, day: 15))!.startOfWeek()
+            firstDayOfMonth = Calendar.current.date(from: DateComponents(year: 2023, month: 12, day: 15))!.startOfMonth()
+            days = exampleDays
+        } else {
+            if let data = UserDefaults.standard.data(forKey: "SavedFlowData") {
+                if let decoded = try? JSONDecoder().decode([Day].self, from: data) {
+                    days = decoded
+                    return
+                }
             }
+            days = []
         }
-        days = []
-//        days = exampleDays
     }
     
     // Save
     func save() {
-        if let encoded = try? JSONEncoder().encode(days) {
-            UserDefaults.standard.set(encoded, forKey: "SavedFlowData")
+        if !settings.useDummyData {
+            if let encoded = try? JSONEncoder().encode(days) {
+                UserDefaults.standard.set(encoded, forKey: "SavedFlowData")
+            }
         }
     }
     
     // Add time to today
     func addTime(time: Int) {
-        days[0].time = days[0].time + (time/60)
+        if settings.multiplyTotalFlowTime {
+            days[0].time = days[0].time + (time)
+        } else {
+            days[0].time = days[0].time + (time/60)
+        }
         save()
     }
     
@@ -96,22 +100,21 @@ class FlowData: ObservableObject {
     func getThisWeekTime() -> Int {
         let comp = calendar.dateComponents([.year, .month, .day], from: firstDayOfTheWeek)
         var counted = 0
-        var weekTime = 0
+        var time = 0
         
         for i in 0...6 {
             if days.indices.contains(counted) {
                 if days[counted].day == Date.from(year: comp.year!, month: comp.month!, day: (comp.day! + 6) - i) {
-                    weekTime = weekTime + days[counted].time
+                    time = time + days[counted].time
                     counted = counted + 1
                 }
             }
         }
-        return weekTime
+        return time
     }
     
     // Get this months time
     func getThisMonthTime() -> Int {
-        let firstDayOfMonth = Date().startOfMonth()
         let comp = calendar.dateComponents([.year, .month, .day], from: firstDayOfMonth)
         var counted = 0
         var time = 0
@@ -131,6 +134,7 @@ class FlowData: ObservableObject {
     func getThisWeekDays() -> [Day] {
         let comp = calendar.dateComponents([.year, .month, .day], from: firstDayOfTheWeek)
         var counted = 0
+        
         var presentedDays: [Day] = []
         
         for i in 0...6 {
@@ -152,18 +156,12 @@ class FlowData: ObservableObject {
     
     // Get this month days
     func getThisMonthDays() -> [Day] {
-        let firstDayOfMonth = Date().startOfMonth()
         let comp = calendar.dateComponents([.year, .month, .day], from: firstDayOfMonth)
         
         // This Month
-        let diffInDays = Calendar.current.dateComponents([.day], from: firstDayOfMonth, to: Date()).day
+        let diffInDays = Calendar.current.dateComponents([.day], from: firstDayOfMonth, to: date).day
         let numDays = Int(diffInDays!)
         var counted = 0
-        
-        // Last 30 days
-        //        let date = calendar.date(from: comp)!
-        //        let range = calendar.range(of: .day, in: .month, for: date)!
-        //        let numDays = range.count
         
         var presentedDays: [Day] = []
         
@@ -199,6 +197,83 @@ class FlowData: ObservableObject {
         return day
     }
     
+    func daysInCurrentMonth() -> Int {
+        let calendar = Calendar.current
+        let date = Date()
+        
+        let year = calendar.component(.year, from: date)
+        let month = calendar.component(.month, from: date)
+        
+        let startOfMonth = calendar.date(from: DateComponents(year: year, month: month, day: 1))!
+        let endOfMonth = calendar.date(byAdding: DateComponents(month: 1, day: -1), to: startOfMonth)!
+        
+        let numberOfDays = calendar.range(of: .day, in: .month, for: endOfMonth)?.count ?? 0
+        
+        return numberOfDays
+    }
+    
+    var exampleDays: [Day] = [
+        Day(day: Date.from(
+            year: Calendar.current.component(.year, from: Date()),
+            month: Calendar.current.component(.month, from: Date()),
+            day: 15), time: 90),
+        Day(day: Date.from(
+            year: Calendar.current.component(.year, from: Date()),
+            month: Calendar.current.component(.month, from: Date()),
+            day: 14), time: 130),
+        Day(day: Date.from(
+            year: Calendar.current.component(.year, from: Date()),
+            month: Calendar.current.component(.month, from: Date()),
+            day: 13), time: 135),
+        Day(day: Date.from(
+            year: Calendar.current.component(.year, from: Date()),
+            month: Calendar.current.component(.month, from: Date()),
+            day: 12), time: 85),
+        Day(day: Date.from(
+            year: Calendar.current.component(.year, from: Date()),
+            month: Calendar.current.component(.month, from: Date()),
+            day: 11), time: 83),
+        Day(day: Date.from(
+            year: Calendar.current.component(.year, from: Date()),
+            month: Calendar.current.component(.month, from: Date()),
+            day: 10), time: 135),
+        Day(day: Date.from(
+            year: Calendar.current.component(.year, from: Date()),
+            month: Calendar.current.component(.month, from: Date()),
+            day: 9), time: 40),
+        Day(day: Date.from(
+            year: Calendar.current.component(.year, from: Date()),
+            month: Calendar.current.component(.month, from: Date()),
+            day: 8), time: 80),
+        Day(day: Date.from(
+            year: Calendar.current.component(.year, from: Date()),
+            month: Calendar.current.component(.month, from: Date()),
+            day: 7), time: 60),
+        Day(day: Date.from(
+            year: Calendar.current.component(.year, from: Date()),
+            month: Calendar.current.component(.month, from: Date()),
+            day: 6), time: 100),
+        Day(day: Date.from(
+            year: Calendar.current.component(.year, from: Date()),
+            month: Calendar.current.component(.month, from: Date()),
+            day: 5), time: 135),
+        Day(day: Date.from(
+            year: Calendar.current.component(.year, from: Date()),
+            month: Calendar.current.component(.month, from: Date()),
+            day: 4), time: 185),
+        Day(day: Date.from(
+            year: Calendar.current.component(.year, from: Date()),
+            month: Calendar.current.component(.month, from: Date()),
+            day: 3), time: 0),
+        Day(day: Date.from(
+            year: Calendar.current.component(.year, from: Date()),
+            month: Calendar.current.component(.month, from: Date()),
+            day: 2), time: 135),
+        Day(day: Date.from(
+            year: Calendar.current.component(.year, from: Date()),
+            month: Calendar.current.component(.month, from: Date()),
+            day: 1), time: 170)
+    ]
 }
 
 extension Date {
@@ -214,30 +289,4 @@ extension Date {
     func startOfMonth(using calendar: Calendar = Calendar(identifier: .iso8601)) -> Date {
         calendar.dateComponents([.calendar, .year, .month], from: self).date!
     }
-    
 }
-
-func daysInCurrentMonth() -> Int {
-    let calendar = Calendar.current
-    let date = Date()
-    
-    let year = calendar.component(.year, from: date)
-    let month = calendar.component(.month, from: date)
-    
-    let startOfMonth = calendar.date(from: DateComponents(year: year, month: month, day: 1))!
-    let endOfMonth = calendar.date(byAdding: DateComponents(month: 1, day: -1), to: startOfMonth)!
-    
-    let numberOfDays = calendar.range(of: .day, in: .month, for: endOfMonth)?.count ?? 0
-    
-    return numberOfDays
-}
-
-var exampleDays = [
-    Day(day: Date.from(year: 2023, month: 10, day: 7), time: 45),
-    Day(day: Date.from(year: 2023, month: 10, day: 6), time: 83),
-    Day(day: Date.from(year: 2023, month: 10, day: 5), time: 135),
-    Day(day: Date.from(year: 2023, month: 10, day: 4), time: 230),
-    Day(day: Date.from(year: 2023, month: 10, day: 3), time: 60),
-    Day(day: Date.from(year: 2023, month: 10, day: 2), time: 135),
-    Day(day: Date.from(year: 2023, month: 10, day: 1), time: 250)
-]

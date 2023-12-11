@@ -7,19 +7,12 @@
 import SwiftUI
 
 struct StatsView: View {
-    @StateObject var data = FlowData()
-//    @StateObject var settings = Settings()
-    
-    @AppStorage("ProAccess") var proAccess: Bool = false
-    
-    @State private var showPaywall = false
-    @State var detent = PresentationDetent.large
-    @State var blur = 0.0
+    @ObservedObject var data: FlowData
+    @State var showGoal = false
     
     var body: some View {
         
-        NavigationView {
-            
+        NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
                     
@@ -29,14 +22,13 @@ struct StatsView: View {
                         .fontWeight(.medium)
                         .padding(.top)
                     
-                    
                     OverViewCard(data: data)
                         .padding(.horizontal)
                     
                     Divider()
                         .padding(.vertical)
                         .padding(.trailing, -16)
-
+                    
                     // Weekly
                     Text("Weekly")
                         .font(.callout)
@@ -56,7 +48,6 @@ struct StatsView: View {
                     
                     MonthCard(data: data)
                         .padding(.horizontal)
-
                     
                 }
                 .padding(.horizontal)
@@ -65,12 +56,23 @@ struct StatsView: View {
             .toolbar {
                 
                 ToolbarItem(placement: .topBarLeading) {
-                    goalMenu
+                    if proAccess {
+                        Button {
+                            showGoal.toggle()
+                        } label: {
+                            Text("Goal")
+                                .foregroundColor(.teal)
+                        }
+                    }
                 }
                 
-                ToolbarItem(placement: .bottomBar) {
+                ToolbarItem(placement: .topBarTrailing) {
                     if !proAccess {
-                        unlockButton
+                        Button {
+                            showPaywall = true
+                        } label: {
+                            Text("Unlock")                                    .fontWeight(.medium)
+                        }
                     }
                 }
             }
@@ -89,41 +91,26 @@ struct StatsView: View {
                     .interactiveDismissDisabled(detent == .large)
                     .presentationDragIndicator(detent != .large ? .visible : .hidden)
             }
-        }
-    }
-    
-    var hours = [Int](0...8)
-    @ViewBuilder var goalMenu: some View {
-        if proAccess {
-            Menu {
-                Text("Hours")
-                Picker(selection: $data.goalSelection, label: Text("")) {
-                    ForEach(1..<hours.count, id: \.self) {
-                        Text("\(hours[$0])")
-                    }
-                }
-            }
-        label: {
-            Text("Goal")
-                .foregroundColor(.teal)
+            .sheet(isPresented: $showGoal) {
+                GoalView(data: data)
+                    .presentationBackground(.regularMaterial)
+                    .presentationCornerRadius(32)
+                    .presentationDetents([.medium])
+                    .presentationDragIndicator(.hidden)
             }
         }
     }
     
-    var unlockButton: some View {
-        Button {
-            showPaywall = true
-        } label: {
-            Text("Unlock")
-                .fontWeight(.medium)
-                .foregroundColor(.teal)
-        }
-    }
+    @AppStorage("ProAccess") var proAccess: Bool = false
+    @State private var showPaywall = false
+    @State var detent = PresentationDetent.large
+    @State var blur = 0.0
+    
 }
 
 struct StatsView_Previews: PreviewProvider {
     static var previews: some View {
-        StatsView()
+        StatsView(data: FlowData())
     }
 }
 

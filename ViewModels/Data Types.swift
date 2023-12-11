@@ -10,7 +10,7 @@ import SwiftUI
 struct Flow: Codable, Equatable, Identifiable {
     var id = UUID()
     var title: String = ""
-    var blocks = [Block(title: "Focus", minutes: 20), Block(title: "Focus", minutes: 20), Block(title: "Focus", minutes: 20)]
+    var blocks = [Block(title: "Focus", minutes: 20)]
 }
 
 struct Block: Codable, Hashable, Identifiable {
@@ -19,6 +19,13 @@ struct Block: Codable, Hashable, Identifiable {
     var hours: Int = 0
     var minutes: Int = 0
     var seconds: Int = 0
+}
+
+struct Day: Codable, Identifiable, Equatable {
+    let day: Date
+    var time: Int
+    var today: Bool = false
+    var id: Date { day }
 }
 
 extension Flow {

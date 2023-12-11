@@ -23,11 +23,12 @@ struct PayWall: View {
             Color.black.opacity(0.3).ignoresSafeArea()
             AnimatedBlur(opacity: 0.8).offset(y: 50)
             
-            VStack {
+            VStack(alignment: .leading) {
                 
                 Spacer()
                 
                 if detent == .large {
+                    
                     VStack {
                         Text("Enhance your")
                             .font(.system(size: 48))
@@ -42,15 +43,14 @@ struct PayWall: View {
                     
                     Spacer()
                     
-                    VStack(spacing: 40) {
+                    VStack(spacing: 48) {
                         HStack {
                             Image(systemName: "checkmark")
                                 .foregroundColor(.teal)
                                 .fontWeight(.bold)
                             
                             Text("Unlimited Flows")
-//                                .fontWeight(.medium)
-//                                .foregroundStyle(.secondary)
+                                .fontWeight(.medium)
                         }
                         .leading()
                         
@@ -60,9 +60,7 @@ struct PayWall: View {
                                 .fontWeight(.bold)
                             
                             Text("Advanced Controls")
-//                                .fontWeight(.medium)
-//                                .foregroundStyle(.secondary)
-
+                                .fontWeight(.medium)
                         }
                         .leading()
                         
@@ -72,8 +70,7 @@ struct PayWall: View {
                                 .fontWeight(.bold)
                             
                             Text("Visualize Activity")
-//                                .fontWeight(.medium)
-//                                .foregroundStyle(.secondary)
+                                .fontWeight(.medium)
 
                         }
                         .leading()
@@ -84,8 +81,7 @@ struct PayWall: View {
                                 .fontWeight(.bold)
                             
                             Text("Block Apps & Websites")
-//                                .fontWeight(.medium)
-//                                .foregroundStyle(.secondary)
+                                .fontWeight(.medium)
 
                         }
                         .leading()
@@ -96,9 +92,7 @@ struct PayWall: View {
                                 .fontWeight(.bold)
                             
                             Text("Live Activity & Dynamic Island")
-//                                .fontWeight(.medium)
-//                                .foregroundStyle(.secondary)
-
+                                .fontWeight(.medium)
                         }
                         .leading()
                     }
@@ -107,15 +101,15 @@ struct PayWall: View {
                     
                 } else {
                     Text("Your Free Week")
-                        .font(.largeTitle)
+                        .font(.title)
                         .fontWeight(.bold)
                         .padding(.top, 8)
+                        .centered()
                     
                     Spacer()
                     
                     HStack {
                         ZStack {
-                            
                             Rectangle()
                                 .frame(width: 32)
                                 .frame(maxHeight: .infinity)
@@ -130,12 +124,10 @@ struct PayWall: View {
                                 .padding(.trailing)
                             
                             VStack(alignment: .leading) {
-                                
                                 Image(systemName: "lock.open.fill")
                                     .foregroundStyle(.black.opacity(0.8))
                                     .frame(width: 16)
                                     .padding(8)
-                                
                                 
                                 Spacer()
                                 
@@ -150,10 +142,8 @@ struct PayWall: View {
                                     .foregroundStyle(Color.teal)
                                     .frame(width: 16)
                                     .padding(8)
-                                
                             }
                             .padding(.leading, -16)
-                            .padding(.vertical, -2)
                         }
                         
                         
@@ -162,8 +152,7 @@ struct PayWall: View {
                                 .font(.callout)
                                 .fontWeight(.semibold)
                             Text("Unlock free access to all pro features")
-                                .font(.caption)
-                                .fontWeight(.medium)
+                                .font(.footnote)
                                 .foregroundStyle(.secondary)
                             
                             Spacer()
@@ -172,8 +161,7 @@ struct PayWall: View {
                                 .font(.callout)
                                 .fontWeight(.semibold)
                             Text("Your trial is about to end, you will not be charged if you cancel")
-                                .font(.caption)
-                                .fontWeight(.medium)
+                                .font(.footnote)
                                 .foregroundStyle(.secondary)
                             
                             Spacer()
@@ -182,8 +170,7 @@ struct PayWall: View {
                                 .font(.callout)
                                 .fontWeight(.semibold)
                             Text("Your annual $19.99 subscription begins")
-                                .font(.caption)
-                                .fontWeight(.medium)
+                                .font(.footnote)
                                 .foregroundStyle(.secondary)
                         }
                     }
@@ -191,9 +178,9 @@ struct PayWall: View {
                     .padding(.bottom, 8)
                     
                     Spacer()
-                    
                 }
                 
+                // Terms • Privacy • Restore
                 HStack {
                     Button {
                         if let url = URL(string: "https://myflow.notion.site/MyFlow-Privacy-Policy-0002d1598beb401e9801a0c7fe497fd3?pvs=4") {
@@ -201,18 +188,19 @@ struct PayWall: View {
                         }
                     } label: {
                         Text("Terms • Privacy")
-                            .font(.caption2)
                     }
                     
                     Button { Task { do { try await AppStore.sync() } catch { print(error) }}
                     } label: {
                         Text("• Restore")
-                            .font(.caption2)
                     }
                     .padding(.leading, -6)
                 }
-                .foregroundStyle(.secondary)
+                .font(.caption2)
+                .foregroundStyle(.tertiary)
+                .fontWeight(.medium)
                 .padding(.bottom, 8)
+                .centered()
                 
                 // Subscribe Button
                 Button {
@@ -241,9 +229,9 @@ struct PayWall: View {
                 // Terms • Privacy • Restore
                 Text(detent == .large ? "7 days free, then $19.99/year." : "Swipe up for details")
                     .font(.caption)
-//                    .foregroundStyle(.secondary)
                     .padding(.top, 12)
-//                    .padding(.bottom, -4)
+                    .foregroundStyle(.secondary)
+                    .centered()
             }
             .padding(.horizontal, 32)
             .alert(isPresented: $showAlert) {
@@ -253,48 +241,3 @@ struct PayWall: View {
         .animation(.default, value: detent)
     }
 }
-
-struct SwiftUIView_Previews: PreviewProvider {
-    static var previews: some View {
-        PayWall(detent: .constant(.medium))
-    }
-}
-
-struct PlanSelectionButton: View {
-    var mainText: String
-    var subText: String
-    var selected: Bool
-    
-    var body: some View {
-        
-        HStack {
-            HStack() {
-                Text(mainText)
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .lineLimit(1)
-                
-                Text(subText)
-                    .leading()
-                    .font(.footnote)
-                    .foregroundStyle(.white.secondary)
-            }
-            
-            if selected {
-                Image(systemName: "checkmark")
-                    .font(.footnote)
-                    .foregroundColor(.teal)
-                    .font(.title3)
-                    .padding(8)
-                    .background(Circle()
-                        .fill(.ultraThinMaterial.opacity(0.55)))
-            }
-        }
-        .padding()
-        .frame(maxWidth: .infinity)
-        .background(Color.teal.opacity(selected ? 0.8 : 0.2))
-        .cornerRadius(20)
-    }
-}
-
-

@@ -10,33 +10,64 @@ import Charts
 struct MonthCard: View {
     @ObservedObject var data: FlowData
     
-    var body: some View {
-        VStack {
-            Chart(data.thisMonthDays) { day in
-                LineMark(
-                    x: .value("Day", day.day, unit: .day),
-                    y: .value("Views", Double(day.time) / 60)
-                )
-                AreaMark(
-                    x: .value("Day", day.day, unit: .day),
-                    y: .value("Views", Double(day.time) / 60)
-                )
-                .foregroundStyle(curGradient)
-                .blur(radius: 1)
+    var yDateValues: [Date] {
+            guard let firstDate = data.thisMonthDays.first?.day,
+                  let lastDate = data.thisMonthDays.last?.day else {
+                return []
             }
-            .frame(height: 160)
+
+            let totalDays = Calendar.current.dateComponents([.day], from: firstDate, to: lastDate).day ?? 0
+            let strideValue = max(1, totalDays / 4) // Adjust the divisor as needed
+            
+            var currentDate = firstDate
+            var dates: [Date] = []
+
+            for _ in 0..<5 {
+                if currentDate <= lastDate {
+                    dates.append(currentDate)
+                    currentDate = Calendar.current.date(byAdding: .day, value: strideValue, to: currentDate)!
+                }
+            }
+
+            // Ensure the current date is included
+            if currentDate <= lastDate {
+                dates.append(currentDate)
+            }
+
+            return dates
         }
+    
+    var body: some View {
+        Chart(data.thisMonthDays) { day in
+            RuleMark(y: .value("Average", 120.0))
+                .foregroundStyle(.teal.opacity(0.3))
+                .lineStyle(.init(lineWidth: 0.1))
+            
+            LineMark(
+                x: .value("Day", day.day),
+                y: .value("Views", Double(day.time))
+            )
+            //            .interpolationMethod(.catmullRom)
+            
+            .symbol {
+                Circle()
+                    .fill(Color.teal)
+                    .frame(width: 3)
+            }
+            AreaMark(
+                x: .value("Day", day.day),
+                y: .value("Views", Double(day.time))
+            )
+            //            .interpolationMethod(.catmullRom)
+            
+            .foregroundStyle(
+                LinearGradient(colors: [.teal.opacity(0.7), .teal.opacity(0.0),], startPoint: .top, endPoint: .bottom)
+            )
+            .blur(radius: 1)
+        }
+        .frame(height: 160)
+        .chartXAxis {
+                    AxisMarks(values: yDateValues)
+                }
     }
 }
-
-let curGradient = LinearGradient(
-    gradient: Gradient (
-        colors: [
-            .teal.opacity(0.6),
-            .teal.opacity(0.0),
-        ]
-    ),
-    startPoint: .top,
-    endPoint: .bottom
-)
-

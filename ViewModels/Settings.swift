@@ -9,15 +9,18 @@ import FamilyControls
 import ManagedSettings
 
 class Settings: ObservableObject {
-    
-    @AppStorage("NotificationsOn") var notificationsOn: Bool = true
-    
     @AppStorage("BlockDistractions") var blockDistractions: Bool = false
     
+    @AppStorage("NotificationsOn") var notificationsOn: Bool = true
     @AppStorage("LiveActivities") var liveActivities: Bool = true
     
-    @AppStorage("FocusMode") var focusMode: Bool = true
+    @AppStorage("focusOnStart") var focusOnStart: Bool = true
+    @AppStorage("dismissOnComplete") var dismissOnComplete: Bool = true
     
+    @AppStorage("UseDummyData") var useDummyData: Bool = false
+    @AppStorage("multiplyTotalFlowTime") var multiplyTotalFlowTime: Bool = false
+    @AppStorage("shouldResetTips") var shouldResetTips: Bool = false
+
     let store = ManagedSettingsStore()
     var activitySelection = FamilyActivitySelection() { didSet { saveActivitySelection()}}
     
@@ -37,7 +40,6 @@ class Settings: ObservableObject {
     }
     
     func startRestriction() {
-        
         if blockDistractions {
             let applications = activitySelection.applicationTokens
             let categories = activitySelection.categoryTokens
@@ -51,7 +53,6 @@ class Settings: ObservableObject {
     func stopRestrictions() {
         store.shield.applications = nil
     }
-    
 }
 
 

@@ -24,7 +24,7 @@ struct WeekCard: View {
                                     .background(Color.teal.tertiary)
                                 
                                 Rectangle()
-                                    .frame(width: 24, height: min(CGFloat(data.thisWeekDays[i].time/data.goalSelection), 60))
+                                    .frame(width: 28, height: min(CGFloat(Double(data.thisWeekDays[i].time)/(data.goalMinutes/60)), 68))
                                     .foregroundColor(.teal)
                             }
                             .cornerRadius(24)

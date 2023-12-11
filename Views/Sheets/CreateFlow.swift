@@ -9,6 +9,7 @@ import Introspect
 
 struct CreateFlowView: View {
     @State var model: FlowModel
+    @Binding var showFlow: Bool
     
     @State var newFlowTitle = "New Flow"
     @FocusState var isFocused
@@ -43,9 +44,7 @@ struct CreateFlowView: View {
                                 textField.selectedTextRange = textField.textRange(from: textField.beginningOfDocument, to: textField.endOfDocument)
                             }
                         }
-                        .introspectTextField { textField in
-                                    textField.becomeFirstResponder()
-                                  }
+                        .introspectTextField { textField in textField.becomeFirstResponder() }
                     
                     Button {
                         dismiss()
@@ -54,8 +53,9 @@ struct CreateFlowView: View {
                             newFlowTitle = ""
                         }
                         model.flow = model.flowList.last ?? Flow()
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                            model.showFlow = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            showFlow = true
+                            softHaptic()
                         }
                     } label : {
                         Text("Create")
@@ -64,7 +64,7 @@ struct CreateFlowView: View {
                             .frame(maxWidth: .infinity)
                             .padding()
                             .background(Color.teal)
-                            .cornerRadius(8)
+                            .cornerRadius(12)
                             .padding(.vertical)
                     }
                 }
