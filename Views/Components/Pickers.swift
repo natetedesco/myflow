@@ -44,9 +44,7 @@ struct MultiComponentPicker<Tag: Hashable>: View  {
                                 Text(verbatim: option.text).tag(option.tag)
                             }
                         }
-                        .introspectUIPickerView { picker in
-                            picker.subviews[1].backgroundColor = UIColor.clear
-                        }
+                        .introspectUIPickerView { picker in picker.subviews[1].backgroundColor = UIColor.clear }
                         .pickerStyle(WheelPickerStyle())
                     }
                 }
@@ -93,4 +91,3 @@ extension MultiComponentPicker {
         var options: [Option]
     }
 }
-

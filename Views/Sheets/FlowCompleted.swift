@@ -9,39 +9,56 @@ import SwiftUI
 
 struct ShowFlowCompletedView: View {
     @State var model: FlowModel
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         ZStack {
+            Color.black.opacity(0.3).ignoresSafeArea()
             
             VStack {
-                Circles(model: model, size: 160, width: 16.0, fill: true)
-                    .padding(.top)
+                
+                Spacer()
+                
+                Circles(model: model, size: 128, width: 14.0, fill: true)
+                    .padding(.top, 32)
+                    .padding(.bottom)
                 
                 Spacer()
                 
                 Text("Flow Completed")
-                    .font(.largeTitle)
+                    .font(.title)
                     .fontWeight(.semibold)
+                    .padding(.bottom)
+                
+                HStack(alignment: .bottom) {
+                    Text("Total Flow Time:")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                    Text(formatHoursAndMinutes(time: model.settings.multiplyTotalFlowTime ? model.totalFlowTime * 60 : model.totalFlowTime))
+                        .font(.callout)
+                        .fontWeight(.semibold)
+                }
+                
+                // For Debugging
+//                    Text("\(model.totalFlowTime)")
                 
                 Spacer()
                 
-                HStack {
-                    Text("Total FlowTime: ")
-                        .foregroundStyle(.secondary)
-                        .font(.footnote)
-                        .fontWeight(.medium)
-                    Text(formatHoursAndMinutes(time: model.totalFlowTime/60))
-                        .fontWeight(.semibold)
-                        .foregroundStyle(Color.myColor)
+                Button {
+                    dismiss()
+                } label: {
+                    Text("Dismiss")
+                        .foregroundStyle(.white)
+                        .font(.headline)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(.teal)
+                        .cornerRadius(16)
                 }
-                .padding(.bottom, 32)
             }
+            .padding(.horizontal, 24)
         }
-        .padding(.top, 32)
-        .padding(.horizontal)
+        .accentColor(.teal)
     }
 }
 
-//#Preview {
-//    ShowFlowCompletedView()
-//}

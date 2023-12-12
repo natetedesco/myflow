@@ -9,27 +9,28 @@ import SwiftUI
 
 struct OnboardingView: View {
     @AppStorage("showOnboarding") var showOnboarding: Bool = true
-    @State var showBlur = true
+    @AppStorage("showIntro") var showIntro: Bool = false
+    @AppStorage("ProAccess") var proAccess: Bool = false
     
+    @State var showBlur = true
     
     var body: some View {
         ZStack {
-            AnimatedBlur(opacity: showBlur ? 0.5 : 0.0)
-                .animation(.default.speed(2.0), value: showBlur)
+            AnimatedBlur(opacity: showBlur ? 0.3 : 0.0)
             
-            VStack {
+            VStack(spacing: 16) {
                 Spacer()
                 
                 Circles(model: FlowModel(), size: 160, width: 16.0, fill: true)
                 
-                Spacer()
-                
                 Text("Experience Flow")
                     .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .padding(2)
-                Text("In a world of distractions, focus on what truly matters to you.")
+                    .fontWeight(.semibold)
+                    .padding(.top, 8)
+                
+                Text("Focus on what matters.")
                     .font(.callout)
+                    .fontWeight(.medium)
                     .foregroundStyle(.secondary)
                     .padding(.horizontal, 64)
                     .multilineTextAlignment(.center)
@@ -37,35 +38,29 @@ struct OnboardingView: View {
                 Spacer()
                 
                 Button {
-                    showBlur = false
-                    //                        detent = .fraction(6/10)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.0001) {
-                        showOnboarding = false
+                    showOnboarding = false
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
+                        if !proAccess {
+                            showIntro = true
+                        }
                     }
-                    //                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
-                    //                            showPaywall = true
-                    //                        }
                     softHaptic()
                 } label: {
                     Text("Let's Flow")
-                        .font(.title2)
-                        .fontWeight(.medium)
-                        .foregroundStyle(
-                            LinearGradient(
-                                gradient: Gradient(colors: [.teal.opacity(1.0), .teal.opacity(0.8)]),
-                                startPoint: .bottom,
-                                endPoint: .top
-                            )
-                        )
-                        .padding(.bottom)
+                        .font(.title3)
+//                        .fontWeight(.medium)
+                        .foregroundStyle(.teal)
                 }
+                .padding(.bottom)
             }
             .opacity(showOnboarding ? 1.0 : 0.0)
             .animation(.easeOut, value: showOnboarding)
         }
         .background(Color.black)
         .opacity(showOnboarding ? 1.0 : 0.0)
-        .animation(.easeInOut(duration: 2.0), value: showOnboarding)    }
+        .animation(.easeInOut(duration: 2.0), value: showOnboarding)
+    }
 }
 
 #Preview {

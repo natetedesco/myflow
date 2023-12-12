@@ -19,21 +19,14 @@ struct Block: Codable, Hashable, Identifiable {
     var hours: Int = 0
     var minutes: Int = 0
     var seconds: Int = 0
-    var isBreak: Bool = false
-    
-//    var tasks: [BlockTask] = [BlockTask()]
-    var currentFocus = false
-    
-    var draggable = true
-    var pickTime = false
-    
 }
 
-struct BlockTask: Codable, Hashable, Identifiable {
-    var id = UUID()
-    var title: String = ""
+struct Day: Codable, Identifiable, Equatable {
+    let day: Date
+    var time: Int
+    var today: Bool = false
+    var id: Date { day }
 }
-
 
 extension Flow {
     func totalFlowTimeInSeconds() -> TimeInterval {
@@ -49,22 +42,30 @@ extension Flow {
         let totalSeconds = totalFlowTimeInSeconds()
         let hours = Int(totalSeconds) / 3600
         let minutes = (Int(totalSeconds) % 3600) / 60
-        
+        let seconds = Int(totalSeconds) % 60
+
         var formattedTime = ""
+
         if hours > 0 {
-            formattedTime += "\(hours)h"
+            formattedTime += "\(hours) \(hours == 1 ? "hour" : "hours")"
         }
-        
+
         if minutes > 0 {
             if !formattedTime.isEmpty {
                 formattedTime += ", "
             }
-            formattedTime += "\(minutes)m"
+            formattedTime += "\(minutes) \(minutes == 1 ? "minute" : "minutes")"
         }
-        
+
+        if seconds > 0 {
+            if !formattedTime.isEmpty {
+                formattedTime += ", "
+            }
+            formattedTime += "\(seconds) \(seconds == 1 ? "second" : "seconds")"
+        }
+
         return formattedTime
     }
-
 }
 
 extension Block {
@@ -72,10 +73,4 @@ extension Block {
         let totalSeconds = TimeInterval(hours * 3600 + minutes * 60 + seconds)
         return totalSeconds
     }
-}
-
-enum Field: Hashable {
-    case flowName
-    case blockName
-    case time
 }

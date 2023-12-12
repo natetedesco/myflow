@@ -18,7 +18,7 @@ final class NotificationManager: NSObject, ObservableObject, UNUserNotificationC
         if settings.notificationsOn {
             
         let content = UNMutableNotificationContent()
-        content.title = "Flow Completed"
+        content.title = "Focus Completed"
         content.sound = UNNotificationSound.init(named:UNNotificationSoundName(rawValue: "AquaSound.aif"))
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(time - elapsed), repeats: false)

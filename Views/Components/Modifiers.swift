@@ -6,30 +6,6 @@
 
 import SwiftUI
 
-struct CustomHeadline: View {
-    var text: String
-    var body: some View {
-        Text(text)
-            .font(.footnote)
-            .foregroundStyle(.secondary)
-            .fontWeight(.light)
-            .padding(.leading, 32)
-            .padding(.top)
-            .leading()
-    }
-}
-
-extension View {
-    func cardGlassNP() -> some View {
-        self
-            .padding(.vertical, 12)
-            .background(.black.opacity(0.0))
-            .background(.regularMaterial)
-            .cornerRadius(20)
-            .padding(.horizontal)
-    }
-}
-
 extension View {
     
     func maxWidth() -> some View {

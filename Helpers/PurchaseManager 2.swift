@@ -9,6 +9,8 @@ import SwiftUI
 
 @MainActor
 class PurchaseManager: ObservableObject {
+    @AppStorage("ProAccess") var proAccess: Bool = false
+    
     let productIds = ["pro_yearly"]
     @Published private(set) var products: [Product] = []
     @Published private(set) var purchasedProductIDs = Set<String>()
@@ -17,8 +19,6 @@ class PurchaseManager: ObservableObject {
     
     private var productsLoaded = false
     private var updates: Task<Void, Never>? = nil
-    
-    @AppStorage("ProAccess") var proAccess: Bool = false
     
     init() {
         updates = observeTransactionUpdates()

@@ -18,6 +18,7 @@ struct TimerWidgetAttributes: ActivityAttributes {
         var paused: Bool = false
         
         var time: Int = 0
+
         var start: Date = Date()
         var extend: Bool = false
         
