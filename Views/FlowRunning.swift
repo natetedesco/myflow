@@ -26,7 +26,6 @@ struct FlowRunning: View {
                 
                 Spacer()
                 
-//                Text(model.flow.title)
                 Text(focusLabel)
                     .font(sizeClass == .regular ? .largeTitle : .title)
                     .fontWeight(.semibold)
