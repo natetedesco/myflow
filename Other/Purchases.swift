@@ -43,10 +43,13 @@ class PurchaseManager: ObservableObject {
             await transaction.finish()
             await self.updatePurchasedProducts()
         case .success(.unverified(_, _)):
+            print("success")
             break
         case .pending:
+            print("pending")
             break
         case .userCancelled:
+            print("cancled")
             break
         @unknown default:
             break
@@ -61,16 +64,18 @@ class PurchaseManager: ObservableObject {
             if transaction.revocationDate == nil {
                 self.purchasedProductIDs.insert(transaction.productID)
                 proAccess = true
+                print("success")
             } else {
                 self.purchasedProductIDs.remove(transaction.productID)
                 proAccess = false
+                print("failed")
             }
         }
     }
     
     private func observeTransactionUpdates() -> Task<Void, Never> {
             Task(priority: .background) {
-                for await verificationResult in Transaction.updates {
+                for await _ in Transaction.updates {
                     await self.updatePurchasedProducts()
                 }
             }

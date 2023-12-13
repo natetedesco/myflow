@@ -8,7 +8,7 @@ import Foundation
     var data = FlowData()
     var settings = Settings()
     var notifications = NotificationManager()
-    
+        
     var flow: Flow = Flow() { didSet { initialize() }}
     var flowList: [Flow] { didSet { initialize() }}
     
@@ -30,7 +30,6 @@ import Foundation
     var showFlowCompleted = false
     
     init(mode: TimerMode = .initial) {
-        // Load flowList from UserDefaults
         if let data = UserDefaults.standard.data(forKey: "SavedData") {
             if let decoded = try? JSONDecoder().decode([Flow].self, from: data) {
                 flowList = decoded
@@ -96,7 +95,7 @@ import Foundation
         initialize()
     }
     
-    // BLOCKS
+    // BLOCKS //
     
     // Add
     func addBlock() {

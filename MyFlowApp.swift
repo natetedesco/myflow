@@ -17,6 +17,10 @@ struct MyFlow: App {
     @AppStorage("showIntro") var showIntroPayWall: Bool = false
     @State var detent = PresentationDetent.fraction(6/10)
     
+    init() {
+        UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = .systemTeal
+    }
+    
     var body: some Scene {
         WindowGroup {
             

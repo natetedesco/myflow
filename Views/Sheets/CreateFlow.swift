@@ -39,6 +39,7 @@ struct CreateFlowView: View {
                         .background(.regularMaterial)
                         .cornerRadius(12)
                         .focused($isFocused)
+                        .onSubmit { submit() }
                         .onReceive(NotificationCenter.default.publisher(for: UITextField.textDidBeginEditingNotification)) { obj in
                             if let textField = obj.object as? UITextField {
                                 textField.selectedTextRange = textField.textRange(from: textField.beginningOfDocument, to: textField.endOfDocument)
@@ -47,16 +48,7 @@ struct CreateFlowView: View {
                         .introspectTextField { textField in textField.becomeFirstResponder() }
                     
                     Button {
-                        dismiss()
-                        if !newFlowTitle.isEmpty {
-                            model.createFlow(title: newFlowTitle == "" ? "Flow" : newFlowTitle)
-                            newFlowTitle = ""
-                        }
-                        model.flow = model.flowList.last ?? Flow()
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            showFlow = true
-                            softHaptic()
-                        }
+                        submit()
                     } label : {
                         Text("Create")
                             .foregroundStyle(.white)
@@ -82,9 +74,16 @@ struct CreateFlowView: View {
         }
         
     }
+    
+    func submit() {
+        dismiss()
+        if !newFlowTitle.isEmpty {
+            model.createFlow(title: newFlowTitle == "" ? "Flow" : newFlowTitle)
+            newFlowTitle = ""
+        }
+        model.flow = model.flowList.last ?? Flow()
+            showFlow.toggle()
+            softHaptic()
+    }
 }
-
-//#Preview {
-//    CreateFlowView()
-//}
 

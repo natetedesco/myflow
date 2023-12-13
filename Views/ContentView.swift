@@ -72,7 +72,6 @@ struct MainView: View {
                                             model.flow = flow
                                             showFlow.toggle()
                                         } label: {
-                                            
                                             Text(flow.title)
                                                 .foregroundStyle(.white)
                                                 .font(sizeClass == .regular ? .title : .title3)
@@ -103,10 +102,15 @@ struct MainView: View {
                                                 Label("Rename", systemImage: "pencil")
                                             }
                                             Button {
-                                                model.duplicateFlow(flow: flow)
+                                                if proAccess {
+                                                    model.duplicateFlow(flow: flow)
+                                                } else {
+                                                    showPaywall.toggle()
+                                                }
                                             } label: {
                                                 Label("Duplicate", systemImage: "plus.square.on.square")
                                             }
+                                            Divider()
                                             Button(role: .destructive) {
                                                 model.deleteFlow(id: flow.id)
                                             } label: {

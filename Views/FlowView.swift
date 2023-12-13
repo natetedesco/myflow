@@ -13,7 +13,6 @@ struct FlowView: View {
     var tip = BlocksTip()
     @Environment(\.horizontalSizeClass) private var sizeClass
 
-    
     @State var newBlock = false
     
     var body: some View {
@@ -69,13 +68,7 @@ struct FlowView: View {
                             model.saveFlow()
                             dismiss()
                         } label: {
-                            HStack {
-//                                Image(systemName: "chevron.left")
-//                                    .fontWeight(.semibold)
-//                                    .padding(.trailing, -4)
-                                Text("Done")
-                            }
-//                            .padding(.leading, -12)
+                            Text("Done")
                         }
                     }
                     else {
@@ -98,9 +91,13 @@ struct FlowView: View {
                                 model.showBlock.toggle()
                                 newBlock.toggle()
                             } label: {
-                                Image(systemName: "plus")
-                                    .fontWeight(.semibold)
-                                    .font(.title2)
+                                HStack {
+                                    Image(systemName: "plus")
+                                        .fontWeight(.semibold)
+                                        .font(.title3)
+                                    Text("Block")
+                                        .fontWeight(.semibold)
+                                }
                             }
                             .padding(.leading, -6)
                             
@@ -192,10 +189,10 @@ struct BlocksTip: Tip {
     }
     
     var message: Text? {
-        Text("Drag to reorder. Swipe left to delete. Swipe right to duplicate.")
+        Text("Drag to reorder. Swipe right to duplicate. Swipe left to delete.")
     }
     
     var image: Image? {
-        Image(systemName: "pencil")
+        Image(systemName: "rectangle.stack")
     }
 }

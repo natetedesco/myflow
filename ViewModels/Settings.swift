@@ -9,6 +9,7 @@ import FamilyControls
 import ManagedSettings
 
 class Settings: ObservableObject {
+    @AppStorage("ProAccess") var proAccess: Bool = false
     @AppStorage("BlockDistractions") var blockDistractions: Bool = false
     
     @AppStorage("NotificationsOn") var notificationsOn: Bool = true
