@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F00426E12B2A452B00FAE36B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0948C1C26818EE100A5F48D /* Assets.xcassets */; };
 		F01E848B2AB1249900CF418D /* FlowRunning.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E848A2AB1249900CF418D /* FlowRunning.swift */; };
 		F01F2E112B28E9E900B1AAA5 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F05FC0D629FAE96600A9B503 /* SwiftUI.framework */; };
 		F0435CD52A9F965C0073E7E1 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0435CD42A9F965C0073E7E1 /* Background.swift */; };
@@ -26,7 +27,6 @@
 		F0A6718F2B190C18003B3071 /* FlowCompleted.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A6718E2B190C18003B3071 /* FlowCompleted.swift */; };
 		F0CA26C52B28D99200EA382E /* Data Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CA26C42B28D99200EA382E /* Data Types.swift */; };
 		F0CA26C72B28D9AF00EA382E /* GoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CA26C62B28D9AF00EA382E /* GoalView.swift */; };
-		F0CA26C82B28DBCE00EA382E /* Widget-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F0EDD0492A01717600223505 /* Widget-Info.plist */; };
 		F0EBC11B2A8D3C0B006F9616 /* LiveActivities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06FDAF52A030ADD00C58F3B /* LiveActivities.swift */; };
 		F0EBC11C2A8D3C0B006F9616 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01962B0293184BD00336821 /* Timer.swift */; };
 		F0EBC11E2A8D3C0B006F9616 /* FlowData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A025C6294796A500AF723F /* FlowData.swift */; };
@@ -45,14 +45,11 @@
 		F0EBC1492A8D3C0B006F9616 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F032564A272251A5009D3EFB /* SettingsView.swift */; };
 		F0EBC14E2A8D3C0B006F9616 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F012E42A2A2115BF00CA4CA2 /* StoreKit.framework */; };
 		F0EBC1502A8D3C0B006F9616 /* AquaSound.aif in Resources */ = {isa = PBXBuildFile; fileRef = F09862002696C80E00A61B42 /* AquaSound.aif */; };
-		F0EBC1512A8D3C0B006F9616 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0948C1F26818EE100A5F48D /* Preview Assets.xcassets */; };
-		F0EBC1522A8D3C0B006F9616 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0948C1C26818EE100A5F48D /* Assets.xcassets */; };
 		F0EBC1552A8D3C0B006F9616 /* TimerWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F0EDD03C2A01717400223505 /* TimerWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F0EDD03D2A01717400223505 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F05FC0ED29FAF9CD00A9B503 /* WidgetKit.framework */; };
 		F0EDD03E2A01717400223505 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F05FC0D629FAE96600A9B503 /* SwiftUI.framework */; };
 		F0EDD0432A01717400223505 /* LiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EDD0422A01717400223505 /* LiveActivity.swift */; };
 		F0EDD0452A01717400223505 /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EDD0442A01717400223505 /* Widget.swift */; };
-		F0EDD0482A01717600223505 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0EDD0472A01717600223505 /* Assets.xcassets */; };
 		F0EDD04A2A01717600223505 /* Widget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = F0EDD0462A01717400223505 /* Widget.intentdefinition */; };
 		F0EDD0552A0171AF00223505 /* Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EDD0532A0171AF00223505 /* Attributes.swift */; };
 /* End PBXBuildFile section */
@@ -117,26 +114,22 @@
 		F08315292888A55100153CD7 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		F0899DEA292EA83200A35D4D /* MyFlowApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFlowApp.swift; sourceTree = "<group>"; };
 		F0948C1C26818EE100A5F48D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		F0948C1F26818EE100A5F48D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F0954B112A95360F009E212E /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
 		F09861FE26968B4B00A61B42 /* Paywall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paywall.swift; sourceTree = "<group>"; };
 		F09862002696C80E00A61B42 /* AquaSound.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = AquaSound.aif; sourceTree = "<group>"; };
 		F0A025C6294796A500AF723F /* FlowData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowData.swift; sourceTree = "<group>"; };
 		F0A056412B1A5DD400AB430D /* BlockSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockSheet.swift; sourceTree = "<group>"; };
-		F0A16C882A9C4B4D00378E4C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F0A6718C2B190BF2003B3071 /* CreateFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFlow.swift; sourceTree = "<group>"; };
 		F0A6718E2B190C18003B3071 /* FlowCompleted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowCompleted.swift; sourceTree = "<group>"; };
 		F0B3518E2A1BE3AE001186BB /* WidgetExtension.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = WidgetExtension.entitlements; sourceTree = "<group>"; };
 		F0CA26C42B28D99200EA382E /* Data Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data Types.swift"; sourceTree = "<group>"; };
 		F0CA26C62B28D9AF00EA382E /* GoalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalView.swift; sourceTree = "<group>"; };
-		F0E35E142A26965D009D020E /* Main.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Main.storekit; sourceTree = "<group>"; };
+		F0E35E142A26965D009D020E /* StoreKit.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = StoreKit.storekit; sourceTree = "<group>"; };
 		F0EBC15A2A8D3C0B006F9616 /* MyFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0EDD03C2A01717400223505 /* TimerWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TimerWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0EDD0422A01717400223505 /* LiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivity.swift; sourceTree = "<group>"; };
 		F0EDD0442A01717400223505 /* Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widget.swift; sourceTree = "<group>"; };
 		F0EDD0462A01717400223505 /* Widget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = Widget.intentdefinition; sourceTree = "<group>"; };
-		F0EDD0472A01717600223505 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		F0EDD0492A01717600223505 /* Widget-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Widget-Info.plist"; sourceTree = "<group>"; };
 		F0EDD0532A0171AF00223505 /* Attributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attributes.swift; sourceTree = "<group>"; };
 		F0F510642963518C00CFE3C7 /* MyFlow.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyFlow.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -237,8 +230,11 @@
 		F0948C0C26818EE000A5F48D = {
 			isa = PBXGroup;
 			children = (
-				F0948C1726818EE000A5F48D /* MyFlow */,
 				F0899DEA292EA83200A35D4D /* MyFlowApp.swift */,
+				F0F510642963518C00CFE3C7 /* MyFlow.entitlements */,
+				F0E35E142A26965D009D020E /* StoreKit.storekit */,
+				F0948C1C26818EE100A5F48D /* Assets.xcassets */,
+				F0D276FF268D351B008F0002 /* Sounds */,
 				F018B2B62928263E00FCD857 /* ViewModels */,
 				F07291F3297B45E600C25E0E /* Views */,
 				F01F2E122B28ED5900B1AAA5 /* UI Elements */,
@@ -255,19 +251,6 @@
 				F0EBC15A2A8D3C0B006F9616 /* MyFlow.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		F0948C1726818EE000A5F48D /* MyFlow */ = {
-			isa = PBXGroup;
-			children = (
-				F0E35E142A26965D009D020E /* Main.storekit */,
-				F0A16C882A9C4B4D00378E4C /* Info.plist */,
-				F0948C1C26818EE100A5F48D /* Assets.xcassets */,
-				F0948C1F26818EE100A5F48D /* Preview Assets.xcassets */,
-				F0F510642963518C00CFE3C7 /* MyFlow.entitlements */,
-				F0D276FF268D351B008F0002 /* Sounds */,
-			);
-			path = MyFlow;
 			sourceTree = "<group>";
 		};
 		F0A6718B2B190BE3003B3071 /* Sheets */ = {
@@ -297,8 +280,6 @@
 				F0EDD0532A0171AF00223505 /* Attributes.swift */,
 				F0EDD0422A01717400223505 /* LiveActivity.swift */,
 				F0EDD0442A01717400223505 /* Widget.swift */,
-				F0EDD0492A01717600223505 /* Widget-Info.plist */,
-				F0EDD0472A01717600223505 /* Assets.xcassets */,
 				F0EDD0462A01717400223505 /* Widget.intentdefinition */,
 				F0B3518E2A1BE3AE001186BB /* WidgetExtension.entitlements */,
 			);
@@ -391,8 +372,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0EBC1502A8D3C0B006F9616 /* AquaSound.aif in Resources */,
-				F0EBC1512A8D3C0B006F9616 /* Preview Assets.xcassets in Resources */,
-				F0EBC1522A8D3C0B006F9616 /* Assets.xcassets in Resources */,
+				F00426E12B2A452B00FAE36B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,8 +380,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0CA26C82B28DBCE00EA382E /* Widget-Info.plist in Resources */,
-				F0EDD0482A01717600223505 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -474,6 +452,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -568,6 +547,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -630,6 +610,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -687,7 +668,8 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = MyFlow/MyFlow.entitlements;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_ENTITLEMENTS = MyFlow.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -703,7 +685,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.2;
+				MARKETING_VERSION = 3.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -720,7 +702,8 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = MyFlow/MyFlow.entitlements;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_ENTITLEMENTS = MyFlow.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -736,7 +719,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.2;
+				MARKETING_VERSION = 3.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -753,7 +736,8 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = MyFlow/MyFlow.entitlements;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_ENTITLEMENTS = MyFlow.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -769,7 +753,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.2;
+				MARKETING_VERSION = 3.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
