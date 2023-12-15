@@ -15,6 +15,8 @@ struct BlockSheetView: View {
     @FocusState var isFocused
     @Environment(\.dismiss) var dismiss
     
+    @State private var isFocusSelected = true
+
     var body: some View {
         
         ZStack {
@@ -31,7 +33,7 @@ struct BlockSheetView: View {
                             newBlock = false
                         }
                         .padding(.horizontal, 12)
-                        .padding(.vertical, 12)
+                        .padding(.vertical, 10)
                         .background(.regularMaterial)
                         .cornerRadius(16)
                         .onReceive(NotificationCenter.default.publisher(for: UITextField.textDidBeginEditingNotification)) { obj in
@@ -42,8 +44,15 @@ struct BlockSheetView: View {
                         .introspectTextField { textField in textField.becomeFirstResponder() }
                 }
                 
-                MultiComponentPicker(columns: columns, selections: [
-                    $model.flow.blocks[model.selectedIndex].hours,
+//                Picker("", selection: $isFocusSelected) {
+//                                Text("Focus").tag(true)
+//                                Text("Break").tag(false)
+//                            }
+//                            .pickerStyle(SegmentedPickerStyle())
+//                            .padding(.vertical, 4)
+
+                
+                MultiComponentPicker(isFocus: $model.flow.blocks[model.selectedIndex].isFocus, columns: columns, selections: [
                     $model.flow.blocks[model.selectedIndex].minutes,
                     $model.flow.blocks[model.selectedIndex].seconds]
                 )

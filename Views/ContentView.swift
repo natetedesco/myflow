@@ -50,7 +50,7 @@ struct MainView: View {
                                     .foregroundStyle(.white)
                             }
                             .padding()
-                            .background(Color.teal)
+                            .background(Color.accentColor)
                             .cornerRadius(12)
                             Spacer()
                         }
@@ -90,7 +90,6 @@ struct MainView: View {
                                         }
                                         .fullScreenCover(isPresented: $showFlow) {
                                             FlowView(model: model)
-                                                .accentColor(.teal)
                                         }
                                         
                                         // Menu
@@ -184,7 +183,6 @@ struct MainView: View {
             }
             .sheet(isPresented: $showCreateFlow) {
                 CreateFlowView(model: model, showFlow: $showFlow)
-                    .accentColor(.teal)
                     .presentationBackground(.regularMaterial)
                     .presentationCornerRadius(32)
             }
@@ -203,4 +201,8 @@ struct MainView: View {
 private func shouldUseLargeHeight() -> Bool {
     let horizontalSizeClass = UITraitCollection(horizontalSizeClass: UIScreen.main.bounds.width > 500 ? .regular : .compact)
     return horizontalSizeClass.containsTraits(in: UITraitCollection(horizontalSizeClass: .regular))
+}
+
+#Preview {
+    MainView(model: FlowModel())
 }

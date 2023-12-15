@@ -13,7 +13,7 @@ struct SettingsView: View {
     @StateObject var settings = Settings()
     @State var model: FlowModel
     
-    @State var developerSettings = false
+    @State var developerSettings = true
     
     var body: some View {
         NavigationStack {
@@ -83,7 +83,7 @@ struct SettingsView: View {
                             HStack {
                                 Label("Blocked", systemImage: "xmark.app")
                                 Spacer()
-                                Text(settings.activitySelection.applicationTokens.count == 0 ? "No Apps" : "^[\(settings.activitySelection.applicationTokens.count) App](inflect: true)")
+                                Text(settings.activitySelection.applicationTokens.count == 0 ? "0 Apps" : "^[\(settings.activitySelection.applicationTokens.count) App](inflect: true)")
                                     .foregroundStyle(.tertiary)
                                 
                                 Image(systemName: "chevron.right")
@@ -106,6 +106,24 @@ struct SettingsView: View {
                         Label("Focus Mode", systemImage: "timer")
                     }
                     .accentColor(.white.opacity(0.3)) // tertiary workaround
+                    
+                    HStack {
+                        Label("Default Focus Length", systemImage: "clock")
+                        
+                        Spacer()
+
+                        Menu {
+                            Text("options")
+                        } label: {
+                            Text("20:00")
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 8)
+                                .background(.bar)
+                                .cornerRadius(6)
+                                .foregroundStyle(.white)
+                        }
+                    }
+                    
                 }
                 
                 // General

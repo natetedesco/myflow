@@ -19,14 +19,19 @@ func formatTime(seconds: Int) -> String {
     return hourStamp + minuteStamp + secondStamp
 }
 
-//func formatHoursAndMinutes(time: Int) -> String {
-//    let hours = "\(time / 60)"
-//    let minutes = "\((time % 3600) % 60)"
-//    
-//    let hourStamp = hours.count >= 1 ? hours : "0"
-//    let minuteStamp = minutes.count >= 1 ? minutes : "0"
-//    return ("\(hourStamp)h \(minuteStamp)m")
-//}
+func formatTimeNoZero(seconds: Int) -> String {
+    let hours = seconds / 3600
+    let remainingSeconds = seconds % 3600
+    let minutes = remainingSeconds / 60
+    let remainingSecondsAfterMinutes = remainingSeconds % 60
+    
+    let hourStamp = hours > 0 ? "\(hours):" : ""
+    let minuteStamp = minutes > 9 ? "\(minutes):" : "\(minutes):"
+    let secondStamp = remainingSecondsAfterMinutes > 9 ? "\(remainingSecondsAfterMinutes)" : "0\(remainingSecondsAfterMinutes)"
+    
+    return hourStamp + minuteStamp + secondStamp
+}
+
 
 func formatHoursAndMinutes(time: Int) -> String {
     let time = time/60

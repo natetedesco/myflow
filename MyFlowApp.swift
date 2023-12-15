@@ -49,7 +49,6 @@ struct MyFlow: App {
                             Text("Settings")
                         }
                 }
-                .accentColor(.teal)
                 .environmentObject(purchaseManager)
                 .task {
                     await purchaseManager.updatePurchasedProducts()

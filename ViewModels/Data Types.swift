@@ -10,14 +10,14 @@ import SwiftUI
 struct Flow: Codable, Equatable, Identifiable {
     var id = UUID()
     var title: String = ""
-    var blocks = [Block(title: "Focus", minutes: 20)]
+    var blocks = [Block()]
 }
 
 struct Block: Codable, Hashable, Identifiable {
     var id = UUID()
-    var title: String = ""
-    var hours: Int = 0
-    var minutes: Int = 0
+    var title: String = "Focus"
+    var isFocus: Bool = true
+    var minutes: Int = 20
     var seconds: Int = 0
 }
 
@@ -47,14 +47,14 @@ extension Flow {
         var formattedTime = ""
 
         if hours > 0 {
-            formattedTime += "\(hours) \(hours == 1 ? "hour" : "hours")"
+            formattedTime += "\(hours) \(hours == 1 ? "hr" : "hr")"
         }
 
         if minutes > 0 {
             if !formattedTime.isEmpty {
                 formattedTime += ", "
             }
-            formattedTime += "\(minutes) \(minutes == 1 ? "minute" : "minutes")"
+            formattedTime += "\(minutes) \(minutes == 1 ? "min" : "min")"
         }
 
         if seconds > 0 {
@@ -70,7 +70,7 @@ extension Flow {
 
 extension Block {
     var totalTimeInSeconds: TimeInterval {
-        let totalSeconds = TimeInterval(hours * 3600 + minutes * 60 + seconds)
+        let totalSeconds = TimeInterval(minutes * 60 + seconds)
         return totalSeconds
     }
 }

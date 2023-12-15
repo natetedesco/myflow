@@ -16,7 +16,7 @@ class Settings: ObservableObject {
     @AppStorage("LiveActivities") var liveActivities: Bool = true
     
     @AppStorage("focusOnStart") var focusOnStart: Bool = true
-    @AppStorage("dismissOnComplete") var dismissOnComplete: Bool = true
+    @AppStorage("dismissOnComplete") var dismissOnComplete: Bool = false
     
     @AppStorage("UseDummyData") var useDummyData: Bool = false
     @AppStorage("multiplyTotalFlowTime") var multiplyTotalFlowTime: Bool = false

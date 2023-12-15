@@ -6,6 +6,8 @@
 
 import SwiftUI
 
+// use variables for currentblock, nextBlock, previousBlock
+
 struct FlowRunning: View {
     @State var model: FlowModel
     @Environment(\.dismiss) var dismiss
@@ -24,8 +26,6 @@ struct FlowRunning: View {
                         .padding(.top, sizeClass == .regular ? 16 : 0)
                 }
                 
-                Spacer()
-                
                 Text(focusLabel)
                     .font(sizeClass == .regular ? .largeTitle : .title)
                     .fontWeight(.semibold)
@@ -38,7 +38,7 @@ struct FlowRunning: View {
                         Spacer()
                         
                         if model.mode == .flowStart {
-                            Text("Next: " + model.flow.blocks[model.blocksCompleted].title)
+                            Text("Start Next: " + model.flow.blocks[model.blocksCompleted].title)
                                 .fontWeight(.medium)
                                 .foregroundStyle(.teal.secondary)
                                 .padding(.bottom, 48)
@@ -47,32 +47,37 @@ struct FlowRunning: View {
                     
                     Circles(
                         model: model,
+                        color: currentBlock.isFocus ? Color.teal : Color(red: 0.4, green: 0.4, blue: 0.4),
                         size: sizeClass == .regular ? 432: 288,
                         width: sizeClass == .regular ? 30 : 20)
                     
-                    Button { // used twice
-                        if model.mode == .flowStart {
-                            model.extend()
-                        } else if model.flowExtended {
-                            model.completeExtend()
-                        } else {
-                            model.Complete()
-                        }
-                        softHaptic()
-                    } label: {
-                        HStack {
-                            if !model.flowExtended {
-                                Image(systemName: model.mode == .flowStart ? "goforward.plus" :"checkmark.circle")
-                                    .font(.footnote)
-                                    .fontWeight(.semibold)
-                                    .padding(.trailing, -4)
+                    VStack {
+                        
+                        Button { // used twice
+                            if model.mode == .flowStart {
+                                model.extend()
+                            } else if model.flowExtended {
+                                model.completeExtend()
+                            } else {
+                                model.Complete()
                             }
-                            Text(model.mode == .flowStart ? "Extend" : "Complete")
+                            softHaptic()
+                        } label: {
+                            HStack {
+                                if !model.flowExtended {
+                                    Image(systemName: model.mode == .flowStart ? "goforward.plus" :"checkmark.circle")
+                                        .font(.footnote)
+                                        .fontWeight(.semibold)
+                                        .padding(.trailing, -4)
+                                }
+                                Text(model.mode == .flowStart ? "Extend" : "Complete")
+                            }
+                            .font(.footnote)
+                            .fontWeight(.semibold)
                         }
-                        .font(.footnote)
-                        .fontWeight(.medium)
+                        .padding(.bottom, 96)
+//                        Spacer()
                     }
-                    .padding(.top, 112)
                     
                     ZStack {
                         Text(timerLabel)
@@ -85,12 +90,6 @@ struct FlowRunning: View {
                                 .font(.title3)
                                 .padding(.trailing, 216)
                         }
-                        
-//                        Text(focusLabel)
-//                            .font(.title3)
-//                            .fontWeight(.medium)
-//                            .foregroundStyle(.secondary)
-//                            .padding(.bottom, 112)
                     }
                 }
                 
@@ -108,6 +107,15 @@ struct FlowRunning: View {
             }
             .toolbar {}
         }
+    }
+    
+    var currentBlock: Block {
+        if model.mode == .flowRunning || model.mode == .flowPaused {
+            return model.flow.blocks[model.blocksCompleted]
+        } else if model.mode == .flowStart {
+            return model.flow.blocks[model.blocksCompleted - 1]
+        }
+        return Block()
     }
     
     var focusLabel: String {
@@ -130,6 +138,7 @@ import SwiftUI
 
 struct Circles: View {
     var model: FlowModel
+    var color = Color.teal
     var size: CGFloat = 288
     var width: CGFloat = 20
     var fill: Bool = false
@@ -140,20 +149,19 @@ struct Circles: View {
             // Ring
             Circle()
                 .trim(from: 0, to: circleFill)
-                .stroke(Color.teal, style: StrokeStyle(lineWidth: width,lineCap: .round))
-//                .shadow(color: .teal.opacity(0.5), radius: 5)
+                .stroke(color, style: StrokeStyle(lineWidth: width,lineCap: .round))
                 .frame(width: size)
             
             Circle()
                 .trim(from: 0, to: circleFill)
-                .stroke(Color.teal.opacity(0.5), style: StrokeStyle(lineWidth: width,lineCap: .round))
+                .stroke(color.opacity(0.5), style: StrokeStyle(lineWidth: width,lineCap: .round))
                 .blur(radius: 5)
                 .frame(width: size)
             
             
             Circle()
                 .trim(from: 0, to: 1)
-                .stroke(Color.teal.opacity(0.2), style: StrokeStyle(lineWidth: width,lineCap: .round))
+                .stroke(color.opacity(0.2), style: StrokeStyle(lineWidth: width,lineCap: .round))
                 .frame(width: size)
         }
         .rotationEffect(.degrees(-90))

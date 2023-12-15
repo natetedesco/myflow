@@ -4,6 +4,7 @@
 
 import Foundation
 
+
 @Observable class FlowModel {
     var data = FlowData()
     var settings = Settings()
@@ -47,7 +48,7 @@ import Foundation
     func initialize() {
         if let firstBlock = flow.blocks.first {
             // Set Flow Time based on the duration of the first block
-            let time = (firstBlock.hours * 3600) + (firstBlock.minutes * 60) + (firstBlock.seconds)
+            let time = (firstBlock.minutes * 60) + (firstBlock.seconds)
             flowTime = time
             flowTimeLeft = time
         }
@@ -107,7 +108,7 @@ import Foundation
     
     // Duplicate
     func duplicateBlock(block: Block) {
-        let newBlock = Block(title: block.title, hours: block.hours, minutes: block.minutes, seconds: block.seconds)
+        let newBlock = Block(title: block.title, isFocus: block.isFocus, minutes: block.minutes, seconds: block.seconds)
         flow.blocks.append(newBlock)
         saveFlow()
     }

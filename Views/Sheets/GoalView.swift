@@ -72,7 +72,6 @@ struct GoalView: View {
                 }
                 .padding(.horizontal, 24)
             }
-            .accentColor(.teal)
         }
     }
 }

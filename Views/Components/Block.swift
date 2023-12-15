@@ -10,33 +10,30 @@ struct BlockView: View {
     @State var model: FlowModel
     @Binding var block: Block
     @Environment(\.horizontalSizeClass) private var sizeClass
-
     
     var body: some View {
-        HStack(alignment: .center) {
-            VStack(alignment: .leading) {
-                Text(block.title.isEmpty ? "Focus" : block.title)
-                    .font(sizeClass == .regular ? .largeTitle : .title2)
-                    .fontWeight(.medium)
-                    .foregroundStyle(block.title.isEmpty ? .secondary : .primary)
-                    .multilineTextAlignment(.leading)
-                    .foregroundStyle(model.mode == .initial ? .primary : completed ? .primary : .secondary)
-                
-                Text(timerLabel)
-                    .font(sizeClass == .regular ? .title : .title3)
-                    .fontWeight(.light)
-                    .monospacedDigit()
-                    .foregroundStyle(.secondary)
-                    .foregroundStyle(model.mode == .initial ? .secondary : completed ? .secondary : .tertiary)
-            }
+        HStack {
+            Gauge(value: gaugeValue, label: {Text("")})
+                .gaugeStyle(.accessoryCircularCapacity)
+                .tint(block.isFocus ? .accentColor : Color(red: 0.4, green: 0.4, blue: 0.4))
+                .scaleEffect(sizeClass == .regular ? 1.3 : 0.8)
+                .animation(.default, value: gaugeValue)
+                .padding(.leading, -4)
+            
+            Text(block.title.isEmpty ? "Focus" : block.title)
+                .font(sizeClass == .regular ? .largeTitle : .title2)
+                .foregroundStyle(block.title.isEmpty ? .secondary : .primary)
+                .fontWeight(.medium)
+                .multilineTextAlignment(.leading)
+                .foregroundStyle(model.mode == .initial ? .primary : completed ? .primary : .secondary)
+                .padding(.leading, -2)
             
             Spacer()
             
-            Gauge(value: gaugeValue, label: {Text("")})
-                .gaugeStyle(.accessoryCircularCapacity)
-                .tint(.accentColor)
-                .scaleEffect(sizeClass == .regular ? 1.3 : 0.9)
-                .animation(.default, value: gaugeValue)
+            Text(timerLabel)
+                .font(sizeClass == .regular ? .title3 : .body)
+                .monospacedDigit()
+                .foregroundStyle(model.mode == .initial ? .secondary : completed ? .secondary : .tertiary)
         }
     }
     
@@ -71,8 +68,8 @@ struct BlockView: View {
         if model.mode == .initial {
             return 1.0
         }
-        else if model.flowExtended {
-            return 1.0
+        else if model.flowExtended && !currentBlock {
+            return 0.0
         }
         else if currentBlock {
             return formatProgress(time: model.flowTime, timeLeft: model.flowTimeLeft)
@@ -87,7 +84,11 @@ struct BlockView: View {
         if model.mode != .initial && currentBlock {
             return formatTime(seconds: model.flowTimeLeft)
         } else {
-            return formatTime(seconds: (block.seconds) + (block.minutes * 60) + (block.hours * 3600))
+            return formatTimeNoZero(seconds: (block.seconds) + (block.minutes * 60))
         }
     }
+}
+
+#Preview {
+    BlockView(model: FlowModel(), block: .constant(Block()))
 }

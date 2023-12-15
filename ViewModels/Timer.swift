@@ -79,7 +79,7 @@ extension FlowModel {
             let block = flow.blocks[blocksCompleted]
             
             // Set Flow Time
-            let time = (block.hours * 3600) + (block.minutes * 60) + (block.seconds)
+            let time = (block.minutes * 60) + (block.seconds)
             flowTime = time
             flowTimeLeft = time
             
@@ -202,7 +202,6 @@ extension FlowModel {
         totalFlowTime = totalFlowTime + time
     }
 }
-
 
 // Restart
 //    func Restart() {
