@@ -37,7 +37,7 @@ struct FlowView: View {
                             }
                         } label: {
                             BlockView(model: model, block: $block)
-                                .padding(.vertical, sizeClass == .regular ? 16 : -6)
+                                .padding(.vertical, sizeClass == .regular ? 16 : -4)
                             
                         }
                         .swipeActions(edge: .leading) {
@@ -75,9 +75,7 @@ struct FlowView: View {
                             model.saveFlow()
                             dismiss()
                         } label: {
-                            Image(systemName: "chevron.down")
-                                .font(.subheadline)
-                                .fontWeight(.semibold)
+                            Text("Done")
                         }
                     }
                     else {
@@ -91,20 +89,7 @@ struct FlowView: View {
                 }
                 ToolbarItem(placement: .bottomBar) {
                     HStack {
-                        // Start
-                        Button {
-                            softHaptic()
-                            model.Start()
-                        } label: {
-                            Image(systemName: model.mode == .flowRunning ? "pause.fill" : "play.fill")
-                                .font(.title3)
-                                .padding()
-                                .background(Circle().foregroundStyle(.teal.quinary))
-                                .padding(.leading, -10)
-                        }
-                        .disabled(model.flow.blocks.count == 0)
-                        Spacer()
-                        
+                
                         if model.mode == .initial && model.mode != .flowStart {
                             // Plus
                             Button {
@@ -116,6 +101,8 @@ struct FlowView: View {
                                 Image(systemName: "plus")
                                     .font(.title3)
                                     .fontWeight(.semibold)
+                                    .padding(.leading, -6)
+                                Text("Block")
                             }
                         } else {
                             
@@ -131,15 +118,32 @@ struct FlowView: View {
                                 softHaptic()
                             } label: {
                                 HStack {
-                                        Image(systemName: model.mode == .flowStart ? "goforward.plus" :"checkmark.circle")
-                                            .font(.subheadline)
-                                            .fontWeight(.medium)
+                                    Image(systemName: model.mode == .flowStart ? "goforward.plus" :"checkmark.circle")
+                                        .font(.subheadline)
+                                        .fontWeight(.medium)
                                     Text(model.mode == .flowStart ? "Extend" : "Complete")
                                         .font(.callout)
                                 }
+                                .padding(.leading, -6)
                             }
-                            .padding(.leading, -6)
                         }
+                        
+                        Spacer()
+                        
+                        // Start
+                        Button {
+                            softHaptic()
+                            model.Start()
+                        } label: {
+                            Image(systemName: model.mode == .flowRunning ? "pause.fill" : "play.fill")
+                                .font(.title3)
+                                .padding()
+                                .background(Circle().foregroundStyle(.teal.quinary))
+                                .padding(.leading, -10)
+                        }
+                        .disabled(model.flow.blocks.count == 0)
+                        .padding(.trailing, -6)
+                        
                     }
                     .padding(.top, 12)
                 }
@@ -161,7 +165,7 @@ struct FlowView: View {
             FlowRunning(model: model)
         }
         .sheet(isPresented: $model.showFlowCompleted) {
-            ShowFlowCompletedView(model: model)
+            FlowCompletedView(model: model)
                 .presentationBackground(.regularMaterial)
                 .presentationCornerRadius(32)
                 .presentationDetents([.medium])
@@ -192,4 +196,8 @@ struct BlocksTip: Tip {
     var image: Image? {
         Image(systemName: "rectangle.stack")
     }
+}
+
+#Preview {
+    FlowView(model: FlowModel())
 }

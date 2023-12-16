@@ -15,52 +15,35 @@ struct SettingsView: View {
     
     @State var developerSettings = true
     
+    func authorizeScreenTime() {
+        Task { do {
+            try await center.requestAuthorization(for: .individual)
+            if proAccess {
+                settings.blockDistractions = true
+            }
+            isAuthorized = true
+        } catch {
+            print("error")
+        }}
+    }
+    
     var body: some View {
         NavigationStack {
             List {
                 
-                if developerSettings {
-                    DisclosureGroup {
-                        Toggle(isOn: $proAccess) { Label("Pro Access", systemImage: "bell") }
-                        
-                        Toggle(isOn: $settings.shouldResetTips) { Label("Tips", systemImage: "questionmark.circle") }
-                        
-                        Toggle(isOn: $settings.useDummyData) { Label("Use dummy Data", systemImage: "chart.bar") }
-                        
-                        Toggle(isOn: $settings.multiplyTotalFlowTime) { Label("Multiply Flow Time", systemImage: "multiply") }
-                        
-                        Button { showOnboarding = true } label: { Label("Show Onboarding", systemImage: "menucard") }
-                        
-                        Button {
-                            center.revokeAuthorization { result in
-                                switch result {
-                                case .success:
-                                    isAuthorized = false
-                                case .failure(let error):
-                                    print("Error revoking authorization: \(error.localizedDescription)")
-                                }
-                            }
-                        } label: {
-                            Label("Revoke ScreenTime", systemImage: "clock.badge.xmark")
-                        }
-                    } label: {
-                        Label("Developer", systemImage: "macbook.and.iphone")
-                    }
+                // General
+                Section(header: Text("General")) {
+                    Toggle(isOn: $settings.notificationsOn) { Label("Notifications", systemImage: "bell") }
+                    
+                    Toggle(isOn: $settings.liveActivities) { Label("Live Activity", systemImage: "circle.square") }
                 }
                 
                 // Flows
                 Section(header: Text("Flows")) {
                     
                     if !isAuthorized {
-                        Button { Task { do {
-                            try await center.requestAuthorization(for: .individual)
-                            if proAccess {
-                                settings.blockDistractions = true
-                            }
-                            isAuthorized = true
-                        } catch {
-                            print("error")
-                        }}
+                        Button {
+                            authorizeScreenTime()
                         } label: {
                             HStack {
                                 Label("App Blocker", systemImage: "shield")
@@ -85,7 +68,6 @@ struct SettingsView: View {
                                 Spacer()
                                 Text(settings.activitySelection.applicationTokens.count == 0 ? "0 Apps" : "^[\(settings.activitySelection.applicationTokens.count) App](inflect: true)")
                                     .foregroundStyle(.tertiary)
-                                
                                 Image(systemName: "chevron.right")
                                     .font(.footnote)
                                     .fontWeight(.semibold)
@@ -105,32 +87,51 @@ struct SettingsView: View {
                     } label: {
                         Label("Focus Mode", systemImage: "timer")
                     }
-                    .accentColor(.white.opacity(0.3)) // tertiary workaround
+                    .accentColor(.white.opacity(0.25)) // tertiary workaround
                     
-                    HStack {
-                        Label("Default Focus Length", systemImage: "clock")
+                    DisclosureGroup {
                         
-                        Spacer()
-
-                        Menu {
-                            Text("options")
-                        } label: {
-                            Text("20:00")
-                                .padding(.horizontal, 12)
-                                .padding(.vertical, 8)
-                                .background(.bar)
-                                .cornerRadius(6)
-                                .foregroundStyle(.white)
+                        HStack {
+                            Text("Focus Default Length")
+                            
+                            Spacer()
+                            
+                            Menu {
+                                Text("options")
+                            } label: {
+                                Text("20:00")
+                                    .padding(.horizontal, 12)
+                                    .padding(.vertical, 8)
+                                    .background(.bar)
+                                    .cornerRadius(6)
+                                    .foregroundStyle(.white)
+                            }
                         }
+                        .padding(.leading, 24)
+
+                        HStack {
+                            Text("Break Default Length")
+                            
+                            Spacer()
+                            
+                            Menu {
+                                Text("options")
+                            } label: {
+                                Text("20:00")
+                                    .padding(.horizontal, 12)
+                                    .padding(.vertical, 8)
+                                    .background(.bar)
+                                    .cornerRadius(6)
+                                    .foregroundStyle(.white)
+                            }
+                        }
+                        .padding(.leading, 24)
+
+                    } label : {
+                        Label("Blocks", systemImage: "rectangle.stack")
                     }
-                    
-                }
-                
-                // General
-                Section(header: Text("General")) {
-                    Toggle(isOn: $settings.notificationsOn) { Label("Notifications", systemImage: "bell") }
-                    
-                    Toggle(isOn: $settings.liveActivities) { Label("Live Activity", systemImage: "circle.square") }
+                    .accentColor(.white.opacity(0.25)) // tertiary workaround
+
                 }
                 
                 // About
@@ -142,6 +143,36 @@ struct SettingsView: View {
                     
                     Link(destination: URL(string: "https://myflow.notion.site/Privacy-Policy-0002d1598beb401e9801a0c7fe497fd3?pvs=4")!) {
                         Label("Privacy & Terms", systemImage: "hand.raised")
+                    }
+                }
+                
+                if developerSettings {
+                    Section(header: Text("Developer")) {
+                        Toggle(isOn: $proAccess) { Label("Pro Access", systemImage: "bell") }
+                        
+                        Toggle(isOn: $settings.shouldResetTips) { Label("Tips", systemImage: "questionmark.circle") }
+                        
+                        Toggle(isOn: $settings.useDummyData) { Label("Use dummy Data", systemImage: "chart.bar") }
+                        
+                        Toggle(isOn: $settings.multiplyTotalFlowTime) { Label("Multiply Flow Time", systemImage: "multiply") }
+                        
+                        Button { showOnboarding = true } label: { Label("Show Onboarding", systemImage: "menucard") }
+                        
+                        Button { showPayWall = true } label: { Label("ShowPayWall", systemImage: "dollarsign.square") }
+
+                        
+                        Button {
+                            center.revokeAuthorization { result in
+                                switch result {
+                                case .success:
+                                    isAuthorized = false
+                                case .failure(let error):
+                                    print("Error revoking authorization: \(error.localizedDescription)")
+                                }
+                            }
+                        } label: {
+                            Label("Revoke ScreenTime", systemImage: "clock.badge.xmark")
+                        }
                     }
                 }
                 

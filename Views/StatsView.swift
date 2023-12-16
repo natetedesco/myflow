@@ -18,9 +18,10 @@ struct StatsView: View {
                     
                     // Overview
                     Text("Overview")
-                        .font(.callout)
-                        .fontWeight(.medium)
-                        .padding(.top)
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(.secondary)
+                        .padding(.top, 26)
                     
                     OverViewCard(data: data)
                         .padding(.horizontal)
@@ -31,8 +32,9 @@ struct StatsView: View {
                     
                     // Weekly
                     Text("Weekly")
-                        .font(.callout)
-                        .fontWeight(.medium)
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(.secondary)
                     
                     WeekCard(data: data)
                         .padding(.horizontal)
@@ -43,8 +45,9 @@ struct StatsView: View {
                     
                     // Monthly
                     Text("Monthly")
-                        .font(.callout)
-                        .fontWeight(.medium)
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(.secondary)
                     
                     MonthCard(data: data)
                         .padding(.horizontal)

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ShowFlowCompletedView: View {
+struct FlowCompletedView: View {
     @State var model: FlowModel
     @Environment(\.dismiss) var dismiss
     
@@ -17,7 +17,7 @@ struct ShowFlowCompletedView: View {
             
             VStack {
                 
-                Spacer()
+//                Spacer()
                 
                 Circles(model: model, size: 128, width: 14.0, fill: true)
                     .padding(.top, 32)
@@ -61,3 +61,6 @@ struct ShowFlowCompletedView: View {
     }
 }
 
+#Preview {
+    FlowCompletedView(model: FlowModel())
+}

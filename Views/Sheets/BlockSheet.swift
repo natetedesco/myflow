@@ -16,7 +16,7 @@ struct BlockSheetView: View {
     @Environment(\.dismiss) var dismiss
     
     @State private var isFocusSelected = true
-
+    
     var body: some View {
         
         ZStack {
@@ -43,20 +43,16 @@ struct BlockSheetView: View {
                         }
                         .introspectTextField { textField in textField.becomeFirstResponder() }
                 }
-                
-//                Picker("", selection: $isFocusSelected) {
-//                                Text("Focus").tag(true)
-//                                Text("Break").tag(false)
-//                            }
-//                            .pickerStyle(SegmentedPickerStyle())
-//                            .padding(.vertical, 4)
-
-                
                 MultiComponentPicker(isFocus: $model.flow.blocks[model.selectedIndex].isFocus, columns: columns, selections: [
                     $model.flow.blocks[model.selectedIndex].minutes,
                     $model.flow.blocks[model.selectedIndex].seconds]
                 )
                 .padding(.vertical, -12)
+                .onChange(of: model.flow.blocks[model.selectedIndex].isFocus) { newIsFocusValue in
+                    // Update the title based on isFocus
+                    model.flow.blocks[model.selectedIndex].title = newIsFocusValue ? "Focus" : "Break"
+                    isFocused = true
+                }
                 
                 Button {
                     model.saveFlow()

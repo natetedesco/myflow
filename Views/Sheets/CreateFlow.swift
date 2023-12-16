@@ -87,3 +87,13 @@ struct CreateFlowView: View {
     }
 }
 
+#Preview {
+    ZStack {
+        
+    }
+    .sheet(isPresented: .constant(true), content: {
+        CreateFlowView(model: FlowModel(), showFlow: .constant(true))  
+            .presentationBackground(.regularMaterial)
+            .presentationCornerRadius(32)
+    })
+}

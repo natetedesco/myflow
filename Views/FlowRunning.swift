@@ -47,7 +47,7 @@ struct FlowRunning: View {
                     
                     Circles(
                         model: model,
-                        color: currentBlock.isFocus ? Color.teal : Color(red: 0.4, green: 0.4, blue: 0.4),
+                        color: currentBlock.isFocus ? Color.teal : Color(red: 0.3, green: 0.3, blue: 0.3),
                         size: sizeClass == .regular ? 432: 288,
                         width: sizeClass == .regular ? 30 : 20)
                     
