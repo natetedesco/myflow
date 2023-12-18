@@ -13,96 +13,141 @@ struct FlowRunning: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.horizontalSizeClass) private var sizeClass
     
+    @State var selectedBreakTime = 5
+    let values = [30, 20, 15, 10, 5]
+
+    
     var body: some View {
         
         NavigationStack {
-            VStack {
-                Button {
-                    model.showFlowRunning.toggle()
-                } label: {
-                    Capsule()
-                        .foregroundStyle(.white.quinary)
-                        .frame(width: 36, height: 5)
-                        .padding(.top, sizeClass == .regular ? 16 : 0)
-                }
+            ZStack {
                 
-                Text(focusLabel)
-                    .font(sizeClass == .regular ? .largeTitle : .title)
-                    .fontWeight(.semibold)
-                    .padding(.top, 8)
-                
-                Spacer()
-                
-                ZStack {
-                    VStack {
-                        Spacer()
-                        
-                        if model.mode == .flowStart {
-                            Text("Start Next: " + model.flow.blocks[model.blocksCompleted].title)
-                                .fontWeight(.medium)
-                                .foregroundStyle(.teal.secondary)
-                                .padding(.bottom, 48)
-                        }
+                VStack {
+                    
+                    // Capsule
+                    Button {
+                        model.showFlowRunning.toggle()
+                    } label: {
+                        Capsule()
+                            .foregroundStyle(.white.quinary)
+                            .frame(width: 36, height: 5)
+                            .padding(.top, sizeClass == .regular ? 16 : 0)
+                            .padding(.bottom, 12)
+                            .padding(.horizontal)
+                            .gesture(
+                                DragGesture()
+                                    .onChanged { _ in model.showFlowRunning.toggle() }
+                                    .onEnded { _ in }
+                            )
                     }
                     
-                    Circles(
-                        model: model,
-                        color: currentBlock.isFocus ? Color.teal : Color(red: 0.3, green: 0.3, blue: 0.3),
-                        size: sizeClass == .regular ? 432: 288,
-                        width: sizeClass == .regular ? 30 : 20)
+                    // Focus Label
+                    Text(focusLabel)
+                        .font(sizeClass == .regular ? .largeTitle : .title2)
+                        .fontWeight(.semibold)
                     
-                    VStack {
-                        
-                        Button { // used twice
+                    
+                    Spacer()
+                    
+                    // Start Button
+                    Button {
+                        model.Start()
+                        softHaptic()
+                    } label: {
+                        HStack {
+                            Image(systemName: model.mode == .flowRunning ? "pause.fill" : "play.fill")
+                                .font(.title)
+                                .frame(width: 20, height: 20)
+                            
                             if model.mode == .flowStart {
-                                model.extend()
-                            } else if model.flowExtended {
-                                model.completeExtend()
-                            } else {
-                                model.Complete()
+                                Text("Next Focus")
+                                    .font(.callout)
+                                    .fontWeight(.medium)
+                                    .padding(.leading, 4)
                             }
-                            softHaptic()
-                        } label: {
-                            HStack {
-                                if !model.flowExtended {
-                                    Image(systemName: model.mode == .flowStart ? "goforward.plus" :"checkmark.circle")
-                                        .font(.footnote)
-                                        .fontWeight(.semibold)
-                                        .padding(.trailing, -4)
-                                }
-                                Text(model.mode == .flowStart ? "Extend" : "Complete")
-                            }
+                        }
+                        .padding(20)
+                        .background(.teal.quinary)
+                        .cornerRadius(100)
+                    }
+                }
+                
+                
+                // Circlers
+                Circles(
+                    model: model,
+                    color: Color.teal,
+                    size: sizeClass == .regular ? 432: 304,
+                    width: sizeClass == .regular ? 30 : 20)
+                
+                // Timer Label
+                Text(timerLabel)
+                    .font(.system(size: 76))
+                    .fontWeight(.light)
+                    .monospacedDigit()
+                if model.flowExtended {
+                    Image(systemName: "plus")
+                        .font(.title2)
+                        .fontWeight(.medium)
+                        .padding(.trailing, 236)
+                }
+                
+                // Complete & Extend
+                Button {
+                    completeAndExtend()
+                } label: {
+                    HStack {
+                        //                        Text(model.mode == .flowStart ? "Extend" : "Complete")
+                        Label(model.mode == .flowStart ? "Extend" : "Complete", systemImage: model.mode == .flowStart ? "goforward.plus" :"checkmark.circle.fill")
                             .font(.footnote)
                             .fontWeight(.semibold)
-                        }
-                        .padding(.bottom, 96)
-//                        Spacer()
-                    }
-                    
-                    ZStack {
-                        Text(timerLabel)
-                            .font(.system(size: 72))
-                            .fontWeight(.light)
-                            .monospacedDigit()
-                        
-                        if model.flowExtended {
-                            Image(systemName: "plus")
-                                .font(.title3)
-                                .padding(.trailing, 216)
-                        }
+                        //                            .padding(.vertical, 7)
+                        //                            .padding(.horizontal, 12)
+                        //                            .background(.bar)
+                        //                            .cornerRadius(20)
                     }
                 }
+                .padding(.bottom, 128)
                 
-                Spacer()
                 
-                Button {
-                    model.Start()
-                    softHaptic()
-                } label: {
-                    Image(systemName: model.mode == .flowRunning ? "pause.fill" : "play.fill")
-                        .font(.title)
-                        .padding(20)
-                        .background(Circle().foregroundStyle(.teal.quinary))
+                // Break
+                if model.mode == .flowStart {
+                    Menu {
+                        Button {
+                            
+                        } label: {
+                            Text("Start Break")
+                                
+                        }
+                        Divider()
+                        Section(header: Text("Select Time")) {
+                            
+                            
+                            Picker("Select a value", selection: $selectedBreakTime) {
+                                 ForEach(values, id: \.self) { value in
+                                     Text("\(value) min")
+                                 }
+                                 .interactiveDismissDisabled()
+                             }
+
+                            
+                        }
+                    } label: {
+                        HStack {
+                            Text("Break")
+                            Image(systemName: "chevron.down")
+                                .font(.footnote)
+                                .fontWeight(.medium)
+                                .padding(.horizontal, -1)
+                        }
+                        .foregroundStyle(.white.secondary)
+                        .font(.callout)
+                        .padding(.vertical, 8)
+                        .padding(.horizontal, 16)
+                        .background(.regularMaterial)
+                        .cornerRadius(20)
+                    }
+                    .padding(.top, 136)
                 }
             }
             .toolbar {}
@@ -130,6 +175,17 @@ struct FlowRunning: View {
             return "00:00"
         }
         return formatTime(seconds: model.flowTimeLeft)
+    }
+    
+    func completeAndExtend() {
+        if model.mode == .flowStart {
+            model.extend()
+        } else if model.flowExtended {
+            model.completeExtend()
+        } else {
+            model.Complete()
+        }
+        softHaptic()
     }
     
 }
@@ -206,8 +262,6 @@ struct Circles: View {
 }
 
 
-
-
-//#Preview {
-//    FlowRunning()
-//}
+#Preview {
+    FlowRunning(model: FlowModel())
+}

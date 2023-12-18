@@ -108,7 +108,7 @@ import Foundation
     
     // Duplicate
     func duplicateBlock(block: Block) {
-        let newBlock = Block(title: block.title, isFocus: block.isFocus, minutes: block.minutes, seconds: block.seconds)
+        let newBlock = Block(title: block.title, minutes: block.minutes, seconds: block.seconds)
         flow.blocks.append(newBlock)
         saveFlow()
     }

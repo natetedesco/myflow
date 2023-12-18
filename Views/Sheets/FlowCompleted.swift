@@ -20,7 +20,7 @@ struct FlowCompletedView: View {
 //                Spacer()
                 
                 Circles(model: model, size: 128, width: 14.0, fill: true)
-                    .padding(.top, 32)
+                    .padding(.top, 64)
                     .padding(.bottom)
                 
                 Spacer()
@@ -28,7 +28,7 @@ struct FlowCompletedView: View {
                 Text("Flow Completed")
                     .font(.title)
                     .fontWeight(.semibold)
-                    .padding(.bottom)
+                    .padding(.bottom, 8)
                 
                 HStack(alignment: .bottom) {
                     Text("Total Flow Time:")
@@ -38,9 +38,6 @@ struct FlowCompletedView: View {
                         .font(.callout)
                         .fontWeight(.semibold)
                 }
-                
-                // For Debugging
-//                    Text("\(model.totalFlowTime)")
                 
                 Spacer()
                 
@@ -62,5 +59,13 @@ struct FlowCompletedView: View {
 }
 
 #Preview {
-    FlowCompletedView(model: FlowModel())
+    ZStack {
+        
+    }
+    .sheet(isPresented: .constant(true), content: {
+        FlowCompletedView(model: FlowModel())
+            .presentationBackground(.regularMaterial)
+            .presentationCornerRadius(32)
+            .presentationDetents([.fraction(6/10)])
+    })
 }

@@ -77,5 +77,10 @@ struct GoalView: View {
 }
 
 #Preview {
-    GoalView(data: FlowData())
+    StatsView(data: FlowData())
+        .sheet(isPresented: .constant(true)) {
+            GoalView(data: FlowData())
+                .sheetMaterial()
+                .presentationDetents([.medium])
+        }
 }

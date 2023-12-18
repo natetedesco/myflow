@@ -12,7 +12,7 @@ struct BlockView: View {
     @Environment(\.horizontalSizeClass) private var sizeClass
     
     var body: some View {
-        if block.isFocus {
+        
             HStack {
                 VStack(alignment: .leading) {
                     Text(block.title.isEmpty ? "Focus" : block.title)
@@ -21,6 +21,8 @@ struct BlockView: View {
                         .fontWeight(.medium)
                         .multilineTextAlignment(.leading)
                         .foregroundStyle(model.mode == .initial ? .primary : completed ? .primary : .secondary)
+                        .lineLimit(2)
+                    
                     
                     Text(timerLabel)
                         .font(sizeClass == .regular ? .title : .title3)
@@ -28,30 +30,14 @@ struct BlockView: View {
                         .monospacedDigit()
                         .foregroundStyle(model.mode == .initial ? .secondary : completed ? .secondary : .tertiary)
                 }
-                
                 Spacer()
-                
                 Gauge(value: gaugeValue, label: {Text("")})
                     .gaugeStyle(.accessoryCircularCapacity)
-                    .tint(block.isFocus ? .accentColor : Color(red: 0.3, green: 0.3, blue: 0.3))
+                    .tint(.accentColor)
                     .scaleEffect(sizeClass == .regular ? 1.3 : 0.9)
                     .animation(.default, value: gaugeValue)
+//                    .padding(.trailing, -8)
             }
-        }
-        
-        else {
-            VStack(alignment: .leading) {
-                Text(block.title.isEmpty ? "Break" : block.title)
-                    .font(sizeClass == .regular ? .largeTitle : .footnote)
-                    .fontWeight(.medium)
-                    .multilineTextAlignment(.leading)
-                    .foregroundStyle(model.mode == .initial ? .secondary : completed ? .secondary : .tertiary)
-                Text(timerLabel)
-                    .font(sizeClass == .regular ? .title : .subheadline)
-                    .monospacedDigit()
-                    .foregroundStyle(model.mode == .initial ? .tertiary : completed ? .tertiary : .quaternary)
-            }
-        }
     }
     
     var currentBlock: Bool {
@@ -109,7 +95,7 @@ struct BlockView: View {
 #Preview {
     List {
         BlockView(model: FlowModel(), block: .constant(Block()))
-        BlockView(model: FlowModel(), block: .constant(Block(title: "Break", isFocus: false)))
+        BlockView(model: FlowModel(), block: .constant(Block(title: "Break")))
         BlockView(model: FlowModel(), block: .constant(Block()))
     }.listStyle(.plain)
 }

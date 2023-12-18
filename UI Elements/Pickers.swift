@@ -9,7 +9,6 @@ import Introspect
 
 
 struct MultiComponentPicker<Tag: Hashable>: View  {
-    @Binding var isFocus: Bool
     let columns: [Column]
     var selections: [Binding<Tag>]
 
@@ -24,12 +23,12 @@ struct MultiComponentPicker<Tag: Hashable>: View  {
             
             HStack {
                 
-                Picker("", selection: $isFocus) {
-                    Text("Focus").tag(true)
-                    Text("Break").tag(false)
-                }
-                .introspectUIPickerView { picker in picker.subviews[1].backgroundColor = UIColor.clear }
-                .pickerStyle(.wheel)
+//                Picker("", selection: $isFocus) {
+//                    Text("Focus").tag(true)
+//                    Text("Break").tag(false)
+//                }
+//                .introspectUIPickerView { picker in picker.subviews[1].backgroundColor = UIColor.clear }
+//                .pickerStyle(.wheel)
 
                 
                 ForEach(0 ..< columns.count, id: \.self) { index in

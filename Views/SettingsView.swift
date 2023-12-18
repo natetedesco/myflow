@@ -313,3 +313,7 @@ struct AboutView: View {
         }
     }
 }
+
+#Preview {
+    SettingsView(model: FlowModel())
+}

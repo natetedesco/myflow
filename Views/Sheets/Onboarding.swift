@@ -49,16 +49,15 @@ struct OnboardingView: View {
                 } label: {
                     Text("Let's Flow")
                         .font(.title3)
-//                        .fontWeight(.medium)
                         .foregroundStyle(.teal)
                 }
                 .padding(.bottom)
             }
-            .opacity(showOnboarding ? 1.0 : 0.0)
+//            .opacity(showOnboarding ? 1.0 : 0.0)
             .animation(.easeOut, value: showOnboarding)
         }
         .background(Color.black)
-        .opacity(showOnboarding ? 1.0 : 0.0)
+//        .opacity(showOnboarding ? 1.0 : 0.0)
         .animation(.easeInOut(duration: 2.0), value: showOnboarding)
     }
 }

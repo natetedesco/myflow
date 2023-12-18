@@ -16,7 +16,7 @@ struct Flow: Codable, Equatable, Identifiable {
 struct Block: Codable, Hashable, Identifiable {
     var id = UUID()
     var title: String = "Focus"
-    var isFocus: Bool = true
+//    var isFocus: Bool = true
     var minutes: Int = 20
     var seconds: Int = 0
 }
@@ -47,25 +47,27 @@ extension Flow {
         var formattedTime = ""
 
         if hours > 0 {
-            formattedTime += "\(hours) \(hours == 1 ? "hr" : "hr")"
+            formattedTime += "\(hours) hr"
         }
 
         if minutes > 0 {
             if !formattedTime.isEmpty {
                 formattedTime += ", "
             }
-            formattedTime += "\(minutes) \(minutes == 1 ? "min" : "min")"
+            formattedTime += "\(minutes) min"
         }
 
         if seconds > 0 {
             if !formattedTime.isEmpty {
                 formattedTime += ", "
             }
-            formattedTime += "\(seconds) \(seconds == 1 ? "second" : "seconds")"
+            formattedTime += "\(seconds) sec"
         }
 
         return formattedTime
     }
+
+
 }
 
 extension Block {

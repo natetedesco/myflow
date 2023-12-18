@@ -8,6 +8,12 @@ import SwiftUI
 
 extension View {
     
+    func sheetMaterial() -> some View {
+        self
+            .presentationCornerRadius(32)
+            .presentationBackground(.regularMaterial)
+    }
+    
     func maxWidth() -> some View {
         self
             .frame(maxWidth: .infinity)

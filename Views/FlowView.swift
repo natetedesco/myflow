@@ -18,15 +18,13 @@ struct FlowView: View {
     var body: some View {
         NavigationStack {
             List{
-                Section(header:
-                            HStack {
+                Section(header: HStack {
                     Text("\(model.flow.blocks.count) Blocks")
                     Spacer()
                     Text(model.flow.blocks.count == 0 ? "No Blocks" : model.flow.totalFlowTimeFormatted())
                         .font(.footnote)
                         .fontWeight(.medium)
-                }
-                ) {
+                }) {
                     ForEach($model.flow.blocks) { $block in
                         Button {
                             if model.mode == .initial {
@@ -37,8 +35,14 @@ struct FlowView: View {
                             }
                         } label: {
                             BlockView(model: model, block: $block)
-                                .padding(.vertical, sizeClass == .regular ? 16 : -4)
+                                .padding(.vertical, sizeClass == .regular ? 16 : -2)
+                            //                                .padding(.top, block.isFocus ? 0 : -12)
                             
+                        }
+                        .alignmentGuide(
+                            .listRowSeparatorLeading
+                        ) { dimensions in
+                            dimensions[.leading]
                         }
                         .swipeActions(edge: .leading) {
                             Button {
@@ -89,7 +93,7 @@ struct FlowView: View {
                 }
                 ToolbarItem(placement: .bottomBar) {
                     HStack {
-                
+                        
                         if model.mode == .initial && model.mode != .flowStart {
                             // Plus
                             Button {
@@ -102,7 +106,9 @@ struct FlowView: View {
                                     .font(.title3)
                                     .fontWeight(.semibold)
                                     .padding(.leading, -6)
-                                Text("Block")
+                                
+                                Text("Focus")
+                                    .fontWeight(.medium)
                             }
                         } else {
                             
@@ -124,7 +130,7 @@ struct FlowView: View {
                                     Text(model.mode == .flowStart ? "Extend" : "Complete")
                                         .font(.callout)
                                 }
-                                .padding(.leading, -6)
+                                //                                .padding(.leading, -6)
                             }
                         }
                         
@@ -139,7 +145,7 @@ struct FlowView: View {
                                 .font(.title3)
                                 .padding()
                                 .background(Circle().foregroundStyle(.teal.quinary))
-                                .padding(.leading, -10)
+                            //                            Text("Start")
                         }
                         .disabled(model.flow.blocks.count == 0)
                         .padding(.trailing, -6)
@@ -154,11 +160,9 @@ struct FlowView: View {
         }
         .sheet(isPresented: $model.showBlock) {
             BlockSheetView(model: model, newBlock: $newBlock)
-                .presentationCornerRadius(32)
+                .sheetMaterial()
                 .presentationDetents([.fraction(1/3)])
                 .presentationBackgroundInteraction(.enabled(upThrough: .large))
-                .presentationBackground(.regularMaterial)
-                .presentationDragIndicator(.hidden)
                 .interactiveDismissDisabled()
         }
         .fullScreenCover(isPresented: $model.showFlowRunning) {
@@ -166,10 +170,8 @@ struct FlowView: View {
         }
         .sheet(isPresented: $model.showFlowCompleted) {
             FlowCompletedView(model: model)
-                .presentationBackground(.regularMaterial)
-                .presentationCornerRadius(32)
-                .presentationDetents([.medium])
-                .presentationDragIndicator(.hidden)
+                .sheetMaterial()
+                .presentationDetents([.fraction(6/10)])
         }
     }
     
@@ -199,5 +201,7 @@ struct BlocksTip: Tip {
 }
 
 #Preview {
-    FlowView(model: FlowModel())
+    NavigationStack {
+        FlowView(model: FlowModel())
+    }
 }

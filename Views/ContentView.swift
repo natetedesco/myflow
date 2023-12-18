@@ -187,7 +187,7 @@ struct MainView: View {
         .sheet(isPresented: $showPaywall) {
             PayWall(detent: $detent)
                 .presentationCornerRadius(32)
-                .presentationBackground(.bar)
+                .presentationBackground(.regularMaterial)
                 .presentationDetents([.large, .fraction(6/10)], selection: $detent)
                 .interactiveDismissDisabled(detent == .large)
                 .presentationDragIndicator(detent != .large ? .visible : .hidden)

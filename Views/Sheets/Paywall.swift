@@ -241,3 +241,17 @@ struct PayWall: View {
         .animation(.default, value: detent)
     }
 }
+
+// Small view not working
+#Preview {
+    @State var detent = PresentationDetent.large
+    
+    return ZStack {}
+        .sheet(isPresented: .constant(true)) {
+            PayWall(detent: $detent)
+                .sheetMaterial()
+                .presentationDetents([.large, .fraction(6/10)], selection: $detent)
+                .interactiveDismissDisabled(detent == .large)
+                .presentationDragIndicator(detent != .large ? .visible : .hidden)
+        }
+}
