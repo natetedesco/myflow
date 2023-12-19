@@ -35,14 +35,7 @@ struct FlowView: View {
                             }
                         } label: {
                             BlockView(model: model, block: $block)
-                                .padding(.vertical, sizeClass == .regular ? 16 : -2)
-                            //                                .padding(.top, block.isFocus ? 0 : -12)
-                            
-                        }
-                        .alignmentGuide(
-                            .listRowSeparatorLeading
-                        ) { dimensions in
-                            dimensions[.leading]
+                                .padding(.vertical, sizeClass == .regular ? 16 : -4)
                         }
                         .swipeActions(edge: .leading) {
                             Button {
@@ -54,7 +47,7 @@ struct FlowView: View {
                         }
                     }
                     .onDelete(perform: model.mode == .initial ? delete : nil)
-                    .onMove(perform: model.mode == .initial ? move : nil)
+                    .onMove(perform: move)
                 }
                 TipView(tip, arrowEdge: .top)
                     .listRowSeparator(.hidden, edges: [.bottom])
@@ -63,12 +56,11 @@ struct FlowView: View {
             .navigationTitle(model.flow.title)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    if model.mode != .initial {
-                        Button {
-                            model.showFlowRunning.toggle()
-                        } label: {
-                            Text("Focus")
-                        }
+                    Button {
+                        model.showFlowRunning.toggle()
+                    } label: {
+                        Image(systemName: "chevron.up")
+                            .font(.callout)
                     }
                 }
                 
@@ -88,13 +80,16 @@ struct FlowView: View {
                             model.Reset()
                         } label: {
                             Image(systemName: "gobackward")
+                                .font(.callout)
                         }
                     }
                 }
                 ToolbarItem(placement: .bottomBar) {
                     HStack {
                         
-                        if model.mode == .initial && model.mode != .flowStart {
+                        // Initial
+                        if model.mode == .initial {
+                            
                             // Plus
                             Button {
                                 lightHaptic()
@@ -103,17 +98,26 @@ struct FlowView: View {
                                 newBlock.toggle()
                             } label: {
                                 Image(systemName: "plus")
-                                    .font(.title3)
+                                    .font(.title2)
                                     .fontWeight(.semibold)
-                                    .padding(.leading, -6)
-                                
-                                Text("Focus")
-                                    .fontWeight(.medium)
                             }
+                            
+                            Spacer()
+                            
+                            // Start
+                            Button {
+                                softHaptic()
+                                model.Start()
+                            } label: {
+                                Text("Start Flow")
+//                                    .fontWeight(.medium)
+                            }
+                            .disabled(model.flow.blocks.count == 0)
+                            .padding(.trailing, -4)
                         } else {
                             
-                            // Continue / Extend
                             Button {
+                                
                                 if model.mode == .flowStart {
                                     model.extend()
                                 } else if model.flowExtended {
@@ -122,41 +126,68 @@ struct FlowView: View {
                                     model.Complete()
                                 }
                                 softHaptic()
+                                
                             } label: {
                                 HStack {
                                     Image(systemName: model.mode == .flowStart ? "goforward.plus" :"checkmark.circle")
-                                        .font(.subheadline)
                                         .fontWeight(.medium)
-                                    Text(model.mode == .flowStart ? "Extend" : "Complete")
-                                        .font(.callout)
                                 }
-                                //                                .padding(.leading, -6)
                             }
+                            .frame(width: 50, alignment: .leading)
+                            
+                            Spacer()
+                            
+                            if model.mode == .flowStart {
+                                Button {
+                                } label: {
+                                    HStack {
+                                        Text("Break")
+                                            .font(.callout)
+                                        Image(systemName: "chevron.down")
+                                            .font(.caption2)
+                                            .fontWeight(.medium)
+                                            .padding(.horizontal, -2)
+                                    }
+                                    .foregroundStyle(.white.secondary)
+                                    .padding(.leading, 8)
+//                                    .padding(.vertical, 8)
+//                                    .padding(.horizontal, 16)
+//                                    .background(.regularMaterial)
+//                                    .cornerRadius(20)
+                                }
+                                .foregroundStyle(.white.secondary)
+                            }
+                            
+                            Spacer()
+                            
+                            Button {
+                                model.Start()
+                                softHaptic()
+                            } label: {
+                                Image(systemName: model.mode == .flowRunning ? "pause.fill" : "play.fill")
+                                    .padding(14)
+                                    .background(Circle().foregroundStyle(.teal.quinary))
+                            }
+                            .frame(width: 50, alignment: .trailing)
+                            
+                            
+                            
+                            //                            Button {
+                            //                                model.showFlowRunning.toggle()
+                            //                            } label: {
+                            //                                Image(systemName: "chevron.up")
+                            //                                    .font(.title)
+                            //                                    .foregroundStyle(.white.tertiary)
+                            //                                    .fontWeight(.semibold)
+                            //                                    .frame(maxWidth: .infinity)
+                            //                                    .padding(.top, 8)
+                            //                            }
                         }
-                        
-                        Spacer()
-                        
-                        // Start
-                        Button {
-                            softHaptic()
-                            model.Start()
-                        } label: {
-                            Image(systemName: model.mode == .flowRunning ? "pause.fill" : "play.fill")
-                                .font(.title3)
-                                .padding()
-                                .background(Circle().foregroundStyle(.teal.quinary))
-                            //                            Text("Start")
-                        }
-                        .disabled(model.flow.blocks.count == 0)
-                        .padding(.trailing, -6)
-                        
                     }
-                    .padding(.top, 12)
                 }
             }
             .ignoresSafeArea(.keyboard)
             .navigationBarBackButtonHidden(model.mode == .flowRunning ? true : false)
-            //            .navigationBarTitleDisplayMode(model.flow.blocks.count > 8 ? .inline : .large)
         }
         .sheet(isPresented: $model.showBlock) {
             BlockSheetView(model: model, newBlock: $newBlock)
@@ -205,3 +236,5 @@ struct BlocksTip: Tip {
         FlowView(model: FlowModel())
     }
 }
+
+

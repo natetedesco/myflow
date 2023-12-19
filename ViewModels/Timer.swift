@@ -34,16 +34,13 @@ extension FlowModel {
     func Run() {
         mode = .flowRunning
         
-        if settings.focusOnStart {
-            showFlowRunning = true
-        }
+        if settings.focusOnStart { showFlowRunning = true }
         
         // Set End
         start = Date()
         let end = Calendar.current.date(byAdding: .second, value: (flowTime - elapsed), to: start)!
         
         notifications.Set(time: flowTime, elapsed: elapsed, id: "timer")
-        
         startActivity(start: start, end: end)
         settings.startRestriction()
         

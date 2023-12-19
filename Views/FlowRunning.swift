@@ -6,22 +6,17 @@
 
 import SwiftUI
 
-// use variables for currentblock, nextBlock, previousBlock
-
 struct FlowRunning: View {
     @State var model: FlowModel
     @Environment(\.dismiss) var dismiss
     @Environment(\.horizontalSizeClass) private var sizeClass
     
     @State var selectedBreakTime = 5
-    let values = [30, 20, 15, 10, 5]
-
+    let values = [30, 20, 15, 10, 5, 2, 1]
     
     var body: some View {
-        
         NavigationStack {
             ZStack {
-                
                 VStack {
                     
                     // Capsule
@@ -43,9 +38,21 @@ struct FlowRunning: View {
                     
                     // Focus Label
                     Text(focusLabel)
-                        .font(sizeClass == .regular ? .largeTitle : .title2)
+                        .font(sizeClass == .regular ? .largeTitle : .title)
                         .fontWeight(.semibold)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 32)
                     
+                    if model.mode == .flowPaused {
+                        // Reset
+                        Button {
+                            model.Reset()
+                        } label: {
+                            Image(systemName: "gobackward")
+                                .font(.title3)
+                        }
+                        .padding(.top, 48)
+                    }
                     
                     Spacer()
                     
@@ -97,14 +104,9 @@ struct FlowRunning: View {
                     completeAndExtend()
                 } label: {
                     HStack {
-                        //                        Text(model.mode == .flowStart ? "Extend" : "Complete")
-                        Label(model.mode == .flowStart ? "Extend" : "Complete", systemImage: model.mode == .flowStart ? "goforward.plus" :"checkmark.circle.fill")
+                        Label(model.mode == .flowStart ? "Extend" : "Complete", systemImage: model.mode == .flowStart ? "goforward.plus" :"checkmark.circle")
                             .font(.footnote)
-                            .fontWeight(.semibold)
-                        //                            .padding(.vertical, 7)
-                        //                            .padding(.horizontal, 12)
-                        //                            .background(.bar)
-                        //                            .cornerRadius(20)
+                            .fontWeight(.medium)
                     }
                 }
                 .padding(.bottom, 128)
@@ -113,39 +115,32 @@ struct FlowRunning: View {
                 // Break
                 if model.mode == .flowStart {
                     Menu {
-                        Button {
-                            
-                        } label: {
-                            Text("Start Break")
-                                
-                        }
-                        Divider()
-                        Section(header: Text("Select Time")) {
-                            
-                            
-                            Picker("Select a value", selection: $selectedBreakTime) {
-                                 ForEach(values, id: \.self) { value in
-                                     Text("\(value) min")
-                                 }
-                                 .interactiveDismissDisabled()
-                             }
-
-                            
+                        Section(header: Text("Select to Start Break")) {
+                            ForEach(values, id: \.self) { i in
+                                Button {
+                                    selectedBreakTime = i
+                                } label: {
+                                    Text("\(i) min")
+                                }
+                            }
                         }
                     } label: {
                         HStack {
                             Text("Break")
-                            Image(systemName: "chevron.down")
-                                .font(.footnote)
+                                .font(.callout)
                                 .fontWeight(.medium)
-                                .padding(.horizontal, -1)
+                            Image(systemName: "chevron.down")
+                                .font(.caption2)
+                                .fontWeight(.semibold)
+                                .padding(.horizontal, -2)
                         }
+                        .padding(.leading, 12)
                         .foregroundStyle(.white.secondary)
                         .font(.callout)
-                        .padding(.vertical, 8)
-                        .padding(.horizontal, 16)
-                        .background(.regularMaterial)
-                        .cornerRadius(20)
+//                        .padding(.vertical, 8)
+//                        .padding(.horizontal, 16)
+//                        .background(.regularMaterial)
+//                        .cornerRadius(20)
                     }
                     .padding(.top, 136)
                 }
@@ -153,6 +148,8 @@ struct FlowRunning: View {
             .toolbar {}
         }
     }
+    
+    // use variables for currentblock, nextBlock, previousBlock
     
     var currentBlock: Block {
         if model.mode == .flowRunning || model.mode == .flowPaused {

@@ -12,32 +12,49 @@ struct BlockView: View {
     @Environment(\.horizontalSizeClass) private var sizeClass
     
     var body: some View {
-        
-            HStack {
-                VStack(alignment: .leading) {
-                    Text(block.title.isEmpty ? "Focus" : block.title)
-                        .font(sizeClass == .regular ? .largeTitle : .title3)
-                        .foregroundStyle(block.title.isEmpty ? .secondary : .primary)
-                        .fontWeight(.medium)
-                        .multilineTextAlignment(.leading)
-                        .foregroundStyle(model.mode == .initial ? .primary : completed ? .primary : .secondary)
-                        .lineLimit(2)
-                    
-                    
-                    Text(timerLabel)
-                        .font(sizeClass == .regular ? .title : .title3)
-                        .fontWeight(.light)
-                        .monospacedDigit()
-                        .foregroundStyle(model.mode == .initial ? .secondary : completed ? .secondary : .tertiary)
-                }
-                Spacer()
-                Gauge(value: gaugeValue, label: {Text("")})
-                    .gaugeStyle(.accessoryCircularCapacity)
-                    .tint(.accentColor)
-                    .scaleEffect(sizeClass == .regular ? 1.3 : 0.9)
-                    .animation(.default, value: gaugeValue)
-//                    .padding(.trailing, -8)
+        HStack {
+            Gauge(value: gaugeValue, label: {Text("")})
+                .gaugeStyle(.accessoryCircularCapacity)
+                .tint(.accentColor)
+                .scaleEffect(sizeClass == .regular ? 1.3 : 0.8)
+                .animation(.default, value: gaugeValue)
+                .padding(.leading, -4)
+            
+                Text(block.title.isEmpty ? "Focus" : block.title)
+                    .font(sizeClass == .regular ? .largeTitle : .title3)
+                    .fontWeight(.medium)
+                    .foregroundStyle(model.mode == .initial ? .primary : completed ? .primary : .secondary)
+                    .foregroundStyle(nextUp ? .teal : .secondary)
+                    .foregroundStyle(block.title.isEmpty ? .secondary : .primary)
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(2)
+                
+            Spacer()
+                
+                Text(timerLabel)
+                    .font(sizeClass == .regular ? .title : .title3)
+                    .fontWeight(.light)
+                    .monospacedDigit()
+                    .foregroundStyle(timerLabelStyle)
+        }
+    }
+    
+    var timerLabelStyle: any ShapeStyle {
+        if model.mode == .initial || completed {
+            return .secondary
+        } else if nextUp {
+            return .teal.secondary
+        }
+        return .tertiary
+    }
+    
+    var showExtend: Bool {
+        if model.mode == .flowStart {
+            if let block = model.flow.blocks.firstIndex(where: { $0.id == block.id }) {
+                return block == model.blocksCompleted - 1
             }
+        }
+        return false
     }
     
     var currentBlock: Bool {
