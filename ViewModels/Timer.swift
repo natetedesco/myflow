@@ -23,11 +23,19 @@ extension FlowModel {
             case .flowStart: Run()
             case .flowRunning: Pause()
             case .flowPaused: flowExtended ? extend() : Run()
+            case .breakRunning: ()
             case .completed: initialize()
             }
             data.createDayStruct()
         }
         UNUserNotificationCenter.current().requestAuthorization(options:[.badge,.sound,.alert]) { (_, _) in}
+    }
+    func startBreak() {
+        mode = .breakRunning
+        
+    }
+    func endBreak() {
+        
     }
     
     // Run
@@ -60,9 +68,9 @@ extension FlowModel {
     // End
     func endTimer(skip: Bool = false) {
         elapsed = 0
+        settings.stopRestrictions()
         invalidateTimer()
         stopActivity()
-        settings.stopRestrictions()
         completeBlock()
     }
     
@@ -82,9 +90,9 @@ extension FlowModel {
             
             mode = .flowStart
         }
-        if settings.dismissOnComplete {
+//        if settings.dismissOnComplete {
             showFlowRunning = false
-        }
+//        }
     }
     
     // Pause
@@ -101,13 +109,22 @@ extension FlowModel {
     
     // Skip
     func Complete() {
-        let time = flowTime - flowTimeLeft
-        data.addTime(time: time)
-        addTotalFlowTime(time: time)
+        if flowExtended {
+            data.addTime(time: flowTimeLeft)
+            addTotalFlowTime(time: flowTimeLeft)
+            flowExtended = false
+            flowTimeLeft = flowTime
+            
+        } else {
+            let time = flowTime - flowTimeLeft
+            data.addTime(time: time)
+            addTotalFlowTime(time: time)
+        }
         
         elapsed = 0
         endTimer()
     }
+    
     
     // Reset
     func Reset() {
@@ -127,7 +144,7 @@ extension FlowModel {
     // Continue Flow
     func extend() {
         var start = Date()
-        showFlowRunning = true
+        if settings.focusOnStart { showFlowRunning = true }
         
         if mode == .flowStart { // dont want to do this after unpause
             blocksCompleted = blocksCompleted - 1
@@ -149,23 +166,6 @@ extension FlowModel {
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [self] timer in
             flowTimeLeft = (Calendar.current.dateComponents([.second], from: start, to: Date()).second ?? 0)
         }
-    }
-    
-    // Complete Continue Flow
-    func completeExtend() {
-        invalidateTimer()
-        
-        // Add Time
-        data.addTime(time: flowTimeLeft)
-        addTotalFlowTime(time: flowTimeLeft)
-        
-        flowExtended = false
-        flowTimeLeft = flowTime
-        elapsed = 0
-        
-        
-        stopActivity()
-        completeBlock()
     }
     
     func completeSession() {

@@ -24,6 +24,7 @@
 		F0A16C872A9BB79A00378E4C /* Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EDD0532A0171AF00223505 /* Attributes.swift */; };
 		F0A6718D2B190BF2003B3071 /* CreateFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A6718C2B190BF2003B3071 /* CreateFlow.swift */; };
 		F0A6718F2B190C18003B3071 /* FlowCompleted.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A6718E2B190C18003B3071 /* FlowCompleted.swift */; };
+		F0B3C20E2B34A8CB00CE6029 /* ShowFocusByDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B3C20D2B34A8CB00CE6029 /* ShowFocusByDefault.swift */; };
 		F0CA26C52B28D99200EA382E /* Data Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CA26C42B28D99200EA382E /* Data Types.swift */; };
 		F0CA26C72B28D9AF00EA382E /* GoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CA26C62B28D9AF00EA382E /* GoalView.swift */; };
 		F0EBC11B2A8D3C0B006F9616 /* LiveActivities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06FDAF52A030ADD00C58F3B /* LiveActivities.swift */; };
@@ -114,6 +115,7 @@
 		F0A056412B1A5DD400AB430D /* BlockSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockSheet.swift; sourceTree = "<group>"; };
 		F0A6718C2B190BF2003B3071 /* CreateFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFlow.swift; sourceTree = "<group>"; };
 		F0A6718E2B190C18003B3071 /* FlowCompleted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowCompleted.swift; sourceTree = "<group>"; };
+		F0B3C20D2B34A8CB00CE6029 /* ShowFocusByDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowFocusByDefault.swift; sourceTree = "<group>"; };
 		F0CA26C42B28D99200EA382E /* Data Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data Types.swift"; sourceTree = "<group>"; };
 		F0CA26C62B28D9AF00EA382E /* GoalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalView.swift; sourceTree = "<group>"; };
 		F0EBC15A2A8D3C0B006F9616 /* MyFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -170,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				F0954B112A95360F009E212E /* Block.swift */,
+				F0B3C20D2B34A8CB00CE6029 /* ShowFocusByDefault.swift */,
 				F07291ED297B42FF00C25E0E /* OverViewCard.swift */,
 				F07291EF297B441200C25E0E /* WeekCard.swift */,
 				F07291F1297B448F00C25E0E /* MonthCard.swift */,
@@ -376,6 +379,7 @@
 				F05878912B28D8DD00508CA1 /* Notifications.swift in Sources */,
 				F0435CD52A9F965C0073E7E1 /* Background.swift in Sources */,
 				F05878922B28D8DD00508CA1 /* Haptics.swift in Sources */,
+				F0B3C20E2B34A8CB00CE6029 /* ShowFocusByDefault.swift in Sources */,
 				F0EBC1272A8D3C0B006F9616 /* FlowView.swift in Sources */,
 				F0EBC1292A8D3C0B006F9616 /* Paywall.swift in Sources */,
 				F0A6718F2B190C18003B3071 /* FlowCompleted.swift in Sources */,

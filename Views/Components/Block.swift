@@ -13,37 +13,82 @@ struct BlockView: View {
     
     var body: some View {
         HStack {
-            Gauge(value: gaugeValue, label: {Text("")})
-                .gaugeStyle(.accessoryCircularCapacity)
-                .tint(.accentColor)
-                .scaleEffect(sizeClass == .regular ? 1.3 : 0.8)
-                .animation(.default, value: gaugeValue)
-                .padding(.leading, -4)
-            
+            ZStack {
+
+                
+                
+//                if model.mode == .flowStart && previousBlock {
+//                    
+//                    Button {
+//                        model.extend()
+//                    } label: {
+//                        Image(systemName: "plus")
+//                            .fontWeight(.medium)
+//                            .padding(.trailing, 4)
+//                    }
+//                } else if model.mode == .flowRunning && currentBlock {
+//                    Button {
+//                        model.Complete()
+//                    } label: {
+//                        Image(systemName: "checkmark")
+//                            .fontWeight(.medium)
+////                            .foregroundStyle(model.flowExtended ? .primary : .secondary)
+//                            .padding(.trailing, 4)
+//                    }
+//                }
+            }
+            VStack(alignment: .leading) {
                 Text(block.title.isEmpty ? "Focus" : block.title)
                     .font(sizeClass == .regular ? .largeTitle : .title3)
                     .fontWeight(.medium)
-                    .foregroundStyle(model.mode == .initial ? .primary : completed ? .primary : .secondary)
-                    .foregroundStyle(nextUp ? .teal : .secondary)
-                    .foregroundStyle(block.title.isEmpty ? .secondary : .primary)
+                    .foregroundStyle(focusLabelStyle)
                     .multilineTextAlignment(.leading)
-                    .lineLimit(2)
+                    .lineLimit(1)
+                HStack {
+                    if model.flowExtended && currentBlock {
+                        Image(systemName: "plus")
+                            .foregroundStyle(.secondary)
+                            .font(.footnote)
+                            .padding(.trailing, -4)
+                    }
+                    Text(timerLabel)
+                        .font(sizeClass == .regular ? .title : .title2)
+                        .fontWeight(.light)
+                        .monospacedDigit()
+                        .foregroundStyle(timerLabelStyle)
+                }
+            }
                 
             Spacer()
                 
-                Text(timerLabel)
-                    .font(sizeClass == .regular ? .title : .title3)
-                    .fontWeight(.light)
-                    .monospacedDigit()
-                    .foregroundStyle(timerLabelStyle)
+
+            
+            Gauge(value: gaugeValue, label: {Text("")})
+                .gaugeStyle(.accessoryCircularCapacity)
+                .tint(.accentColor)
+                .scaleEffect(sizeClass == .regular ? 1.3 : 0.9)
+                .animation(.default, value: gaugeValue)
+                .padding(.trailing, -4)
         }
+    }
+    
+    var focusLabelStyle: any ShapeStyle {
+        if block.title.isEmpty {
+            return .tertiary
+        }
+        else if model.mode == .initial || completed {
+            return .primary
+//        } else if nextUp {
+//            return .teal.secondary
+        }
+        return .tertiary
     }
     
     var timerLabelStyle: any ShapeStyle {
         if model.mode == .initial || completed {
             return .secondary
-        } else if nextUp {
-            return .teal.secondary
+//        } else if nextUp {
+//            return .teal.secondary
         }
         return .tertiary
     }
@@ -53,6 +98,13 @@ struct BlockView: View {
             if let block = model.flow.blocks.firstIndex(where: { $0.id == block.id }) {
                 return block == model.blocksCompleted - 1
             }
+        }
+        return false
+    }
+    
+    var previousBlock: Bool {
+        if let block = model.flow.blocks.firstIndex(where: { $0.id == block.id }) {
+            return block == model.blocksCompleted - 1
         }
         return false
     }

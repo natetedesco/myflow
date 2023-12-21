@@ -41,6 +41,9 @@ struct SettingsView: View {
                 // Flows
                 Section(header: Text("Flows")) {
                     
+                    Toggle(isOn: $settings.focusOnStart) { Label("Focus View on Start", systemImage: "timer") }
+
+                    
                     if !isAuthorized {
                         Button {
                             authorizeScreenTime()
@@ -77,17 +80,19 @@ struct SettingsView: View {
                         .familyActivityPicker(isPresented: $activityPresented, selection: $settings.activitySelection)
                     }
                     
-                    DisclosureGroup {
-                        Toggle("When Starting Focus", isOn: $settings.focusOnStart)
-                            .padding(.leading, 24)
+//                    DisclosureGroup {
+//                        Toggle("Focus View", isOn: $settings.focusOnStart)
+//                            .padding(.leading, 24)
+                    
+
                         
-                        Toggle("Dismiss on Completed", isOn: $settings.dismissOnComplete)
-                            .padding(.leading, 24)
+//                        Toggle("Dismiss on Completed", isOn: $settings.dismissOnComplete)
+//                            .padding(.leading, 24)
                         
-                    } label: {
-                        Label("Focus Mode", systemImage: "timer")
-                    }
-                    .accentColor(.white.opacity(0.25)) // tertiary workaround
+//                    } label: {
+//                        Label("Focus Mode", systemImage: "timer")
+//                    }
+//                    .accentColor(.white.opacity(0.25)) // tertiary workaround
                     
                     DisclosureGroup {
                         
@@ -159,6 +164,8 @@ struct SettingsView: View {
                         Button { showOnboarding = true } label: { Label("Show Onboarding", systemImage: "menucard") }
                         
                         Button { showPayWall = true } label: { Label("ShowPayWall", systemImage: "dollarsign.square") }
+
+                        Button { settings.showFocusByDefault = true } label: { Label("ShowFocusByDefaultSheet", systemImage: "square") }
 
                         
                         Button {
@@ -310,6 +317,7 @@ struct AboutView: View {
                     .foregroundStyle(.tertiary)
                 
             }
+            .padding(.horizontal)
         }
     }
 }

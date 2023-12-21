@@ -1,6 +1,5 @@
 // ThemePicker.swift
 // MyFlow
-//
 // Created by Nate Tedesco on 8/30/23.
 //
 
@@ -9,19 +8,24 @@ import FamilyControls
 import ManagedSettings
 
 class Settings: ObservableObject {
+    // Pro
     @AppStorage("ProAccess") var proAccess: Bool = false
-    @AppStorage("BlockDistractions") var blockDistractions: Bool = false
     
+    // General
     @AppStorage("NotificationsOn") var notificationsOn: Bool = true
     @AppStorage("LiveActivities") var liveActivities: Bool = true
     
-    @AppStorage("focusOnStart") var focusOnStart: Bool = true
-    @AppStorage("dismissOnComplete") var dismissOnComplete: Bool = false
+    // Flows
+    @AppStorage("BlockDistractions") var blockDistractions: Bool = false
+    @AppStorage("focusOnStart") var focusOnStart: Bool = false
     
+    // Developer
     @AppStorage("UseDummyData") var useDummyData: Bool = false
     @AppStorage("multiplyTotalFlowTime") var multiplyTotalFlowTime: Bool = false
     @AppStorage("shouldResetTips") var shouldResetTips: Bool = false
+    @AppStorage("showFocusByDefault") var showFocusByDefault = true
 
+    // Activity Selection
     let store = ManagedSettingsStore()
     var activitySelection = FamilyActivitySelection() { didSet { saveActivitySelection()}}
     

@@ -11,8 +11,7 @@ struct FlowRunning: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.horizontalSizeClass) private var sizeClass
     
-    @State var selectedBreakTime = 5
-    let values = [30, 20, 15, 10, 5, 2, 1]
+    @AppStorage("showFocusByDefault") var showFocusByDefault = true
     
     var body: some View {
         NavigationStack {
@@ -41,7 +40,7 @@ struct FlowRunning: View {
                         .font(sizeClass == .regular ? .largeTitle : .title)
                         .fontWeight(.semibold)
                         .multilineTextAlignment(.center)
-                        .padding(.horizontal, 32)
+                        .padding(.horizontal, 80)
                     
                     if model.mode == .flowPaused {
                         // Reset
@@ -51,7 +50,7 @@ struct FlowRunning: View {
                             Image(systemName: "gobackward")
                                 .font(.title3)
                         }
-                        .padding(.top, 48)
+                        .padding(.top, 40)
                     }
                     
                     Spacer()
@@ -105,47 +104,19 @@ struct FlowRunning: View {
                 } label: {
                     HStack {
                         Label(model.mode == .flowStart ? "Extend" : "Complete", systemImage: model.mode == .flowStart ? "goforward.plus" :"checkmark.circle")
-                            .font(.footnote)
-                            .fontWeight(.medium)
+                            .font(.system(size: 14))
+//                            .fontWeight(.medium)
                     }
                 }
                 .padding(.bottom, 128)
-                
-                
-                // Break
-                if model.mode == .flowStart {
-                    Menu {
-                        Section(header: Text("Select to Start Break")) {
-                            ForEach(values, id: \.self) { i in
-                                Button {
-                                    selectedBreakTime = i
-                                } label: {
-                                    Text("\(i) min")
-                                }
-                            }
-                        }
-                    } label: {
-                        HStack {
-                            Text("Break")
-                                .font(.callout)
-                                .fontWeight(.medium)
-                            Image(systemName: "chevron.down")
-                                .font(.caption2)
-                                .fontWeight(.semibold)
-                                .padding(.horizontal, -2)
-                        }
-                        .padding(.leading, 12)
-                        .foregroundStyle(.white.secondary)
-                        .font(.callout)
-//                        .padding(.vertical, 8)
-//                        .padding(.horizontal, 16)
-//                        .background(.regularMaterial)
-//                        .cornerRadius(20)
-                    }
-                    .padding(.top, 136)
-                }
             }
             .toolbar {}
+            .sheet(isPresented: $showFocusByDefault, content: {
+                ShowFocusByDefault(model: model)
+                    .sheetMaterial()
+                    .presentationDetents([.fraction(3/10)])
+                    .interactiveDismissDisabled()
+            })
         }
     }
     
@@ -177,8 +148,6 @@ struct FlowRunning: View {
     func completeAndExtend() {
         if model.mode == .flowStart {
             model.extend()
-        } else if model.flowExtended {
-            model.completeExtend()
         } else {
             model.Complete()
         }

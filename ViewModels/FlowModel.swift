@@ -127,5 +127,6 @@ enum TimerMode {
     case flowStart
     case flowRunning
     case flowPaused
+    case breakRunning
     case completed
 }

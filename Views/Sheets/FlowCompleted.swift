@@ -17,16 +17,14 @@ struct FlowCompletedView: View {
             
             VStack {
                 
-//                Spacer()
+                Spacer()
                 
-                Circles(model: model, size: 128, width: 14.0, fill: true)
-                    .padding(.top, 64)
-                    .padding(.bottom)
+                Circles(model: model, size: 88, width: 8.0, fill: true)
                 
                 Spacer()
                 
                 Text("Flow Completed")
-                    .font(.title)
+                    .font(.title2)
                     .fontWeight(.semibold)
                     .padding(.bottom, 8)
                 
@@ -35,7 +33,7 @@ struct FlowCompletedView: View {
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                     Text(formatHoursAndMinutes(time: model.settings.multiplyTotalFlowTime ? model.totalFlowTime * 60 : model.totalFlowTime))
-                        .font(.callout)
+                        .font(.subheadline)
                         .fontWeight(.semibold)
                 }
                 
