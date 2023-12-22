@@ -20,7 +20,7 @@ struct BlockView: View {
                 .tint(.accentColor)
                 .scaleEffect(sizeClass == .regular ? 1.3 : 0.9)
                 .animation(.default, value: gaugeValue)
-//                    .padding(.trailing, -4)
+            //                    .padding(.trailing, -4)
                 .padding(.leading, -2)
                 .onTapGesture {
                     showTasks.toggle()
@@ -32,61 +32,54 @@ struct BlockView: View {
                     .fontWeight(.medium)
                     .foregroundStyle(focusLabelStyle)
                     .multilineTextAlignment(.leading)
-                    .lineLimit(1)
+                    .lineLimit(2)
                 
                 if showTasks {
-                                    Text(block.title.isEmpty ? "Focus" : block.title)
-                                        .font(sizeClass == .regular ? .largeTitle : .callout)
-                                        .foregroundStyle(.secondary)
-                                        .foregroundStyle(focusLabelStyle)
-                                        .multilineTextAlignment(.leading)
-                                        .lineLimit(1)
-                                        .padding(.leading, 24)
-                                        .padding(.top, 2)
-                                    
-                                    Text(block.title.isEmpty ? "Focus" : block.title)
-                                        .font(sizeClass == .regular ? .largeTitle : .callout)
-                                        .foregroundStyle(.secondary)
-                                        .foregroundStyle(focusLabelStyle)
-                                        .multilineTextAlignment(.leading)
-                                        .lineLimit(1)
-                                        .padding(.leading, 24)
-                                        .padding(.top, 2)
-                                    
-                                    Text(block.title.isEmpty ? "Focus" : block.title)
-                                        .font(sizeClass == .regular ? .largeTitle : .callout)
-                                        .foregroundStyle(.secondary)
-                                        .foregroundStyle(focusLabelStyle)
-                                        .multilineTextAlignment(.leading)
-                                        .lineLimit(1)
-                                        .padding(.leading, 24)
-                                        .padding(.top, 2)
-                }
-                
-            }
-                
-                Spacer()
-                
-
-                
-                HStack {
-                    if model.flowExtended && currentBlock {
-                        Image(systemName: "plus")
-                            .foregroundStyle(.secondary)
-                            .font(.footnote)
-                            .padding(.trailing, -4)
-                    }
                     
-                    Text(timerLabel)
-                        .font(sizeClass == .regular ? .title : .title2)
-                        .fontWeight(.light)
-                        .monospacedDigit()
-                        .foregroundStyle(timerLabelStyle)
+                    Text(block.title.isEmpty ? "Focus" : block.title)
+                        .font(sizeClass == .regular ? .largeTitle : .callout)
+                        .foregroundStyle(.secondary)
+                        .foregroundStyle(focusLabelStyle)
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(2)
+                        .padding(.leading, 24)
+                        .padding(.vertical, 2)
+                    
+                    Text(block.title.isEmpty ? "Focus" : block.title)
+                        .font(sizeClass == .regular ? .largeTitle : .callout)
+                        .foregroundStyle(.secondary)
+                        .foregroundStyle(focusLabelStyle)
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(1)
+                        .padding(.leading, 24)
+                        .padding(.bottom, 2)
+
+                    Text(block.title.isEmpty ? "Focus" : block.title)
+                        .font(sizeClass == .regular ? .largeTitle : .callout)
+                        .foregroundStyle(.secondary)
+                        .foregroundStyle(focusLabelStyle)
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(1)
+                        .padding(.leading, 24)
+                }
+            }
+            
+            Spacer()
+            
+            HStack {
+                if model.flowExtended && currentBlock {
+                    Image(systemName: "plus")
+                        .foregroundStyle(.secondary)
+                        .font(.footnote)
+                        .padding(.trailing, -4)
                 }
                 
-
-            
-
+                Text(timerLabel)
+                    .font(sizeClass == .regular ? .title : .title2)
+                    .fontWeight(.light)
+                    .monospacedDigit()
+                    .foregroundStyle(timerLabelStyle)
+            }
         }
     }
     

@@ -54,6 +54,16 @@ struct FlowView: View {
                                     Text("Duplicate")
                                 }
                                 .tint(.teal)
+                            } else if model.mode == .flowRunning && currentBlock(block: block) {
+                                Button {
+                                    model.Complete()
+                                } label: {
+                                    if model.flowExtended { Text("Done")
+                                    } else {
+                                        Text("Complete")
+                                    }
+                                }
+                                .tint(.teal)
                             } else if model.mode == .flowStart && completedBlock(block: block) {
                                 Button {
                                     model.extend()
@@ -64,17 +74,7 @@ struct FlowView: View {
                             }
                         }
                         .swipeActions(edge: .trailing) {
-                            if model.mode == .flowRunning && currentBlock(block: block) {
-                                Button {
-                                    model.Complete()
-                                } label: {
-                                    if model.flowExtended { Text("Done")
-                                    } else {
-                                        Text("Complete")
-                                    }
-                                }
-                                .tint(.teal)
-                            } else if model.mode != .initial {
+                            if model.mode != .initial {
                                 Button {
                                     model.extend()
                                 } label: {
@@ -118,7 +118,7 @@ struct FlowView: View {
                     HStack {
                         
                         if model.mode != .breakRunning && model.mode != .breakPaused {
-//                            Spacer()
+                            //                            Spacer()
                             // Start
                             Button {
                                 softHaptic()
@@ -131,9 +131,9 @@ struct FlowView: View {
                                     .padding(.leading, -8)
                             }
                             .disabled(model.flow.blocks.count == 0)
+                            Spacer()
                         }
                         
-                        Spacer()
                         
                         // Initial
                         if model.mode == .initial {
@@ -150,7 +150,6 @@ struct FlowView: View {
                                         .font(.title3)
                                         .fontWeight(.semibold)
                                 }
-//                                .padding(.leading, -4)
                             }
                             
                             // Focus View Toggle
@@ -189,7 +188,7 @@ struct FlowView: View {
                                     .padding(19.5)
                                     .background(Circle().foregroundStyle(.regularMaterial))
                                 }
-                                .padding(.leading, -16)
+                                .padding(.trailing, -16)
                             } else {
                                 Menu {
                                     Button {
@@ -211,36 +210,26 @@ struct FlowView: View {
                                         }
                                     }
                                 } label: {
-                                    VStack(alignment: .leading) {
-                                        HStack {
-                                            Text("Break")
-                                                .font(.title3)
-                                                .foregroundStyle(.white)
-                                            Image(systemName: "chevron.down")
-                                                .font(.system(size: 10))
-                                                .fontWeight(.medium)
-                                                .padding(.horizontal, -4)
-                                                .foregroundStyle(.white)
-                                        }
-                                        Text(formatTime(seconds: model.breakTimeLeft))
-                                            .font(.title2)
-                                            .fontWeight(.light)
-                                            .foregroundStyle(.white.secondary)
-                                            .monospacedDigit()
+                                    HStack {
+                                        Text("Break")
+                                            .font(.title3)
+                                            .foregroundStyle(.white)
+                                        Image(systemName: "chevron.down")
+                                            .font(.system(size: 10))
+                                            .fontWeight(.medium)
+                                            .padding(.horizontal, -4)
+                                            .foregroundStyle(.white)
                                     }
-                                    .padding(.leading, -6)
                                 }
-                                
                                 Spacer()
-                                
-                                Gauge(value: formatProgress(time: model.breakTime, timeLeft: model.breakTimeLeft), label: {Text("")})
-                                    .gaugeStyle(.accessoryCircularCapacity)
-                                    .tint(.gray)
-                                    .scaleEffect(0.9)
-                                    .padding(.trailing, -4)
+                                Text(formatTime(seconds: model.breakTimeLeft))
+                                    .font(.title2)
+                                    .fontWeight(.light)
+                                    .foregroundStyle(.white.secondary)
+                                    .monospacedDigit()
                             }
                         }
-                         
+                        
                     }
                     .padding(.top, 8)
                 }

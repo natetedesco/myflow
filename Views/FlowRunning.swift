@@ -13,8 +13,6 @@ struct FlowRunning: View {
     
     @AppStorage("showFocusByDefault") var showFocusByDefault = true
     
-
-    
     var body: some View {
         NavigationStack {
             ZStack {
