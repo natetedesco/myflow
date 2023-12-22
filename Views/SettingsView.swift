@@ -80,24 +80,9 @@ struct SettingsView: View {
                         .familyActivityPicker(isPresented: $activityPresented, selection: $settings.activitySelection)
                     }
                     
-//                    DisclosureGroup {
-//                        Toggle("Focus View", isOn: $settings.focusOnStart)
-//                            .padding(.leading, 24)
-                    
-
-                        
-//                        Toggle("Dismiss on Completed", isOn: $settings.dismissOnComplete)
-//                            .padding(.leading, 24)
-                        
-//                    } label: {
-//                        Label("Focus Mode", systemImage: "timer")
-//                    }
-//                    .accentColor(.white.opacity(0.25)) // tertiary workaround
-                    
-                    DisclosureGroup {
                         
                         HStack {
-                            Text("Focus Default Length")
+                            Label("Default Focus Length", systemImage: "timer")
                             
                             Spacer()
                             
@@ -105,38 +90,15 @@ struct SettingsView: View {
                                 Text("options")
                             } label: {
                                 Text("20:00")
-                                    .padding(.horizontal, 12)
-                                    .padding(.vertical, 8)
-                                    .background(.bar)
+                                    .font(.callout)
+                                    .padding(.horizontal, 10)
+                                    .padding(.vertical, 6)
+                                    .background(.regularMaterial)
                                     .cornerRadius(6)
-                                    .foregroundStyle(.white)
+                                    .foregroundStyle(.white.secondary)
+                                    .padding(.trailing, -2)
                             }
                         }
-                        .padding(.leading, 24)
-
-                        HStack {
-                            Text("Break Default Length")
-                            
-                            Spacer()
-                            
-                            Menu {
-                                Text("options")
-                            } label: {
-                                Text("20:00")
-                                    .padding(.horizontal, 12)
-                                    .padding(.vertical, 8)
-                                    .background(.bar)
-                                    .cornerRadius(6)
-                                    .foregroundStyle(.white)
-                            }
-                        }
-                        .padding(.leading, 24)
-
-                    } label : {
-                        Label("Blocks", systemImage: "rectangle.stack")
-                    }
-                    .accentColor(.white.opacity(0.25)) // tertiary workaround
-
                 }
                 
                 // About

@@ -7,13 +7,11 @@
 import SwiftUI
 import Introspect
 
-
 struct MultiComponentPicker<Tag: Hashable>: View  {
     let columns: [Column]
     var selections: [Binding<Tag>]
 
     var body: some View {
-        
         ZStack {
             Rectangle()
                 .foregroundStyle(.ultraThinMaterial)
@@ -22,25 +20,14 @@ struct MultiComponentPicker<Tag: Hashable>: View  {
                 .frame(height: 32)
             
             HStack {
-                
-//                Picker("", selection: $isFocus) {
-//                    Text("Focus").tag(true)
-//                    Text("Break").tag(false)
-//                }
-//                .introspectUIPickerView { picker in picker.subviews[1].backgroundColor = UIColor.clear }
-//                .pickerStyle(.wheel)
-
-                
                 ForEach(0 ..< columns.count, id: \.self) { index in
                     let column = columns[index]
                     ZStack(alignment: Alignment.init(horizontal: .customCenter, vertical: .center)) {
-
                         HStack {
                             Text(verbatim: column.options.last!.text)
                                 .foregroundColor(.clear)
                                 .alignmentGuide(.customCenter) { $0[HorizontalAlignment.center] }
                             Text(column.label)
-                                .foregroundColor(.white)
                                 .font(.headline)
                         }
                         Picker(column.label, selection: selections[index]) {
@@ -58,7 +45,6 @@ struct MultiComponentPicker<Tag: Hashable>: View  {
 }
 
 var columns = [
-//    MultiComponentPicker.Column(label: "hours", options: Array(0...5).map { MultiComponentPicker.Column.Option(text: "\($0)", tag: $0) }),
     MultiComponentPicker.Column(label: "min", options: Array(0...300).map { MultiComponentPicker.Column.Option(text: "\($0)", tag: $0) }),
     MultiComponentPicker.Column(label: "sec", options: Array(0...59).map { MultiComponentPicker.Column.Option(text: "\($0)", tag: $0) }),
 ]

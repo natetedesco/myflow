@@ -26,8 +26,8 @@ func formatTimeNoZero(seconds: Int) -> String {
     let remainingSecondsAfterMinutes = remainingSeconds % 60
     
     let hourStamp = hours > 0 ? "\(hours):" : ""
-    let minuteStamp = minutes > 9 ? "\(minutes):" : "\(minutes):"
-    let secondStamp = remainingSecondsAfterMinutes > 9 ? "\(remainingSecondsAfterMinutes)" : "0\(remainingSecondsAfterMinutes)"
+    let minuteStamp = String(format: "%02d:", minutes)
+    let secondStamp = String(format: "%02d", remainingSecondsAfterMinutes)
     
     return hourStamp + minuteStamp + secondStamp
 }

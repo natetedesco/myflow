@@ -24,6 +24,8 @@ struct TimerWidgetAttributes: ActivityAttributes {
         
         var blocks: Int
         var blocksCompleted: Int
+        
+        var isBreak: Bool
     }
     var name: String
 }

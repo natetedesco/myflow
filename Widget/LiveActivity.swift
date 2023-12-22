@@ -38,10 +38,8 @@ struct TimerWidgetLiveActivity: Widget {
                         }
                     }
                     .font(.system(size: 44))
-//                    .fontWeight(.medium)
                     .monospacedDigit()
                     .fontWeight(.light)
-//                    .foregroundColor(.secondary)
                     .multilineTextAlignment(.leading)
                     .frame(maxHeight: .infinity, alignment: .leading)
                 }
@@ -54,7 +52,7 @@ struct TimerWidgetLiveActivity: Widget {
                     Text("")
                 })
                 .progressViewStyle(.circular)
-                .tint(.teal)
+                .tint(context.isBreak ? .gray :.teal)
                 .frame(height: 64)
             }
             .padding(.horizontal)
@@ -101,7 +99,7 @@ struct TimerWidgetLiveActivity: Widget {
                             Text("")
                         })
                         .progressViewStyle(.circular)
-                        .tint(.teal)
+                        .tint(context.state.isBreak ? .gray :.teal)
                         .frame(height: 64)
                     }
             }
@@ -120,7 +118,7 @@ struct TimerWidgetLiveActivity: Widget {
             .font(.caption)
             .fontWeight(.medium)
             .frame(width: 40)
-            .foregroundColor(.teal)
+            .foregroundColor(context.state.isBreak ? .gray :.teal)
 
         } compactTrailing: {
             ProgressView(timerInterval: context.state.value, countsDown: false, label: {
@@ -128,7 +126,7 @@ struct TimerWidgetLiveActivity: Widget {
             }, currentValueLabel: {
                 Text("")
             })
-            .progressViewStyle(CircularProgressViewStyle(tint: .teal))
+            .progressViewStyle(CircularProgressViewStyle(tint: context.state.isBreak ? .gray :.teal))
             
         }
         
@@ -137,6 +135,6 @@ struct TimerWidgetLiveActivity: Widget {
         ProgressView(timerInterval: context.state.value, countsDown: false, label: {
         }, currentValueLabel: {})
         .progressViewStyle(.circular)
-        .tint(.teal)
+        .tint(context.state.isBreak ? .gray :.teal)
     }}}
 }

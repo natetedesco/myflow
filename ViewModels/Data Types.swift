@@ -16,8 +16,7 @@ struct Flow: Codable, Equatable, Identifiable {
 struct Block: Codable, Hashable, Identifiable {
     var id = UUID()
     var title: String = "Focus"
-//    var isFocus: Bool = true
-    var minutes: Int = 20
+    var minutes: Int = 0
     var seconds: Int = 0
 }
 
@@ -31,7 +30,6 @@ struct Day: Codable, Identifiable, Equatable {
 extension Flow {
     func totalFlowTimeInSeconds() -> TimeInterval {
         var totalSeconds: TimeInterval = 0
-        
         for block in blocks {
             totalSeconds += block.totalTimeInSeconds
         }

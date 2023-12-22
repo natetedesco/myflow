@@ -12,7 +12,7 @@ struct FlowView: View {
     @Environment(\.dismiss) var dismiss
     var tip = BlocksTip()
     var completeTip = CompleteTip()
-
+    
     
     @Environment(\.horizontalSizeClass) private var sizeClass
     
@@ -54,6 +54,13 @@ struct FlowView: View {
                                     Text("Duplicate")
                                 }
                                 .tint(.teal)
+                            } else if model.mode == .flowStart && completedBlock(block: block) {
+                                Button {
+                                    model.extend()
+                                } label: {
+                                    Text("Extend")
+                                }
+                                .tint(.teal)
                             }
                         }
                         .swipeActions(edge: .trailing) {
@@ -67,13 +74,13 @@ struct FlowView: View {
                                     }
                                 }
                                 .tint(.teal)
-                            } else if model.mode == .flowStart && completedBlock(block: block) {
+                            } else if model.mode != .initial {
                                 Button {
                                     model.extend()
                                 } label: {
-                                    Text("Extend")
+                                    Text("Reset")
                                 }
-                                .tint(.teal)
+                                .tint(.red)
                             }
                         }
                     }
@@ -110,6 +117,24 @@ struct FlowView: View {
                 ToolbarItem(placement: .bottomBar) {
                     HStack {
                         
+                        if model.mode != .breakRunning && model.mode != .breakPaused {
+//                            Spacer()
+                            // Start
+                            Button {
+                                softHaptic()
+                                model.Start()
+                            } label: {
+                                Image(systemName: model.mode == .flowRunning ? "pause.fill" : "play.fill")
+                                    .font(.title3)
+                                    .padding()
+                                    .background(Circle().foregroundStyle(.teal.quinary))
+                                    .padding(.leading, -8)
+                            }
+                            .disabled(model.flow.blocks.count == 0)
+                        }
+                        
+                        Spacer()
+                        
                         // Initial
                         if model.mode == .initial {
                             
@@ -125,7 +150,7 @@ struct FlowView: View {
                                         .font(.title3)
                                         .fontWeight(.semibold)
                                 }
-                                .padding(.leading, -8)
+//                                .padding(.leading, -4)
                             }
                             
                             // Focus View Toggle
@@ -144,11 +169,12 @@ struct FlowView: View {
                                 
                                 // Break
                                 Menu {
-                                    Section(header: Text("Select to Start Break")) {
+                                    Section(header: Text("Select to Start")) {
                                         ForEach(values, id: \.self) { i in
                                             Button {
-                                                selectedBreakTime = i
+                                                model.breakTime = i * 60
                                                 model.startBreak()
+                                                softHaptic()
                                             } label: {
                                                 Text("\(i) min")
                                             }
@@ -157,74 +183,66 @@ struct FlowView: View {
                                 } label: {
                                     HStack {
                                         Text("Break")
-                                            .font(.system(size: 14))
-                                        Image(systemName: "chevron.down")
-                                            .font(.system(size: 10))
-                                            .fontWeight(.medium)
-                                            .padding(.horizontal, -4)
+                                            .font(.footnote)
                                     }
                                     .foregroundStyle(.white.secondary)
-                                    .padding(.vertical, 8)
-                                    .padding(.horizontal, 16)
-                                    .background(.regularMaterial)
-                                    .cornerRadius(20)
-                                    .padding(.leading, -8)
-                                    .padding(.top, 4)
+                                    .padding(19.5)
+                                    .background(Circle().foregroundStyle(.regularMaterial))
                                 }
-                                .foregroundStyle(.white.secondary)
+                                .padding(.leading, -16)
                             } else {
                                 Menu {
                                     Button {
-                                        
+                                        model.endBreak()
                                     } label: {
                                         Text("End Break")
                                     }
-                                } label: {
-                                    HStack {
-                                        Text("Break 20:00")
-                                            .font(.title3)
-//                                        Image(systemName: "chevron.down")
-//                                            .font(.system(size: 10))
-//                                            .fontWeight(.medium)
-//                                            .padding(.horizontal, -4)
-//                                            .foregroundStyle(.white.secondary)
+                                    if model.mode == .breakRunning {
+                                        Button {
+                                            model.pauseBreak()
+                                        } label: {
+                                            Text("Pause Break")
+                                        }
+                                    } else {
+                                        Button {
+                                            model.startBreak()
+                                        } label: {
+                                            Text("Resume Break")
+                                        }
                                     }
-                                    .foregroundStyle(.white.secondary)
+                                } label: {
+                                    VStack(alignment: .leading) {
+                                        HStack {
+                                            Text("Break")
+                                                .font(.title3)
+                                                .foregroundStyle(.white)
+                                            Image(systemName: "chevron.down")
+                                                .font(.system(size: 10))
+                                                .fontWeight(.medium)
+                                                .padding(.horizontal, -4)
+                                                .foregroundStyle(.white)
+                                        }
+                                        Text(formatTime(seconds: model.breakTimeLeft))
+                                            .font(.title2)
+                                            .fontWeight(.light)
+                                            .foregroundStyle(.white.secondary)
+                                            .monospacedDigit()
+                                    }
+                                    .padding(.leading, -6)
                                 }
                                 
                                 Spacer()
                                 
-                                Button {
-                                    softHaptic()
-                                    model.Start()
-                                } label: {
-                                    Image(systemName: "pause.fill")
-                                        .padding()
-                                        .foregroundStyle(.white.secondary)
-                                        .background(Circle().foregroundStyle(.white.quinary))
-                                        .padding(.trailing, -8)
-                                }
-
-                                
+                                Gauge(value: formatProgress(time: model.breakTime, timeLeft: model.breakTimeLeft), label: {Text("")})
+                                    .gaugeStyle(.accessoryCircularCapacity)
+                                    .tint(.gray)
+                                    .scaleEffect(0.9)
+                                    .padding(.trailing, -4)
                             }
                         }
-                        
-                        
-                        if model.mode != .breakRunning {
-                            Spacer()
-                            // Start
-                            Button {
-                                softHaptic()
-                                model.Start()
-                            } label: {
-                                Image(systemName: model.mode == .flowRunning ? "pause.fill" : "play.fill")
-                                    .padding()
-                                    .background(Circle().foregroundStyle(.teal.quinary))
-                                    .padding(.trailing, -8)
-                            }
-                            .disabled(model.flow.blocks.count == 0)
-                        }
+                         
                     }
+                    .padding(.top, 8)
                 }
             }
             .ignoresSafeArea(.keyboard)
@@ -287,7 +305,7 @@ struct CompleteTip: Tip {
     }
     
     var message: Text? {
-        Text("Swipe right to complete early. If completed, swipe right to extend.")
+        Text("Swipe left to complete early. If completed, swipe right to extend.")
     }
     
     var image: Image? {

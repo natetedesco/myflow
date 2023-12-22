@@ -14,11 +14,11 @@ final class NotificationManager: NSObject, ObservableObject, UNUserNotificationC
     @Published private(set) var authorizationStatus: UNAuthorizationStatus?
     
     // Set Notification
-    func Set(time: Int, elapsed: Int, id: String = "timer") {
+    func Set(time: Int, elapsed: Int, id: String = "timer", isBreak: Bool = false) {
         if settings.notificationsOn {
             
         let content = UNMutableNotificationContent()
-        content.title = "Focus Completed"
+        content.title = isBreak ? "Break Completed" : "Focus Completed"
         content.sound = UNNotificationSound.init(named:UNNotificationSoundName(rawValue: "AquaSound.aif"))
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(time - elapsed), repeats: false)

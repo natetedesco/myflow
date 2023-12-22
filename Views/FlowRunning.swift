@@ -13,27 +13,14 @@ struct FlowRunning: View {
     
     @AppStorage("showFocusByDefault") var showFocusByDefault = true
     
+
+    
     var body: some View {
         NavigationStack {
             ZStack {
                 VStack {
                     
-                    // Capsule
-                    Button {
-                        model.showFlowRunning.toggle()
-                    } label: {
-                        Capsule()
-                            .foregroundStyle(.white.quinary)
-                            .frame(width: 36, height: 5)
-                            .padding(.top, sizeClass == .regular ? 16 : 0)
-                            .padding(.bottom, 12)
-                            .padding(.horizontal)
-                            .gesture(
-                                DragGesture()
-                                    .onChanged { _ in model.showFlowRunning.toggle() }
-                                    .onEnded { _ in }
-                            )
-                    }
+                    capsuleButton
                     
                     // Focus Label
                     Text(focusLabel)
@@ -82,7 +69,6 @@ struct FlowRunning: View {
                 // Circlers
                 Circles(
                     model: model,
-                    color: Color.teal,
                     size: sizeClass == .regular ? 432: 304,
                     width: sizeClass == .regular ? 30 : 20)
                 
@@ -100,7 +86,11 @@ struct FlowRunning: View {
                 
                 // Complete & Extend
                 Button {
-                    completeAndExtend()
+                    if model.mode == .breakRunning || model.mode == .breakPaused {
+                        model.endBreak()
+                    } else {
+                        completeAndExtend()
+                    }
                 } label: {
                     HStack {
                         Label(model.mode == .flowStart ? "Extend" : "Complete", systemImage: model.mode == .flowStart ? "goforward.plus" :"checkmark.circle")
@@ -120,6 +110,24 @@ struct FlowRunning: View {
         }
     }
     
+    var capsuleButton: some View {
+        Button {
+            model.showFlowRunning.toggle()
+        } label: {
+            Capsule()
+                .foregroundStyle(.white.quinary)
+                .frame(width: 36, height: 5)
+                .padding(.top, sizeClass == .regular ? 16 : 0)
+                .padding(.bottom, 12)
+                .padding(.horizontal)
+                .gesture(
+                    DragGesture()
+                        .onChanged { _ in model.showFlowRunning.toggle() }
+                        .onEnded { _ in }
+                )
+        }
+    }
+    
     // use variables for currentblock, nextBlock, previousBlock
     
     var currentBlock: Block {
@@ -134,6 +142,8 @@ struct FlowRunning: View {
     var focusLabel: String {
         if model.mode == .flowStart {
             return model.flow.blocks[model.blocksCompleted - 1].title
+        } else if model.mode == .breakRunning || model.mode == .breakPaused {
+            return "Break"
         }
         return model.flow.blocks[model.blocksCompleted].title
     }
@@ -141,6 +151,8 @@ struct FlowRunning: View {
     var timerLabel: String {
         if model.mode == .flowStart {
             return "00:00"
+        } else if model.mode == .breakRunning || model.mode == .breakPaused{
+            return formatTime(seconds: model.breakTimeLeft)
         }
         return formatTime(seconds: model.flowTimeLeft)
     }
@@ -160,10 +172,16 @@ import SwiftUI
 
 struct Circles: View {
     var model: FlowModel
-    var color = Color.teal
     var size: CGFloat = 288
     var width: CGFloat = 20
     var fill: Bool = false
+    
+    var color: Color {
+        if model.mode == .breakRunning || model.mode == .breakPaused {
+            return Color.gray
+        }
+        return Color.teal
+    }
     
     var body: some View {
         ZStack {

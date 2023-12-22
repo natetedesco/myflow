@@ -23,7 +23,8 @@ extension FlowModel {
             case .flowStart: Run()
             case .flowRunning: Pause()
             case .flowPaused: flowExtended ? extend() : Run()
-            case .breakRunning: ()
+            case .breakRunning: pauseBreak()
+            case .breakPaused: startBreak()
             case .completed: initialize()
             }
             data.createDayStruct()
@@ -32,10 +33,43 @@ extension FlowModel {
     }
     func startBreak() {
         mode = .breakRunning
+        breakTimeLeft = breakTime - elapsed // for Label
+
+        if settings.focusOnStart { showFlowRunning = true }
+
+        // Set End
+        start = Date()
+        let end = Calendar.current.date(byAdding: .second, value: (breakTime - elapsed), to: start)!
         
+        notifications.Set(time: breakTime, elapsed: elapsed, id: "timer", isBreak: true)
+        startActivity(start: start, end: end, isBreak: true)
+        
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [self] timer in
+            let timeLeft = Calendar.current.dateComponents([.second], from: Date(), to: end + 1).second ?? 0
+            breakTimeLeft = timeLeft
+            if timeLeft <= 0 {
+                breakTimeLeft = 0
+                
+                endBreak()
+            }
+        }
     }
-    func endBreak() {
+    
+    func pauseBreak() {
+        mode = .breakPaused
         
+        let newTime = Int(abs(start.timeIntervalSinceNow))
+        elapsed = elapsed + newTime
+        
+        invalidateTimer()
+    }
+    
+    func endBreak() {
+        showFlowRunning = false
+        mode = .flowStart
+        elapsed = 0
+        invalidateTimer()
+        stopActivity()
     }
     
     // Run

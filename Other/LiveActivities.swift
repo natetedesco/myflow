@@ -9,20 +9,20 @@ import ActivityKit
 
 extension FlowModel {
     
-    func startActivity(start: Date, end: Date, paused: Bool = false, extend: Bool = false) {
+    func startActivity(start: Date, end: Date, paused: Bool = false, extend: Bool = false, isBreak: Bool = false) {
         if settings.liveActivities {
-            
             let attributes = TimerWidgetAttributes(name: "flow")
             let initialContentState = TimerWidgetAttributes.TimerStatus(
-                name: self.flow.title,
-                blockName: self.flow.blocks[blocksCompleted].title,
+                name: flow.title,
+                blockName: isBreak ? "Break" : flow.blocks[blocksCompleted].title,
                 value: start...end,
                 paused: paused,
-                time: flowTimeLeft,
+                time: isBreak ? breakTimeLeft : flowTimeLeft,
                 start: Date(),
                 extend: extend,
                 blocks: flow.blocks.count,
-                blocksCompleted: blocksCompleted
+                blocksCompleted: blocksCompleted,
+                isBreak: isBreak
             )
             do {
                 let activity = try Activity<TimerWidgetAttributes>.request(

@@ -19,6 +19,8 @@ import Foundation
 
     var flowTime = 0
     var flowTimeLeft = 0
+    var breakTime = 0
+    var breakTimeLeft = 0
     var elapsed = 0
     var totalFlowTime = 0
     var flowExtended = false
@@ -100,7 +102,7 @@ import Foundation
     
     // Add
     func addBlock() {
-        let newBlock = Block(title: "Focus", minutes: 20)
+        let newBlock = Block(title: "Focus")
         flow.blocks.append(newBlock)
         selectedIndex = flow.blocks.firstIndex(where: { $0.id == newBlock.id }) ?? 0
         saveFlow()
@@ -128,5 +130,6 @@ enum TimerMode {
     case flowRunning
     case flowPaused
     case breakRunning
+    case breakPaused
     case completed
 }

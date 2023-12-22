@@ -10,40 +10,65 @@ struct BlockView: View {
     @State var model: FlowModel
     @Binding var block: Block
     @Environment(\.horizontalSizeClass) private var sizeClass
+    @State var showTasks = false
     
     var body: some View {
         HStack {
-            ZStack {
-
-                
-                
-//                if model.mode == .flowStart && previousBlock {
-//                    
-//                    Button {
-//                        model.extend()
-//                    } label: {
-//                        Image(systemName: "plus")
-//                            .fontWeight(.medium)
-//                            .padding(.trailing, 4)
-//                    }
-//                } else if model.mode == .flowRunning && currentBlock {
-//                    Button {
-//                        model.Complete()
-//                    } label: {
-//                        Image(systemName: "checkmark")
-//                            .fontWeight(.medium)
-////                            .foregroundStyle(model.flowExtended ? .primary : .secondary)
-//                            .padding(.trailing, 4)
-//                    }
-//                }
-            }
+            
+            Gauge(value: gaugeValue, label: {Text("")})
+                .gaugeStyle(.accessoryCircularCapacity)
+                .tint(.accentColor)
+                .scaleEffect(sizeClass == .regular ? 1.3 : 0.9)
+                .animation(.default, value: gaugeValue)
+//                    .padding(.trailing, -4)
+                .padding(.leading, -2)
+                .onTapGesture {
+                    showTasks.toggle()
+                }
+            
             VStack(alignment: .leading) {
                 Text(block.title.isEmpty ? "Focus" : block.title)
-                    .font(sizeClass == .regular ? .largeTitle : .title3)
+                    .font(sizeClass == .regular ? .largeTitle : .body)
                     .fontWeight(.medium)
                     .foregroundStyle(focusLabelStyle)
                     .multilineTextAlignment(.leading)
                     .lineLimit(1)
+                
+                if showTasks {
+                                    Text(block.title.isEmpty ? "Focus" : block.title)
+                                        .font(sizeClass == .regular ? .largeTitle : .callout)
+                                        .foregroundStyle(.secondary)
+                                        .foregroundStyle(focusLabelStyle)
+                                        .multilineTextAlignment(.leading)
+                                        .lineLimit(1)
+                                        .padding(.leading, 24)
+                                        .padding(.top, 2)
+                                    
+                                    Text(block.title.isEmpty ? "Focus" : block.title)
+                                        .font(sizeClass == .regular ? .largeTitle : .callout)
+                                        .foregroundStyle(.secondary)
+                                        .foregroundStyle(focusLabelStyle)
+                                        .multilineTextAlignment(.leading)
+                                        .lineLimit(1)
+                                        .padding(.leading, 24)
+                                        .padding(.top, 2)
+                                    
+                                    Text(block.title.isEmpty ? "Focus" : block.title)
+                                        .font(sizeClass == .regular ? .largeTitle : .callout)
+                                        .foregroundStyle(.secondary)
+                                        .foregroundStyle(focusLabelStyle)
+                                        .multilineTextAlignment(.leading)
+                                        .lineLimit(1)
+                                        .padding(.leading, 24)
+                                        .padding(.top, 2)
+                }
+                
+            }
+                
+                Spacer()
+                
+
+                
                 HStack {
                     if model.flowExtended && currentBlock {
                         Image(systemName: "plus")
@@ -51,24 +76,17 @@ struct BlockView: View {
                             .font(.footnote)
                             .padding(.trailing, -4)
                     }
+                    
                     Text(timerLabel)
                         .font(sizeClass == .regular ? .title : .title2)
                         .fontWeight(.light)
                         .monospacedDigit()
                         .foregroundStyle(timerLabelStyle)
                 }
-            }
-                
-            Spacer()
                 
 
             
-            Gauge(value: gaugeValue, label: {Text("")})
-                .gaugeStyle(.accessoryCircularCapacity)
-                .tint(.accentColor)
-                .scaleEffect(sizeClass == .regular ? 1.3 : 0.9)
-                .animation(.default, value: gaugeValue)
-                .padding(.trailing, -4)
+
         }
     }
     
@@ -78,8 +96,8 @@ struct BlockView: View {
         }
         else if model.mode == .initial || completed {
             return .primary
-//        } else if nextUp {
-//            return .teal.secondary
+            //        } else if nextUp {
+            //            return .teal.secondary
         }
         return .tertiary
     }
@@ -87,8 +105,8 @@ struct BlockView: View {
     var timerLabelStyle: any ShapeStyle {
         if model.mode == .initial || completed {
             return .secondary
-//        } else if nextUp {
-//            return .teal.secondary
+            //        } else if nextUp {
+            //            return .teal.secondary
         }
         return .tertiary
     }
