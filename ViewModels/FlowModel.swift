@@ -102,7 +102,7 @@ import Foundation
     
     // Add
     func addBlock() {
-        let newBlock = Block(title: "Focus")
+        let newBlock = Block(title: "Focus", minutes: 20)
         flow.blocks.append(newBlock)
         selectedIndex = flow.blocks.firstIndex(where: { $0.id == newBlock.id }) ?? 0
         saveFlow()
@@ -131,5 +131,4 @@ enum TimerMode {
     case flowPaused
     case breakRunning
     case breakPaused
-    case completed
 }

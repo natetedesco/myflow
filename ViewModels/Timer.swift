@@ -25,7 +25,6 @@ extension FlowModel {
             case .flowPaused: flowExtended ? extend() : Run()
             case .breakRunning: pauseBreak()
             case .breakPaused: startBreak()
-            case .completed: initialize()
             }
             data.createDayStruct()
         }
@@ -121,12 +120,9 @@ extension FlowModel {
             let time = (block.minutes * 60) + (block.seconds)
             flowTime = time
             flowTimeLeft = time
-            
             mode = .flowStart
         }
-//        if settings.dismissOnComplete {
             showFlowRunning = false
-//        }
     }
     
     // Pause
@@ -148,7 +144,6 @@ extension FlowModel {
             addTotalFlowTime(time: flowTimeLeft)
             flowExtended = false
             flowTimeLeft = flowTime
-            
         } else {
             let time = flowTime - flowTimeLeft
             data.addTime(time: time)
@@ -232,22 +227,22 @@ extension FlowModel {
     func addTotalFlowTime(time: Int) {
         totalFlowTime = totalFlowTime + time
     }
+    // Restart
+    func resetBlock() {
+        elapsed = 0
+        if mode == .flowRunning || mode == .flowPaused {
+            flowTimeLeft = flowTime
+            invalidateTimer()
+        } else {
+            if blocksCompleted != 0 {
+                blocksCompleted -= 1
+                let block = flow.blocks[blocksCompleted]
+                let time = (block.minutes * 60) + (block.seconds)
+                flowTime = time
+                flowTimeLeft = time
+            }
+        }
+        mode = .flowStart
+    }
 }
 
-// Restart
-//    func Restart() {
-//        elapsed = 0
-//        mode = .flowStart
-//        if mode == .flowRunning || mode == .flowPaused {
-//            flowTimeLeft = flowTime
-//            invalidateTimer()
-//        } else {
-//            if blocksCompleted != 0 {
-//                blocksCompleted -= 1
-//                let block = flow.blocks[blocksCompleted]
-//                let time = (block.hours * 3600) + (block.minutes * 60) + (block.seconds)
-//                flowTime = time
-//                flowTimeLeft = time
-//            }
-//        }
-//    }

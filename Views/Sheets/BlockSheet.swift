@@ -23,7 +23,7 @@ struct BlockSheetView: View {
             Color.black.opacity(0.3).ignoresSafeArea()
             
             VStack {
-                HStack {
+                VStack {
                     TextField("Block Title", text: $model.flow.blocks[model.selectedIndex].title)
                         .leading()
                         .focused($isFocused)
@@ -32,17 +32,35 @@ struct BlockSheetView: View {
                             dismiss()
                             newBlock = false
                         }
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 10)
-                        .background(.regularMaterial)
-                        .cornerRadius(16)
+
                         .onReceive(NotificationCenter.default.publisher(for: UITextField.textDidBeginEditingNotification)) { obj in
                             if let textField = obj.object as? UITextField {
                                 textField.selectedTextRange = textField.textRange(from: textField.beginningOfDocument, to: textField.endOfDocument)
                             }
                         }
                         .introspectTextField { textField in textField.becomeFirstResponder() }
+//                    
+//                    Divider()
+//                    
+//                    Text("Subtasks")
+//                        .foregroundStyle(.secondary)
+//                        .padding(.vertical, 2)
+//                        .leading()
+//                    
+//                    Divider()
+//                    
+//                    Text("Tag")
+//                        .foregroundStyle(.secondary)
+//                        .padding(.vertical, 2)
+//                        .leading()
+
                 }
+                .padding(.horizontal, 12)
+                .padding(.vertical, 10)
+                .background(.regularMaterial)
+                .cornerRadius(16)
+
+                
                 MultiComponentPicker(columns: columns, selections: [
                     $model.flow.blocks[model.selectedIndex].minutes,
                     $model.flow.blocks[model.selectedIndex].seconds]
@@ -71,10 +89,11 @@ struct BlockSheetView: View {
 }
 
 #Preview {
-    ZStack {}
+    FlowView(model: FlowModel())
         .sheet(isPresented: .constant(true), content: {
             BlockSheetView(model: FlowModel(), newBlock: .constant(false))
                 .sheetMaterial()
                 .presentationDetents([.fraction(1/3)])
+                .presentationBackgroundInteraction(.enabled)
         })
 }
