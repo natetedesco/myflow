@@ -10,7 +10,7 @@ import TipKit
 struct FlowView: View {
     @State var model: FlowModel
     @Environment(\.dismiss) var dismiss
-    var tip = BlocksTip()
+    var blocksTip = BlocksTip()
     var completeTip = CompleteTip()
     
     
@@ -26,8 +26,9 @@ struct FlowView: View {
                 List{
                     Section(header: HStack {
                         Text("\(model.flow.blocks.count) Blocks")
+                            .foregroundStyle(.white)
                         Spacer()
-                        Text(model.flow.blocks.count == 0 ? "No Blocks" : model.flow.totalFlowTimeFormatted())
+                        Text(model.flow.blocks.count == 0 ? "00:00" : model.flow.totalFlowTimeFormatted())
                             .font(.footnote)
                             .fontWeight(.medium)
                     }) {
@@ -88,7 +89,7 @@ struct FlowView: View {
                         .onDelete(perform: model.mode == .initial ? delete : nil)
                         .onMove(perform: move)
                     }
-                    TipView(tip, arrowEdge: .top)
+                    TipView(blocksTip, arrowEdge: .none)
                         .listRowSeparator(.hidden, edges: [.bottom])
                 }
                 .listStyle(.plain)
@@ -98,137 +99,32 @@ struct FlowView: View {
                     
                     ToolbarItemGroup(placement: .topBarLeading) {
                         if model.mode == .initial {
-                            // Back
-                            Button {
-                                model.saveFlow()
-                                dismiss()
-                            } label: {
-                                Text("Done")
-                            }
+                            doneButton
                         }
                         else {
-                            // Reset
-                            Button {
-                                model.Reset()
-                            } label: {
-                                Text("Reset")
-                            }
+                            resetButton
                         }
                     }
                     ToolbarItem(placement: .bottomBar) {
                         HStack {
+                            
+                            // Left
                             if model.mode != .breakRunning && model.mode != .breakPaused {
-                                // Start
-                                Button {
-                                    softHaptic()
-                                    model.Start()
-                                } label: {
-                                    Image(systemName: model.mode == .flowRunning ? "pause.fill" : "play.fill")
-                                        .font(.title3)
-                                        .padding()
-                                        .background(Circle().foregroundStyle(.teal.quinary))
-                                        .padding(.leading, -8)
-                                }
-                                .disabled(model.flow.blocks.count == 0)
-                                Spacer()
-                            }
-                            
-                            
-                            // Initial
-                            if model.mode == .initial {
-                                
-                                // Plus
-                                Button {
-                                    lightHaptic()
-                                    model.addBlock()
-                                    model.showBlock.toggle()
-                                    newBlock.toggle()
-                                } label: {
-                                    HStack {
-                                        Image(systemName: "plus")
-                                            .font(.title3)
-                                            .fontWeight(.semibold)
-                                    }
-                                }
-                                
-                                // Focus View Toggle
+                                startButton
                             } else {
-                                if model.mode == .flowRunning || model.mode == .flowPaused {
-                                    Button {
-                                        model.showFlowRunning.toggle()
-                                    } label: {
-                                        Image(systemName: "chevron.up")
-                                            .font(.title3)
-                                            .foregroundStyle(.white.tertiary)
-                                            .fontWeight(.semibold)
-                                            .frame(maxWidth: .infinity)
-                                    }
-                                } else if model.mode == .flowStart {
-                                    
-                                    // Break
-                                    Menu {
-                                        Section(header: Text("Select to Start")) {
-                                            ForEach(values, id: \.self) { i in
-                                                Button {
-                                                    model.breakTime = i * 60
-                                                    model.startBreak()
-                                                    softHaptic()
-                                                } label: {
-                                                    Text("\(i) min")
-                                                }
-                                            }
-                                        }
-                                    } label: {
-                                        HStack {
-                                            Text("Break")
-                                                .font(.footnote)
-                                        }
-                                        .foregroundStyle(.white.secondary)
-                                        .padding(19.5)
-                                        .background(Circle().foregroundStyle(.regularMaterial))
-                                    }
-                                    .padding(.trailing, -16)
-                                } else {
-                                    Menu {
-                                        Button {
-                                            model.endBreak()
-                                        } label: {
-                                            Text("End Break")
-                                        }
-                                        if model.mode == .breakRunning {
-                                            Button {
-                                                model.pauseBreak()
-                                            } label: {
-                                                Text("Pause Break")
-                                            }
-                                        } else {
-                                            Button {
-                                                model.startBreak()
-                                            } label: {
-                                                Text("Resume Break")
-                                            }
-                                        }
-                                    } label: {
-                                        HStack {
-                                            Text("Break")
-                                                .font(.title3)
-                                                .foregroundStyle(.white)
-                                            Image(systemName: "chevron.down")
-                                                .font(.system(size: 10))
-                                                .fontWeight(.medium)
-                                                .padding(.horizontal, -4)
-                                                .foregroundStyle(.white)
-                                        }
-                                    }
-                                    Spacer()
-                                    Text(formatTime(seconds: model.breakTimeLeft))
-                                        .font(.title2)
-                                        .fontWeight(.light)
-                                        .foregroundStyle(.white.secondary)
-                                        .monospacedDigit()
-                                }
+                                breakLabel
                             }
                             
+                            Spacer()
+                            
+                            // Right
+                            if model.mode == .initial {
+                                plusButton
+                            } else if model.mode == .flowStart {
+                                breakButton
+                            } else if model.mode != .breakRunning && model.mode != .breakPaused {
+                                focusViewButton
+                            }
                         }
                         .padding(.top, 8)
                     }
@@ -253,6 +149,143 @@ struct FlowView: View {
                 .presentationDetents([.fraction(4/10)])
         }
     }
+    
+    // Done
+    var doneButton: some View {
+        Button {
+            model.saveFlow()
+            dismiss()
+        } label: {
+            Text("Done")
+        }
+    }
+    
+    // Reset
+    var resetButton: some View {
+        Button {
+            model.Reset()
+        } label: {
+            Text("Reset")
+        }
+    }
+    
+    // Start
+    var startButton: some View {
+        Button {
+            softHaptic()
+            model.Start()
+        } label: {
+            Image(systemName: model.mode == .flowRunning ? "pause.fill" : "play.fill")
+                .font(.title3)
+                .padding()
+                .background(Circle().foregroundStyle(.teal.quinary))
+                .padding(.leading, -8)
+        }
+        .disabled(model.flow.blocks.count == 0)
+    }
+    
+    // Plus
+    var plusButton: some View {
+        Button {
+            lightHaptic()
+            model.addBlock()
+            model.showBlock.toggle()
+            newBlock.toggle()
+            blocksTip.invalidate(reason: .actionPerformed)
+        } label: {
+            HStack {
+                Image(systemName: "plus")
+                    .font(.title3)
+                    .fontWeight(.semibold)
+            }
+        }
+    }
+    
+    var focusViewButton: some View {
+        // Focus View Toggle
+        Button {
+            model.showFlowRunning.toggle()
+        } label: {
+            Image(systemName: "chevron.up")
+                .font(.title3)
+                .foregroundStyle(.white.tertiary)
+                .fontWeight(.semibold)
+                .frame(maxWidth: .infinity)
+        }
+    }
+    
+    // Break
+    var breakButton: some View {
+        Menu {
+            Section(header: Text("Select to Start")) {
+                ForEach(values, id: \.self) { i in
+                    Button {
+                        model.breakTime = i * 60
+                        model.startBreak()
+                        softHaptic()
+                    } label: {
+                        Text("\(i) min")
+                    }
+                }
+            }
+        } label: {
+            HStack {
+                Text("Break")
+                    .font(.footnote)
+            }
+            .foregroundStyle(.white.secondary)
+            .padding(19.5)
+            .background(Circle().foregroundStyle(.regularMaterial))
+        }
+        .padding(.trailing, -16)
+    }
+    
+    var breakLabel: some View {
+        HStack {
+        Menu {
+            Button {
+                model.endBreak()
+            } label: {
+                Text("End Break")
+            }
+            if model.mode == .breakRunning {
+                Button {
+                    model.pauseBreak()
+                } label: {
+                    Text("Pause Break")
+                }
+            } else {
+                Button {
+                    model.startBreak()
+                } label: {
+                    Text("Resume Break")
+                }
+            }
+        } label: {
+            HStack {
+                Text("Break")
+                    .font(.title3)
+                    .foregroundStyle(.white)
+                Image(systemName: "chevron.down")
+                    .font(.system(size: 8))
+                    .fontWeight(.semibold)
+                    .padding(.horizontal, -4)
+                    .foregroundStyle(.white.secondary)
+            }
+        }
+                
+                Spacer()
+                
+                Text(formatTime(seconds: model.breakTimeLeft))
+                    .font(.title2)
+                    .fontWeight(.light)
+                    .foregroundStyle(.white.secondary)
+                    .monospacedDigit()
+            
+        }
+    }
+    
+    
     
     func delete(at offsets: IndexSet) {
         model.flow.blocks.remove(atOffsets: offsets)
@@ -280,9 +313,8 @@ struct BlocksTip: Tip {
     }
     
     var message: Text? {
-//        Text("Drag to reorder. Swipe right to duplicate. Swipe left to delete.")
-        Text("Swipe right to duplicate. Swipe left to delete. Once you have added your focus blocks, you are ready to start your flow.")
-
+        Text("Create a block for each thing you want to focus on. Swipe right to duplicate. Swipe left to delete.")
+        
     }
     
     var image: Image? {
@@ -296,7 +328,7 @@ struct CompleteTip: Tip {
     }
     
     var message: Text? {
-        Text("Swipe right to complete a focus. If completed, swipe right to extend.")
+        Text("Swipe right to complete early. If completed, swipe right to extend.")
     }
     
     var image: Image? {

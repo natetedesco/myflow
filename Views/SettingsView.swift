@@ -81,24 +81,24 @@ struct SettingsView: View {
                     }
                     
                         
-                        HStack {
-                            Label("Default Focus Length", systemImage: "timer")
-                            
-                            Spacer()
-                            
-                            Menu {
-                                Text("options")
-                            } label: {
-                                Text("20:00")
-                                    .font(.callout)
-                                    .padding(.horizontal, 10)
-                                    .padding(.vertical, 6)
-                                    .background(.regularMaterial)
-                                    .cornerRadius(6)
-                                    .foregroundStyle(.white.secondary)
-                                    .padding(.trailing, -2)
-                            }
-                        }
+//                        HStack {
+//                            Label("Default Focus Length", systemImage: "timer")
+//                            
+//                            Spacer()
+//                            
+//                            Menu {
+//                                Text("options")
+//                            } label: {
+//                                Text("20:00")
+//                                    .font(.callout)
+//                                    .padding(.horizontal, 10)
+//                                    .padding(.vertical, 6)
+//                                    .background(.regularMaterial)
+//                                    .cornerRadius(6)
+//                                    .foregroundStyle(.white.secondary)
+//                                    .padding(.trailing, -2)
+//                            }
+//                        }
                 }
                 
                 // About

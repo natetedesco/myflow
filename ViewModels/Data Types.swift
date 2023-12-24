@@ -10,13 +10,13 @@ import SwiftUI
 struct Flow: Codable, Equatable, Identifiable {
     var id = UUID()
     var title: String = ""
-    var blocks = [Block()]
+    var blocks: [Block] = []
 }
 
 struct Block: Codable, Hashable, Identifiable {
     var id = UUID()
     var title: String = "Focus"
-    var minutes: Int = 0
+    var minutes: Int = 20
     var seconds: Int = 0
 }
 

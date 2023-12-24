@@ -34,7 +34,7 @@ struct FlowCompletedView: View {
                         .foregroundStyle(.secondary)
                     Text(formatHoursAndMinutes(time: model.settings.multiplyTotalFlowTime ? model.totalFlowTime * 60 : model.totalFlowTime))
                         .font(.subheadline)
-                        .fontWeight(.semibold)
+                        .fontWeight(.medium)
                 }
                 
                 Spacer()

@@ -171,8 +171,6 @@
 		F028E6DE269D406A0022A555 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				F0954B112A95360F009E212E /* Block.swift */,
-				F0B3C20D2B34A8CB00CE6029 /* ShowFocusByDefault.swift */,
 				F07291ED297B42FF00C25E0E /* OverViewCard.swift */,
 				F07291EF297B441200C25E0E /* WeekCard.swift */,
 				F07291F1297B448F00C25E0E /* MonthCard.swift */,
@@ -200,7 +198,7 @@
 				F08315292888A55100153CD7 /* StatsView.swift */,
 				F032564A272251A5009D3EFB /* SettingsView.swift */,
 				F01E848A2AB1249900CF418D /* FlowRunning.swift */,
-				F028E6DE269D406A0022A555 /* Components */,
+				F0954B112A95360F009E212E /* Block.swift */,
 				F0A6718B2B190BE3003B3071 /* Sheets */,
 			);
 			path = Views;
@@ -214,6 +212,7 @@
 				F0D276FF268D351B008F0002 /* Sounds */,
 				F018B2B62928263E00FCD857 /* ViewModels */,
 				F07291F3297B45E600C25E0E /* Views */,
+				F028E6DE269D406A0022A555 /* Components */,
 				F01F2E122B28ED5900B1AAA5 /* UI Elements */,
 				F0EDD03F2A01717400223505 /* Widget */,
 				F0948C1626818EE000A5F48D /* Products */,
@@ -234,6 +233,7 @@
 			children = (
 				F0A6718C2B190BF2003B3071 /* CreateFlow.swift */,
 				F0A6718E2B190C18003B3071 /* FlowCompleted.swift */,
+				F0B3C20D2B34A8CB00CE6029 /* ShowFocusByDefault.swift */,
 				F0A056412B1A5DD400AB430D /* BlockSheet.swift */,
 				F09861FE26968B4B00A61B42 /* Paywall.swift */,
 				F066EB762B1D264B00BCAFC0 /* Onboarding.swift */,
