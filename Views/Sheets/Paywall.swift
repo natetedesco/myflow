@@ -20,7 +20,7 @@ struct PayWall: View {
     
     var body: some View {
         ZStack {
-            Color.black.opacity(0.3).ignoresSafeArea()
+            Color.black.opacity(detent == .large ? 0.6 : 0.4).ignoresSafeArea()
             AnimatedBlur(opacity: 0.8).offset(y: 50)
             
             VStack(alignment: .leading) {
@@ -103,7 +103,7 @@ struct PayWall: View {
                     Text("Your Free Week")
                         .font(.title)
                         .fontWeight(.bold)
-                        .padding(.top, 8)
+                        .padding(.top, 12)
                         .centered()
                     
                     Spacer()
@@ -132,7 +132,7 @@ struct PayWall: View {
                                 Spacer()
                                 
                                 Image(systemName: "bell.fill")
-                                    .foregroundStyle(.black.secondary)
+                                    .foregroundStyle(.black.opacity(0.7))
                                     .frame(width: 16)
                                     .padding(8)
                                 
@@ -149,28 +149,31 @@ struct PayWall: View {
                         
                         VStack(alignment: .leading) {
                             Text("Today")
-                                .font(.callout)
+                                .font(.subheadline)
                                 .fontWeight(.semibold)
-                            Text("Unlock free access to all pro features")
+                            Text("Unlock free access to all pro features.")
                                 .font(.footnote)
+                                .fontWeight(.medium)
                                 .foregroundStyle(.secondary)
                             
                             Spacer()
                             
                             Text("Day 6")
-                                .font(.callout)
+                                .font(.subheadline)
                                 .fontWeight(.semibold)
-                            Text("Your trial is about to end, you will not be charged if you cancel")
+                            Text("Your trial is about to end, you will not be charged if you cancel.")
                                 .font(.footnote)
+                                .fontWeight(.medium)
                                 .foregroundStyle(.secondary)
                             
                             Spacer()
                             
                             Text("Day 7")
-                                .font(.callout)
+                                .font(.subheadline)
                                 .fontWeight(.semibold)
-                            Text("Your annual $19.99 subscription begins")
+                            Text("Your annual $19.99 subscription begins.")
                                 .font(.footnote)
+                                .fontWeight(.medium)
                                 .foregroundStyle(.secondary)
                         }
                     }
@@ -217,7 +220,7 @@ struct PayWall: View {
                     ZStack {
                         Text("Start my free week")
                             .foregroundStyle(.white)
-                            .font(.title2)
+                            .font(.title3)
                             .fontWeight(.medium)
                             .maxWidth()
                             .padding(.vertical)

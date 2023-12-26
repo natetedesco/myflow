@@ -173,6 +173,8 @@ struct Circles: View {
     var size: CGFloat = 288
     var width: CGFloat = 20
     var fill: Bool = false
+    var fillAmount: CGFloat = 1.0
+
     
     var color: Color {
         if model.mode == .breakRunning || model.mode == .breakPaused {
@@ -209,7 +211,7 @@ struct Circles: View {
     
     var circleFill: CGFloat {
         if fill {
-            return 1.0
+            return fillAmount
         } else {
             
             // Initial

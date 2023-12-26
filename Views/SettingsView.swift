@@ -13,19 +13,7 @@ struct SettingsView: View {
     @StateObject var settings = Settings()
     @State var model: FlowModel
     
-    @State var developerSettings = true
-    
-    func authorizeScreenTime() {
-        Task { do {
-            try await center.requestAuthorization(for: .individual)
-            if proAccess {
-                settings.blockDistractions = true
-            }
-            isAuthorized = true
-        } catch {
-            print("error")
-        }}
-    }
+    @State var developerSettings = false
     
     var body: some View {
         NavigationStack {
@@ -191,6 +179,18 @@ struct SettingsView: View {
             MailComposeViewControllerWrapper(isShowing: $isShowingMailView)
                 .ignoresSafeArea()
         }
+    }
+    
+    func authorizeScreenTime() {
+        Task { do {
+            try await center.requestAuthorization(for: .individual)
+            if proAccess {
+                settings.blockDistractions = true
+            }
+            isAuthorized = true
+        } catch {
+            print("error")
+        }}
     }
     
     

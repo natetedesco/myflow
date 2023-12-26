@@ -21,13 +21,15 @@ struct ShowFocusByDefault: View {
                     Spacer()
                     Text("Show Focus View by Default?")
                         .font(.title3)
-                        .fontWeight(.semibold)
-                        .padding(.bottom, 8)
+                        .fontWeight(.bold)
+//                        .padding(.bottom, 8)
+                    Spacer()
                     
                     Text("Focus View displays your current focus. You can change this later in settings.")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)
+                        .padding(.bottom, 8)
                     
                     Spacer()
                     
@@ -54,7 +56,7 @@ struct ShowFocusByDefault: View {
                             .padding(.top, 12)
                     }
                 }
-                .padding(.horizontal, 24)
+                .padding(.horizontal, 32)
             }
         }
     }

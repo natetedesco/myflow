@@ -28,7 +28,7 @@ struct CreateFlowView: View {
                     
                     Spacer()
                     
-                    Text("Create Your Flow")
+                    Text("Create Flow")
                         .font(.title)
                         .fontWeight(.bold)
                     Spacer()
@@ -68,6 +68,7 @@ struct CreateFlowView: View {
                         dismiss()
                     } label: {
                         Text("Cancel")
+                            .foregroundStyle(.white.tertiary)
                     }
                 }
             }

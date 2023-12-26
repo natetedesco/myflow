@@ -191,6 +191,7 @@ struct MainView: View {
                 .presentationDetents([.large, .fraction(6/10)], selection: $detent)
                 .interactiveDismissDisabled(detent == .large)
                 .presentationDragIndicator(detent != .large ? .visible : .hidden)
+                .presentationBackgroundInteraction(.enabled)
         }
     }
 }

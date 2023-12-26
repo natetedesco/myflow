@@ -21,117 +21,115 @@ struct FlowView: View {
     @State var newBlock = false
     
     var body: some View {
-        ZStack {
-            NavigationStack {
-                List{
-                    Section(header: HStack {
-                        Text("\(model.flow.blocks.count) Blocks")
-                            .foregroundStyle(.white)
-                        Spacer()
-                        Text(model.flow.blocks.count == 0 ? "00:00" : model.flow.totalFlowTimeFormatted())
-                            .font(.footnote)
-                            .fontWeight(.medium)
-                    }) {
-                        if model.mode != .initial {
-                            TipView(completeTip, arrowEdge: .bottom)
-                                .listRowSeparator(.hidden, edges: [.top])
-                        }
-                        ForEach($model.flow.blocks) { $block in
-                            Button {
-                                if model.mode == .initial {
-                                    if let selectedIndex = model.flow.blocks.firstIndex(where: { $0.id == block.id }) {
-                                        model.selectedIndex = selectedIndex
-                                        model.showBlock.toggle()
-                                    }
-                                }
-                            } label: {
-                                BlockView(model: model, block: $block)
-                                    .padding(.vertical, sizeClass == .regular ? 16 : -4)
-                            }
-                            .swipeActions(edge: .leading) {
-                                if model.mode == .initial {
-                                    Button {
-                                        model.duplicateBlock(block: block)
-                                    } label: {
-                                        Text("Duplicate")
-                                    }
-                                    .tint(.teal)
-                                } else if model.mode == .flowRunning && currentBlock(block: block) {
-                                    Button {
-                                        model.Complete()
-                                    } label: {
-                                        if model.flowExtended { Text("Done")
-                                        } else {
-                                            Text("Complete")
-                                        }
-                                    }
-                                    .tint(.teal)
-                                } else if model.mode == .flowStart && completedBlock(block: block) {
-                                    Button {
-                                        model.extend()
-                                    } label: {
-                                        Text("Extend")
-                                    }
-                                    .tint(.teal)
-                                }
-                            }
-                            .swipeActions(edge: .trailing) {
-                                if model.mode != .initial && (currentBlock(block: block) || completedBlock(block: block)) {
-                                    Button {
-                                        model.resetBlock()
-                                    } label: {
-                                        Text("Reset Block")
-                                    }
-                                    .tint(.red)
-                                }
-                            }
-                        }
-                        .onDelete(perform: model.mode == .initial ? delete : nil)
-                        .onMove(perform: move)
+        NavigationStack {
+            List{
+                Section(header: HStack {
+                    Text("\(model.flow.blocks.count) Blocks")
+                        .foregroundStyle(.white)
+                    Spacer()
+                    Text(model.flow.blocks.count == 0 ? "00:00" : model.flow.totalFlowTimeFormatted())
+                        .font(.footnote)
+                        .fontWeight(.medium)
+                }) {
+                    if model.mode != .initial {
+                        TipView(completeTip, arrowEdge: .bottom)
+                            .listRowSeparator(.hidden, edges: [.top])
                     }
-                    TipView(blocksTip, arrowEdge: .none)
-                        .listRowSeparator(.hidden, edges: [.bottom])
-                }
-                .listStyle(.plain)
-                .navigationTitle(model.flow.title)
-                .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {}
-                    
-                    ToolbarItemGroup(placement: .topBarLeading) {
-                        if model.mode == .initial {
-                            doneButton
-                        }
-                        else {
-                            resetButton
-                        }
-                    }
-                    ToolbarItem(placement: .bottomBar) {
-                        HStack {
-                            
-                            // Left
-                            if model.mode != .breakRunning && model.mode != .breakPaused {
-                                startButton
-                            } else {
-                                breakLabel
-                            }
-                            
-                            Spacer()
-                            
-                            // Right
+                    ForEach($model.flow.blocks) { $block in
+                        Button {
                             if model.mode == .initial {
-                                plusButton
-                            } else if model.mode == .flowStart {
-                                breakButton
-                            } else if model.mode != .breakRunning && model.mode != .breakPaused {
-                                focusViewButton
+                                if let selectedIndex = model.flow.blocks.firstIndex(where: { $0.id == block.id }) {
+                                    model.selectedIndex = selectedIndex
+                                    model.showBlock.toggle()
+                                }
+                            }
+                        } label: {
+                            BlockView(model: model, block: $block)
+                                .padding(.vertical, sizeClass == .regular ? 16 : -4)
+                        }
+                        .swipeActions(edge: .leading) {
+                            if model.mode == .initial {
+                                Button {
+                                    model.duplicateBlock(block: block)
+                                } label: {
+                                    Text("Duplicate")
+                                }
+                                .tint(.teal)
+                            } else if model.mode == .flowRunning && currentBlock(block: block) {
+                                Button {
+                                    model.Complete()
+                                } label: {
+                                    if model.flowExtended { Text("Done")
+                                    } else {
+                                        Text("Complete")
+                                    }
+                                }
+                                .tint(.teal)
+                            } else if model.mode == .flowStart && completedBlock(block: block) {
+                                Button {
+                                    model.extend()
+                                } label: {
+                                    Text("Extend")
+                                }
+                                .tint(.teal)
                             }
                         }
-                        .padding(.top, 8)
+                        .swipeActions(edge: .trailing) {
+                            if model.mode != .initial && (currentBlock(block: block) || completedBlock(block: block)) {
+                                Button {
+                                    model.resetBlock()
+                                } label: {
+                                    Text("Reset")
+                                }
+                                .tint(.red)
+                            }
+                        }
+                    }
+                    .onDelete(perform: model.mode == .initial ? delete : nil)
+                    .onMove(perform: move)
+                }
+                TipView(blocksTip, arrowEdge: .none)
+                    .listRowSeparator(.hidden, edges: [.bottom])
+            }
+            .listStyle(.plain)
+            .navigationTitle(model.flow.title)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {}
+                
+                ToolbarItemGroup(placement: .topBarLeading) {
+                    if model.mode == .initial {
+                        doneButton
+                    }
+                    else {
+                        resetButton
                     }
                 }
-                .ignoresSafeArea(.keyboard)
-                .navigationBarBackButtonHidden(model.mode == .flowRunning ? true : false)
+                ToolbarItem(placement: .bottomBar) {
+                    HStack {
+                        
+                        // Left
+                        if model.mode != .breakRunning && model.mode != .breakPaused {
+                            startButton
+                        } else {
+                            breakLabel
+                        }
+                        
+                        Spacer()
+                        
+                        // Right
+                        if model.mode == .initial {
+                            plusButton
+                        } else if model.mode == .flowStart {
+                            breakButton
+                        } else if model.mode != .breakRunning && model.mode != .breakPaused {
+                            focusViewButton
+                        }
+                    }
+                    .padding(.top, 8)
+                }
             }
+            .ignoresSafeArea(.keyboard)
+            .navigationBarBackButtonHidden(model.mode == .flowRunning ? true : false)
         }
         .sheet(isPresented: $model.showBlock) {
             BlockSheetView(model: model, newBlock: $newBlock)
@@ -181,7 +179,7 @@ struct FlowView: View {
                 .background(Circle().foregroundStyle(.teal.quinary))
                 .padding(.leading, -8)
         }
-        .disabled(model.flow.blocks.count == 0)
+        //        .disabled(model.flow.blocks.count == 0)
     }
     
     // Plus
@@ -242,45 +240,45 @@ struct FlowView: View {
     
     var breakLabel: some View {
         HStack {
-        Menu {
-            Button {
-                model.endBreak()
+            Menu {
+                Button {
+                    model.endBreak()
+                } label: {
+                    Text("End Break")
+                }
+                if model.mode == .breakRunning {
+                    Button {
+                        model.pauseBreak()
+                    } label: {
+                        Text("Pause Break")
+                    }
+                } else {
+                    Button {
+                        model.startBreak()
+                    } label: {
+                        Text("Resume Break")
+                    }
+                }
             } label: {
-                Text("End Break")
-            }
-            if model.mode == .breakRunning {
-                Button {
-                    model.pauseBreak()
-                } label: {
-                    Text("Pause Break")
-                }
-            } else {
-                Button {
-                    model.startBreak()
-                } label: {
-                    Text("Resume Break")
+                HStack {
+                    Text("Break")
+                        .font(.title3)
+                        .foregroundStyle(.white)
+                    Image(systemName: "chevron.down")
+                        .font(.system(size: 8))
+                        .fontWeight(.semibold)
+                        .padding(.horizontal, -4)
+                        .foregroundStyle(.white.secondary)
                 }
             }
-        } label: {
-            HStack {
-                Text("Break")
-                    .font(.title3)
-                    .foregroundStyle(.white)
-                Image(systemName: "chevron.down")
-                    .font(.system(size: 8))
-                    .fontWeight(.semibold)
-                    .padding(.horizontal, -4)
-                    .foregroundStyle(.white.secondary)
-            }
-        }
-                
-                Spacer()
-                
-                Text(formatTime(seconds: model.breakTimeLeft))
-                    .font(.title2)
-                    .fontWeight(.light)
-                    .foregroundStyle(.white.secondary)
-                    .monospacedDigit()
+            
+            Spacer()
+            
+            Text(formatTime(seconds: model.breakTimeLeft))
+                .font(.title2)
+                .fontWeight(.light)
+                .foregroundStyle(.white.secondary)
+                .monospacedDigit()
             
         }
     }
@@ -313,7 +311,7 @@ struct BlocksTip: Tip {
     }
     
     var message: Text? {
-        Text("Create a block for each thing you want to focus on. Swipe right to duplicate. Swipe left to delete.")
+        Text("Plus to add. Swipe right to duplicate. Swipe left to delete.")
         
     }
     
@@ -328,7 +326,7 @@ struct CompleteTip: Tip {
     }
     
     var message: Text? {
-        Text("Swipe right to complete early. If completed, swipe right to extend.")
+        Text("Swipe right to complete or extend. Swipe Left to reset.")
     }
     
     var image: Image? {

@@ -229,6 +229,7 @@ extension FlowModel {
     }
     // Restart
     func resetBlock() {
+        flowExtended = false
         elapsed = 0
         if mode == .flowRunning || mode == .flowPaused {
             flowTimeLeft = flowTime

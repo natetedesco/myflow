@@ -17,8 +17,8 @@ import Foundation
     var timer = Timer()
     var start = Date()
 
-    var flowTime = 0
-    var flowTimeLeft = 0
+    var flowTime: Int = 0
+    var flowTimeLeft: Int = 0
     var breakTime = 0
     var breakTimeLeft = 0
     var elapsed = 0
