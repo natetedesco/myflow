@@ -50,10 +50,7 @@ struct OnboardingView: View {
                 
                 // Page 2
                 ZStack {
-                                        AnimatedBlur(offset: false, opacity: 0.6)
-                    //
-                    //                    Circle()
-                    //                        .fill(Gradient(colors: [.teal, .mint]))
+                    AnimatedBlur(offset: false, opacity: 0.6)
                     
                     
                     VStack(alignment: .leading) {
@@ -75,7 +72,7 @@ struct OnboardingView: View {
                                 .font(.largeTitle)
                                 .fontWeight(.medium)
                                 .padding(.top, 4)
-
+                            
                             VStack(alignment: .leading) {
                                 Text("Focus Blocks")
                                     .font(.title3)

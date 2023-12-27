@@ -12,10 +12,12 @@ import TipKit
 struct SettingsView: View {
     @StateObject var settings = Settings()
     @State var model: FlowModel
+    @State var versionNumber = "v3.2.1"
     
-    @State var developerSettings = true
+    @State var developerSettings = false
     
     var body: some View {
+        
         NavigationStack {
             List {
                 
@@ -30,7 +32,7 @@ struct SettingsView: View {
                 Section(header: Text("Flows")) {
                     
                     Toggle(isOn: $settings.focusOnStart) { Label("Focus View on Start", systemImage: "timer") }
-
+                    
                     
                     if !isAuthorized {
                         Button {
@@ -68,31 +70,35 @@ struct SettingsView: View {
                         .familyActivityPicker(isPresented: $activityPresented, selection: $settings.activitySelection)
                     }
                     
-                        
-//                        HStack {
-//                            Label("Default Focus Length", systemImage: "timer")
-//                            
-//                            Spacer()
-//                            
-//                            Menu {
-//                                Text("options")
-//                            } label: {
-//                                Text("20:00")
-//                                    .font(.callout)
-//                                    .padding(.horizontal, 10)
-//                                    .padding(.vertical, 6)
-//                                    .background(.regularMaterial)
-//                                    .cornerRadius(6)
-//                                    .foregroundStyle(.white.secondary)
-//                                    .padding(.trailing, -2)
-//                            }
-//                        }
+                    
+                    //                        HStack {
+                    //                            Label("Default Focus Length", systemImage: "timer")
+                    //
+                    //                            Spacer()
+                    //
+                    //                            Menu {
+                    //                                Text("options")
+                    //                            } label: {
+                    //                                Text("20:00")
+                    //                                    .font(.callout)
+                    //                                    .padding(.horizontal, 10)
+                    //                                    .padding(.vertical, 6)
+                    //                                    .background(.regularMaterial)
+                    //                                    .cornerRadius(6)
+                    //                                    .foregroundStyle(.white.secondary)
+                    //                                    .padding(.trailing, -2)
+                    //                            }
+                    //                        }
                 }
                 
                 // About
                 Section(header: Text("About")) {
                     
-                    NavigationLink(destination: AboutView()) { Label("About", systemImage: "info.circle") }
+                    // About
+                    NavigationLink(destination: AboutView(versionNumber: versionNumber)) { Label("About", systemImage: "info.circle") }
+                    
+                    // How it Works
+                    NavigationLink(destination: HowItWorks()) { Label("How it Works", systemImage: "menucard") }
                     
                     Button { requestReview() } label: { Label("Rate MyFlow", systemImage: "star") }
                     
@@ -114,9 +120,9 @@ struct SettingsView: View {
                         Button { showOnboarding = true } label: { Label("Show Onboarding", systemImage: "menucard") }
                         
                         Button { showPayWall = true } label: { Label("ShowPayWall", systemImage: "dollarsign.square") }
-
+                        
                         Button { settings.showFocusByDefault = true } label: { Label("ShowFocusByDefaultSheet", systemImage: "square") }
-
+                        
                         
                         Button {
                             center.revokeAuthorization { result in
@@ -133,7 +139,7 @@ struct SettingsView: View {
                     }
                 }
                 
-                Text("v3.1")
+                Text(versionNumber)
                     .foregroundStyle(.teal)
                     .font(.footnote)
                     .fontWeight(.medium)
@@ -240,6 +246,8 @@ struct MailComposeViewControllerWrapper: UIViewControllerRepresentable {
 }
 
 struct AboutView: View {
+    var versionNumber: String
+    
     var body: some View {
         ScrollView {
             VStack {
@@ -255,7 +263,7 @@ struct AboutView: View {
                         .fontWeight(.medium)
                         .foregroundStyle(.secondary)
                     
-                    Text("v3.1")
+                    Text(versionNumber)
                         .foregroundStyle(.teal)
                         .font(.caption)
                         .fontWeight(.medium)
@@ -266,21 +274,104 @@ struct AboutView: View {
                 VStack(alignment: .leading, spacing: 16) {
                     Text("MyFlow optimizes your time by enhancing your focus. Giving your complete focus to a task, and alloting a specific amount of time to it, allows you to complete things faster and with less distraction.")
                     
-                    
                     Text("Your feedback and support is greatly appreciated and continues to drive the development of MyFlow.")
                 }
                 .padding(.vertical, 24)
                 .padding(.horizontal)
                 
-                Spacer()
-                
                 Text("Developed by Nate Tedesco")
                     .font(.caption)
+                    .fontWeight(.medium)
                     .foregroundStyle(.tertiary)
+                
+                Spacer()
                 
             }
             .padding(.horizontal)
         }
+    }
+}
+
+struct HowItWorks: View {
+    var body: some View {
+        
+        VStack(alignment: .leading) {
+            
+            VStack(alignment: .leading) {
+                Text("Create your")
+                Text("Flow")
+                    .foregroundStyle(.teal)
+            }
+            .font(.system(size: 44))
+            .fontWeight(.bold)
+            .padding(.top, -32)
+            .padding(.bottom, 40)
+            
+            HStack(alignment: .top) {
+                Image(systemName: "rectangle.stack")
+                    .foregroundStyle(.teal)
+                    .font(.largeTitle)
+                    .fontWeight(.medium)
+                    .padding(.top, 4)
+                
+                VStack(alignment: .leading) {
+                    Text("Focus Blocks")
+                        .font(.title3)
+                        .fontWeight(.bold)
+                    
+                    Text("Setting a time for each block promotes deeper focus. Blocks can be complete early or extended.")
+                        .font(.callout)
+                        .fontWeight(.medium)
+                        .foregroundStyle(.secondary)
+                }
+            }
+            
+            Spacer()
+            
+            HStack(alignment: .top) {
+                Image(systemName: "timer")
+                    .foregroundStyle(.teal)
+                    .font(.largeTitle)
+                    .fontWeight(.medium)
+                    .padding(.top, 4)
+                
+                VStack(alignment: .leading) {
+                    Text("Take Breaks")
+                        .font(.title3)
+                        .fontWeight(.bold)
+                    
+                    Text("Breaks can help us stay in a flow, choose to take a break at the end of a focus or start the next focus.")
+                        .font(.callout)
+                        .fontWeight(.medium)
+                        .foregroundStyle(.secondary)
+                }
+            }
+            
+            Spacer()
+            
+            HStack(alignment: .top) {
+                Image(systemName: "shield")
+                    .foregroundStyle(.teal)
+                    .fontWeight(.medium)
+                    .font(.largeTitle)
+                    .padding(.top, 4)
+                
+                VStack(alignment: .leading) {
+                    Text("Block Distractions")
+                        .font(.title3)
+                    
+                        .fontWeight(.bold)
+                    
+                    Text("Block Apps you don't want to disturb you or use during your flow.")
+                        .font(.callout)
+                        .fontWeight(.medium)
+                        .foregroundStyle(.secondary)
+                }
+            }
+            
+            Spacer()
+        }
+        .padding(.horizontal, 28)
     }
 }
 
