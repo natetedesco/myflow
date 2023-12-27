@@ -17,76 +17,107 @@ struct BlockSheetView: View {
     
     @State private var isFocusSelected = true
     
+    @State var newTask = ""
+    
+    var block: Binding<Block> {
+        return $model.flow.blocks[model.selectedIndex]
+    }
+    
     var body: some View {
         
-        ZStack {
-            Color.black.opacity(0.3).ignoresSafeArea()
+        NavigationStack {
             
-            VStack {
+            ZStack {
+                Color.black.opacity(0.4).ignoresSafeArea()
+                
                 VStack {
-                    TextField("Block Title", text: $model.flow.blocks[model.selectedIndex].title)
-                        .leading()
+                    TextField("Focus", text: block.title)
+                        .font(model.flow.blocks[model.selectedIndex].title.count > 26 ? .title3 : .title)
+                        .animation(.default, value: model.flow.blocks[model.selectedIndex].title)
+                        .fontWeight(.semibold)
                         .focused($isFocused)
-                        .onSubmit {
-                            model.saveFlow()
-                            dismiss()
-                            newBlock = false
-                        }
-
-                        .onReceive(NotificationCenter.default.publisher(for: UITextField.textDidBeginEditingNotification)) { obj in
-                            if let textField = obj.object as? UITextField {
-                                textField.selectedTextRange = textField.textRange(from: textField.beginningOfDocument, to: textField.endOfDocument)
-                            }
-                        }
+                        .onSubmit { submit() }
+//                        .padding(.bottom, -8)
+                        .padding(.leading, 8).padding(.top, 4)
+                        .multilineTextAlignment(.leading)
                         .introspectTextField { textField in textField.becomeFirstResponder() }
-//                    
+                    
 //                    Divider()
-//                    
-//                    Text("Subtasks")
-//                        .foregroundStyle(.secondary)
-//                        .padding(.vertical, 2)
-//                        .leading()
-//                    
-//                    Divider()
-//                    
-//                    Text("Tag")
-//                        .foregroundStyle(.secondary)
-//                        .padding(.vertical, 2)
-//                        .leading()
-
+//                        .padding(.leading, 8)
+//                        .padding(.top, 2)
+                    
+                    Spacer()
+                    
+                    MultiComponentPicker(columns: columns, selections: [block.minutes, block.seconds])
+                    
+                    Spacer()
+                    
+//                            VStack {
+//                            
+//                            if block.tasks.count == 0 {
+//                                TextField("Task", text: $newTask)
+//                                    .onSubmit {
+//                                        model.flow.blocks[model.selectedIndex].tasks.append(FocusTask(title: newTask))
+//                                        newTask = ""
+//                                    }
+//                            } else {
+//                                ForEach(block.tasks) { $task in
+//                                    HStack {
+//                                        Image(systemName: "circle")
+//                                            .foregroundStyle(.secondary)
+//                                        TextField("Task", text: $task.title)
+//                                            .onSubmit {
+//                                                if task.title.isEmpty {
+//                                                    model.flow.blocks[model.selectedIndex].tasks.removeLast()
+//                                                    dismiss()
+//                                                } else {
+//                                                    model.flow.blocks[model.selectedIndex].tasks.append(FocusTask(title: ""))
+//                                                }
+//                                            }
+//                                    }
+//                                    if model.flow.blocks[model.selectedIndex].tasks.count > 1 && task != model.flow.blocks[model.selectedIndex].tasks.last {
+//                                        Divider().padding(.vertical, 4)
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    .leading()
+//                    .padding(.horizontal, 12)
+//                    .padding(.vertical, 10)
+//                    .background(.regularMaterial)
+//                    .cornerRadius(16)
+//
+//                    Spacer()
+                    
+                    // Save Button
+                    Button {
+                        submit()
+                    } label : {
+                        Text(newBlock ? "Add Block" : "Save")
+                            .foregroundStyle(.white)
+                            .font(.headline)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(.teal)
+                            .cornerRadius(16)
+                    }
                 }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 10)
-                .background(.regularMaterial)
-                .cornerRadius(16)
-
-                
-                MultiComponentPicker(columns: columns, selections: [
-                    $model.flow.blocks[model.selectedIndex].minutes,
-                    $model.flow.blocks[model.selectedIndex].seconds]
-                )
-                .padding(.vertical, -12)
-                
-                Button {
-                    model.saveFlow()
-                    dismiss()
-                    newBlock = false
-                } label : {
-                    Text(newBlock ? "Add Block" : "Save")
-                        .foregroundStyle(.white)
-                        .font(.headline)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(.teal)
-                        .cornerRadius(16)
-                        .padding(.bottom)
-                }
+                .padding()
             }
-            .padding(.horizontal)
-            .padding(.top)
         }
     }
+    
+    func submit() {
+        if model.flow.blocks[model.selectedIndex].title.isEmpty {
+            model.flow.blocks[model.selectedIndex].title = "Focus"
+        }
+        model.saveFlow()
+        dismiss()
+        newBlock = false
+    }
 }
+
+
 
 #Preview {
     FlowView(model: FlowModel())

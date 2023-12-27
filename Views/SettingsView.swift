@@ -13,7 +13,7 @@ struct SettingsView: View {
     @StateObject var settings = Settings()
     @State var model: FlowModel
     
-    @State var developerSettings = false
+    @State var developerSettings = true
     
     var body: some View {
         NavigationStack {

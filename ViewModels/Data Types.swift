@@ -15,9 +15,16 @@ struct Flow: Codable, Equatable, Identifiable {
 
 struct Block: Codable, Hashable, Identifiable {
     var id = UUID()
-    var title: String = "Focus"
+    var title: String = ""
+    var tasks: [FocusTask] = []
+    var tag: String = "Focus"
     var minutes: Int = 20
     var seconds: Int = 0
+}
+
+struct FocusTask: Codable, Hashable, Identifiable {
+    var id = UUID()
+    var title: String = ""
 }
 
 struct Day: Codable, Identifiable, Equatable {

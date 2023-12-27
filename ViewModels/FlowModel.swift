@@ -102,7 +102,7 @@ import Foundation
     
     // Add
     func addBlock() {
-        let newBlock = Block(title: "Focus", minutes: 20)
+        let newBlock = Block(title: "", minutes: 20)
         flow.blocks.append(newBlock)
         selectedIndex = flow.blocks.firstIndex(where: { $0.id == newBlock.id }) ?? 0
         saveFlow()

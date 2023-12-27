@@ -17,6 +17,8 @@ struct MyFlow: App {
     @AppStorage("showIntro") var showIntroPayWall: Bool = false
     @State var detent = PresentationDetent.fraction(6/10)
     
+    @State private var showingBottomSheet = true
+    
     init() {
         UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = .systemTeal
     }
@@ -24,9 +26,8 @@ struct MyFlow: App {
     var body: some Scene {
         WindowGroup {
             
-            if showOnboarding {
-                OnboardingView()
-            } else {
+            ZStack {
+                
                 
                 TabView {
                     MainView(model: model)
@@ -68,9 +69,14 @@ struct MyFlow: App {
                         .presentationBackground(.bar)
                         .presentationDetents([.large, .fraction(6/10)], selection: $detent)
                         .interactiveDismissDisabled(detent == .large)
-                        .presentationDragIndicator(detent != .large ? .visible : .hidden)
+                        .presentationDragIndicator(.hidden)
                         .presentationBackgroundInteraction(.enabled)
                 }
+                
+                if showOnboarding {
+                    OnboardingView()
+                }
+                
             }
         }
     }

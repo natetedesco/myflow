@@ -20,7 +20,7 @@ struct PayWall: View {
     
     var body: some View {
         ZStack {
-            Color.black.opacity(detent == .large ? 0.6 : 0.4).ignoresSafeArea()
+            Color.black.opacity(detent == .large ? 0.4 : 0.3).ignoresSafeArea()
             AnimatedBlur(opacity: 0.8).offset(y: 50)
             
             VStack(alignment: .leading) {
@@ -101,7 +101,7 @@ struct PayWall: View {
                     
                 } else {
                     Text("Your Free Week")
-                        .font(.title)
+                        .font(.largeTitle)
                         .fontWeight(.bold)
                         .padding(.top, 12)
                         .centered()
@@ -149,9 +149,9 @@ struct PayWall: View {
                         
                         VStack(alignment: .leading) {
                             Text("Today")
-                                .font(.subheadline)
+                                .font(.callout)
                                 .fontWeight(.semibold)
-                            Text("Unlock free access to all pro features.")
+                            Text("Unlock free access to all Pro features.")
                                 .font(.footnote)
                                 .fontWeight(.medium)
                                 .foregroundStyle(.secondary)
@@ -159,7 +159,7 @@ struct PayWall: View {
                             Spacer()
                             
                             Text("Day 6")
-                                .font(.subheadline)
+                                .font(.callout)
                                 .fontWeight(.semibold)
                             Text("Your trial is about to end, you will not be charged if you cancel.")
                                 .font(.footnote)
@@ -169,9 +169,9 @@ struct PayWall: View {
                             Spacer()
                             
                             Text("Day 7")
-                                .font(.subheadline)
+                                .font(.callout)
                                 .fontWeight(.semibold)
-                            Text("Your annual $19.99 subscription begins.")
+                            Text("Your annual $19.99($1.67/month) subscription begins.")
                                 .font(.footnote)
                                 .fontWeight(.medium)
                                 .foregroundStyle(.secondary)
@@ -184,26 +184,28 @@ struct PayWall: View {
                 }
                 
                 // Terms • Privacy • Restore
-                HStack {
-                    Button {
-                        if let url = URL(string: "https://myflow.notion.site/MyFlow-Privacy-Policy-0002d1598beb401e9801a0c7fe497fd3?pvs=4") {
-                            UIApplication.shared.open(url)
+                if detent == .large {
+                    HStack {
+                        Button {
+                            if let url = URL(string: "https://myflow.notion.site/MyFlow-Privacy-Policy-0002d1598beb401e9801a0c7fe497fd3?pvs=4") {
+                                UIApplication.shared.open(url)
+                            }
+                        } label: {
+                            Text("Terms • Privacy")
                         }
-                    } label: {
-                        Text("Terms • Privacy")
+                        
+                        Button { Task { do { try await AppStore.sync() } catch { print(error) }}
+                        } label: {
+                            Text("• Restore")
+                        }
+                        .padding(.leading, -6)
                     }
-                    
-                    Button { Task { do { try await AppStore.sync() } catch { print(error) }}
-                    } label: {
-                        Text("• Restore")
-                    }
-                    .padding(.leading, -6)
+                    .font(.caption2)
+                    .foregroundStyle(.tertiary)
+                    .fontWeight(.medium)
+                    .padding(.bottom, 12)
+                    .centered()
                 }
-                .font(.caption2)
-                .foregroundStyle(.tertiary)
-                .fontWeight(.medium)
-                .padding(.bottom, 8)
-                .centered()
                 
                 // Subscribe Button
                 Button {
@@ -221,7 +223,7 @@ struct PayWall: View {
                         Text("Start my free week")
                             .foregroundStyle(.white)
                             .font(.title3)
-                            .fontWeight(.medium)
+                            .fontWeight(.semibold)
                             .maxWidth()
                             .padding(.vertical)
                             .background(Color.teal)

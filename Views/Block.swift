@@ -13,17 +13,14 @@ struct BlockView: View {
     @State var showTasks = false
     
     var body: some View {
-        
         VStack(alignment: .leading) {
             HStack {
-                ZStack {
-                    Gauge(value: gaugeValue, label: {Text("")})
-                        .gaugeStyle(.accessoryCircularCapacity)
-                        .tint(.accentColor)
-                        .scaleEffect(sizeClass == .regular ? 1.3 : 0.9)
-                        .animation(.default, value: gaugeValue)
-                        .padding(.leading, -2)
-                }
+                Gauge(value: gaugeValue, label: {Text("")})
+                    .gaugeStyle(.accessoryCircularCapacity)
+                    .tint(.accentColor)
+                    .scaleEffect(sizeClass == .regular ? 1.3 : 0.9)
+                    .animation(.default, value: gaugeValue)
+                    .padding(.leading, -2)
                 
                 Text(block.title.isEmpty ? "Focus" : block.title)
                     .font(sizeClass == .regular ? .largeTitle : .title3)
@@ -31,10 +28,6 @@ struct BlockView: View {
                     .foregroundStyle(focusLabelStyle)
                     .multilineTextAlignment(.leading)
                     .lineLimit(2)
-//                    .onTapGesture {
-//                        showTasks.toggle()
-//                    }
-                
                 
                 Spacer()
                 
@@ -52,24 +45,24 @@ struct BlockView: View {
                         .foregroundStyle(timerLabelStyle)
                 }
             }
-            
-            //                if showTasks {
-            //
-            //                    VStack {
-            //                        ForEach(0..<3) { index in
-            //                            Text(block.title.isEmpty ? "Focus" : block.title)
-            //                                .font(sizeClass == .regular ? .largeTitle : .body)
-            //                                .foregroundStyle(.secondary)
-            //                                .multilineTextAlignment(.leading)
-            //                                .lineLimit(1)
-            //                                .padding(.leading, 80)
-            //                                .padding(.bottom, 2)
-            //
-            //                        }
-            //                    }
-            //                    .padding(.top, -20)
-            //                    .padding(.bottom, 6)
-            //                }
+            if block.tasks.count > 0 {
+                VStack(alignment: .leading) {
+                    ForEach(block.tasks) { task in
+                        HStack {
+                            Image(systemName: "circle")
+                                .foregroundStyle(.tertiary)
+                                .font(.title3)
+                            Text(task.title)
+                                .foregroundStyle(.secondary)
+                                .lineLimit(1)
+                        }
+                        .padding(.leading, 62)
+                        .padding(.bottom, 2)
+                    }
+                }
+                .padding(.top, -20)
+                .padding(.bottom, 6)
+            }
         }
         .contextMenu {
             if model.mode == .initial {

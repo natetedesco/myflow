@@ -10,9 +10,10 @@ import TipKit
 struct FlowView: View {
     @State var model: FlowModel
     @Environment(\.dismiss) var dismiss
-    var blocksTip = BlocksTip()
-    var completeTip = CompleteTip()
     
+    @AppStorage("ProAccess") var proAccess: Bool = false
+    @State var showPaywall = false
+    @State var detent = PresentationDetent.large
     
     @Environment(\.horizontalSizeClass) private var sizeClass
     
@@ -42,6 +43,8 @@ struct FlowView: View {
                                     model.selectedIndex = selectedIndex
                                     model.showBlock.toggle()
                                 }
+                            } else {
+                                model.showFlowRunning.toggle()
                             }
                         } label: {
                             BlockView(model: model, block: $block)
@@ -97,11 +100,13 @@ struct FlowView: View {
                 ToolbarItem(placement: .topBarTrailing) {}
                 
                 ToolbarItemGroup(placement: .topBarLeading) {
-                    if model.mode == .initial {
-                        doneButton
-                    }
-                    else {
-                        resetButton
+                    if !model.showBlock {
+                        if model.mode == .initial {
+                            doneButton
+                        }
+                        else {
+                            resetButton
+                        }
                     }
                 }
                 ToolbarItem(placement: .bottomBar) {
@@ -138,6 +143,15 @@ struct FlowView: View {
                 .presentationBackgroundInteraction(.enabled(upThrough: .large))
                 .interactiveDismissDisabled()
         }
+        .sheet(isPresented: $showPaywall) {
+            PayWall(detent: $detent)
+                .presentationCornerRadius(32)
+                .presentationBackground(.regularMaterial)
+                .presentationDetents([.large, .fraction(6/10)], selection: $detent)
+                .interactiveDismissDisabled(detent == .large)
+                .presentationDragIndicator(detent != .large ? .visible : .hidden)
+                .presentationBackgroundInteraction(.enabled)
+        }
         .fullScreenCover(isPresented: $model.showFlowRunning) {
             FlowRunning(model: model)
         }
@@ -172,6 +186,7 @@ struct FlowView: View {
         Button {
             softHaptic()
             model.Start()
+            blocksTip.invalidate(reason: .actionPerformed)
         } label: {
             Image(systemName: model.mode == .flowRunning ? "pause.fill" : "play.fill")
                 .font(.title3)
@@ -218,8 +233,12 @@ struct FlowView: View {
             Section(header: Text("Select to Start")) {
                 ForEach(values, id: \.self) { i in
                     Button {
-                        model.breakTime = i * 60
-                        model.startBreak()
+                        if proAccess {
+                            model.breakTime = i * 60
+                            model.startBreak()
+                        } else {
+                            showPaywall.toggle()
+                        }
                         softHaptic()
                     } label: {
                         Text("\(i) min")
@@ -279,11 +298,8 @@ struct FlowView: View {
                 .fontWeight(.light)
                 .foregroundStyle(.white.secondary)
                 .monospacedDigit()
-            
         }
     }
-    
-    
     
     func delete(at offsets: IndexSet) {
         model.flow.blocks.remove(atOffsets: offsets)
@@ -303,34 +319,35 @@ struct FlowView: View {
         return model.flow.blocks.firstIndex(where: { $0.id == block.id }) == model.blocksCompleted - 1
     }
     
-}
-
-struct BlocksTip: Tip {
-    var title: Text {
-        Text("Add Focus Blocks")
-    }
-    
-    var message: Text? {
-        Text("Plus to add. Swipe right to duplicate. Swipe left to delete.")
+    var blocksTip = BlocksTip()
+    struct BlocksTip: Tip {
+        var title: Text {
+            Text("Add Focus Blocks")
+        }
         
+        var message: Text? {
+            Text("Plus to add. Swipe right to duplicate. Swipe left to delete. Drag to rearange.")
+            
+        }
+        
+        var image: Image? {
+            Image(systemName: "rectangle.stack.badge.plus")
+        }
     }
     
-    var image: Image? {
-        Image(systemName: "rectangle.stack.badge.plus")
-    }
-}
-
-struct CompleteTip: Tip {
-    var title: Text {
-        Text("Complete & Extend Blocks")
-    }
-    
-    var message: Text? {
-        Text("Swipe right to complete or extend. Swipe Left to reset.")
-    }
-    
-    var image: Image? {
-        Image(systemName: "checkmark.circle")
+    var completeTip = CompleteTip()
+    struct CompleteTip: Tip {
+        var title: Text {
+            Text("Complete and Extend Blocks")
+        }
+        
+        var message: Text? {
+            Text("Swipe right to complete or extend a focus. Swipe left to reset.")
+        }
+        
+        var image: Image? {
+            Image(systemName: "checkmark.circle")
+        }
     }
 }
 

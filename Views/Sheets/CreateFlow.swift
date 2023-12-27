@@ -19,7 +19,7 @@ struct CreateFlowView: View {
         
         NavigationStack {
             ZStack {
-                Color.black.opacity(0.3).ignoresSafeArea()
+                Color.black.opacity(0.4).ignoresSafeArea()
                 
                 VStack {
                     Spacer()
@@ -68,7 +68,6 @@ struct CreateFlowView: View {
                         dismiss()
                     } label: {
                         Text("Cancel")
-                            .foregroundStyle(.white.tertiary)
                     }
                 }
             }
