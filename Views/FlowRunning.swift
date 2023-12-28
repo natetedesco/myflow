@@ -19,7 +19,6 @@ struct FlowRunning: View {
         NavigationStack {
             ZStack {
                 VStack {
-                    
                     capsuleButton
                     
                     // Focus Label
@@ -92,9 +91,9 @@ struct FlowRunning: View {
                     }
                 } label: {
                     HStack {
-                        Label(model.mode == .flowStart ? "Extend" : "Complete", systemImage: model.mode == .flowStart ? "goforward.plus" :"checkmark.circle")
-                            .font(.system(size: 14))
-//                            .fontWeight(.medium)
+                        Text(model.mode == .flowStart ? "Extend" : "Complete")
+                            .font(.subheadline)
+                            .fontWeight(.medium)
                     }
                 }
                 .padding(.bottom, 128)

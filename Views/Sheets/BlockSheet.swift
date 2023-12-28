@@ -37,14 +37,9 @@ struct BlockSheetView: View {
                         .fontWeight(.semibold)
                         .focused($isFocused)
                         .onSubmit { submit() }
-//                        .padding(.bottom, -8)
                         .padding(.leading, 8).padding(.top, 4)
                         .multilineTextAlignment(.leading)
                         .introspectTextField { textField in textField.becomeFirstResponder() }
-                    
-//                    Divider()
-//                        .padding(.leading, 8)
-//                        .padding(.top, 2)
                     
                     Spacer()
                     
@@ -116,8 +111,6 @@ struct BlockSheetView: View {
         newBlock = false
     }
 }
-
-
 
 #Preview {
     FlowView(model: FlowModel())

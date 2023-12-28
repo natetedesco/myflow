@@ -22,7 +22,6 @@ struct ShowFocusByDefault: View {
                     Text("Show Focus View by Default?")
                         .font(.title3)
                         .fontWeight(.bold)
-//                        .padding(.bottom, 8)
                     Spacer()
                     
                     Text("Focus View displays your current focus. You can change this later in settings.")
