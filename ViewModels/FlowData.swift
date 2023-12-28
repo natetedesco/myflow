@@ -9,6 +9,8 @@ import Foundation
 
 class FlowData: ObservableObject {
     var settings = Settings()
+    
+    @Published var showGoal = false
 
     @AppStorage("GoalMinutes") var goalMinutes: Double = 120
     @Published var days: [Day]

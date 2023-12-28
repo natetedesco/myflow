@@ -3,12 +3,15 @@
 //  Created by Nate Tedesco on 10/18/22.
 
 import Foundation
-
+import SwiftUI
 
 @Observable class FlowModel {
     var data = FlowData()
     var settings = Settings()
     var notifications = NotificationManager()
+    
+    var showPayWall = false
+    var detent = PresentationDetent.large
         
     var flow: Flow = Flow() { didSet { initialize() }}
     var flowList: [Flow] { didSet { initialize() }}
@@ -44,6 +47,13 @@ import Foundation
         flowList = []
         self.mode = mode
         initialize()
+    }
+    
+    func showPayWall(large: Bool = true) {
+        if !large {
+            self.detent = PresentationDetent.fraction(6/10)
+        }
+        showPayWall = true
     }
     
     // Initialize

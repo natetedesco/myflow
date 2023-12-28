@@ -32,7 +32,7 @@ struct BlockSheetView: View {
                 
                 VStack {
                     TextField("Focus", text: block.title)
-                        .font(model.flow.blocks[model.selectedIndex].title.count > 26 ? .title3 : .title)
+                        .font(model.flow.blocks[model.selectedIndex].title.count > 27 ? .title3 : .title)
                         .animation(.default, value: model.flow.blocks[model.selectedIndex].title)
                         .fontWeight(.semibold)
                         .focused($isFocused)

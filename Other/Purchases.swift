@@ -12,13 +12,11 @@ class PurchaseManager: ObservableObject {
     @AppStorage("ProAccess") var proAccess: Bool = false
     
     let productIds = ["pro_yearly"]
-    @Published private(set) var products: [Product] = []
-    @Published private(set) var purchasedProductIDs = Set<String>()
-    
-    @Published var selectedProduct: Product? = nil
-    
     private var productsLoaded = false
     private var updates: Task<Void, Never>? = nil
+    @Published private(set) var products: [Product] = []
+    @Published private(set) var purchasedProductIDs = Set<String>()
+    @Published var selectedProduct: Product? = nil
     
     init() {
         updates = observeTransactionUpdates()
@@ -27,7 +25,7 @@ class PurchaseManager: ObservableObject {
     deinit {
         updates?.cancel()
     }
-
+    
     func loadProducts() async throws {
         guard !self.productsLoaded else { return }
         self.products = try await Product.products(for: productIds)
@@ -74,10 +72,10 @@ class PurchaseManager: ObservableObject {
     }
     
     private func observeTransactionUpdates() -> Task<Void, Never> {
-            Task(priority: .background) {
-                for await _ in Transaction.updates {
-                    await self.updatePurchasedProducts()
-                }
+        Task(priority: .background) {
+            for await _ in Transaction.updates {
+                await self.updatePurchasedProducts()
             }
         }
+    }
 }

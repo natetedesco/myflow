@@ -8,7 +8,6 @@ import SwiftUI
 
 struct WeekCard: View {
     @ObservedObject var data: FlowData
-    @AppStorage("ProAccess") var proAccess = false
     var days = ["M", "T", "W", "T", "F", "S", "S"]
     
     var body: some View {

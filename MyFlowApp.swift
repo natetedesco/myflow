@@ -9,15 +9,8 @@ import TipKit
 
 @main
 struct MyFlow: App {
-    @StateObject private var purchaseManager = PurchaseManager()
     @State var model = FlowModel()
-    
-    @AppStorage("showOnboarding") var showOnboarding: Bool = true
-    @AppStorage("shouldResetTips") var shouldResetTips: Bool = false
-    @AppStorage("showIntro") var showIntroPayWall: Bool = false
-    @State var detent = PresentationDetent.fraction(6/10)
-    
-    @State private var showingBottomSheet = true
+    @StateObject private var purchaseManager = PurchaseManager()
     
     init() {
         UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = .systemTeal
@@ -25,9 +18,7 @@ struct MyFlow: App {
     
     var body: some Scene {
         WindowGroup {
-            
             ZStack {
-                
                 
                 TabView {
                     MainView(model: model)
@@ -38,7 +29,7 @@ struct MyFlow: App {
                             Text("Flows")
                         }
                     
-                    StatsView(data: model.data)
+                    StatsView(model: model)
                         .tabItem {
                             Image(systemName: "bolt.fill")
                             Text("Activity")
@@ -50,12 +41,9 @@ struct MyFlow: App {
                             Text("Settings")
                         }
                 }
-                .environmentObject(purchaseManager)
                 .task {
                     await purchaseManager.updatePurchasedProducts()
-                }
-                .task {
-                    if shouldResetTips {
+                    if model.settings.shouldResetTips {
                         try? Tips.resetDatastore()
                     }
                     try? Tips.configure([
@@ -63,20 +51,19 @@ struct MyFlow: App {
                         .datastoreLocation(.applicationDefault)
                     ])
                 }
-                .sheet(isPresented: $showIntroPayWall) {
-                    PayWall(detent: $detent)
+                .sheet(isPresented: $model.showPayWall) {
+                    PayWall(detent: $model.detent)
                         .presentationCornerRadius(32)
                         .presentationBackground(.bar)
-                        .presentationDetents([.large, .fraction(6/10)], selection: $detent)
-                        .interactiveDismissDisabled(detent == .large)
+                        .presentationDetents([.large, .fraction(6/10)], selection: $model.detent)
+                        .interactiveDismissDisabled(model.detent == .large)
                         .presentationDragIndicator(.hidden)
                         .presentationBackgroundInteraction(.enabled)
                 }
                 
-                if showOnboarding {
-                    OnboardingView()
+                if model.settings.showOnboarding {
+                    OnboardingView(model: model)
                 }
-                
             }
         }
     }

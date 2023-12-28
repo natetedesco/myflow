@@ -9,15 +9,11 @@ import SwiftUI
 
 struct MainView: View {
     @State var model: FlowModel
-    
+    @AppStorage("ProAccess") var proAccess: Bool = false
     @Environment(\.horizontalSizeClass) private var sizeClass
     
-    @AppStorage("ProAccess") var proAccess: Bool = false
-    @State var showPaywall = false
-    @State var detent = PresentationDetent.large
     
     @State var renamedFlow = ""
-    
     @State var showFlow = false
     @State var showCreateFlow = false
     @State var showRenameFlow = false
@@ -102,7 +98,7 @@ struct MainView: View {
                                             if proAccess {
                                                 model.duplicateFlow(flow: flow)
                                             } else {
-                                                showPaywall.toggle()
+                                                model.showPayWall(large: true)
                                             }
                                         } label: {
                                             Label("Duplicate", systemImage: "plus.square.on.square")
@@ -155,8 +151,7 @@ struct MainView: View {
                     if  model.flowList.count != 0 {
                         Button {
                             if model.flowList.count >= 1 && !proAccess {
-                                detent = .large
-                                showPaywall.toggle()
+                                model.showPayWall(large: true)
                             } else {
                                 showCreateFlow = true
                             }
@@ -167,10 +162,9 @@ struct MainView: View {
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    
                     if !proAccess {
                         Button {
-                            showPaywall.toggle()
+                            model.showPayWall(large: true)
                         } label: {
                             Text("Pro")
                                 .fontWeight(.medium)
@@ -184,22 +178,13 @@ struct MainView: View {
                 .presentationBackground(.regularMaterial)
                 .presentationCornerRadius(32)
         }
-        .sheet(isPresented: $showPaywall) {
-            PayWall(detent: $detent)
-                .presentationCornerRadius(32)
-                .presentationBackground(.regularMaterial)
-                .presentationDetents([.large, .fraction(6/10)], selection: $detent)
-                .interactiveDismissDisabled(detent == .large)
-                .presentationDragIndicator(detent != .large ? .visible : .hidden)
-                .presentationBackgroundInteraction(.enabled)
-        }
     }
 }
 
-private func shouldUseLargeHeight() -> Bool {
-    let horizontalSizeClass = UITraitCollection(horizontalSizeClass: UIScreen.main.bounds.width > 500 ? .regular : .compact)
-    return horizontalSizeClass.containsTraits(in: UITraitCollection(horizontalSizeClass: .regular))
-}
+//private func shouldUseLargeHeight() -> Bool {
+//    let horizontalSizeClass = UITraitCollection(horizontalSizeClass: UIScreen.main.bounds.width > 500 ? .regular : .compact)
+//    return horizontalSizeClass.containsTraits(in: UITraitCollection(horizontalSizeClass: .regular))
+//}
 
 #Preview {
     MainView(model: FlowModel())

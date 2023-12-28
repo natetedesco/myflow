@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct GoalView: View {
-    @ObservedObject var data: FlowData
+    @State var data: FlowData
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
@@ -77,7 +77,7 @@ struct GoalView: View {
 }
 
 #Preview {
-    StatsView(data: FlowData())
+    StatsView(model: FlowModel(), data: FlowData())
         .sheet(isPresented: .constant(true)) {
             GoalView(data: FlowData())
                 .sheetMaterial()

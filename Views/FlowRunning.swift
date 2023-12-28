@@ -8,6 +8,8 @@ import SwiftUI
 
 struct FlowRunning: View {
     @State var model: FlowModel
+    @AppStorage("ProAccess") var proAccess: Bool = false
+
     @Environment(\.dismiss) var dismiss
     @Environment(\.horizontalSizeClass) private var sizeClass
     
@@ -62,7 +64,6 @@ struct FlowRunning: View {
                         .cornerRadius(100)
                     }
                 }
-                
                 
                 // Circlers
                 Circles(

@@ -8,20 +8,17 @@
 import SwiftUI
 
 struct OnboardingView: View {
+    @State var model: FlowModel
+    @AppStorage("ProAccess") var proAccess: Bool = false
     @AppStorage("showOnboarding") var showOnboarding: Bool = true
     @AppStorage("showIntro") var showIntro: Bool = false
-    @AppStorage("ProAccess") var proAccess: Bool = false
     
     @State var selectedTab = 1
-    
     @State var showBlur = true
-    
     @State var opacity = 1.0
-    
     
     var body: some View {
         ZStack {
-            
             
             TabView(selection: $selectedTab) {
                 
@@ -33,7 +30,7 @@ struct OnboardingView: View {
                         .padding(.bottom)
                     
                     Text("Experience Flow")
-                        .font(.system(size: 44))
+                        .font(.system(size: 40))
                         .fontWeight(.bold)
                         .padding(.bottom, 2)
                     
@@ -78,7 +75,7 @@ struct OnboardingView: View {
                                     .font(.title3)
                                     .fontWeight(.bold)
                                 
-                                Text("Setting a time for each block promotes deeper focus. Blocks can be complete early or extended.")
+                                Text("Setting a time for each block promotes deeper focus. Blocks can be completed early or extended.")
                                     .font(.callout)
                                     .fontWeight(.medium)
                                     .foregroundStyle(.secondary)
@@ -150,7 +147,7 @@ struct OnboardingView: View {
                         }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
                             if !proAccess {
-                                showIntro = true
+                                model.showPayWall(large: false)
                             }
                         }
                     } else {
@@ -173,7 +170,7 @@ struct OnboardingView: View {
 }
 
 #Preview {
-    OnboardingView(selectedTab: 2)
+    OnboardingView(model: FlowModel(), selectedTab: 2)
 }
 
 struct miniBlock: View {

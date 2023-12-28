@@ -10,12 +10,12 @@ import MessageUI
 import TipKit
 
 struct SettingsView: View {
-    @StateObject var settings = Settings()
     @State var model: FlowModel
-    @State var versionNumber = "v3.2.1"
-    
-    @State var developerSettings = false
-    
+    @StateObject var settings = Settings()
+    @AppStorage("ProAccess") var proAccess: Bool = false
+
+    @Environment(\.requestReview) var requestReview
+        
     var body: some View {
         
         NavigationStack {
@@ -34,7 +34,7 @@ struct SettingsView: View {
                     Toggle(isOn: $settings.focusOnStart) { Label("Focus View on Start", systemImage: "timer") }
                     
                     
-                    if !isAuthorized {
+                    if !settings.isAuthorized {
                         Button {
                             authorizeScreenTime()
                         } label: {
@@ -47,14 +47,14 @@ struct SettingsView: View {
                             }
                         }
                     } else {
-                        Toggle(isOn: proAccess ? $settings.blockDistractions : $showPayWall) {
+                        Toggle(isOn: proAccess ? $settings.blockDistractions : $model.showPayWall) {
                             Label("App Blocker", systemImage: "shield")
                         }
                     }
                     
-                    if isAuthorized && settings.blockDistractions {
+                    if settings.isAuthorized && settings.blockDistractions {
                         Button {
-                            activityPresented = true
+                            settings.activityPresented = true
                         } label: {
                             HStack {
                                 Label("Blocked", systemImage: "xmark.app")
@@ -67,35 +67,15 @@ struct SettingsView: View {
                                     .foregroundStyle(.tertiary)
                             }
                         }
-                        .familyActivityPicker(isPresented: $activityPresented, selection: $settings.activitySelection)
+                        .familyActivityPicker(isPresented: $settings.activityPresented, selection: $settings.activitySelection)
                     }
-                    
-                    
-                    //                        HStack {
-                    //                            Label("Default Focus Length", systemImage: "timer")
-                    //
-                    //                            Spacer()
-                    //
-                    //                            Menu {
-                    //                                Text("options")
-                    //                            } label: {
-                    //                                Text("20:00")
-                    //                                    .font(.callout)
-                    //                                    .padding(.horizontal, 10)
-                    //                                    .padding(.vertical, 6)
-                    //                                    .background(.regularMaterial)
-                    //                                    .cornerRadius(6)
-                    //                                    .foregroundStyle(.white.secondary)
-                    //                                    .padding(.trailing, -2)
-                    //                            }
-                    //                        }
                 }
                 
                 // About
                 Section(header: Text("About")) {
                     
                     // About
-                    NavigationLink(destination: AboutView(versionNumber: versionNumber)) { Label("About", systemImage: "info.circle") }
+                    NavigationLink(destination: AboutView(versionNumber: settings.versionNumber)) { Label("About", systemImage: "info.circle") }
                     
                     // How it Works
                     NavigationLink(destination: HowItWorks()) { Label("How it Works", systemImage: "menucard") }
@@ -107,7 +87,8 @@ struct SettingsView: View {
                     }
                 }
                 
-                if developerSettings {
+                // Developer
+                if settings.developerSettings {
                     Section(header: Text("Developer")) {
                         Toggle(isOn: $proAccess) { Label("Pro Access", systemImage: "bell") }
                         
@@ -117,18 +98,18 @@ struct SettingsView: View {
                         
                         Toggle(isOn: $settings.multiplyTotalFlowTime) { Label("Multiply Flow Time", systemImage: "multiply") }
                         
-                        Button { showOnboarding = true } label: { Label("Show Onboarding", systemImage: "menucard") }
+                        Button { settings.showOnboarding = true } label: { Label("Show Onboarding", systemImage: "menucard") }
                         
-                        Button { showPayWall = true } label: { Label("ShowPayWall", systemImage: "dollarsign.square") }
+                        Button { model.showPayWall() } label: { Label("ShowPayWall", systemImage: "dollarsign.square") }
                         
                         Button { settings.showFocusByDefault = true } label: { Label("ShowFocusByDefaultSheet", systemImage: "square") }
                         
                         
                         Button {
-                            center.revokeAuthorization { result in
+                            settings.center.revokeAuthorization { result in
                                 switch result {
                                 case .success:
-                                    isAuthorized = false
+                                    settings.isAuthorized = false
                                 case .failure(let error):
                                     print("Error revoking authorization: \(error.localizedDescription)")
                                 }
@@ -139,7 +120,7 @@ struct SettingsView: View {
                     }
                 }
                 
-                Text(versionNumber)
+                Text(settings.versionNumber)
                     .foregroundStyle(.teal)
                     .font(.footnote)
                     .fontWeight(.medium)
@@ -155,7 +136,7 @@ struct SettingsView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     if !proAccess {
                         Button {
-                            showPayWall.toggle()
+                            model.showPayWall()
                         } label: {
                             Text("Pro")
                                 .fontWeight(.medium)
@@ -164,7 +145,7 @@ struct SettingsView: View {
                 }
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
-                        isShowingMailView.toggle()
+                        settings.isShowingMailView.toggle()
                     } label: {
                         Image(systemName: "envelope")
                             .font(.footnote)
@@ -173,45 +154,23 @@ struct SettingsView: View {
                 }
             }
         }
-        .sheet(isPresented: $showPayWall) {
-            PayWall(detent: $detent)
-                .presentationCornerRadius(32)
-                .presentationBackground(.regularMaterial)
-                .presentationDetents([.large, .fraction(6/10)], selection: $detent)
-                .interactiveDismissDisabled(detent == .large)
-                .presentationDragIndicator(detent != .large ? .visible : .hidden)
-        }
-        .sheet(isPresented: $isShowingMailView) {
-            MailComposeViewControllerWrapper(isShowing: $isShowingMailView)
+        .sheet(isPresented: $settings.isShowingMailView) {
+            MailComposeViewControllerWrapper(isShowing: $settings.isShowingMailView)
                 .ignoresSafeArea()
         }
     }
     
     func authorizeScreenTime() {
         Task { do {
-            try await center.requestAuthorization(for: .individual)
+            try await settings.center.requestAuthorization(for: .individual)
             if proAccess {
                 settings.blockDistractions = true
             }
-            isAuthorized = true
+            settings.isAuthorized = true
         } catch {
             print("error")
         }}
     }
-    
-    
-    let center = AuthorizationCenter.shared
-    @State var activityPresented = false
-    @AppStorage("ScreenTimeAuthorized") var isAuthorized: Bool = false
-    
-    @State private var showPayWall = false
-    @State var detent = PresentationDetent.large
-    @AppStorage("ProAccess") var proAccess: Bool = false
-    
-    @Environment(\.requestReview) var requestReview
-    @State private var isShowingMailView = false
-    
-    @AppStorage("showOnboarding") var showOnboarding: Bool = true
 }
 
 struct MailComposeViewControllerWrapper: UIViewControllerRepresentable {
@@ -378,3 +337,22 @@ struct HowItWorks: View {
 #Preview {
     SettingsView(model: FlowModel())
 }
+
+//                        HStack {
+//                            Label("Default Focus Length", systemImage: "timer")
+//
+//                            Spacer()
+//
+//                            Menu {
+//                                Text("options")
+//                            } label: {
+//                                Text("20:00")
+//                                    .font(.callout)
+//                                    .padding(.horizontal, 10)
+//                                    .padding(.vertical, 6)
+//                                    .background(.regularMaterial)
+//                                    .cornerRadius(6)
+//                                    .foregroundStyle(.white.secondary)
+//                                    .padding(.trailing, -2)
+//                            }
+//                        }

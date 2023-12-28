@@ -8,8 +8,8 @@ import FamilyControls
 import ManagedSettings
 
 class Settings: ObservableObject {
-    // Pro
-    @AppStorage("ProAccess") var proAccess: Bool = false
+    var versionNumber = "v3.2.1"
+    var developerSettings = true
     
     // General
     @AppStorage("NotificationsOn") var notificationsOn: Bool = true
@@ -24,10 +24,17 @@ class Settings: ObservableObject {
     @AppStorage("multiplyTotalFlowTime") var multiplyTotalFlowTime: Bool = false
     @AppStorage("shouldResetTips") var shouldResetTips: Bool = false
     @AppStorage("showFocusByDefault") var showFocusByDefault = true
+    @AppStorage("showOnboarding") var showOnboarding: Bool = true
 
     // Activity Selection
+    let center = AuthorizationCenter.shared
     let store = ManagedSettingsStore()
+    var activityPresented = false
     var activitySelection = FamilyActivitySelection() { didSet { saveActivitySelection()}}
+    @AppStorage("ScreenTimeAuthorized") var isAuthorized: Bool = false
+    
+    // About
+    @Published var isShowingMailView = false
     
     init() {
         if let data = UserDefaults.standard.data(forKey: "activitySelection") {
@@ -44,6 +51,7 @@ class Settings: ObservableObject {
         }
     }
     
+    // Start Restrictions
     func startRestriction() {
         if blockDistractions {
             let applications = activitySelection.applicationTokens
@@ -55,10 +63,8 @@ class Settings: ObservableObject {
         }
     }
     
+    // Stop Restrictions
     func stopRestrictions() {
         store.shield.applications = nil
     }
 }
-
-
-//static let myBlue = Color(#colorLiteral(red: 0, green: 0.8217858727, blue: 1, alpha: 1))

@@ -9,16 +9,12 @@ import TipKit
 
 struct FlowView: View {
     @State var model: FlowModel
-    @Environment(\.dismiss) var dismiss
-    
     @AppStorage("ProAccess") var proAccess: Bool = false
-    @State var showPaywall = false
-    @State var detent = PresentationDetent.large
+
     
+    @Environment(\.dismiss) var dismiss
     @Environment(\.horizontalSizeClass) private var sizeClass
     
-    @State var selectedBreakTime = 5
-    let values = [30, 20, 15, 10, 5, 2, 1]
     @State var newBlock = false
     
     var body: some View {
@@ -143,15 +139,6 @@ struct FlowView: View {
                 .presentationBackgroundInteraction(.enabled(upThrough: .large))
                 .interactiveDismissDisabled()
         }
-        .sheet(isPresented: $showPaywall) {
-            PayWall(detent: $detent)
-                .presentationCornerRadius(32)
-                .presentationBackground(.regularMaterial)
-                .presentationDetents([.large, .fraction(6/10)], selection: $detent)
-                .interactiveDismissDisabled(detent == .large)
-                .presentationDragIndicator(detent != .large ? .visible : .hidden)
-                .presentationBackgroundInteraction(.enabled)
-        }
         .fullScreenCover(isPresented: $model.showFlowRunning) {
             FlowRunning(model: model)
         }
@@ -194,7 +181,6 @@ struct FlowView: View {
                 .background(Circle().foregroundStyle(.teal.quinary))
                 .padding(.leading, -8)
         }
-        //        .disabled(model.flow.blocks.count == 0)
     }
     
     // Plus
@@ -228,6 +214,7 @@ struct FlowView: View {
     }
     
     // Break
+    let values = [30, 20, 15, 10, 5, 2, 1]
     var breakButton: some View {
         Menu {
             Section(header: Text("Select to Start")) {
@@ -237,7 +224,7 @@ struct FlowView: View {
                             model.breakTime = i * 60
                             model.startBreak()
                         } else {
-                            showPaywall.toggle()
+                            model.showPayWall(large: true)
                         }
                         softHaptic()
                     } label: {
@@ -326,7 +313,7 @@ struct FlowView: View {
         }
         
         var message: Text? {
-            Text("Plus to add. Swipe right to duplicate. Swipe left to delete. Drag to rearange.")
+            Text("Plus to add. Swipe left to delete. Swipe right to duplicate. Drag to rearrange.")
             
         }
         

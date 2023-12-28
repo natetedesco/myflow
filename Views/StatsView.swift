@@ -7,11 +7,14 @@
 import SwiftUI
 
 struct StatsView: View {
-    @ObservedObject var data: FlowData
+    @State var model: FlowModel
+    @StateObject var data = FlowData()
+    @AppStorage("ProAccess") var proAccess: Bool = false
+    
     @State var showGoal = false
+    @State var blur = 0.0
     
     var body: some View {
-        
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
@@ -61,7 +64,7 @@ struct StatsView: View {
                 ToolbarItem(placement: .topBarLeading) {
                     if proAccess {
                         Button {
-                            showGoal.toggle()
+                            data.showGoal.toggle()
                         } label: {
                             Text("Goal")
                                 .foregroundColor(.teal)
@@ -72,9 +75,10 @@ struct StatsView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     if !proAccess {
                         Button {
-                            showPaywall = true
+                            model.showPayWall(large: true)
                         } label: {
-                            Text("Unlock")                                    .fontWeight(.medium)
+                            Text("Unlock")                                    
+                                .fontWeight(.medium)
                         }
                     }
                 }
@@ -86,15 +90,7 @@ struct StatsView: View {
             }
             .blur(radius: proAccess ? 0 : blur)
             .animation(.easeIn(duration: 0.4), value: blur)
-            .sheet(isPresented: $showPaywall) {
-                PayWall(detent: $detent)
-                    .presentationCornerRadius(32)
-                    .presentationBackground(.regularMaterial)
-                    .presentationDetents([.large, .fraction(6/10)], selection: $detent)
-                    .interactiveDismissDisabled(detent == .large)
-                    .presentationDragIndicator(detent != .large ? .visible : .hidden)
-            }
-            .sheet(isPresented: $showGoal) {
+            .sheet(isPresented: $data.showGoal) {
                 GoalView(data: data)
                     .presentationBackground(.regularMaterial)
                     .presentationCornerRadius(32)
@@ -103,14 +99,8 @@ struct StatsView: View {
             }
         }
     }
-    
-    @AppStorage("ProAccess") var proAccess: Bool = false
-    @State private var showPaywall = false
-    @State var detent = PresentationDetent.large
-    @State var blur = 0.0
-    
 }
 
 #Preview {
-    StatsView(data: FlowData())
+    StatsView(model: FlowModel())
 }
