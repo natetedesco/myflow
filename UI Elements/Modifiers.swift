@@ -38,4 +38,12 @@ extension View {
         self
             .frame(maxHeight: .infinity, alignment: .top)
     }
+    
+    func darken(amount: CGFloat) -> some View {
+        ZStack {
+            Color.black.opacity(amount)
+                .ignoresSafeArea()
+            self
+        }
+    }
 }

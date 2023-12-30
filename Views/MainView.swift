@@ -12,7 +12,6 @@ struct MainView: View {
     @AppStorage("ProAccess") var proAccess: Bool = false
     @Environment(\.horizontalSizeClass) private var sizeClass
     
-    
     @State var renamedFlow = ""
     @State var showFlow = false
     @State var showCreateFlow = false
@@ -178,7 +177,14 @@ struct MainView: View {
                 .presentationBackground(.regularMaterial)
                 .presentationCornerRadius(32)
         }
+        //        .sheet(isPresented: $showDistractionBlocker) {
+        //            DistractionBlocker(model: FlowModel())
+        //                .presentationCornerRadius(32)
+        //                .presentationBackground(.bar)
+        //                .presentationDetents([.fraction(3/10)])
+        //        }
     }
+    @State var showDistractionBlocker = false
 }
 
 //private func shouldUseLargeHeight() -> Bool {

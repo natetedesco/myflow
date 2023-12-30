@@ -50,7 +50,9 @@ import SwiftUI
     }
     
     func showPayWall(large: Bool = true) {
-        if !large {
+        if large {
+            self.detent = PresentationDetent.large
+        } else {
             self.detent = PresentationDetent.fraction(6/10)
         }
         showPayWall = true

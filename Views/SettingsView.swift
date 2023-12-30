@@ -5,7 +5,6 @@
 //
 
 import SwiftUI
-import FamilyControls
 import MessageUI
 import TipKit
 
@@ -13,30 +12,29 @@ struct SettingsView: View {
     @State var model: FlowModel
     @StateObject var settings = Settings()
     @AppStorage("ProAccess") var proAccess: Bool = false
-
     @Environment(\.requestReview) var requestReview
         
     var body: some View {
-        
         NavigationStack {
             List {
                 
                 // General
                 Section(header: Text("General")) {
+                    
+                    // Notifications
                     Toggle(isOn: $settings.notificationsOn) { Label("Notifications", systemImage: "bell") }
                     
+                    // Live Activity
                     Toggle(isOn: $settings.liveActivities) { Label("Live Activity", systemImage: "circle.square") }
                 }
                 
                 // Flows
                 Section(header: Text("Flows")) {
                     
-                    Toggle(isOn: $settings.focusOnStart) { Label("Focus View on Start", systemImage: "timer") }
-                    
-                    
+                    // App Blockler
                     if !settings.isAuthorized {
                         Button {
-                            authorizeScreenTime()
+                            settings.authorizeScreenTime()
                         } label: {
                             HStack {
                                 Label("App Blocker", systemImage: "shield")
@@ -52,6 +50,7 @@ struct SettingsView: View {
                         }
                     }
                     
+                    // Blocked Apps
                     if settings.isAuthorized && settings.blockDistractions {
                         Button {
                             settings.activityPresented = true
@@ -69,6 +68,10 @@ struct SettingsView: View {
                         }
                         .familyActivityPicker(isPresented: $settings.activityPresented, selection: $settings.activitySelection)
                     }
+                    
+                    // Focus View as Default
+                    Toggle(isOn: $settings.focusOnStart) { Label("Focus View as Default", systemImage: "timer") }
+                    
                 }
                 
                 // About
@@ -80,8 +83,10 @@ struct SettingsView: View {
                     // How it Works
                     NavigationLink(destination: HowItWorks()) { Label("How it Works", systemImage: "menucard") }
                     
+                    // Request Review
                     Button { requestReview() } label: { Label("Rate MyFlow", systemImage: "star") }
                     
+                    // Privacy & Terms
                     Link(destination: URL(string: "https://myflow.notion.site/Privacy-Policy-0002d1598beb401e9801a0c7fe497fd3?pvs=4")!) {
                         Label("Privacy & Terms", systemImage: "hand.raised")
                     }
@@ -90,21 +95,29 @@ struct SettingsView: View {
                 // Developer
                 if settings.developerSettings {
                     Section(header: Text("Developer")) {
+                        
+                        // Pro Access
                         Toggle(isOn: $proAccess) { Label("Pro Access", systemImage: "bell") }
                         
+                        // Tips
                         Toggle(isOn: $settings.shouldResetTips) { Label("Tips", systemImage: "questionmark.circle") }
                         
-                        Toggle(isOn: $settings.useDummyData) { Label("Use dummy Data", systemImage: "chart.bar") }
+                        // Use Dummy Data
+                        Toggle(isOn: $settings.useDummyData) { Label("Use Dummy Data", systemImage: "chart.bar") }
                         
+                        // Multiply Flow Time
                         Toggle(isOn: $settings.multiplyTotalFlowTime) { Label("Multiply Flow Time", systemImage: "multiply") }
                         
+                        // Show Onboarding
                         Button { settings.showOnboarding = true } label: { Label("Show Onboarding", systemImage: "menucard") }
                         
+                        // ShowPayWall
                         Button { model.showPayWall() } label: { Label("ShowPayWall", systemImage: "dollarsign.square") }
                         
-                        Button { settings.showFocusByDefault = true } label: { Label("ShowFocusByDefaultSheet", systemImage: "square") }
+                        // Reset Ask Focus View
+                        Button { settings.showFocusByDefault = true } label: { Label("Reset Ask Focus View", systemImage: "square") }
                         
-                        
+                        // Revoke ScreenTime
                         Button {
                             settings.center.revokeAuthorization { result in
                                 switch result {
@@ -158,18 +171,6 @@ struct SettingsView: View {
             MailComposeViewControllerWrapper(isShowing: $settings.isShowingMailView)
                 .ignoresSafeArea()
         }
-    }
-    
-    func authorizeScreenTime() {
-        Task { do {
-            try await settings.center.requestAuthorization(for: .individual)
-            if proAccess {
-                settings.blockDistractions = true
-            }
-            settings.isAuthorized = true
-        } catch {
-            print("error")
-        }}
     }
 }
 

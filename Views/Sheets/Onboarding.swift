@@ -32,9 +32,8 @@ struct OnboardingView: View {
                     Text("Experience Flow")
                         .font(.system(size: 40))
                         .fontWeight(.bold)
-                        .padding(.bottom, 2)
+//                        .padding(.bottom, 2)
                     
-                    //                    Text("This app is designed to optimize your time and enhance your focus.")
                     Text("The optimal human experience — where creativity, engagement, and focus are effortless.")
                         .fontWeight(.medium)
                         .foregroundStyle(.secondary)
@@ -75,9 +74,9 @@ struct OnboardingView: View {
                                     .font(.title3)
                                     .fontWeight(.bold)
                                 
-                                Text("Setting a time for each block promotes deeper focus. Blocks can be completed early or extended.")
+                                Text("Setting times for tasks promotes deeper focus. Blocks can be completed early or extended.")
                                     .font(.callout)
-                                    .fontWeight(.medium)
+//                                    .fontWeight(.medium)
                                     .foregroundStyle(.secondary)
                             }
                         }
@@ -97,9 +96,9 @@ struct OnboardingView: View {
                                     .font(.title3)
                                     .fontWeight(.bold)
                                 
-                                Text("Breaks can help us stay in a flow, choose to take a break at the end of a focus or start the next focus.")
+                                Text("Short breaks can help us stay in a flow, choose to take a break at the end of a focus or start the next focus.")
                                     .font(.callout)
-                                    .fontWeight(.medium)
+//                                    .fontWeight(.medium)
                                     .foregroundStyle(.secondary)
                             }
                         }
@@ -119,13 +118,13 @@ struct OnboardingView: View {
                                 
                                     .fontWeight(.bold)
                                 
-                                Text("Block Apps you don't want to disturb you or use during your flow.")
+                                Text("Block apps you don't want to disturb you or use during your flow.")
                                     .font(.callout)
-                                    .fontWeight(.medium)
+//                                    .fontWeight(.medium)
                                     .foregroundStyle(.secondary)
                             }
                         }
-                        .padding(.bottom, 104)
+                        .padding(.bottom, 108)
                         
                         Spacer()
                     }
@@ -159,7 +158,7 @@ struct OnboardingView: View {
                         .foregroundStyle(.teal)
                         .fontWeight(.medium)
                 }
-                .padding(.bottom, 48)
+                .padding(.bottom, 44)
             }
             .padding(.horizontal, 24)
             .padding(.bottom, 8)

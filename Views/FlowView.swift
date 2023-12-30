@@ -11,9 +11,10 @@ struct FlowView: View {
     @State var model: FlowModel
     @AppStorage("ProAccess") var proAccess: Bool = false
 
-    
     @Environment(\.dismiss) var dismiss
     @Environment(\.horizontalSizeClass) private var sizeClass
+    
+    @State var showPayWall = false
     
     @State var newBlock = false
     
@@ -147,6 +148,15 @@ struct FlowView: View {
                 .sheetMaterial()
                 .presentationDetents([.fraction(4/10)])
         }
+        .sheet(isPresented: $showPayWall) {
+            PayWall(detent: $model.detent)
+                .presentationCornerRadius(32)
+                .presentationBackground(.bar)
+                .presentationDetents([.large, .fraction(6/10)], selection: $model.detent)
+                .interactiveDismissDisabled(model.detent == .large)
+                .presentationDragIndicator(.hidden)
+                .presentationBackgroundInteraction(.enabled)
+        }
     }
     
     // Done
@@ -224,7 +234,7 @@ struct FlowView: View {
                             model.breakTime = i * 60
                             model.startBreak()
                         } else {
-                            model.showPayWall(large: true)
+                            showPayWall.toggle()
                         }
                         softHaptic()
                     } label: {

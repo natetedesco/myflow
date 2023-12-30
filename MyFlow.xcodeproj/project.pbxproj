@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F00426E12B2A452B00FAE36B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0948C1C26818EE100A5F48D /* Assets.xcassets */; };
+		F0171F252B3F68F6002F6FB7 /* WhatsNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0171F242B3F68F6002F6FB7 /* WhatsNew.swift */; };
 		F01E848B2AB1249900CF418D /* FlowRunning.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E848A2AB1249900CF418D /* FlowRunning.swift */; };
 		F0435CD52A9F965C0073E7E1 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0435CD42A9F965C0073E7E1 /* Background.swift */; };
 		F0435CD92A9FA5850073E7E1 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0435CD82A9FA5850073E7E1 /* Settings.swift */; };
@@ -24,7 +25,8 @@
 		F0A16C872A9BB79A00378E4C /* Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EDD0532A0171AF00223505 /* Attributes.swift */; };
 		F0A6718D2B190BF2003B3071 /* CreateFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A6718C2B190BF2003B3071 /* CreateFlow.swift */; };
 		F0A6718F2B190C18003B3071 /* FlowCompleted.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A6718E2B190C18003B3071 /* FlowCompleted.swift */; };
-		F0B3C20E2B34A8CB00CE6029 /* ShowFocusByDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B3C20D2B34A8CB00CE6029 /* ShowFocusByDefault.swift */; };
+		F0B3C20E2B34A8CB00CE6029 /* FocusByDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B3C20D2B34A8CB00CE6029 /* FocusByDefault.swift */; };
+		F0B6372B2B3F3DF600167D36 /* DistractionBlocker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B6372A2B3F3DF600167D36 /* DistractionBlocker.swift */; };
 		F0CA26C52B28D99200EA382E /* Data Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CA26C42B28D99200EA382E /* Data Types.swift */; };
 		F0CA26C72B28D9AF00EA382E /* GoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CA26C62B28D9AF00EA382E /* GoalView.swift */; };
 		F0EBC11B2A8D3C0B006F9616 /* LiveActivities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06FDAF52A030ADD00C58F3B /* LiveActivities.swift */; };
@@ -87,6 +89,7 @@
 
 /* Begin PBXFileReference section */
 		F001C23828D3A12100134EB5 /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
+		F0171F242B3F68F6002F6FB7 /* WhatsNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNew.swift; sourceTree = "<group>"; };
 		F01962B0293184BD00336821 /* Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		F01E848A2AB1249900CF418D /* FlowRunning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowRunning.swift; sourceTree = "<group>"; };
 		F032564A272251A5009D3EFB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -115,7 +118,8 @@
 		F0A056412B1A5DD400AB430D /* BlockSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockSheet.swift; sourceTree = "<group>"; };
 		F0A6718C2B190BF2003B3071 /* CreateFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFlow.swift; sourceTree = "<group>"; };
 		F0A6718E2B190C18003B3071 /* FlowCompleted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowCompleted.swift; sourceTree = "<group>"; };
-		F0B3C20D2B34A8CB00CE6029 /* ShowFocusByDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowFocusByDefault.swift; sourceTree = "<group>"; };
+		F0B3C20D2B34A8CB00CE6029 /* FocusByDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusByDefault.swift; sourceTree = "<group>"; };
+		F0B6372A2B3F3DF600167D36 /* DistractionBlocker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistractionBlocker.swift; sourceTree = "<group>"; };
 		F0CA26C42B28D99200EA382E /* Data Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data Types.swift"; sourceTree = "<group>"; };
 		F0CA26C62B28D9AF00EA382E /* GoalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalView.swift; sourceTree = "<group>"; };
 		F0EBC15A2A8D3C0B006F9616 /* MyFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -235,11 +239,13 @@
 			children = (
 				F0A6718C2B190BF2003B3071 /* CreateFlow.swift */,
 				F0A6718E2B190C18003B3071 /* FlowCompleted.swift */,
-				F0B3C20D2B34A8CB00CE6029 /* ShowFocusByDefault.swift */,
+				F0B3C20D2B34A8CB00CE6029 /* FocusByDefault.swift */,
 				F0A056412B1A5DD400AB430D /* BlockSheet.swift */,
 				F09861FE26968B4B00A61B42 /* Paywall.swift */,
 				F066EB762B1D264B00BCAFC0 /* Onboarding.swift */,
 				F0CA26C62B28D9AF00EA382E /* GoalView.swift */,
+				F0171F242B3F68F6002F6FB7 /* WhatsNew.swift */,
+				F0B6372A2B3F3DF600167D36 /* DistractionBlocker.swift */,
 			);
 			path = Sheets;
 			sourceTree = "<group>";
@@ -370,6 +376,7 @@
 				F0A16C872A9BB79A00378E4C /* Attributes.swift in Sources */,
 				F0EBC11B2A8D3C0B006F9616 /* LiveActivities.swift in Sources */,
 				F0CA26C52B28D99200EA382E /* Data Types.swift in Sources */,
+				F0B6372B2B3F3DF600167D36 /* DistractionBlocker.swift in Sources */,
 				F0EBC11C2A8D3C0B006F9616 /* Timer.swift in Sources */,
 				F0EBC11E2A8D3C0B006F9616 /* FlowData.swift in Sources */,
 				F05878932B28D8DD00508CA1 /* Purchases.swift in Sources */,
@@ -381,7 +388,7 @@
 				F05878912B28D8DD00508CA1 /* Notifications.swift in Sources */,
 				F0435CD52A9F965C0073E7E1 /* Background.swift in Sources */,
 				F05878922B28D8DD00508CA1 /* Haptics.swift in Sources */,
-				F0B3C20E2B34A8CB00CE6029 /* ShowFocusByDefault.swift in Sources */,
+				F0B3C20E2B34A8CB00CE6029 /* FocusByDefault.swift in Sources */,
 				F0EBC1272A8D3C0B006F9616 /* FlowView.swift in Sources */,
 				F0EBC1292A8D3C0B006F9616 /* Paywall.swift in Sources */,
 				F0A6718F2B190C18003B3071 /* FlowCompleted.swift in Sources */,
@@ -395,6 +402,7 @@
 				F0EBC1442A8D3C0B006F9616 /* MainView.swift in Sources */,
 				F0A6718D2B190BF2003B3071 /* CreateFlow.swift in Sources */,
 				F0EBC1472A8D3C0B006F9616 /* Modifiers.swift in Sources */,
+				F0171F252B3F68F6002F6FB7 /* WhatsNew.swift in Sources */,
 				F01E848B2AB1249900CF418D /* FlowRunning.swift in Sources */,
 				F0EBC1482A8D3C0B006F9616 /* WeekCard.swift in Sources */,
 				F0EBC1492A8D3C0B006F9616 /* SettingsView.swift in Sources */,

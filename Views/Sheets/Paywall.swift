@@ -200,7 +200,7 @@ struct PayWall: View {
                         }
                         .padding(.leading, -6)
                     }
-                    .font(.caption2)
+                    .font(.caption)
                     .foregroundStyle(.tertiary)
                     .fontWeight(.medium)
                     .padding(.bottom, 12)
@@ -232,8 +232,8 @@ struct PayWall: View {
                 }
                 
                 // Terms • Privacy • Restore
-                Text(detent == .large ? "7 days free, then $19.99/year." : "Swipe up for details")
-                    .font(.caption)
+                Text(detent == .large ? "7 days free, then $19.99/year" : "Swipe up for details")
+                    .font(.footnote)
                     .padding(.top, 12)
                     .foregroundStyle(.secondary)
                     .centered()

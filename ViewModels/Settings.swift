@@ -9,7 +9,7 @@ import ManagedSettings
 
 class Settings: ObservableObject {
     var versionNumber = "v3.2.1"
-    var developerSettings = false
+    var developerSettings = true
     
     // General
     @AppStorage("NotificationsOn") var notificationsOn: Bool = true
@@ -29,8 +29,8 @@ class Settings: ObservableObject {
     // Activity Selection
     let center = AuthorizationCenter.shared
     let store = ManagedSettingsStore()
-    var activityPresented = false
-    var activitySelection = FamilyActivitySelection() { didSet { saveActivitySelection()}}
+    @Published var activityPresented = false
+    @Published var activitySelection = FamilyActivitySelection() { didSet { saveActivitySelection()}}
     @AppStorage("ScreenTimeAuthorized") var isAuthorized: Bool = false
     
     // About
@@ -49,6 +49,16 @@ class Settings: ObservableObject {
         if let encoded = try? JSONEncoder().encode(activitySelection) {
             UserDefaults.standard.set(encoded, forKey: "activitySelection")
         }
+    }
+    
+    // Authorize Screen Time
+    func authorizeScreenTime() {
+        Task { do {
+            try await center.requestAuthorization(for: .individual)
+            isAuthorized = true
+        } catch {
+            print("error")
+        }}
     }
     
     // Start Restrictions

@@ -42,7 +42,9 @@ struct MyFlow: App {
                         }
                 }
                 .task {
-                    await purchaseManager.updatePurchasedProducts()
+                    if !model.settings.developerSettings {
+                        await purchaseManager.updatePurchasedProducts()
+                    }
                     if model.settings.shouldResetTips {
                         try? Tips.resetDatastore()
                     }
