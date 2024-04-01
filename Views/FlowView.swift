@@ -23,25 +23,25 @@ struct FlowView: View {
             List{
                 Section(header: HStack {
                     Text("\(model.flow.blocks.count) Blocks")
+//                        .font(.body)
+                        .fontWeight(.medium)
                         .foregroundStyle(.white)
                     Spacer()
                     Text(model.flow.blocks.count == 0 ? "00:00" : model.flow.totalFlowTimeFormatted())
-                        .font(.footnote)
-                        .fontWeight(.medium)
+                        .fontWeight(.light)
+//                        .font(.callout)
                 }) {
-                    if model.mode != .initial {
+                    if model.mode == .flowStart {
                         TipView(completeTip, arrowEdge: .bottom)
                             .listRowSeparator(.hidden, edges: [.top])
                     }
                     ForEach($model.flow.blocks) { $block in
                         Button {
                             if model.mode == .initial {
-                                if let selectedIndex = model.flow.blocks.firstIndex(where: { $0.id == block.id }) {
-                                    model.selectedIndex = selectedIndex
+                                if let selectedBlockIndex = model.flow.blocks.firstIndex(where: { $0.id == block.id }) {
+                                    model.selectedBlockIndex = selectedBlockIndex
                                     model.showBlock.toggle()
                                 }
-                            } else {
-                                model.showFlowRunning.toggle()
                             }
                         } label: {
                             BlockView(model: model, block: $block)
@@ -75,7 +75,7 @@ struct FlowView: View {
                             }
                         }
                         .swipeActions(edge: .trailing) {
-                            if model.mode != .initial && (currentBlock(block: block) || completedBlock(block: block)) {
+                            if (model.mode != .initial && model.mode != .flowStart && (currentBlock(block: block)) || completedBlock(block: block)) {
                                 Button {
                                     model.resetBlock()
                                 } label: {
@@ -88,22 +88,26 @@ struct FlowView: View {
                     .onDelete(perform: model.mode == .initial ? delete : nil)
                     .onMove(perform: move)
                 }
-                TipView(blocksTip, arrowEdge: .none)
+                TipView(blocksTip, arrowEdge: .bottom)
                     .listRowSeparator(.hidden, edges: [.bottom])
+                
+                if model.flow.blocks.count >= 1 { // causes sheet glitch when opening flow
+                    TipView(blockControlTip, arrowEdge: .top)
+                        .listRowSeparator(.hidden, edges: [.bottom])
+                }
             }
+            .animation(.default, value: model.flow.blocks)
             .listStyle(.plain)
             .navigationTitle(model.flow.title)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {}
                 
                 ToolbarItemGroup(placement: .topBarLeading) {
-                    if !model.showBlock {
-                        if model.mode == .initial {
-                            doneButton
-                        }
-                        else {
-                            resetButton
-                        }
+                    if model.mode == .initial {
+                        doneButton
+                    }
+                    else {
+                        resetButton
                     }
                 }
                 ToolbarItem(placement: .bottomBar) {
@@ -134,11 +138,15 @@ struct FlowView: View {
             .navigationBarBackButtonHidden(model.mode == .flowRunning ? true : false)
         }
         .sheet(isPresented: $model.showBlock) {
-            BlockSheetView(model: model, newBlock: $newBlock)
-                .sheetMaterial()
-                .presentationDetents([.fraction(1/3)])
-                .presentationBackgroundInteraction(.enabled(upThrough: .large))
-                .interactiveDismissDisabled()
+            BlockSheetView(model: model,
+                           newBlock: $newBlock,
+                           title: newBlock ? "" : model.flow.blocks[model.selectedBlockIndex].title,
+                           minutes: newBlock ? 20 : model.flow.blocks[model.selectedBlockIndex].minutes,
+                           seconds: newBlock ? 0 : model.flow.blocks[model.selectedBlockIndex].seconds)
+            
+            .sheetMaterial()
+            .presentationDetents([.fraction(1/3)])
+            .presentationBackgroundInteraction(.enabled(upThrough: .large))
         }
         .fullScreenCover(isPresented: $model.showFlowRunning) {
             FlowRunning(model: model)
@@ -150,8 +158,7 @@ struct FlowView: View {
         }
         .sheet(isPresented: $showPayWall) {
             PayWall(detent: $model.detent)
-                .presentationCornerRadius(32)
-                .presentationBackground(.bar)
+                .sheetMaterial()
                 .presentationDetents([.large, .fraction(6/10)], selection: $model.detent)
                 .interactiveDismissDisabled(model.detent == .large)
                 .presentationDragIndicator(.hidden)
@@ -184,6 +191,9 @@ struct FlowView: View {
             softHaptic()
             model.Start()
             blocksTip.invalidate(reason: .actionPerformed)
+            if model.mode == .flowStart {
+                completeTip.invalidate(reason: .actionPerformed)
+            }
         } label: {
             Image(systemName: model.mode == .flowRunning ? "pause.fill" : "play.fill")
                 .font(.title3)
@@ -196,16 +206,16 @@ struct FlowView: View {
     // Plus
     var plusButton: some View {
         Button {
-            lightHaptic()
-            model.addBlock()
-            model.showBlock.toggle()
+            //            model.addBlock()
             newBlock.toggle()
+            model.showBlock.toggle()
             blocksTip.invalidate(reason: .actionPerformed)
+//            blockControlTip.invalidate(reason: .actionPerformed)
         } label: {
             HStack {
-                Image(systemName: "plus")
-                    .font(.title3)
-                    .fontWeight(.semibold)
+                Text("Add Focus")
+                    .fontWeight(.medium)
+                    .fontDesign(.rounded)
             }
         }
     }
@@ -214,9 +224,10 @@ struct FlowView: View {
         // Focus View Toggle
         Button {
             model.showFlowRunning.toggle()
+            lightHaptic()
         } label: {
             Image(systemName: "chevron.up")
-                .font(.title3)
+                .font(.title)
                 .foregroundStyle(.white.tertiary)
                 .fontWeight(.semibold)
                 .frame(maxWidth: .infinity)
@@ -245,6 +256,7 @@ struct FlowView: View {
         } label: {
             HStack {
                 Text("Break")
+                    .fontWeight(.medium)
                     .font(.footnote)
             }
             .foregroundStyle(.white.secondary)
@@ -321,29 +333,39 @@ struct FlowView: View {
         var title: Text {
             Text("Add Focus Blocks")
         }
-        
         var message: Text? {
-            Text("Plus to add. Swipe left to delete. Swipe right to duplicate. Drag to rearrange.")
+            Text("Create a block for everything you want to focus on, then start your Flow.")
             
         }
-        
         var image: Image? {
             Image(systemName: "rectangle.stack.badge.plus")
+        }
+    }
+    
+    var blockControlTip = BlockControlTip()
+    struct BlockControlTip: Tip {
+        var title: Text {
+            Text("Block Controls")
+        }
+        var message: Text? {
+            Text("Swipe left to delete. Swipe Right to duplicate. Drag to rearange.")
+            
+        }
+        var image: Image? {
+            Image(systemName: "hand.draw")
         }
     }
     
     var completeTip = CompleteTip()
     struct CompleteTip: Tip {
         var title: Text {
-            Text("Complete and Extend Blocks")
+            Text("Control Your Flow")
         }
-        
         var message: Text? {
-            Text("Swipe right to complete or extend a focus. Swipe left to reset.")
+            Text("Start the next focus, take a break, swipe right to extend, or swipe left to reset.")
         }
-        
         var image: Image? {
-            Image(systemName: "checkmark.circle")
+            Image(systemName: "circle")
         }
     }
 }

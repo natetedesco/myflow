@@ -92,9 +92,8 @@ struct StatsView: View {
             .animation(.easeIn(duration: 0.4), value: blur)
             .sheet(isPresented: $data.showGoal) {
                 GoalView(data: data)
-                    .presentationBackground(.regularMaterial)
-                    .presentationCornerRadius(32)
-                    .presentationDetents([.medium])
+                    .sheetMaterial()
+                    .presentationDetents([.fraction(4/10)])
                     .presentationDragIndicator(.hidden)
             }
         }

@@ -16,72 +16,34 @@ extension FlowModel {
             totalFlowTime = 0
         }
         
-        if flowTime > 0 && !flow.blocks.isEmpty{
+        if flowTime > 0 {
             stopActivity()
             switch mode {
             case .initial: Run()
             case .flowStart: Run()
             case .flowRunning: Pause()
             case .flowPaused: flowExtended ? extend() : Run()
-            case .breakRunning: pauseBreak()
-            case .breakPaused: startBreak()
+            case .completed: initialize()
             }
             data.createDayStruct()
         }
         UNUserNotificationCenter.current().requestAuthorization(options:[.badge,.sound,.alert]) { (_, _) in}
-    }
-    func startBreak() {
-        mode = .breakRunning
-        breakTimeLeft = breakTime - elapsed // for Label
-
-        if settings.focusOnStart { showFlowRunning = true }
-
-        // Set End
-        start = Date()
-        let end = Calendar.current.date(byAdding: .second, value: (breakTime - elapsed), to: start)!
-        
-        notifications.Set(time: breakTime, elapsed: elapsed, id: "timer", isBreak: true)
-        startActivity(start: start, end: end, isBreak: true)
-        
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [self] timer in
-            let timeLeft = Calendar.current.dateComponents([.second], from: Date(), to: end + 1).second ?? 0
-            breakTimeLeft = timeLeft
-            if timeLeft <= 0 {
-                breakTimeLeft = 0
-                
-                endBreak()
-            }
-        }
-    }
-    
-    func pauseBreak() {
-        mode = .breakPaused
-        
-        let newTime = Int(abs(start.timeIntervalSinceNow))
-        elapsed = elapsed + newTime
-        
-        invalidateTimer()
-    }
-    
-    func endBreak() {
-        showFlowRunning = false
-        mode = .flowStart
-        elapsed = 0
-        invalidateTimer()
-        stopActivity()
     }
     
     // Run
     func Run() {
         mode = .flowRunning
         
-        if settings.focusOnStart { showFlowRunning = true }
+        if settings.focusOnStart {
+            showFlowRunning = true
+        }
         
         // Set End
         start = Date()
         let end = Calendar.current.date(byAdding: .second, value: (flowTime - elapsed), to: start)!
         
         notifications.Set(time: flowTime, elapsed: elapsed, id: "timer")
+        
         startActivity(start: start, end: end)
         settings.startRestriction()
         
@@ -101,9 +63,9 @@ extension FlowModel {
     // End
     func endTimer(skip: Bool = false) {
         elapsed = 0
-        settings.stopRestrictions()
         invalidateTimer()
         stopActivity()
+        settings.stopRestrictions()
         completeBlock()
     }
     
@@ -117,12 +79,15 @@ extension FlowModel {
             let block = flow.blocks[blocksCompleted]
             
             // Set Flow Time
-            let time = (block.minutes * 60) + (block.seconds)
+            let time = (block.hours * 3600) + (block.minutes * 60) + (block.seconds)
             flowTime = time
             flowTimeLeft = time
+            
             mode = .flowStart
         }
+        if settings.dismissOnComplete {
             showFlowRunning = false
+        }
     }
     
     // Pause
@@ -139,21 +104,13 @@ extension FlowModel {
     
     // Skip
     func Complete() {
-        if flowExtended {
-            data.addTime(time: flowTimeLeft)
-            addTotalFlowTime(time: flowTimeLeft)
-            flowExtended = false
-            flowTimeLeft = flowTime
-        } else {
-            let time = flowTime - flowTimeLeft
-            data.addTime(time: time)
-            addTotalFlowTime(time: time)
-        }
+        let time = flowTime - flowTimeLeft
+        data.addTime(time: time)
+        addTotalFlowTime(time: time)
         
         elapsed = 0
         endTimer()
     }
-    
     
     // Reset
     func Reset() {
@@ -173,7 +130,7 @@ extension FlowModel {
     // Continue Flow
     func extend() {
         var start = Date()
-        if settings.focusOnStart { showFlowRunning = true }
+        showFlowRunning = true
         
         if mode == .flowStart { // dont want to do this after unpause
             blocksCompleted = blocksCompleted - 1
@@ -197,12 +154,28 @@ extension FlowModel {
         }
     }
     
+    // Complete Continue Flow
+    func completeExtend() {
+        invalidateTimer()
+        
+        // Add Time
+        data.addTime(time: flowTimeLeft)
+        addTotalFlowTime(time: flowTimeLeft)
+        
+        flowExtended = false
+        flowTimeLeft = flowTime
+        elapsed = 0
+        
+        
+        stopActivity()
+        completeBlock()
+    }
+    
     func completeSession() {
         showFlowRunning = false
         mode = .initial
         elapsed = 0
         blocksCompleted = 0
-        
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.showFlowCompleted  = true
@@ -228,23 +201,23 @@ extension FlowModel {
     func addTotalFlowTime(time: Int) {
         totalFlowTime = totalFlowTime + time
     }
-    // Restart
-    func resetBlock() {
-        flowExtended = false
-        elapsed = 0
-        if mode == .flowRunning || mode == .flowPaused {
-            flowTimeLeft = flowTime
-            invalidateTimer()
-        } else {
-            if blocksCompleted != 0 {
-                blocksCompleted -= 1
-                let block = flow.blocks[blocksCompleted]
-                let time = (block.minutes * 60) + (block.seconds)
-                flowTime = time
-                flowTimeLeft = time
-            }
-        }
-        mode = .flowStart
-    }
 }
 
+
+// Restart
+//    func Restart() {
+//        elapsed = 0
+//        mode = .flowStart
+//        if mode == .flowRunning || mode == .flowPaused {
+//            flowTimeLeft = flowTime
+//            invalidateTimer()
+//        } else {
+//            if blocksCompleted != 0 {
+//                blocksCompleted -= 1
+//                let block = flow.blocks[blocksCompleted]
+//                let time = (block.hours * 3600) + (block.minutes * 60) + (block.seconds)
+//                flowTime = time
+//                flowTimeLeft = time
+//            }
+//        }
+//    }

@@ -11,7 +11,7 @@ struct CreateFlowView: View {
     @State var model: FlowModel
     @Binding var showFlow: Bool
     
-    @State var newFlowTitle = "New Flow"
+    @State var newFlowTitle = ""
     @FocusState var isFocused
     @Environment(\.dismiss) var dismiss
     
@@ -19,56 +19,54 @@ struct CreateFlowView: View {
         
         NavigationStack {
             ZStack {
-                Color.black.opacity(0.4).ignoresSafeArea()
+                Color.black.opacity(0.3).ignoresSafeArea()
                 
                 VStack {
+                    
+                    Circles(model: model, size: 88, width: 10, fill: true)
+                        .padding(.top)
                     Spacer()
                     
-                    Circles(model: model, size: 96, width: 10, fill: true)
-                    
-                    Spacer()
-                    
-                    Text("Create Flow")
+                    TextField("New Flow", text: $newFlowTitle)
                         .font(.title)
-                        .fontWeight(.bold)
-                    Spacer()
-                    
-                    TextField("Flow Title", text: $newFlowTitle)
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 8)
-                        .background(.regularMaterial)
-                        .cornerRadius(12)
+                        .fontWeight(.semibold)
+                        .multilineTextAlignment(.center)
+                        .cornerRadius(14)
                         .focused($isFocused)
+                        .padding(.bottom, 8)
                         .onSubmit { submit() }
-                        .onReceive(NotificationCenter.default.publisher(for: UITextField.textDidBeginEditingNotification)) { obj in
-                            if let textField = obj.object as? UITextField {
-                                textField.selectedTextRange = textField.textRange(from: textField.beginningOfDocument, to: textField.endOfDocument)
-                            }
-                        }
                         .introspectTextField { textField in textField.becomeFirstResponder() }
+                    
+                    Spacer()
                     
                     Button {
                         submit()
                     } label : {
-                        Text("Create")
+                        Text("Create Flow")
                             .foregroundStyle(.white)
                             .font(.headline)
                             .frame(maxWidth: .infinity)
                             .padding()
                             .background(Color.teal)
-                            .cornerRadius(12)
-                            .padding(.vertical)
+                            .cornerRadius(16)
+                            .padding(.bottom, 20)
                     }
                 }
-                .padding(.horizontal, 24)
+                .padding(.horizontal)
             }
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         dismiss()
                     } label: {
-                        Text("Cancel")
+                        Image(systemName: "xmark")
+                            .font(.footnote)
+                            .fontWeight(.bold)
+                            .foregroundStyle(.white.tertiary)
+                            .padding(8)
+                            .background(Circle().foregroundStyle(.bar))
                     }
+                    .padding(.top, 12)
                 }
             }
         }
@@ -76,14 +74,12 @@ struct CreateFlowView: View {
     }
     
     func submit() {
+        lightHaptic()
         dismiss()
-        if !newFlowTitle.isEmpty {
             model.createFlow(title: newFlowTitle == "" ? "Flow" : newFlowTitle)
             newFlowTitle = ""
-        }
         model.flow = model.flowList.last ?? Flow()
-            showFlow.toggle()
-            softHaptic()
+        showFlow.toggle()
     }
 }
 
@@ -94,6 +90,6 @@ struct CreateFlowView: View {
     .sheet(isPresented: .constant(true), content: {
         CreateFlowView(model: FlowModel(), showFlow: .constant(true))  
             .presentationBackground(.regularMaterial)
-            .presentationCornerRadius(32)
+            .presentationCornerRadius(40)
     })
 }

@@ -10,21 +10,15 @@ import SwiftUI
 struct Flow: Codable, Equatable, Identifiable {
     var id = UUID()
     var title: String = ""
-    var blocks: [Block] = []
+    var blocks = [Block(title: "Focus", minutes: 20)]
 }
 
 struct Block: Codable, Hashable, Identifiable {
     var id = UUID()
     var title: String = ""
-    var tasks: [FocusTask] = []
-    var tag: String = "Focus"
-    var minutes: Int = 20
+    var hours: Int = 0
+    var minutes: Int = 0
     var seconds: Int = 0
-}
-
-struct FocusTask: Codable, Hashable, Identifiable {
-    var id = UUID()
-    var title: String = ""
 }
 
 struct Day: Codable, Identifiable, Equatable {
@@ -37,6 +31,7 @@ struct Day: Codable, Identifiable, Equatable {
 extension Flow {
     func totalFlowTimeInSeconds() -> TimeInterval {
         var totalSeconds: TimeInterval = 0
+        
         for block in blocks {
             totalSeconds += block.totalTimeInSeconds
         }
@@ -52,32 +47,30 @@ extension Flow {
         var formattedTime = ""
 
         if hours > 0 {
-            formattedTime += "\(hours) hr"
+            formattedTime += "\(hours) \(hours == 1 ? "hour" : "hours")"
         }
 
         if minutes > 0 {
-                if !formattedTime.isEmpty {
+            if !formattedTime.isEmpty {
                 formattedTime += ", "
             }
-            formattedTime += "\(minutes) min"
+            formattedTime += "\(minutes) \(minutes == 1 ? "minute" : "minutes")"
         }
 
         if seconds > 0 {
             if !formattedTime.isEmpty {
                 formattedTime += ", "
             }
-            formattedTime += "\(seconds) sec"
+            formattedTime += "\(seconds) \(seconds == 1 ? "second" : "seconds")"
         }
 
         return formattedTime
     }
-
-
 }
 
 extension Block {
     var totalTimeInSeconds: TimeInterval {
-        let totalSeconds = TimeInterval(minutes * 60 + seconds)
+        let totalSeconds = TimeInterval(hours * 3600 + minutes * 60 + seconds)
         return totalSeconds
     }
 }

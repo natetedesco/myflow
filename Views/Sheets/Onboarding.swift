@@ -1,7 +1,6 @@
 //
 //  Onboarding.swift
 //  MyFlow
-//
 //  Created by Nate Tedesco on 12/3/23.
 //
 
@@ -19,150 +18,114 @@ struct OnboardingView: View {
     
     var body: some View {
         ZStack {
+            AnimatedBlur(offset: false, opacity: 0.5)
             
-            TabView(selection: $selectedTab) {
+            VStack(alignment: .leading) {
                 
-                // Page 1
-                VStack {
-                    Spacer()
-                    
-                    Circles(model: FlowModel(), size: 160, width: 16.0, fill: true)
-                        .padding(.bottom)
-                    
-                    Text("Experience Flow")
-                        .font(.system(size: 40))
-                        .fontWeight(.bold)
-//                        .padding(.bottom, 2)
-                    
-                    Text("The optimal human experience — where creativity, engagement, and focus are effortless.")
-                        .fontWeight(.medium)
-                        .foregroundStyle(.secondary)
-                        .padding(.horizontal, 40)
-                        .multilineTextAlignment(.center)
-                        .padding(.bottom, 96)
-                    Spacer()
+                VStack(alignment: .leading) {
+//                    Circles(model: model, size: 56, width: 7, glow: false,  fill: true)
+//                        .padding(.top, 32)
+//                        .padding(.bottom)
+                    Text("Experience")
+                        .padding(.top, 64)
+                    Text("Flow")
+                        .foregroundStyle(.teal)
                 }
-                .tag(1)
+                .fontWeight(.bold)
+                .font(.system(size: 44))
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.leading, 44)
+
                 
-                // Page 2
-                ZStack {
-                    AnimatedBlur(offset: false, opacity: 0.6)
-                    
+                Spacer()
+                
+                HStack(alignment: .center) {
+                    Image(systemName: "rectangle.stack")
+                        .foregroundStyle(.teal)
+                        .font(.title)
+                        .fontWeight(.medium)
                     
                     VStack(alignment: .leading) {
-                        Spacer()
+                        Text("Focus Blocks")
+                            .font(.title3)
+                            .fontWeight(.semibold)
                         
-                        VStack(alignment: .leading) {
-                            Text("Create your")
-                            Text("Flow")
-                                .foregroundStyle(.teal)
-                        }
-                        .font(.system(size: 44))
-                        .fontWeight(.bold)
-                        
-                        Spacer()
-                        
-                        HStack(alignment: .top) {
-                            Image(systemName: "rectangle.stack")
-                                .foregroundStyle(.teal)
-                                .font(.largeTitle)
-                                .fontWeight(.medium)
-                                .padding(.top, 4)
-                            
-                            VStack(alignment: .leading) {
-                                Text("Focus Blocks")
-                                    .font(.title3)
-                                    .fontWeight(.bold)
-                                
-                                Text("Setting times for tasks promotes deeper focus. Blocks can be completed early or extended.")
-                                    .font(.callout)
-//                                    .fontWeight(.medium)
-                                    .foregroundStyle(.secondary)
-                            }
-                        }
-                        
-                        Spacer()
-                        
-                        HStack(alignment: .top) {
-                            Image(systemName: "timer")
-                                .foregroundStyle(.teal)
-                                .font(.largeTitle)
-                                .fontWeight(.medium)
-                                .padding(.top, 4)
-                            
-                            VStack(alignment: .leading) {
-                                
-                                Text("Take Breaks")
-                                    .font(.title3)
-                                    .fontWeight(.bold)
-                                
-                                Text("Short breaks can help us stay in a flow, choose to take a break at the end of a focus or start the next focus.")
-                                    .font(.callout)
-//                                    .fontWeight(.medium)
-                                    .foregroundStyle(.secondary)
-                            }
-                        }
-                        
-                        Spacer()
-                        
-                        HStack(alignment: .top) {
-                            Image(systemName: "shield")
-                                .foregroundStyle(.teal)
-                                .fontWeight(.medium)
-                                .font(.largeTitle)
-                                .padding(.top, 4)
-                            
-                            VStack(alignment: .leading) {
-                                Text("Block Distractions")
-                                    .font(.title3)
-                                
-                                    .fontWeight(.bold)
-                                
-                                Text("Block apps you don't want to disturb you or use during your flow.")
-                                    .font(.callout)
-//                                    .fontWeight(.medium)
-                                    .foregroundStyle(.secondary)
-                            }
-                        }
-                        .padding(.bottom, 108)
-                        
-                        Spacer()
+                        Text("A flexible block of time for each thing you want to focus on in your flow.")
+                            .font(.callout)
+                            .foregroundStyle(.secondary)
                     }
-                    .padding(.horizontal, 32)
                 }
-                .tag(2)
-            }
-            .edgesIgnoringSafeArea(.top)
-            .tabViewStyle(.page)
-            .indexViewStyle(.page(backgroundDisplayMode: .never))
-            
-            VStack {
+                
                 Spacer()
-                Button {
-                    if selectedTab == 2 {
-                        withAnimation { opacity = 0 }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            showOnboarding = false
-                        }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-                            if !proAccess {
-                                model.showPayWall(large: false)
-                            }
-                        }
-                    } else {
-                        withAnimation { selectedTab += 1 }
+                
+                HStack(alignment: .center) {
+                    Image(systemName: "timer")
+                        .foregroundStyle(.teal)
+                        .font(.title)
+                        .fontWeight(.medium)
+                    
+                    VStack(alignment: .leading) {
+                        Text("Take Breaks")
+                            .font(.title3)
+                            .fontWeight(.semibold)
+                        Text("Choose to take a break and recharge after a focus or continue your flow.")
+                            .font(.callout)
+                            .foregroundStyle(.secondary)
                     }
-                    softHaptic()
-                } label: {
-                    Text(selectedTab == 2 ? "Let's Flow" : "Continue")
+                }
+                
+                Spacer()
+                
+                HStack(alignment: .center) {
+                    Image(systemName: "shield")
                         .foregroundStyle(.teal)
                         .fontWeight(.medium)
+                        .font(.title)
+                    
+                    VStack(alignment: .leading) {
+                        Text("Block Distractions")
+                            .font(.title3)
+                            .fontWeight(.semibold)
+                        Text("Block apps you don't want disturbing or distracting you during your flow.")
+                            .font(.callout)
+                            .foregroundStyle(.secondary)
+                        
+                    }
                 }
-                .padding(.bottom, 44)
+                .padding(.bottom)
+                
+                Spacer()
+                
+                Button {
+                    withAnimation { opacity = 0 }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        showOnboarding = false
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+//                        if !proAccess {
+                            model.showPayWall(large: false)
+//                        }
+                    }
+//                    softHaptic()
+                } label: {
+                    Text("Let's Flow")
+                        .foregroundStyle(.teal)
+//                        .font(.title3)
+                        .fontWeight(.medium)
+                        .frame(maxWidth: .infinity)
+//                        .padding()
+//                        .background(Color.teal)
+//                        .cornerRadius(24)
+                        .padding(.leading, 48)
+                        .padding(.trailing, 40)
+                }
             }
-            .padding(.horizontal, 24)
+            
             .padding(.bottom, 8)
+            .padding(.leading, 32)
+            .padding(.trailing, 40)
         }
+        
         .background(Color.black)
         .opacity(opacity)
     }

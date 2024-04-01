@@ -14,7 +14,7 @@ struct MultiComponentPicker<Tag: Hashable>: View  {
     var body: some View {
         ZStack {
             Rectangle()
-                .foregroundStyle(.ultraThinMaterial)
+                .foregroundStyle(.bar)
                 .frame(maxWidth: .infinity)
                 .cornerRadius(10)
                 .frame(height: 32)

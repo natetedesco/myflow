@@ -1,7 +1,6 @@
 //
 //  FlowCompleted.swift
 //  MyFlow
-//
 //  Created by Nate Tedesco on 11/30/23.
 //
 
@@ -12,14 +11,12 @@ struct FlowCompletedView: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        ZStack {
-            Color.black.opacity(0.3).ignoresSafeArea()
             
             VStack {
                 
                 Spacer()
                 
-                Circles(model: model, size: 88, width: 8.0, fill: true)
+                Circles(model: model, size: 80, width: 8.0, fill: true)
                 
                 Spacer()
                 
@@ -52,7 +49,6 @@ struct FlowCompletedView: View {
                 }
             }
             .padding(.horizontal, 24)
-        }
     }
 }
 
@@ -63,7 +59,7 @@ struct FlowCompletedView: View {
     .sheet(isPresented: .constant(true), content: {
         FlowCompletedView(model: FlowModel())
             .presentationBackground(.regularMaterial)
-            .presentationCornerRadius(32)
+            .presentationCornerRadius(40)
             .presentationDetents([.fraction(6/10)])
     })
 }

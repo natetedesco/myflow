@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B5EBD9C2BBA150600A5F7B3 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 8B5EBD9B2BBA150600A5F7B3 /* Introspect */; };
 		F00426E12B2A452B00FAE36B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0948C1C26818EE100A5F48D /* Assets.xcassets */; };
-		F0171F252B3F68F6002F6FB7 /* WhatsNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0171F242B3F68F6002F6FB7 /* WhatsNew.swift */; };
+		F0171F252B3F68F6002F6FB7 /* AskForRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0171F242B3F68F6002F6FB7 /* AskForRating.swift */; };
 		F01E848B2AB1249900CF418D /* FlowRunning.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E848A2AB1249900CF418D /* FlowRunning.swift */; };
 		F0435CD52A9F965C0073E7E1 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0435CD42A9F965C0073E7E1 /* Background.swift */; };
 		F0435CD92A9FA5850073E7E1 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0435CD82A9FA5850073E7E1 /* Settings.swift */; };
@@ -20,12 +21,10 @@
 		F066EB772B1D264B00BCAFC0 /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066EB762B1D264B00BCAFC0 /* Onboarding.swift */; };
 		F08201E52B28D844003F7B1D /* LiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EDD0422A01717400223505 /* LiveActivity.swift */; };
 		F0954B122A95360F009E212E /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0954B112A95360F009E212E /* Block.swift */; };
-		F0954B182A95B6C2009E212E /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = F0954B172A95B6C2009E212E /* Introspect */; };
 		F0A056422B1A5DD400AB430D /* BlockSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A056412B1A5DD400AB430D /* BlockSheet.swift */; };
 		F0A16C872A9BB79A00378E4C /* Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EDD0532A0171AF00223505 /* Attributes.swift */; };
 		F0A6718D2B190BF2003B3071 /* CreateFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A6718C2B190BF2003B3071 /* CreateFlow.swift */; };
 		F0A6718F2B190C18003B3071 /* FlowCompleted.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A6718E2B190C18003B3071 /* FlowCompleted.swift */; };
-		F0B3C20E2B34A8CB00CE6029 /* FocusByDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B3C20D2B34A8CB00CE6029 /* FocusByDefault.swift */; };
 		F0B6372B2B3F3DF600167D36 /* DistractionBlocker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B6372A2B3F3DF600167D36 /* DistractionBlocker.swift */; };
 		F0CA26C52B28D99200EA382E /* Data Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CA26C42B28D99200EA382E /* Data Types.swift */; };
 		F0CA26C72B28D9AF00EA382E /* GoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CA26C62B28D9AF00EA382E /* GoalView.swift */; };
@@ -89,7 +88,7 @@
 
 /* Begin PBXFileReference section */
 		F001C23828D3A12100134EB5 /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
-		F0171F242B3F68F6002F6FB7 /* WhatsNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNew.swift; sourceTree = "<group>"; };
+		F0171F242B3F68F6002F6FB7 /* AskForRating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskForRating.swift; sourceTree = "<group>"; };
 		F01962B0293184BD00336821 /* Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		F01E848A2AB1249900CF418D /* FlowRunning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowRunning.swift; sourceTree = "<group>"; };
 		F032564A272251A5009D3EFB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -118,7 +117,6 @@
 		F0A056412B1A5DD400AB430D /* BlockSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockSheet.swift; sourceTree = "<group>"; };
 		F0A6718C2B190BF2003B3071 /* CreateFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFlow.swift; sourceTree = "<group>"; };
 		F0A6718E2B190C18003B3071 /* FlowCompleted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowCompleted.swift; sourceTree = "<group>"; };
-		F0B3C20D2B34A8CB00CE6029 /* FocusByDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusByDefault.swift; sourceTree = "<group>"; };
 		F0B6372A2B3F3DF600167D36 /* DistractionBlocker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistractionBlocker.swift; sourceTree = "<group>"; };
 		F0CA26C42B28D99200EA382E /* Data Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data Types.swift"; sourceTree = "<group>"; };
 		F0CA26C62B28D9AF00EA382E /* GoalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalView.swift; sourceTree = "<group>"; };
@@ -136,7 +134,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0954B182A95B6C2009E212E /* Introspect in Frameworks */,
+				8B5EBD9C2BBA150600A5F7B3 /* Introspect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,6 +207,13 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		F07578DD2B9BC211001FEB07 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		F0948C0C26818EE000A5F48D = {
 			isa = PBXGroup;
 			children = (
@@ -222,6 +227,7 @@
 				F0F1785C2B3DF2F70083BEA8 /* StoreKit.storekit */,
 				F0948C1C26818EE100A5F48D /* Assets.xcassets */,
 				F0948C1626818EE000A5F48D /* Products */,
+				F07578DD2B9BC211001FEB07 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -239,12 +245,11 @@
 			children = (
 				F0A6718C2B190BF2003B3071 /* CreateFlow.swift */,
 				F0A6718E2B190C18003B3071 /* FlowCompleted.swift */,
-				F0B3C20D2B34A8CB00CE6029 /* FocusByDefault.swift */,
 				F0A056412B1A5DD400AB430D /* BlockSheet.swift */,
 				F09861FE26968B4B00A61B42 /* Paywall.swift */,
 				F066EB762B1D264B00BCAFC0 /* Onboarding.swift */,
 				F0CA26C62B28D9AF00EA382E /* GoalView.swift */,
-				F0171F242B3F68F6002F6FB7 /* WhatsNew.swift */,
+				F0171F242B3F68F6002F6FB7 /* AskForRating.swift */,
 				F0B6372A2B3F3DF600167D36 /* DistractionBlocker.swift */,
 			);
 			path = Sheets;
@@ -289,7 +294,7 @@
 			);
 			name = MyFlow;
 			packageProductDependencies = (
-				F0954B172A95B6C2009E212E /* Introspect */,
+				8B5EBD9B2BBA150600A5F7B3 /* Introspect */,
 			);
 			productName = "Flow Timer";
 			productReference = F0EBC15A2A8D3C0B006F9616 /* MyFlow.app */;
@@ -337,7 +342,7 @@
 			);
 			mainGroup = F0948C0C26818EE000A5F48D;
 			packageReferences = (
-				F0954B162A95B6C2009E212E /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
+				8B5EBD9A2BBA150600A5F7B3 /* XCRemoteSwiftPackageReference "swiftui-introspect" */,
 			);
 			productRefGroup = F0948C1626818EE000A5F48D /* Products */;
 			projectDirPath = "";
@@ -388,7 +393,6 @@
 				F05878912B28D8DD00508CA1 /* Notifications.swift in Sources */,
 				F0435CD52A9F965C0073E7E1 /* Background.swift in Sources */,
 				F05878922B28D8DD00508CA1 /* Haptics.swift in Sources */,
-				F0B3C20E2B34A8CB00CE6029 /* FocusByDefault.swift in Sources */,
 				F0EBC1272A8D3C0B006F9616 /* FlowView.swift in Sources */,
 				F0EBC1292A8D3C0B006F9616 /* Paywall.swift in Sources */,
 				F0A6718F2B190C18003B3071 /* FlowCompleted.swift in Sources */,
@@ -402,7 +406,7 @@
 				F0EBC1442A8D3C0B006F9616 /* MainView.swift in Sources */,
 				F0A6718D2B190BF2003B3071 /* CreateFlow.swift in Sources */,
 				F0EBC1472A8D3C0B006F9616 /* Modifiers.swift in Sources */,
-				F0171F252B3F68F6002F6FB7 /* WhatsNew.swift in Sources */,
+				F0171F252B3F68F6002F6FB7 /* AskForRating.swift in Sources */,
 				F01E848B2AB1249900CF418D /* FlowRunning.swift in Sources */,
 				F0EBC1482A8D3C0B006F9616 /* WeekCard.swift in Sources */,
 				F0EBC1492A8D3C0B006F9616 /* SettingsView.swift in Sources */,
@@ -677,7 +681,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.2.1;
+				MARKETING_VERSION = 3.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -711,7 +715,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.2.1;
+				MARKETING_VERSION = 3.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -745,7 +749,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.2.1;
+				MARKETING_VERSION = 3.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -857,9 +861,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		F0954B162A95B6C2009E212E /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
+		8B5EBD9A2BBA150600A5F7B3 /* XCRemoteSwiftPackageReference "swiftui-introspect" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect";
+			repositoryURL = "https://github.com/siteline/swiftui-introspect";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 0.11.0;
@@ -868,9 +872,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		F0954B172A95B6C2009E212E /* Introspect */ = {
+		8B5EBD9B2BBA150600A5F7B3 /* Introspect */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F0954B162A95B6C2009E212E /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			package = 8B5EBD9A2BBA150600A5F7B3 /* XCRemoteSwiftPackageReference "swiftui-introspect" */;
 			productName = Introspect;
 		};
 /* End XCSwiftPackageProductDependency section */

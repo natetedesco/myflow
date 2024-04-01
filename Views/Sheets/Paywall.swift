@@ -20,7 +20,7 @@ struct PayWall: View {
     
     var body: some View {
         ZStack {
-            Color.black.opacity(detent == .large ? 0.4 : 0.3).ignoresSafeArea()
+            Color.black.opacity(detent == .large ? 0.4 : 0.0).ignoresSafeArea()
             AnimatedBlur(opacity: 0.8).offset(y: 50)
             
             VStack(alignment: .leading) {
@@ -115,7 +115,7 @@ struct PayWall: View {
                                 .frame(maxHeight: .infinity)
                                 .foregroundStyle(
                                     LinearGradient(
-                                        gradient: Gradient(colors: [.teal.opacity(1.0), .teal.opacity(0.0)]),
+                                        gradient: Gradient(colors: [.teal.opacity(1.0), .teal.opacity(0.01)]),
                                         startPoint: .top,
                                         endPoint: .bottom
                                     )
@@ -125,6 +125,7 @@ struct PayWall: View {
                             
                             VStack(alignment: .leading) {
                                 Image(systemName: "lock.open.fill")
+                                    .fontWeight(.semibold)
                                     .foregroundStyle(.black.opacity(0.8))
                                     .frame(width: 16)
                                     .padding(8)
@@ -132,7 +133,7 @@ struct PayWall: View {
                                 Spacer()
                                 
                                 Image(systemName: "bell.fill")
-                                    .foregroundStyle(.black.opacity(0.7))
+                                    .foregroundStyle(.black.opacity(0.8))
                                     .frame(width: 16)
                                     .padding(8)
                                 
@@ -149,31 +150,28 @@ struct PayWall: View {
                         
                         VStack(alignment: .leading) {
                             Text("Today")
-                                .font(.callout)
+//                                .font(.callout)
                                 .fontWeight(.semibold)
                             Text("Unlock free access to all Pro features.")
                                 .font(.footnote)
-                                .fontWeight(.medium)
                                 .foregroundStyle(.secondary)
                             
                             Spacer()
                             
                             Text("Day 6")
-                                .font(.callout)
+//                                .font(.callout)
                                 .fontWeight(.semibold)
-                            Text("Your trial is about to end, you will not be charged if you cancel.")
+                            Text("You will not be charged if you cancel.")
                                 .font(.footnote)
-                                .fontWeight(.medium)
                                 .foregroundStyle(.secondary)
                             
                             Spacer()
                             
                             Text("Day 7")
-                                .font(.callout)
+//                                .font(.callout)
                                 .fontWeight(.semibold)
-                            Text("Your annual $19.99($1.67/month) subscription begins.")
+                            Text("Your annual $19.99 subscription begins.")
                                 .font(.footnote)
-                                .fontWeight(.medium)
                                 .foregroundStyle(.secondary)
                         }
                     }
@@ -200,7 +198,7 @@ struct PayWall: View {
                         }
                         .padding(.leading, -6)
                     }
-                    .font(.caption)
+                    .font(.caption2)
                     .foregroundStyle(.tertiary)
                     .fontWeight(.medium)
                     .padding(.bottom, 12)
@@ -220,7 +218,7 @@ struct PayWall: View {
                     dismiss()
                 } label: {
                     ZStack {
-                        Text("Start my free week")
+                        Text(detent == .large ? "Start my free week" : "Try Pro Free")
                             .foregroundStyle(.white)
                             .font(.title3)
                             .fontWeight(.semibold)
@@ -233,7 +231,7 @@ struct PayWall: View {
                 
                 // Terms • Privacy • Restore
                 Text(detent == .large ? "7 days free, then $19.99/year" : "Swipe up for details")
-                    .font(.footnote)
+                    .font(.caption)
                     .padding(.top, 12)
                     .foregroundStyle(.secondary)
                     .centered()

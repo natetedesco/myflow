@@ -10,17 +10,17 @@ struct BlockView: View {
     @State var model: FlowModel
     @Binding var block: Block
     @Environment(\.horizontalSizeClass) private var sizeClass
-    @State var showTasks = false
+//    @State var showTasks = false
     
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Gauge(value: gaugeValue, label: {Text("")})
-                    .gaugeStyle(.accessoryCircularCapacity)
-                    .tint(.accentColor)
-                    .scaleEffect(sizeClass == .regular ? 1.3 : 0.9)
-                    .animation(.default, value: gaugeValue)
-                    .padding(.leading, -2)
+                    Gauge(value: gaugeValue, label: {Text("")})
+                        .gaugeStyle(.accessoryCircularCapacity)
+                        .tint(.accentColor)
+                        .scaleEffect(sizeClass == .regular ? 1.3 : 0.9)
+                        .animation(.default, value: gaugeValue)
+                        .padding(.leading, -2)
                 
                 Text(block.title.isEmpty ? "Focus" : block.title)
                     .font(sizeClass == .regular ? .largeTitle : .title3)
@@ -33,9 +33,9 @@ struct BlockView: View {
                 
                 HStack {
                     if model.flowExtended && currentBlock {
-                        Image(systemName: "goforward.plus")
-                            .foregroundStyle(.teal)
-                            .fontWeight(.medium)
+                        Image(systemName: "plus")
+                            .foregroundStyle(.secondary)
+                            .font(.footnote)
                     }
                     
                     Text(timerLabel)

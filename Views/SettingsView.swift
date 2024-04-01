@@ -13,7 +13,10 @@ struct SettingsView: View {
     @StateObject var settings = Settings()
     @AppStorage("ProAccess") var proAccess: Bool = false
     @Environment(\.requestReview) var requestReview
-        
+    
+    @State var showRateTheApp = false
+    @State var showDistractionBlocker = false
+    
     var body: some View {
         NavigationStack {
             List {
@@ -70,7 +73,7 @@ struct SettingsView: View {
                     }
                     
                     // Focus View as Default
-                    Toggle(isOn: $settings.focusOnStart) { Label("Focus View as Default", systemImage: "timer") }
+                    Toggle(isOn: $settings.focusOnStart) { Label("Focus View on Start", systemImage: "timer") }
                     
                 }
                 
@@ -80,16 +83,17 @@ struct SettingsView: View {
                     // About
                     NavigationLink(destination: AboutView(versionNumber: settings.versionNumber)) { Label("About", systemImage: "info.circle") }
                     
-                    // How it Works
-                    NavigationLink(destination: HowItWorks()) { Label("How it Works", systemImage: "menucard") }
-                    
-                    // Request Review
-                    Button { requestReview() } label: { Label("Rate MyFlow", systemImage: "star") }
                     
                     // Privacy & Terms
                     Link(destination: URL(string: "https://myflow.notion.site/Privacy-Policy-0002d1598beb401e9801a0c7fe497fd3?pvs=4")!) {
                         Label("Privacy & Terms", systemImage: "hand.raised")
                     }
+                    
+                    // Request Review
+                    Button { requestReview() } label: { Label("Rate MyFlow", systemImage: "star") }
+                    
+                    // Send Feedback
+                    Button { settings.isShowingMailView.toggle() } label: { Label("Send Feedback", systemImage: "envelope") }
                 }
                 
                 // Developer
@@ -109,13 +113,16 @@ struct SettingsView: View {
                         Toggle(isOn: $settings.multiplyTotalFlowTime) { Label("Multiply Flow Time", systemImage: "multiply") }
                         
                         // Show Onboarding
-                        Button { settings.showOnboarding = true } label: { Label("Show Onboarding", systemImage: "menucard") }
+                        Toggle(isOn: $settings.showOnboarding) { Label("Show Onboarding", systemImage: "menucard") }
                         
                         // ShowPayWall
                         Button { model.showPayWall() } label: { Label("ShowPayWall", systemImage: "dollarsign.square") }
                         
+                        // ShowPayWall
+                        Button { showDistractionBlocker.toggle() } label: { Label("Show Distraction Blocker", systemImage: "dollarsign.square") }
+                        
                         // Reset Ask Focus View
-                        Button { settings.showFocusByDefault = true } label: { Label("Reset Ask Focus View", systemImage: "square") }
+                        Button { showRateTheApp.toggle() } label: { Label("Show Rate the App", systemImage: "square") }
                         
                         // Revoke ScreenTime
                         Button {
@@ -156,20 +163,33 @@ struct SettingsView: View {
                         }
                     }
                 }
-                ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        settings.isShowingMailView.toggle()
-                    } label: {
-                        Image(systemName: "envelope")
-                            .font(.footnote)
-                            .fontWeight(.medium)
-                    }
-                }
+                //                ToolbarItem(placement: .topBarLeading) {
+                //                    Button {
+                //                        settings.isShowingMailView.toggle()
+                //                    } label: {
+                //                        Image(systemName: "envelope")
+                //                            .font(.footnote)
+                //                            .fontWeight(.medium)
+                //                    }
+                //                }
             }
         }
         .sheet(isPresented: $settings.isShowingMailView) {
             MailComposeViewControllerWrapper(isShowing: $settings.isShowingMailView)
                 .ignoresSafeArea()
+        }
+        .sheet(isPresented: $showDistractionBlocker) {
+            DistractionBlocker(model: model)
+                .presentationBackground(.ultraThinMaterial)
+                .presentationCornerRadius(40)
+            //                .sheetMaterial()
+                .presentationDetents([.fraction(3/10)])
+        }
+        .sheet(isPresented: $showRateTheApp) {
+            AskForRating()
+                .presentationBackground(.ultraThinMaterial)
+                .presentationCornerRadius(40)
+                .presentationDetents([.fraction(3/10)])
         }
     }
 }
@@ -218,16 +238,16 @@ struct AboutView: View {
                         .font(.largeTitle)
                         .fontWeight(.bold)
                     
-                    Text("Focus on what matters.")
+                    Text("Focus on what matters")
                         .font(.callout)
-                        .fontWeight(.medium)
+//                        .fontWeight(.medium)
                         .foregroundStyle(.secondary)
                     
-                    Text(versionNumber)
-                        .foregroundStyle(.teal)
-                        .font(.caption)
-                        .fontWeight(.medium)
-                        .monospaced()
+//                    Text(versionNumber)
+//                        .foregroundStyle(.teal)
+//                        .font(.caption)
+//                        .fontWeight(.medium)
+//                        .monospaced()
                 }
                 .padding(.top)
                 

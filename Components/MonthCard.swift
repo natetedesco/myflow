@@ -47,7 +47,6 @@ struct MonthCard: View {
                 x: .value("Day", day.day),
                 y: .value("Views", Double(day.time))
             )
-            //            .interpolationMethod(.catmullRom)
             
             .symbol {
                 Circle()
@@ -58,7 +57,6 @@ struct MonthCard: View {
                 x: .value("Day", day.day),
                 y: .value("Views", Double(day.time))
             )
-            //            .interpolationMethod(.catmullRom)
             
             .foregroundStyle(
                 LinearGradient(colors: [.teal.opacity(0.7), .teal.opacity(0.0),], startPoint: .top, endPoint: .bottom)

@@ -14,67 +14,68 @@ struct DistractionBlocker: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        ZStack {
-            Color.black.opacity(0.8).ignoresSafeArea()
-            NavigationStack {
-                List {
-                    Section {
-                        if !settings.isAuthorized {
-                            Button {
-                                settings.authorizeScreenTime()
-                            } label: {
-                                HStack {
-                                    Label("App Blocker", systemImage: "shield")
-                                    Spacer()
-                                    Text("Authorize")
-                                        .foregroundColor(.teal)
-                                        .font(.callout)
-                                }
-                            }
-                        } else {
-                            Toggle(isOn: proAccess ? $settings.blockDistractions : $model.showPayWall) {
-                                Label("App Blocker", systemImage: "shield")
-                            }
-                        }
-                        
-                        if settings.isAuthorized && settings.blockDistractions {
-                            Button {
-                                settings.activityPresented = true
-                            } label: {
-                                HStack {
-                                    Label("Blocked", systemImage: "xmark.app")
-                                    Spacer()
-                                    Text(settings.activitySelection.applicationTokens.count == 0 ? "0 Apps" : "^[\(settings.activitySelection.applicationTokens.count) App](inflect: true)")
-                                        .foregroundStyle(.tertiary)
-                                    Image(systemName: "chevron.right")
-                                        .font(.footnote)
-                                        .fontWeight(.semibold)
-                                        .foregroundStyle(.tertiary)
-                                        .foregroundStyle(.white)
-                                }
-                            }
-                            .familyActivityPicker(isPresented: $settings.activityPresented, selection: $settings.activitySelection)
-                        }
-                    } footer: {
-                        Text("You will not have access to these apps during flow")
-                    }
-                }
-                .navigationTitle("Distraction Blocker").navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button {
-                            dismiss()
-                        } label: {
-                            Text("Done")
+        NavigationStack {
+            VStack {
+                if !settings.isAuthorized {
+                    Button {
+                        settings.authorizeScreenTime()
+                    } label: {
+                        HStack {
+                            Label("App Blocker", systemImage: "shield")
+                            Spacer()
+                            Text("Authorize")
+                                .foregroundColor(.teal)
+                                .font(.callout)
                         }
                     }
+                } else {
+                    Toggle(isOn: proAccess ? $settings.blockDistractions : $model.showPayWall) {
+                        Label("App Blocker", systemImage: "shield")
+                    }
+                    .tint(.teal)
+                    .padding(.bottom, 8)
                 }
-                .listStyle(.inset)
-                .environment(\.defaultMinListRowHeight, 52)
-                .background(Color.clear)
+                
+                if settings.isAuthorized && settings.blockDistractions {
+                    Divider()
+                    Button {
+                        settings.activityPresented = true
+                    } label: {
+                        HStack {
+                            Label("Blocked", systemImage: "xmark.app")
+                                .foregroundStyle(.white)
+                            Spacer()
+                            Text(settings.activitySelection.applicationTokens.count == 0 ? "0 Apps" : "^[\(settings.activitySelection.applicationTokens.count) App](inflect: true)")
+                                .foregroundStyle(.white.tertiary)
+                            Image(systemName: "chevron.right")
+                                .font(.footnote)
+                                .fontWeight(.semibold)
+                                .foregroundStyle(.tertiary)
+                                .foregroundStyle(.white)
+                        }
+                    }
+                    .padding(.top, 12)
+                    .padding(.bottom, 8)
+                    .familyActivityPicker(isPresented: $settings.activityPresented, selection: $settings.activitySelection)
+                }
+            }
+            .padding()
+            .background(.black.opacity(0.5))
+            .background(.bar)
+            .cornerRadius(24)
+            .padding(.horizontal)
+//            .navigationTitle("Distraction Blocker")
+//            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Done")
+                    }
+                }
             }
         }
-        .tint(.teal)
     }
 }
 

@@ -38,31 +38,38 @@ struct MainView: View {
                             showCreateFlow.toggle()
                         } label : {
                             Text("Create Your Flow")
-                                .font(.title3)
                                 .fontWeight(.semibold)
                                 .foregroundStyle(.white)
                         }
-                        .padding()
-                        .background(Color.accentColor)
-                        .cornerRadius(12)
+                        .padding(18)
+                        .background(LinearGradient(
+                            gradient: Gradient(colors: [.teal.opacity(1.0), .teal.opacity(0.8)]),
+                            startPoint: .bottomLeading,
+                            endPoint: .topTrailing
+                        ))
+                        .cornerRadius(20)
                         Spacer()
                     }
+                    
                 } else {
                     ScrollView {
-                        Text("All")
-                            .font(.subheadline)
-                            .fontWeight(.semibold)
-                            .foregroundStyle(.secondary)
-                            .leading()
-                            .padding(.leading)
-                            .padding(.top, 26)
+                        
+                        if  model.flowList.count != 0 {
+                            Text("Saved")
+                                .font(.subheadline)
+                                .fontWeight(.semibold)
+                                .foregroundStyle(.secondary)
+                                .leading()
+                                .padding(.leading)
+                                .padding(.top)
+                        }
                         
                         LazyVGrid(columns: [GridItem(spacing: spacing), GridItem(spacing: spacing)], spacing: spacing) {
                             ForEach($model.flowList) { $flow in
-                                
                                 ZStack {
                                     Button {
                                         model.flow = flow
+                                        lightHaptic()
                                         showFlow.toggle()
                                     } label: {
                                         Text(flow.title)
@@ -79,7 +86,6 @@ struct MainView: View {
                                                 endPoint: .topTrailing
                                             ))
                                             .cornerRadius(24)
-                                            .shadow(color: Color.teal.opacity(0.3), radius: 3)
                                     }
                                     .fullScreenCover(isPresented: $showFlow) {
                                         FlowView(model: model)
@@ -113,10 +119,10 @@ struct MainView: View {
                                             .font(.callout)
                                             .foregroundStyle(.teal)
                                             .padding(12)
-                                            .background(Circle().foregroundStyle(.regularMaterial))
+                                            .background(Circle().foregroundStyle(.bar))
                                     }
                                     .padding()
-                                    .padding(.trailing, -4)
+                                    .padding(.trailing, -8)
                                     .simultaneousGesture(TapGesture().onEnded{
                                         lightHaptic()
                                     })
@@ -139,14 +145,13 @@ struct MainView: View {
                             }
                         }
                         .padding(.horizontal)
+                        .animation(.default, value: model.flowList)
                     }
-                    .animation(.default, value: model.flowList)
                 }
             }
             .navigationTitle("Flows")
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    
                     if  model.flowList.count != 0 {
                         Button {
                             if model.flowList.count >= 1 && !proAccess {
@@ -175,22 +180,10 @@ struct MainView: View {
         .sheet(isPresented: $showCreateFlow) {
             CreateFlowView(model: model, showFlow: $showFlow)
                 .presentationBackground(.regularMaterial)
-                .presentationCornerRadius(32)
+                .presentationCornerRadius(40)
         }
-        //        .sheet(isPresented: $showDistractionBlocker) {
-        //            DistractionBlocker(model: FlowModel())
-        //                .presentationCornerRadius(32)
-        //                .presentationBackground(.bar)
-        //                .presentationDetents([.fraction(3/10)])
-        //        }
     }
-    @State var showDistractionBlocker = false
 }
-
-//private func shouldUseLargeHeight() -> Bool {
-//    let horizontalSizeClass = UITraitCollection(horizontalSizeClass: UIScreen.main.bounds.width > 500 ? .regular : .compact)
-//    return horizontalSizeClass.containsTraits(in: UITraitCollection(horizontalSizeClass: .regular))
-//}
 
 #Preview {
     MainView(model: FlowModel())

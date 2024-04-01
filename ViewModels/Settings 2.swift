@@ -1,5 +1,6 @@
 // ThemePicker.swift
 // MyFlow
+//
 // Created by Nate Tedesco on 8/30/23.
 //
 
@@ -8,33 +9,20 @@ import FamilyControls
 import ManagedSettings
 
 class Settings: ObservableObject {
-    var versionNumber = "v3.3"
-    var developerSettings = true
+    @AppStorage("BlockDistractions") var blockDistractions: Bool = false
     
-    // General
     @AppStorage("NotificationsOn") var notificationsOn: Bool = true
     @AppStorage("LiveActivities") var liveActivities: Bool = true
     
-    // Flows
-    @AppStorage("BlockDistractions") var blockDistractions: Bool = false
     @AppStorage("focusOnStart") var focusOnStart: Bool = true
+    @AppStorage("dismissOnComplete") var dismissOnComplete: Bool = true
     
-    // About
-    @Published var isShowingMailView = false
-    
-    // Developer
     @AppStorage("UseDummyData") var useDummyData: Bool = false
     @AppStorage("multiplyTotalFlowTime") var multiplyTotalFlowTime: Bool = false
     @AppStorage("shouldResetTips") var shouldResetTips: Bool = false
-    @AppStorage("showFocusByDefault") var showFocusByDefault = true
-    @AppStorage("showOnboarding") var showOnboarding: Bool = true
 
-    // Activity Selection
-    let center = AuthorizationCenter.shared
     let store = ManagedSettingsStore()
-    @Published var activityPresented = false
-    @Published var activitySelection = FamilyActivitySelection() { didSet { saveActivitySelection()}}
-    @AppStorage("ScreenTimeAuthorized") var isAuthorized: Bool = false
+    var activitySelection = FamilyActivitySelection() { didSet { saveActivitySelection()}}
     
     init() {
         if let data = UserDefaults.standard.data(forKey: "activitySelection") {
@@ -51,17 +39,6 @@ class Settings: ObservableObject {
         }
     }
     
-    // Authorize Screen Time
-    func authorizeScreenTime() {
-        Task { do {
-            try await center.requestAuthorization(for: .individual)
-            isAuthorized = true
-        } catch {
-            print("error")
-        }}
-    }
-    
-    // Start Restrictions
     func startRestriction() {
         if blockDistractions {
             let applications = activitySelection.applicationTokens
@@ -73,8 +50,10 @@ class Settings: ObservableObject {
         }
     }
     
-    // Stop Restrictions
     func stopRestrictions() {
         store.shield.applications = nil
     }
 }
+
+
+//static let myBlue = Color(#colorLiteral(red: 0, green: 0.8217858727, blue: 1, alpha: 1))

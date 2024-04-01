@@ -3,16 +3,12 @@
 //  Created by Nate Tedesco on 10/18/22.
 
 import Foundation
-import SwiftUI
 
 @Observable class FlowModel {
     var data = FlowData()
     var settings = Settings()
     var notifications = NotificationManager()
     
-    var showPayWall = false
-    var detent = PresentationDetent.large
-        
     var flow: Flow = Flow() { didSet { initialize() }}
     var flowList: [Flow] { didSet { initialize() }}
     
@@ -20,22 +16,21 @@ import SwiftUI
     var timer = Timer()
     var start = Date()
 
-    var flowTime: Int = 0
-    var flowTimeLeft: Int = 0
-    var breakTime = 0
-    var breakTimeLeft = 0
+    var flowTime = 0
+    var flowTimeLeft = 0
     var elapsed = 0
     var totalFlowTime = 0
     var flowExtended = false
     
     var blocksCompleted = 0
-    var selectedBlockIndex = 0
+    var selectedIndex = 0
     var showBlock = false
     
     var showFlowRunning = false
     var showFlowCompleted = false
     
     init(mode: TimerMode = .initial) {
+        // Load flowList from UserDefaults
         if let data = UserDefaults.standard.data(forKey: "SavedData") {
             if let decoded = try? JSONDecoder().decode([Flow].self, from: data) {
                 flowList = decoded
@@ -49,21 +44,11 @@ import SwiftUI
         initialize()
     }
     
-    func showPayWall(large: Bool = true) {
-        if large {
-            self.detent = PresentationDetent.large
-        } else {
-            self.detent = PresentationDetent.fraction(6/10)
-        }
-        softHaptic()
-        showPayWall = true
-    }
-    
     // Initialize
     func initialize() {
         if let firstBlock = flow.blocks.first {
             // Set Flow Time based on the duration of the first block
-            let time = (firstBlock.minutes * 60) + (firstBlock.seconds)
+            let time = (firstBlock.hours * 3600) + (firstBlock.minutes * 60) + (firstBlock.seconds)
             flowTime = time
             flowTimeLeft = time
         }
@@ -111,27 +96,19 @@ import SwiftUI
         initialize()
     }
     
-    // BLOCKS //
+    // BLOCKS
     
     // Add
-    func addBlock(title: String, minutes: Int, seconds: Int) {
-        let newBlock = Block(title: title, minutes: minutes, seconds: seconds)
+    func addBlock() {
+        let newBlock = Block(title: "Focus", minutes: 20)
         flow.blocks.append(newBlock)
-        selectedBlockIndex = flow.blocks.firstIndex(where: { $0.id == newBlock.id }) ?? 0
-        saveFlow()
-    }
-    
-    // Add
-    func updateBlock(title: String, minutes: Int, seconds: Int) {
-        flow.blocks[selectedBlockIndex].title = title
-        flow.blocks[selectedBlockIndex].minutes = minutes
-        flow.blocks[selectedBlockIndex].seconds = seconds
+        selectedIndex = flow.blocks.firstIndex(where: { $0.id == newBlock.id }) ?? 0
         saveFlow()
     }
     
     // Duplicate
     func duplicateBlock(block: Block) {
-        let newBlock = Block(title: block.title, minutes: block.minutes, seconds: block.seconds)
+        let newBlock = Block(title: block.title, hours: block.hours, minutes: block.minutes, seconds: block.seconds)
         flow.blocks.append(newBlock)
         saveFlow()
     }
@@ -150,6 +127,5 @@ enum TimerMode {
     case flowStart
     case flowRunning
     case flowPaused
-    case breakRunning
-    case breakPaused
+    case completed
 }

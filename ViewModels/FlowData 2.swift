@@ -9,8 +9,6 @@ import Foundation
 
 class FlowData: ObservableObject {
     var settings = Settings()
-    
-    @Published var showGoal = false
 
     @AppStorage("GoalMinutes") var goalMinutes: Double = 120
     @Published var days: [Day]
@@ -32,9 +30,9 @@ class FlowData: ObservableObject {
     init() {
         if settings.useDummyData {
             // Dummy Data
-            date = Calendar.current.date(from: DateComponents(year: 2024, month: 2, day: 20))!
-            firstDayOfTheWeek = Calendar.current.date(from: DateComponents(year: 2024, month: 2, day: 20))!.startOfWeek()
-            firstDayOfMonth = Calendar.current.date(from: DateComponents(year: 2024, month: 2, day: 20))!.startOfMonth()
+            date = Calendar.current.date(from: DateComponents(year: 2023, month: 12, day: 15))!
+            firstDayOfTheWeek = Calendar.current.date(from: DateComponents(year: 2023, month: 12, day: 15))!.startOfWeek()
+            firstDayOfMonth = Calendar.current.date(from: DateComponents(year: 2023, month: 12, day: 15))!.startOfMonth()
             days = exampleDays
         } else {
             if let data = UserDefaults.standard.data(forKey: "SavedFlowData") {

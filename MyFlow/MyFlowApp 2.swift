@@ -9,16 +9,21 @@ import TipKit
 
 @main
 struct MyFlow: App {
-    @State var model = FlowModel()
     @StateObject private var purchaseManager = PurchaseManager()
+    @State var model = FlowModel()
     
-    init() {
-        UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = .systemTeal
-    }
+    @AppStorage("showOnboarding") var showOnboarding: Bool = true
+    @AppStorage("shouldResetTips") var shouldResetTips: Bool = false
+    @AppStorage("showIntro") var showIntroPayWall: Bool = false
+    @State var detent = PresentationDetent.fraction(6/10)
     
     var body: some Scene {
         WindowGroup {
-            ZStack {  
+            
+            if showOnboarding {
+                OnboardingView()
+            } else {
+                
                 TabView {
                     MainView(model: model)
                         .tabItem {
@@ -28,7 +33,7 @@ struct MyFlow: App {
                             Text("Flows")
                         }
                     
-                    StatsView(model: model)
+                    StatsView(data: model.data)
                         .tabItem {
                             Image(systemName: "bolt.fill")
                             Text("Activity")
@@ -40,11 +45,13 @@ struct MyFlow: App {
                             Text("Settings")
                         }
                 }
+                .accentColor(.teal)
+                .environmentObject(purchaseManager)
                 .task {
-                    if !model.settings.developerSettings {
-                        await purchaseManager.updatePurchasedProducts()
-                    }
-                    if model.settings.shouldResetTips {
+                    await purchaseManager.updatePurchasedProducts()
+                }
+                .task {
+                    if shouldResetTips {
                         try? Tips.resetDatastore()
                     }
                     try? Tips.configure([
@@ -52,18 +59,13 @@ struct MyFlow: App {
                         .datastoreLocation(.applicationDefault)
                     ])
                 }
-                .sheet(isPresented: $model.showPayWall) {
-                    PayWall(detent: $model.detent)
-                        .presentationCornerRadius(40)
+                .sheet(isPresented: $showIntroPayWall) {
+                    PayWall(detent: $detent)
+                        .presentationCornerRadius(32)
                         .presentationBackground(.bar)
-                        .presentationDetents([.large, .fraction(6/10)], selection: $model.detent)
-                        .interactiveDismissDisabled(model.detent == .large)
-                        .presentationDragIndicator(.hidden)
-                        .presentationBackgroundInteraction(.enabled)
-                }
-                
-                if model.settings.showOnboarding {
-                    OnboardingView(model: model)
+                        .presentationDetents([.large, .fraction(6/10)], selection: $detent)
+                        .interactiveDismissDisabled(detent == .large)
+                        .presentationDragIndicator(detent != .large ? .visible : .hidden)
                 }
             }
         }

@@ -9,114 +9,89 @@ import SwiftUI
 struct FlowRunning: View {
     @State var model: FlowModel
     @AppStorage("ProAccess") var proAccess: Bool = false
-
     @Environment(\.dismiss) var dismiss
     @Environment(\.horizontalSizeClass) private var sizeClass
     
-    @AppStorage("showFocusByDefault") var showFocusByDefault = true
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                VStack {
-                    capsuleButton
-                    
-                    // Focus Label
-                    Text(focusLabel)
-                        .font(sizeClass == .regular ? .largeTitle : .title)
-                        .fontWeight(.semibold)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 80)
-                    
-                    if model.mode == .flowPaused {
-                        // Reset
-                        Button {
-                            model.Reset()
-                        } label: {
-                            Image(systemName: "gobackward")
-                                .font(.title3)
-                        }
-                        .padding(.top, 40)
-                    }
-                    
-                    Spacer()
-                    
-                    // Start Button
-                    Button {
-                        model.Start()
-                        softHaptic()
-                    } label: {
-                        HStack {
-                            Image(systemName: model.mode == .flowRunning ? "pause.fill" : "play.fill")
-                                .font(.title)
-                                .frame(width: 20, height: 20)
-                            
-                            if model.mode == .flowStart {
-                                Text("Next Focus")
-                                    .font(.callout)
-                                    .fontWeight(.medium)
-                                    .padding(.leading, 4)
-                            }
-                        }
-                        .padding(20)
-                        .background(.teal.quinary)
-                        .cornerRadius(100)
-                    }
-                }
+        ZStack {
+
+            VStack {
+                capsuleButton
                 
-                // Circlers
-                Circles(
-                    model: model,
-                    size: sizeClass == .regular ? 432: 304,
-                    width: sizeClass == .regular ? 30 : 20)
+                // Focus Label
+                Text(focusLabel)
+                    .font(sizeClass == .regular ? .largeTitle : .title)
+                    .fontWeight(.semibold)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 80)
                 
-                // Timer Label
-                Text(timerLabel)
-                    .font(.system(size: 76))
-                    .fontWeight(.light)
-                    .monospacedDigit()
-                if model.flowExtended {
-                    Image(systemName: "plus")
-                        .font(.title2)
-                        .fontWeight(.medium)
-                        .padding(.trailing, 236)
-                }
+                Spacer()
                 
-                // Complete & Extend
+                // Start Button
                 Button {
-                    if model.mode == .breakRunning || model.mode == .breakPaused {
-                        model.endBreak()
-                    } else {
-                        completeAndExtend()
-                    }
+                    model.Start()
+                    softHaptic()
                 } label: {
                     HStack {
-                        Text(model.mode == .flowStart ? "Extend" : "Complete")
-                            .font(.subheadline)
-                            .fontWeight(.medium)
+                        Image(systemName: model.mode == .flowRunning || model.mode == .breakRunning ? "pause.fill" : "play.fill")
+                            .font(.title)
+                            .frame(width: 20, height: 20)
                     }
+                    .padding(20)
+                    .background(.teal.quinary)
+                    .cornerRadius(100)
                 }
-                .padding(.bottom, 128)
             }
-            .toolbar {}
-            .sheet(isPresented: $showFocusByDefault, content: {
-                ShowFocusByDefault(model: model)
-                    .sheetMaterial()
-                    .presentationDetents([.fraction(3/10)])
-                    .interactiveDismissDisabled()
-            })
+            
+            // Circlers
+            Circles(
+                model: model,
+                size: sizeClass == .regular ? 432: 304,
+                width: sizeClass == .regular ? 30 : 20)
+            
+            // Timer Label
+            Text(timerLabel)
+                .font(.system(size: 76))
+                .fontDesign(.rounded)
+                .fontWeight(.light)
+                .monospacedDigit()
+            if model.flowExtended {
+                Image(systemName: "plus")
+                    .font(.title2)
+                    .fontWeight(.medium)
+                    .padding(.trailing, 236)
+            }
+            
+            // Complete & Extend
+            Button {
+                if model.mode == .breakRunning || model.mode == .breakPaused {
+                    model.endBreak()
+                } else {
+                    completeAndExtend()
+                }
+            } label: {
+                HStack {
+                    Text("Complete")
+                        .font(.footnote)
+                        .fontWeight(.medium)
+                }
+            }
+            .padding(.bottom, 112)
         }
     }
     
     var capsuleButton: some View {
         Button {
             model.showFlowRunning.toggle()
+            lightHaptic()
         } label: {
             Capsule()
                 .foregroundStyle(.white.quinary)
                 .frame(width: 36, height: 5)
                 .padding(.top, sizeClass == .regular ? 16 : 0)
                 .padding(.bottom, 12)
+                .padding(.top, 8)
                 .padding(.horizontal)
                 .gesture(
                     DragGesture()
@@ -163,18 +138,15 @@ struct FlowRunning: View {
         }
         softHaptic()
     }
-    
 }
-
-import SwiftUI
 
 struct Circles: View {
     var model: FlowModel
     var size: CGFloat = 288
     var width: CGFloat = 20
+    var glow: Bool = false
     var fill: Bool = false
     var fillAmount: CGFloat = 1.0
-
     
     var color: Color {
         if model.mode == .breakRunning || model.mode == .breakPaused {
@@ -194,8 +166,8 @@ struct Circles: View {
             
             Circle()
                 .trim(from: 0, to: circleFill)
-                .stroke(color.opacity(0.5), style: StrokeStyle(lineWidth: width,lineCap: .round))
-                .blur(radius: 5)
+                .stroke(color.opacity(glow ? 0.5 : 0.4), style: StrokeStyle(lineWidth: width,lineCap: .round))
+                .blur(radius: glow ? 5 : 3)
                 .frame(width: size)
             
             
@@ -224,12 +196,8 @@ struct Circles: View {
                 return 1.0
             }
             
-            else if model.flowExtended {
-                return 1.0
-            }
-            
             // Flow Running
-            else if model.mode == .flowRunning {
+            else if model.mode == .flowRunning || model.mode == .flowPaused {
                 if model.flowExtended {
                     return 1.0
                 } else {
@@ -237,10 +205,19 @@ struct Circles: View {
                 }
             }
             
-            else if model.flowTime - model.flowTimeLeft == 0 {
-                return 0
+            // Flow Extended
+            else if model.flowExtended {
+                return 1.0
             }
-            return formatProgress(time: model.flowTime, timeLeft: model.flowTimeLeft - 1)
+            
+            
+            // Break Running
+            else if model.mode == .breakRunning || model.mode == .breakPaused {
+                return formatProgress(time: model.flowTime, timeLeft: model.flowTimeLeft - 1)
+            }
+            
+            
+            return 0
         }
     }
 }

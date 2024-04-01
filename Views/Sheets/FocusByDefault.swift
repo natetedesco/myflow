@@ -14,7 +14,6 @@ struct ShowFocusByDefault: View {
     
     var body: some View {
         ZStack {
-            Color.black.opacity(0.3).ignoresSafeArea()
             VStack {
                 VStack(alignment: .center) {
                     
@@ -45,6 +44,7 @@ struct ShowFocusByDefault: View {
                             .background(.teal)
                             .cornerRadius(16)
                     }
+                    Spacer()
                     
                     Button {
                         showFocusByDefault = false
