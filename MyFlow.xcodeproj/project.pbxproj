@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8B5EBD9C2BBA150600A5F7B3 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 8B5EBD9B2BBA150600A5F7B3 /* Introspect */; };
+		8BACA2C22BBF41EE00A0AB49 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 8BACA2C12BBF41EE00A0AB49 /* Introspect */; };
 		F00426E12B2A452B00FAE36B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0948C1C26818EE100A5F48D /* Assets.xcassets */; };
 		F0171F252B3F68F6002F6FB7 /* AskForRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0171F242B3F68F6002F6FB7 /* AskForRating.swift */; };
 		F01E848B2AB1249900CF418D /* FlowRunning.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E848A2AB1249900CF418D /* FlowRunning.swift */; };
@@ -134,7 +134,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B5EBD9C2BBA150600A5F7B3 /* Introspect in Frameworks */,
+				8BACA2C22BBF41EE00A0AB49 /* Introspect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,7 +294,7 @@
 			);
 			name = MyFlow;
 			packageProductDependencies = (
-				8B5EBD9B2BBA150600A5F7B3 /* Introspect */,
+				8BACA2C12BBF41EE00A0AB49 /* Introspect */,
 			);
 			productName = "Flow Timer";
 			productReference = F0EBC15A2A8D3C0B006F9616 /* MyFlow.app */;
@@ -342,7 +342,7 @@
 			);
 			mainGroup = F0948C0C26818EE000A5F48D;
 			packageReferences = (
-				8B5EBD9A2BBA150600A5F7B3 /* XCRemoteSwiftPackageReference "swiftui-introspect" */,
+				8BACA2C02BBF41EE00A0AB49 /* XCRemoteSwiftPackageReference "swiftui-introspect" */,
 			);
 			productRefGroup = F0948C1626818EE000A5F48D /* Products */;
 			projectDirPath = "";
@@ -861,7 +861,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		8B5EBD9A2BBA150600A5F7B3 /* XCRemoteSwiftPackageReference "swiftui-introspect" */ = {
+		8BACA2C02BBF41EE00A0AB49 /* XCRemoteSwiftPackageReference "swiftui-introspect" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/siteline/swiftui-introspect";
 			requirement = {
@@ -872,9 +872,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		8B5EBD9B2BBA150600A5F7B3 /* Introspect */ = {
+		8BACA2C12BBF41EE00A0AB49 /* Introspect */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 8B5EBD9A2BBA150600A5F7B3 /* XCRemoteSwiftPackageReference "swiftui-introspect" */;
+			package = 8BACA2C02BBF41EE00A0AB49 /* XCRemoteSwiftPackageReference "swiftui-introspect" */;
 			productName = Introspect;
 		};
 /* End XCSwiftPackageProductDependency section */

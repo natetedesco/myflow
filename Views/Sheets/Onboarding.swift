@@ -18,21 +18,18 @@ struct OnboardingView: View {
     
     var body: some View {
         ZStack {
-            AnimatedBlur(offset: false, opacity: 0.5)
+            AnimatedBlur(offset: false, opacity: 0.6)
             
             VStack(alignment: .leading) {
                 
                 VStack(alignment: .leading) {
-//                    Circles(model: model, size: 56, width: 7, glow: false,  fill: true)
-//                        .padding(.top, 32)
-//                        .padding(.bottom)
                     Text("Experience")
-                        .padding(.top, 64)
+                        .padding(.top, 48)
                     Text("Flow")
                         .foregroundStyle(.teal)
                 }
                 .fontWeight(.bold)
-                .font(.system(size: 44))
+                .font(.system(size: 48))
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.leading, 44)
 
@@ -92,7 +89,7 @@ struct OnboardingView: View {
                         
                     }
                 }
-                .padding(.bottom)
+//                .padding(.bottom)
                 
                 Spacer()
                 
@@ -103,14 +100,14 @@ struct OnboardingView: View {
                     }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
 //                        if !proAccess {
-                            model.showPayWall(large: false)
+                            model.showPayWall(large: true)
 //                        }
                     }
 //                    softHaptic()
                 } label: {
-                    Text("Let's Flow")
+                    Text("Continue")
                         .foregroundStyle(.teal)
-//                        .font(.title3)
+                        .font(.title3)
                         .fontWeight(.medium)
                         .frame(maxWidth: .infinity)
 //                        .padding()
@@ -118,6 +115,7 @@ struct OnboardingView: View {
 //                        .cornerRadius(24)
                         .padding(.leading, 48)
                         .padding(.trailing, 40)
+                        .padding(.bottom)
                 }
             }
             

@@ -53,7 +53,6 @@ struct FlowRunning: View {
             // Timer Label
             Text(timerLabel)
                 .font(.system(size: 76))
-                .fontDesign(.rounded)
                 .fontWeight(.light)
                 .monospacedDigit()
             if model.flowExtended {
@@ -75,6 +74,7 @@ struct FlowRunning: View {
                     Text("Complete")
                         .font(.footnote)
                         .fontWeight(.medium)
+                        .fontDesign(.rounded)
                 }
             }
             .padding(.bottom, 112)

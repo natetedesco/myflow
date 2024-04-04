@@ -2,6 +2,7 @@
 //  FlowCircle.swift
 //  MyFlow
 //  Created by Nate Tedesco on 9/22/21.
+// This is crazy
 //
 
 import SwiftUI
@@ -215,7 +216,7 @@ struct FlowView: View {
             HStack {
                 Text("Add Focus")
                     .fontWeight(.medium)
-                    .fontDesign(.rounded)
+//                    .fontDesign(.rounded)
             }
         }
     }
