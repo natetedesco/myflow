@@ -19,12 +19,12 @@ struct CreateFlowView: View {
         
         NavigationStack {
             ZStack {
-                Color.black.opacity(0.3).ignoresSafeArea()
+                Color.black.opacity(0.1).ignoresSafeArea()
                 
                 VStack {
                     
-                    Circles(model: model, size: 88, width: 10, fill: true)
-                        .padding(.top)
+                    Circles(model: model, size: 80, width: 8, fill: true)
+//                        .padding(.top)
                     Spacer()
                     
                     TextField("New Flow", text: $newFlowTitle)
@@ -36,6 +36,49 @@ struct CreateFlowView: View {
                         .padding(.bottom, 8)
                         .onSubmit { submit() }
                         .introspectTextField { textField in textField.becomeFirstResponder() }
+                    
+                    // Future
+//                    VStack(alignment: .leading) {
+//                        HStack {
+//                            Text("Category")
+//                                .fontWeight(.medium)
+//                            Spacer()
+//                            Text("All")
+//                                .foregroundStyle(.tertiary)
+//                        }
+//                        .padding(.top, 4)
+//                        .padding(.bottom, 8)
+//                        
+//                        Divider()
+//                            .padding(.horizontal, -16)
+//                        HStack {
+//                            Text("Blocks")
+//                                .fontWeight(.medium)
+//                            Spacer ()
+//                            Text("None")
+//                                .foregroundStyle(.tertiary)
+//                        }
+//                        .padding(.bottom, 8)
+//                        .padding(.top, 8)
+//                        
+//                        Divider()
+//                            .padding(.horizontal, -16)
+//                        HStack {
+//                            Text("Time")
+//                                .fontWeight(.medium)
+//                            Spacer()
+//                            Text("None")
+//                                .foregroundStyle(.tertiary)
+//                        }
+//                        .padding(.bottom, 4)
+//                        .padding(.top, 8)
+//
+//                    }
+//                    .frame(maxWidth: .infinity, alignment: .leading)
+//                    .padding()
+//                        .background(.black.opacity(0.3))
+//                        .cornerRadius(24)
+//                        .padding(.bottom, 8)
                     
                     Spacer()
                     
@@ -79,6 +122,8 @@ struct CreateFlowView: View {
             model.createFlow(title: newFlowTitle == "" ? "Flow" : newFlowTitle)
             newFlowTitle = ""
         model.flow = model.flowList.last ?? Flow()
+        
+        
         showFlow.toggle()
     }
 }

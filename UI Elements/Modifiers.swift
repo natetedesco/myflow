@@ -11,7 +11,7 @@ extension View {
     func sheetMaterial() -> some View {
         self
             .presentationCornerRadius(40)
-            .presentationBackground(.bar)
+            .presentationBackground(.regularMaterial)
     }
     
     func maxWidth() -> some View {

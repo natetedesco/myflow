@@ -68,6 +68,10 @@ extension Flow {
             }
             formattedTime += "\(seconds) sec"
         }
+        
+        if seconds == 0 && minutes == 0 && hours == 0 {
+            formattedTime = "0 min"
+        }
 
         return formattedTime
     }

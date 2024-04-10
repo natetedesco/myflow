@@ -35,17 +35,19 @@ import SwiftUI
     var showFlowRunning = false
     var showFlowCompleted = false
     
-    init(mode: TimerMode = .initial) {
+    init(mode: TimerMode = .initial, flowList: [Flow] = [], flow: Flow = Flow()) {
         if let data = UserDefaults.standard.data(forKey: "SavedData") {
             if let decoded = try? JSONDecoder().decode([Flow].self, from: data) {
-                flowList = decoded
+                self.flowList = decoded
                 self.mode = mode
+                self.flow = flow
                 initialize()
                 return
             }
         }
-        flowList = []
+        self.flowList = flowList
         self.mode = mode
+        self.flow = flow
         initialize()
     }
     

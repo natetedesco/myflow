@@ -54,8 +54,7 @@ struct MyFlow: App {
                 }
                 .sheet(isPresented: $model.showPayWall) {
                     PayWall(detent: $model.detent)
-                        .presentationCornerRadius(40)
-                        .presentationBackground(.bar)
+                        .sheetMaterial()
                         .presentationDetents([.large, .fraction(6/10)], selection: $model.detent)
                         .interactiveDismissDisabled(model.detent == .large)
                         .presentationDragIndicator(.hidden)

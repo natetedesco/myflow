@@ -29,11 +29,16 @@ struct MainView: View {
         NavigationStack {
             VStack {
                 if model.flowList.count == 0 {
+                    
+                    // No Flows
                     VStack(spacing: 16) {
                         Spacer()
+                        
                         Text("No Flows")
                             .fontWeight(.medium)
                             .foregroundStyle(.secondary)
+                        
+                        // Create Flow Button
                         Button {
                             showCreateFlow.toggle()
                         } label : {
@@ -54,6 +59,7 @@ struct MainView: View {
                 } else {
                     ScrollView {
                         
+                        // Header
                         if  model.flowList.count != 0 {
                             Text("Saved")
                                 .font(.subheadline)
@@ -64,6 +70,7 @@ struct MainView: View {
                                 .padding(.top)
                         }
                         
+                        // Flows
                         LazyVGrid(columns: [GridItem(spacing: spacing), GridItem(spacing: spacing)], spacing: spacing) {
                             ForEach($model.flowList) { $flow in
                                 ZStack {
@@ -72,14 +79,20 @@ struct MainView: View {
                                         lightHaptic()
                                         showFlow.toggle()
                                     } label: {
-                                        Text(flow.title)
-                                            .foregroundStyle(.white)
-                                            .font(sizeClass == .regular ? .title : .title3)
-                                            .fontWeight(.medium)
-                                            .multilineTextAlignment(.leading)
+                                        VStack(alignment: .leading) {
+                                            
+                                            // Flow Title
+                                            Text(flow.title)
+                                                .foregroundStyle(.ultraThickMaterial)
+                                                .environment(\.colorScheme, .light)
+                                                .font(sizeClass == .regular ? .title : .title3)
+                                                .fontWeight(.semibold)
+                                                .lineLimit(2)
+                                                .multilineTextAlignment(.leading)
+                                        }
                                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
                                             .padding()
-                                            .frame(height: sizeClass == .regular ? 224 : 112)
+                                            .frame(height: sizeClass == .regular ? 224 : 116)
                                             .background(LinearGradient(
                                                 gradient: Gradient(colors: [.teal.opacity(0.8), .teal.opacity(0.6)]),
                                                 startPoint: .bottomLeading,
@@ -93,12 +106,16 @@ struct MainView: View {
                                     
                                     // Menu
                                     Menu {
+                                        
+                                        // Rename
                                         Button {
                                             model.flow = flow
                                             showRenameFlow.toggle()
                                         } label: {
                                             Label("Rename", systemImage: "pencil")
                                         }
+                                        
+                                        // Duplicate
                                         Button {
                                             if proAccess {
                                                 model.duplicateFlow(flow: flow)
@@ -109,12 +126,16 @@ struct MainView: View {
                                             Label("Duplicate", systemImage: "plus.square.on.square")
                                         }
                                         Divider()
+                                        
+                                        // Delete
                                         Button(role: .destructive) {
                                             model.deleteFlow(id: flow.id)
                                         } label: {
                                             Label("Delete", systemImage: "trash")
                                         }
                                     } label: {
+                                        
+                                        // Menu Label
                                         Image(systemName: "ellipsis")
                                             .font(.callout)
                                             .foregroundStyle(.teal)
@@ -122,14 +143,14 @@ struct MainView: View {
                                             .background(Circle().foregroundStyle(.bar))
                                     }
                                     .padding()
-                                    .padding(.trailing, -8)
+                                    .padding(.trailing, -6)
                                     .simultaneousGesture(TapGesture().onEnded{
                                         lightHaptic()
                                     })
                                     .shadow(color: .black.opacity(0.1), radius: 8)
                                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
                                     
-                                    // Rename Flow
+                                    // Rename Flow Alert
                                     .alert("Rename Flow", isPresented: $showRenameFlow) { // Create Flow Alert
                                         TextField("Flow Title", text: $renamedFlow)
                                         Button("Rename", action: {
@@ -179,12 +200,15 @@ struct MainView: View {
         }
         .sheet(isPresented: $showCreateFlow) {
             CreateFlowView(model: model, showFlow: $showFlow)
-                .presentationBackground(.regularMaterial)
-                .presentationCornerRadius(40)
+                .sheetMaterial()
         }
     }
 }
 
 #Preview {
-    MainView(model: FlowModel())
+    MainView(model: FlowModel(flowList: [Flow(title: "Flow"), Flow(title: "Morning Routine")]))
+}
+
+#Preview {
+    MainView(model: FlowModel(flowList: []))
 }

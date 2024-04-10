@@ -12,6 +12,7 @@ struct GoalView: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
+        
         NavigationStack {
             VStack {
                 Text("Daily Flow Goal")

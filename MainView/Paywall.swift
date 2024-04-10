@@ -231,7 +231,7 @@ struct PayWall: View {
                 
                 // Terms • Privacy • Restore
                 Text(detent == .large ? "7 days free, then $19.99/year" : "Swipe up for details")
-                    .font(.caption)
+                    .font(.footnote)
                     .padding(.top, 12)
                     .foregroundStyle(.secondary)
                     .centered()

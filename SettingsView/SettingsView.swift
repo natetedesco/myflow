@@ -15,12 +15,32 @@ struct SettingsView: View {
     @Environment(\.requestReview) var requestReview
     
     @State var showRateTheApp = false
-    @State var showDistractionBlocker = false
+    @AppStorage("ratedTheApp") var ratedTheApp: Bool = false
     
     var body: some View {
         NavigationStack {
             List {
-                
+                if !ratedTheApp {
+                    Button {
+                        ratedTheApp = true
+                        requestReview()
+                    } label: {
+                        Text("Rate MyFlow")
+                            .foregroundStyle(.white)
+                            .fontWeight(.medium)
+                            .font(.footnote)
+                            .padding(10)
+                            .padding(.horizontal, 2)
+                            .background(LinearGradient(
+                                gradient: Gradient(colors: [.teal.opacity(1.0), .teal.opacity(0.8)]),
+                                startPoint: .bottomLeading,
+                                endPoint: .topTrailing
+                            ))
+                            .cornerRadius(16)
+                    }
+                    .listRowSeparator(.hidden, edges: [.top, .bottom])
+                }
+
                 // General
                 Section(header: Text("General")) {
                     
@@ -83,17 +103,13 @@ struct SettingsView: View {
                     // About
                     NavigationLink(destination: AboutView(versionNumber: settings.versionNumber)) { Label("About", systemImage: "info.circle") }
                     
+                    // Send Feedback
+                    Button { settings.isShowingMailView.toggle() } label: { Label("Send Feedback", systemImage: "envelope") }
                     
                     // Privacy & Terms
                     Link(destination: URL(string: "https://myflow.notion.site/Privacy-Policy-0002d1598beb401e9801a0c7fe497fd3?pvs=4")!) {
                         Label("Privacy & Terms", systemImage: "hand.raised")
                     }
-                    
-                    // Request Review
-                    Button { requestReview() } label: { Label("Rate MyFlow", systemImage: "star") }
-                    
-                    // Send Feedback
-                    Button { settings.isShowingMailView.toggle() } label: { Label("Send Feedback", systemImage: "envelope") }
                 }
                 
                 // Developer
@@ -118,11 +134,12 @@ struct SettingsView: View {
                         // ShowPayWall
                         Button { model.showPayWall() } label: { Label("ShowPayWall", systemImage: "dollarsign.square") }
                         
-                        // ShowPayWall
-                        Button { showDistractionBlocker.toggle() } label: { Label("Show Distraction Blocker", systemImage: "dollarsign.square") }
                         
                         // Reset Ask Focus View
-                        Button { showRateTheApp.toggle() } label: { Label("Show Rate the App", systemImage: "square") }
+                        Button { ratedTheApp.toggle() } label: { Label("Show Rate the App", systemImage: "square") }
+                        
+                        // Reset Ask Focus View
+                        Button { showRateTheApp.toggle() } label: { Label("Show Rate the App Sheet", systemImage: "square") }
                         
                         // Revoke ScreenTime
                         Button {
@@ -153,6 +170,7 @@ struct SettingsView: View {
             .navigationTitle("Settings")
             .toggleStyle(SwitchToggleStyle(tint: Color.teal))
             .toolbar {
+                
                 ToolbarItem(placement: .topBarTrailing) {
                     if !proAccess {
                         Button {
@@ -163,32 +181,15 @@ struct SettingsView: View {
                         }
                     }
                 }
-                //                ToolbarItem(placement: .topBarLeading) {
-                //                    Button {
-                //                        settings.isShowingMailView.toggle()
-                //                    } label: {
-                //                        Image(systemName: "envelope")
-                //                            .font(.footnote)
-                //                            .fontWeight(.medium)
-                //                    }
-                //                }
             }
         }
         .sheet(isPresented: $settings.isShowingMailView) {
             MailComposeViewControllerWrapper(isShowing: $settings.isShowingMailView)
                 .ignoresSafeArea()
         }
-        .sheet(isPresented: $showDistractionBlocker) {
-            DistractionBlocker(model: model)
-                .presentationBackground(.ultraThinMaterial)
-                .presentationCornerRadius(40)
-            //                .sheetMaterial()
-                .presentationDetents([.fraction(3/10)])
-        }
         .sheet(isPresented: $showRateTheApp) {
             AskForRating()
-                .presentationBackground(.ultraThinMaterial)
-                .presentationCornerRadius(40)
+                .sheetMaterial()
                 .presentationDetents([.fraction(3/10)])
         }
     }

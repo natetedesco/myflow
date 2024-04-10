@@ -182,9 +182,13 @@ struct BlockView: View {
 }
 
 #Preview {
-    List {
+    VStack {
         BlockView(model: FlowModel(), block: .constant(Block()))
+        Divider()
         BlockView(model: FlowModel(), block: .constant(Block(title: "Break")))
+        Divider()
         BlockView(model: FlowModel(), block: .constant(Block()))
-    }.listStyle(.plain)
+        Divider()
+    }
+    .padding(.horizontal)
 }

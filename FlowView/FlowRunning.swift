@@ -224,5 +224,5 @@ struct Circles: View {
 
 
 #Preview {
-    FlowRunning(model: FlowModel())
+    FlowRunning(model: FlowModel(mode: .flowRunning, flow: Flow(title: "Flow", blocks: [Block(title: "Focus")])))
 }

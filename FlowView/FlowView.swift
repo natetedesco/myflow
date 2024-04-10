@@ -11,11 +11,14 @@ import TipKit
 struct FlowView: View {
     @State var model: FlowModel
     @AppStorage("ProAccess") var proAccess: Bool = false
-
+    
     @Environment(\.dismiss) var dismiss
     @Environment(\.horizontalSizeClass) private var sizeClass
     
     @State var showPayWall = false
+    @State var showDistractionBlocker = false
+    @State var showRateTheApp = false
+    
     
     @State var newBlock = false
     
@@ -23,19 +26,24 @@ struct FlowView: View {
         NavigationStack {
             List{
                 Section(header: HStack {
-                    Text("\(model.flow.blocks.count) Blocks")
-//                        .font(.body)
+                    // Block Count
+                    Text("^[\(model.flow.blocks.count) Block](inflect: true)")
                         .fontWeight(.medium)
                         .foregroundStyle(.white)
                     Spacer()
-                    Text(model.flow.blocks.count == 0 ? "00:00" : model.flow.totalFlowTimeFormatted())
-                        .fontWeight(.light)
-//                        .font(.callout)
+                    
+                    // Total Flow Time
+                    Text(model.flow.totalFlowTimeFormatted())
+                        .fontWeight(.medium)
+                        .font(.footnote)
                 }) {
+                    
+                    // Complete Tip
                     if model.mode == .flowStart {
-                        TipView(completeTip, arrowEdge: .bottom)
-                            .listRowSeparator(.hidden, edges: [.top])
+                        TipView(completeTip, arrowEdge: .bottom).listRowSeparator(.hidden, edges: [.top])
                     }
+                    
+                    // Blocks
                     ForEach($model.flow.blocks) { $block in
                         Button {
                             if model.mode == .initial {
@@ -89,10 +97,13 @@ struct FlowView: View {
                     .onDelete(perform: model.mode == .initial ? delete : nil)
                     .onMove(perform: move)
                 }
+                
+                // Blocks Tip
                 TipView(blocksTip, arrowEdge: .bottom)
                     .listRowSeparator(.hidden, edges: [.bottom])
                 
-                if model.flow.blocks.count >= 1 { // causes sheet glitch when opening flow
+                // Block Control Tip
+                if model.flow.blocks.count >= 2 { // causes sheet glitch when opening flow
                     TipView(blockControlTip, arrowEdge: .top)
                         .listRowSeparator(.hidden, edges: [.bottom])
                 }
@@ -101,7 +112,31 @@ struct FlowView: View {
             .listStyle(.plain)
             .navigationTitle(model.flow.title)
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {}
+                ToolbarItem(placement: .topBarTrailing) {
+                    HStack {
+                        Button {
+                            showDistractionBlocker.toggle()
+                        } label: {
+                            Image(systemName: model.settings.blockDistractions ? "shield.fill" : "shield")
+                                .font(.caption)
+                                .fontWeight(.bold)
+                                .padding(6)
+                                .background(Circle().foregroundStyle(.ultraThinMaterial))
+                        }
+                        
+                        //                        Button {
+                        //                        } label: {
+                        //                            Image(systemName: "ellipsis")
+                        //                                .font(.caption)
+                        //                                .fontWeight(.bold)
+                        //                                .padding(12)
+                        //                                .background(Circle().foregroundStyle(.ultraThinMaterial))
+                        //                                .padding(.horizontal, -6)
+                        //                        }
+                        
+                    }
+                    
+                }
                 
                 ToolbarItemGroup(placement: .topBarLeading) {
                     if model.mode == .initial {
@@ -138,25 +173,41 @@ struct FlowView: View {
             .ignoresSafeArea(.keyboard)
             .navigationBarBackButtonHidden(model.mode == .flowRunning ? true : false)
         }
+        
+        // Flow Running
+        .fullScreenCover(isPresented: $model.showFlowRunning) {
+            FlowRunning(model: model)
+        }
+        
+        // Block Sheet
         .sheet(isPresented: $model.showBlock) {
             BlockSheetView(model: model,
                            newBlock: $newBlock,
                            title: newBlock ? "" : model.flow.blocks[model.selectedBlockIndex].title,
                            minutes: newBlock ? 20 : model.flow.blocks[model.selectedBlockIndex].minutes,
-                           seconds: newBlock ? 0 : model.flow.blocks[model.selectedBlockIndex].seconds)
-            
+                           seconds: newBlock ? 0 : model.flow.blocks[model.selectedBlockIndex].seconds
+            )
             .sheetMaterial()
             .presentationDetents([.fraction(1/3)])
             .presentationBackgroundInteraction(.enabled(upThrough: .large))
         }
-        .fullScreenCover(isPresented: $model.showFlowRunning) {
-            FlowRunning(model: model)
+        
+        // DistractionBlocker
+        .sheet(isPresented: $showDistractionBlocker) {
+            DistractionBlocker(model: model)
+                .sheetMaterial()
+                .presentationDragIndicator(.hidden)
+                .presentationDetents([.medium])
         }
+        
+        // Flow Completed
         .sheet(isPresented: $model.showFlowCompleted) {
-            FlowCompletedView(model: model)
+            FlowCompletedView(model: model, showRateTheApp: $showRateTheApp)
                 .sheetMaterial()
                 .presentationDetents([.fraction(4/10)])
         }
+        
+        // Paywall
         .sheet(isPresented: $showPayWall) {
             PayWall(detent: $model.detent)
                 .sheetMaterial()
@@ -164,6 +215,11 @@ struct FlowView: View {
                 .interactiveDismissDisabled(model.detent == .large)
                 .presentationDragIndicator(.hidden)
                 .presentationBackgroundInteraction(.enabled)
+        }
+        .sheet(isPresented: $showRateTheApp) {
+            AskForRating()
+                .sheetMaterial()
+                .presentationDetents([.fraction(3/10)])
         }
     }
     
@@ -174,6 +230,12 @@ struct FlowView: View {
             dismiss()
         } label: {
             Text("Done")
+            //            Image(systemName: "chevron.left")
+            //                .font(.footnote)
+            //                .fontWeight(.semibold)
+            //                .padding(.leading, -8)
+            //                .padding(8)
+            //                .background(Circle().foregroundStyle(.ultraThinMaterial))
         }
     }
     
@@ -211,13 +273,18 @@ struct FlowView: View {
             newBlock.toggle()
             model.showBlock.toggle()
             blocksTip.invalidate(reason: .actionPerformed)
-//            blockControlTip.invalidate(reason: .actionPerformed)
+            //            blockControlTip.invalidate(reason: .actionPerformed)
         } label: {
-            HStack {
-                Text("Add Focus")
-                    .fontWeight(.medium)
-//                    .fontDesign(.rounded)
-            }
+            //                Image(systemName: "plus")
+            //                    .font(.title3)
+            //                    .padding(14)
+            //                    .background(Circle().foregroundStyle(.regularMaterial))
+            //                    .padding(.trailing, -8)
+            //                    .fontWeight(.semibold)
+            Text("Add Focus")
+                .fontWeight(.medium)
+            //                    .fontDesign(.rounded)
+            
         }
     }
     
@@ -227,11 +294,13 @@ struct FlowView: View {
             model.showFlowRunning.toggle()
             lightHaptic()
         } label: {
-            Image(systemName: "chevron.up")
+            Image(systemName: "circle")
                 .font(.title)
-                .foregroundStyle(.white.tertiary)
                 .fontWeight(.semibold)
-                .frame(maxWidth: .infinity)
+                .foregroundStyle(.teal)
+                .padding(6)
+                .background(Circle().foregroundStyle(.regularMaterial))
+                .padding(.trailing, -8)
         }
     }
     
@@ -260,9 +329,9 @@ struct FlowView: View {
                     .fontWeight(.medium)
                     .font(.footnote)
             }
-            .foregroundStyle(.white.secondary)
+            .foregroundStyle(.white.opacity(0.8))
             .padding(19.5)
-            .background(Circle().foregroundStyle(.regularMaterial))
+            .background(Circle().foregroundStyle(.ultraThinMaterial))
         }
         .padding(.trailing, -16)
     }
@@ -329,50 +398,24 @@ struct FlowView: View {
         return model.flow.blocks.firstIndex(where: { $0.id == block.id }) == model.blocksCompleted - 1
     }
     
+    // Tips
     var blocksTip = BlocksTip()
-    struct BlocksTip: Tip {
-        var title: Text {
-            Text("Add Focus Blocks")
-        }
-        var message: Text? {
-            Text("Create a block for everything you want to focus on, then start your Flow.")
-            
-        }
-        var image: Image? {
-            Image(systemName: "rectangle.stack.badge.plus")
-        }
-    }
-    
     var blockControlTip = BlockControlTip()
-    struct BlockControlTip: Tip {
-        var title: Text {
-            Text("Block Controls")
-        }
-        var message: Text? {
-            Text("Swipe left to delete. Swipe Right to duplicate. Drag to rearange.")
-            
-        }
-        var image: Image? {
-            Image(systemName: "hand.draw")
-        }
-    }
-    
     var completeTip = CompleteTip()
-    struct CompleteTip: Tip {
-        var title: Text {
-            Text("Control Your Flow")
-        }
-        var message: Text? {
-            Text("Start the next focus, take a break, swipe right to extend, or swipe left to reset.")
-        }
-        var image: Image? {
-            Image(systemName: "circle")
-        }
-    }
+    
 }
 
 #Preview {
-    NavigationStack {
-        FlowView(model: FlowModel(mode: .flowStart))
-    }
+    FlowView(model: FlowModel(mode: .initial, flow: Flow(title: "Flow", blocks: [Block(title: "Focus"), Block(title: "Focus")])))
 }
+
+#Preview {
+    FlowView(model: FlowModel(mode: .flowStart, flow: Flow(title: "Flow", blocks: [Block(title: "Focus"), Block(title: "Focus")])))
+}
+
+#Preview {
+    FlowView(model: FlowModel(mode: .flowRunning, flow: Flow(title: "Flow", blocks: [Block(title: "Focus"), Block(title: "Focus")])))
+}
+
+
+

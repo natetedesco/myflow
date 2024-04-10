@@ -47,7 +47,7 @@ struct OnboardingView: View {
                             .font(.title3)
                             .fontWeight(.semibold)
                         
-                        Text("A flexible block of time for each thing you want to focus on in your flow.")
+                        Text("A flexible block of time for deep, uninterupted focus.")
                             .font(.callout)
                             .foregroundStyle(.secondary)
                     }
@@ -65,7 +65,7 @@ struct OnboardingView: View {
                         Text("Take Breaks")
                             .font(.title3)
                             .fontWeight(.semibold)
-                        Text("Choose to take a break and recharge after a focus or continue your flow.")
+                        Text("Recharge your attention after a focus block or continue to flow.")
                             .font(.callout)
                             .foregroundStyle(.secondary)
                     }
@@ -83,7 +83,7 @@ struct OnboardingView: View {
                         Text("Block Distractions")
                             .font(.title3)
                             .fontWeight(.semibold)
-                        Text("Block apps you don't want disturbing or distracting you during your flow.")
+                        Text("Block apps you don't want to disturb or distract you during your flow.")
                             .font(.callout)
                             .foregroundStyle(.secondary)
                         
@@ -99,9 +99,9 @@ struct OnboardingView: View {
                         showOnboarding = false
                     }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-//                        if !proAccess {
-                            model.showPayWall(large: true)
-//                        }
+                        if !proAccess {
+                            model.showPayWall(large: false)
+                        }
                     }
 //                    softHaptic()
                 } label: {
