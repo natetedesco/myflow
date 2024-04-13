@@ -47,7 +47,7 @@ struct OnboardingView: View {
                             .font(.title3)
                             .fontWeight(.semibold)
                         
-                        Text("A flexible block of time for deep, uninterupted focus.")
+                        Text("Flexible blocks of time for deep, uninterrupted focus on a single task.")
                             .font(.callout)
                             .foregroundStyle(.secondary)
                     }
@@ -65,7 +65,7 @@ struct OnboardingView: View {
                         Text("Take Breaks")
                             .font(.title3)
                             .fontWeight(.semibold)
-                        Text("Recharge your attention after a focus block or continue to flow.")
+                        Text("Choose to take breaks between focus blocks to recharge or continue to flow.")
                             .font(.callout)
                             .foregroundStyle(.secondary)
                     }
@@ -86,10 +86,10 @@ struct OnboardingView: View {
                         Text("Block apps you don't want to disturb or distract you during your flow.")
                             .font(.callout)
                             .foregroundStyle(.secondary)
-                        
+
                     }
                 }
-//                .padding(.bottom)
+                .padding(.bottom)
                 
                 Spacer()
                 
@@ -123,7 +123,6 @@ struct OnboardingView: View {
             .padding(.leading, 32)
             .padding(.trailing, 40)
         }
-        
         .background(Color.black)
         .opacity(opacity)
     }

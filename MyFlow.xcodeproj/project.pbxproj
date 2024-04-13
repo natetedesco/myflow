@@ -188,6 +188,7 @@
 				F04FFB4B28FF66B30058E66D /* FlowModel.swift */,
 				F0435CD82A9FA5850073E7E1 /* Settings.swift */,
 				F0A025C6294796A500AF723F /* FlowData.swift */,
+				F058788B2B28D8DD00508CA1 /* Other */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -225,7 +226,8 @@
 				F058788E2B28D8DD00508CA1 /* Haptics.swift */,
 				F058788C2B28D8DD00508CA1 /* Format.swift */,
 			);
-			path = Other;
+			name = Other;
+			path = ViewModels/Other;
 			sourceTree = SOURCE_ROOT;
 		};
 		F07578DD2B9BC211001FEB07 /* Frameworks */ = {
@@ -239,14 +241,13 @@
 			isa = PBXGroup;
 			children = (
 				F0899DEA292EA83200A35D4D /* MyFlowApp.swift */,
+				F018B2B62928263E00FCD857 /* ViewModels */,
 				8BACA2C82BC70AE700A0AB49 /* MainView */,
 				8BACA2C72BC70AB300A0AB49 /* FlowView */,
 				F028E6DE269D406A0022A555 /* StatsView */,
 				8BACA2C92BC70B2000A0AB49 /* SettingsView */,
 				F0A6718B2B190BE3003B3071 /* Components */,
 				F01F2E122B28ED5900B1AAA5 /* UI Elements */,
-				F018B2B62928263E00FCD857 /* ViewModels */,
-				F058788B2B28D8DD00508CA1 /* Other */,
 				F0EDD03F2A01717400223505 /* Widget */,
 				F0D276FF268D351B008F0002 /* Sounds */,
 				F0F1785C2B3DF2F70083BEA8 /* StoreKit.storekit */,
@@ -701,7 +702,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.3;
+				MARKETING_VERSION = 3.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -735,7 +736,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.3;
+				MARKETING_VERSION = 3.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -769,7 +770,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.3;
+				MARKETING_VERSION = 3.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

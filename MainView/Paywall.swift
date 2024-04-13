@@ -103,15 +103,16 @@ struct PayWall: View {
                     Text("Your Free Week")
                         .font(.largeTitle)
                         .fontWeight(.bold)
-                        .padding(.top, 12)
+                        .padding(.top)
                         .centered()
                     
                     Spacer()
                     
+                    
                     HStack {
                         ZStack {
                             Rectangle()
-                                .frame(width: 32)
+                                .frame(width: 36)
                                 .frame(maxHeight: .infinity)
                                 .foregroundStyle(
                                     LinearGradient(
@@ -128,21 +129,21 @@ struct PayWall: View {
                                     .fontWeight(.semibold)
                                     .foregroundStyle(.black.opacity(0.8))
                                     .frame(width: 16)
-                                    .padding(8)
+                                    .padding(12)
                                 
                                 Spacer()
                                 
                                 Image(systemName: "bell.fill")
                                     .foregroundStyle(.black.opacity(0.8))
                                     .frame(width: 16)
-                                    .padding(8)
+                                    .padding(12)
                                 
                                 Spacer()
                                 
                                 Image(systemName: "bolt.fill")
                                     .foregroundStyle(Color.teal)
                                     .frame(width: 16)
-                                    .padding(8)
+                                    .padding(12)
                             }
                             .padding(.leading, -16)
                         }
@@ -152,7 +153,7 @@ struct PayWall: View {
                             Text("Today")
 //                                .font(.callout)
                                 .fontWeight(.semibold)
-                            Text("Unlock free access to all Pro features.")
+                            Text("Unlock all Pro features. No Payment due.")
                                 .font(.footnote)
                                 .foregroundStyle(.secondary)
                             
@@ -175,7 +176,7 @@ struct PayWall: View {
                                 .foregroundStyle(.secondary)
                         }
                     }
-                    .padding(.vertical)
+                    .padding(.vertical, 20)
                     .padding(.bottom, 8)
                     
                     Spacer()
@@ -218,7 +219,7 @@ struct PayWall: View {
                     dismiss()
                 } label: {
                     ZStack {
-                        Text(detent == .large ? "Start my free week" : "Try Pro Free")
+                        Text(detent == .large ? "Start my free week" : "Try Pro FREE")
                             .foregroundStyle(.white)
                             .font(.title3)
                             .fontWeight(.semibold)
@@ -247,7 +248,7 @@ struct PayWall: View {
 
 // Small view not working
 #Preview {
-    @State var detent = PresentationDetent.large
+    @State var detent = PresentationDetent.fraction(6/10)
     
     return ZStack {}
         .sheet(isPresented: .constant(true)) {

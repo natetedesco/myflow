@@ -24,23 +24,24 @@ struct CreateFlowView: View {
                 VStack {
                     
                     Circles(model: model, size: 80, width: 8, fill: true)
-//                        .padding(.top)
+                        .padding(.top)
                     Spacer()
                     
                     TextField("New Flow", text: $newFlowTitle)
                         .font(.title)
                         .fontWeight(.semibold)
                         .multilineTextAlignment(.center)
-                        .cornerRadius(14)
-                        .focused($isFocused)
                         .padding(.bottom, 8)
-                        .onSubmit { submit() }
+//                        .padding(.leading)
+                        .focused($isFocused)
+//                        .onSubmit { submit() }
                         .introspectTextField { textField in textField.becomeFirstResponder() }
                     
-                    // Future
+//                     Future
+//                    Spacer()
 //                    VStack(alignment: .leading) {
 //                        HStack {
-//                            Text("Category")
+//                            Text("Focus")
 //                                .fontWeight(.medium)
 //                            Spacer()
 //                            Text("All")
@@ -52,7 +53,7 @@ struct CreateFlowView: View {
 //                        Divider()
 //                            .padding(.horizontal, -16)
 //                        HStack {
-//                            Text("Blocks")
+//                            Text("Breaks")
 //                                .fontWeight(.medium)
 //                            Spacer ()
 //                            Text("None")
@@ -64,7 +65,7 @@ struct CreateFlowView: View {
 //                        Divider()
 //                            .padding(.horizontal, -16)
 //                        HStack {
-//                            Text("Time")
+//                            Text("Schedule")
 //                                .fontWeight(.medium)
 //                            Spacer()
 //                            Text("None")

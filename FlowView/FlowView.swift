@@ -60,6 +60,7 @@ struct FlowView: View {
                             if model.mode == .initial {
                                 Button {
                                     model.duplicateBlock(block: block)
+                                    blockControlTip.invalidate(reason: .actionPerformed)
                                 } label: {
                                     Text("Duplicate")
                                 }
@@ -99,11 +100,11 @@ struct FlowView: View {
                 }
                 
                 // Blocks Tip
-                TipView(blocksTip, arrowEdge: .bottom)
+                TipView(blocksTip, arrowEdge: .none)
                     .listRowSeparator(.hidden, edges: [.bottom])
                 
                 // Block Control Tip
-                if model.flow.blocks.count >= 2 { // causes sheet glitch when opening flow
+                if model.flow.blocks.count >= 1 { // causes sheet glitch when opening flow
                     TipView(blockControlTip, arrowEdge: .top)
                         .listRowSeparator(.hidden, edges: [.bottom])
                 }
@@ -115,7 +116,11 @@ struct FlowView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     HStack {
                         Button {
-                            showDistractionBlocker.toggle()
+                            if model.mode == .initial {
+                                showDistractionBlocker.toggle()
+                            } else {
+                                lightHaptic()
+                            }
                         } label: {
                             Image(systemName: model.settings.blockDistractions ? "shield.fill" : "shield")
                                 .font(.caption)
@@ -230,12 +235,6 @@ struct FlowView: View {
             dismiss()
         } label: {
             Text("Done")
-            //            Image(systemName: "chevron.left")
-            //                .font(.footnote)
-            //                .fontWeight(.semibold)
-            //                .padding(.leading, -8)
-            //                .padding(8)
-            //                .background(Circle().foregroundStyle(.ultraThinMaterial))
         }
     }
     
@@ -269,22 +268,15 @@ struct FlowView: View {
     // Plus
     var plusButton: some View {
         Button {
-            //            model.addBlock()
             newBlock.toggle()
             model.showBlock.toggle()
             blocksTip.invalidate(reason: .actionPerformed)
-            //            blockControlTip.invalidate(reason: .actionPerformed)
+            if model.flow.blocks.count >= 1 { // causes sheet glitch when opening flow
+                blockControlTip.invalidate(reason: .actionPerformed)
+            }
         } label: {
-            //                Image(systemName: "plus")
-            //                    .font(.title3)
-            //                    .padding(14)
-            //                    .background(Circle().foregroundStyle(.regularMaterial))
-            //                    .padding(.trailing, -8)
-            //                    .fontWeight(.semibold)
             Text("Add Focus")
                 .fontWeight(.medium)
-            //                    .fontDesign(.rounded)
-            
         }
     }
     
@@ -416,6 +408,3 @@ struct FlowView: View {
 #Preview {
     FlowView(model: FlowModel(mode: .flowRunning, flow: Flow(title: "Flow", blocks: [Block(title: "Focus"), Block(title: "Focus")])))
 }
-
-
-

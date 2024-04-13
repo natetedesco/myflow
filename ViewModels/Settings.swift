@@ -8,7 +8,8 @@ import FamilyControls
 import ManagedSettings
 
 class Settings: ObservableObject {
-    var versionNumber = "v3.3"
+    
+    var versionNumber = "v3.3.2"
     var developerSettings = true
     
     // General

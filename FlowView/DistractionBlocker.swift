@@ -25,11 +25,14 @@ struct DistractionBlocker: View {
                 Spacer()
                 
                 if !settings.isAuthorized {
-                    Text("Authorize ScreenTime to block Apps")
+                    Text("Authorize ScreenTime")
                         .font(.title2)
                         .fontWeight(.semibold)
                         .padding(.horizontal)
                         .multilineTextAlignment(.center)
+                    Text("MyFlow does not collect any user data.")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
                     
                 } else {
                     
@@ -67,9 +70,12 @@ struct DistractionBlocker: View {
                     .background(.black.opacity(0.3))
                     .cornerRadius(24)
                     
-                    Text("These apps will be blocked during focus blocks")
+                    Text("These apps will be blocked during focus blocks and cannot be changed during flow.")
                         .font(.footnote)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(.tertiary)
+                        .padding(.horizontal)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .multilineTextAlignment(.leading)
                 }
                 
                 
@@ -89,7 +95,6 @@ struct DistractionBlocker: View {
                         .padding()
                         .background(.teal)
                         .cornerRadius(20)
-//                        .padding(.bottom)
                         .padding(.horizontal, 4)
                 }
                 
@@ -117,8 +122,7 @@ struct DistractionBlocker: View {
     }
     .sheet(isPresented: .constant(true)) {
         DistractionBlocker(model: FlowModel())
-            .presentationCornerRadius(40)
-            .presentationBackground(.clear)
+//            .sheetMaterial()
             .presentationDetents([.medium])
     }
 }

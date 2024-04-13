@@ -56,6 +56,33 @@ struct BlockSheetView: View {
             
             MultiComponentPicker(columns: columns, selections: [$minutes, $seconds])
             
+//            VStack(alignment: .leading) {
+//                HStack {
+//                    Text("Time")
+//                    Spacer()
+//                    Text("All")
+//                        .foregroundStyle(.tertiary)
+//                }
+//                .padding(.top, 4)
+//                .padding(.bottom, 8)
+//                
+//                Divider()
+//                    .padding(.horizontal, -16)
+//                HStack {
+//                    Text("Tasks")
+//                    Spacer()
+//                    Text("None")
+//                        .foregroundStyle(.tertiary)
+//                }
+//                .padding(.bottom, 4)
+//                .padding(.top, 8)
+//
+//            }
+//            .frame(maxWidth: .infinity, alignment: .leading)
+//            .padding()
+//                .background(.black.opacity(0.3))
+//                .cornerRadius(24)
+            
             Spacer()
             
             // Save Button
