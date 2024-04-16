@@ -75,6 +75,39 @@ extension Flow {
 
         return formattedTime
     }
+    
+    func totalFlowTimeFormattedLong() -> String {
+        let totalSeconds = totalFlowTimeInSeconds()
+        let hours = Int(totalSeconds) / 3600
+        let minutes = (Int(totalSeconds) % 3600) / 60
+        let seconds = Int(totalSeconds) % 60
+
+        var formattedTime = ""
+
+        if hours > 0 {
+            formattedTime += "\(hours) hour"
+        }
+
+        if minutes > 0 {
+                if !formattedTime.isEmpty {
+                formattedTime += ", "
+            }
+            formattedTime += "\(minutes) minutes"
+        }
+
+        if seconds > 0 {
+            if !formattedTime.isEmpty {
+                formattedTime += ", "
+            }
+            formattedTime += "\(seconds) seconds"
+        }
+        
+        if seconds == 0 && minutes == 0 && hours == 0 {
+            formattedTime = "No Focus Blocks"
+        }
+
+        return formattedTime
+    }
 
 
 }

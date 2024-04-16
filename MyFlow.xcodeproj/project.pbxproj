@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8BACA2C22BBF41EE00A0AB49 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 8BACA2C12BBF41EE00A0AB49 /* Introspect */; };
 		8BACA2C62BC70A4B00A0AB49 /* Tips.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BACA2C52BC70A4B00A0AB49 /* Tips.swift */; };
+		8BACA3072BCC805B00A0AB49 /* PayWall 2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BACA3062BCC805B00A0AB49 /* PayWall 2.swift */; };
 		F00426E12B2A452B00FAE36B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0948C1C26818EE100A5F48D /* Assets.xcassets */; };
 		F0171F252B3F68F6002F6FB7 /* AskForRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0171F242B3F68F6002F6FB7 /* AskForRating.swift */; };
 		F01E848B2AB1249900CF418D /* FlowRunning.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E848A2AB1249900CF418D /* FlowRunning.swift */; };
@@ -89,6 +90,7 @@
 
 /* Begin PBXFileReference section */
 		8BACA2C52BC70A4B00A0AB49 /* Tips.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tips.swift; sourceTree = "<group>"; };
+		8BACA3062BCC805B00A0AB49 /* PayWall 2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PayWall 2.swift"; sourceTree = "<group>"; };
 		F001C23828D3A12100134EB5 /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
 		F0171F242B3F68F6002F6FB7 /* AskForRating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskForRating.swift; sourceTree = "<group>"; };
 		F01962B0293184BD00336821 /* Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				F0A6718C2B190BF2003B3071 /* CreateFlow.swift */,
 				F066EB762B1D264B00BCAFC0 /* Onboarding.swift */,
 				F09861FE26968B4B00A61B42 /* Paywall.swift */,
+				8BACA3062BCC805B00A0AB49 /* PayWall 2.swift */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -400,6 +403,7 @@
 			files = (
 				F0A16C872A9BB79A00378E4C /* Attributes.swift in Sources */,
 				F0EBC11B2A8D3C0B006F9616 /* LiveActivities.swift in Sources */,
+				8BACA3072BCC805B00A0AB49 /* PayWall 2.swift in Sources */,
 				F0CA26C52B28D99200EA382E /* Data Types.swift in Sources */,
 				F0B6372B2B3F3DF600167D36 /* DistractionBlocker.swift in Sources */,
 				F0EBC11C2A8D3C0B006F9616 /* Timer.swift in Sources */,
@@ -702,7 +706,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.3.1;
+				MARKETING_VERSION = 3.3.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -736,7 +740,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.3.1;
+				MARKETING_VERSION = 3.3.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -770,7 +774,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.3.1;
+				MARKETING_VERSION = 3.3.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

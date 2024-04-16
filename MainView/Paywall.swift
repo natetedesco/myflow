@@ -103,7 +103,7 @@ struct PayWall: View {
                     Text("Your Free Week")
                         .font(.largeTitle)
                         .fontWeight(.bold)
-                        .padding(.top)
+                        .padding(.top, 12)
                         .centered()
                     
                     Spacer()
@@ -153,7 +153,7 @@ struct PayWall: View {
                             Text("Today")
 //                                .font(.callout)
                                 .fontWeight(.semibold)
-                            Text("Unlock all Pro features. No Payment due.")
+                            Text("Unlock all features. No Payment due.")
                                 .font(.footnote)
                                 .foregroundStyle(.secondary)
                             
@@ -171,12 +171,12 @@ struct PayWall: View {
                             Text("Day 7")
 //                                .font(.callout)
                                 .fontWeight(.semibold)
-                            Text("Your annual $19.99 subscription begins.")
+                            Text("Your $19.99/year ($1.67/month) subscription begins.")
                                 .font(.footnote)
                                 .foregroundStyle(.secondary)
                         }
                     }
-                    .padding(.vertical, 20)
+                    .padding(.leading, 8)
                     .padding(.bottom, 8)
                     
                     Spacer()
@@ -199,7 +199,7 @@ struct PayWall: View {
                         }
                         .padding(.leading, -6)
                     }
-                    .font(.caption2)
+                    .font(.caption)
                     .foregroundStyle(.tertiary)
                     .fontWeight(.medium)
                     .padding(.bottom, 12)
@@ -219,7 +219,7 @@ struct PayWall: View {
                     dismiss()
                 } label: {
                     ZStack {
-                        Text(detent == .large ? "Start my free week" : "Try Pro FREE")
+                        Text(detent == .large ? "Start my free week" : "Try Pro Free")
                             .foregroundStyle(.white)
                             .font(.title3)
                             .fontWeight(.semibold)

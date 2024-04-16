@@ -24,6 +24,7 @@ struct FlowView: View {
     
     var body: some View {
         NavigationStack {
+            VStack {
             List{
                 Section(header: HStack {
                     // Block Count
@@ -37,11 +38,6 @@ struct FlowView: View {
                         .fontWeight(.medium)
                         .font(.footnote)
                 }) {
-                    
-                    // Complete Tip
-                    if model.mode == .flowStart {
-                        TipView(completeTip, arrowEdge: .bottom).listRowSeparator(.hidden, edges: [.top])
-                    }
                     
                     // Blocks
                     ForEach($model.flow.blocks) { $block in
@@ -111,6 +107,14 @@ struct FlowView: View {
             }
             .animation(.default, value: model.flow.blocks)
             .listStyle(.plain)
+            
+            // Complete Tip
+            if model.mode == .flowStart {
+                TipView(completeTip)
+                    .padding()
+            }
+        }
+            
             .navigationTitle(model.flow.title)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {

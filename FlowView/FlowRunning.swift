@@ -12,10 +12,12 @@ struct FlowRunning: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.horizontalSizeClass) private var sizeClass
     
+    @AppStorage("shownWelcome") var shownWelcome: Bool = false
+    @State var showWelcome = false
     
     var body: some View {
         ZStack {
-
+            
             VStack {
                 capsuleButton
                 
@@ -55,6 +57,10 @@ struct FlowRunning: View {
                 .font(.system(size: 76))
                 .fontWeight(.light)
                 .monospacedDigit()
+                .onTapGesture {
+                    showWelcome = true
+                }
+            
             if model.flowExtended {
                 Image(systemName: "plus")
                     .font(.title2)
@@ -78,6 +84,47 @@ struct FlowRunning: View {
                 }
             }
             .padding(.bottom, 112)
+        }
+        .onAppear {
+            if shownWelcome == false {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    showWelcome = true
+                    shownWelcome = true
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 11) {
+                    showWelcome = false
+                }
+                
+            }
+        }
+        .sheet(isPresented: $showWelcome) {
+            VStack {
+                Spacer()
+                Text("Stay focused untill your task is completed. Enjoy your Flow!")
+                    .font(.title3)
+                    .fontWeight(.medium)
+                    .multilineTextAlignment(.center)
+//                    .padding(.horizontal)
+                Spacer()
+                Button {
+                    showWelcome.toggle()
+                } label: {
+                    Text("Dismiss")
+                        .foregroundStyle(.white)
+                        .font(.headline)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(.teal)
+                        .cornerRadius(20)
+                        .padding(.horizontal, 4)
+                }
+            }
+            .padding(.horizontal, 32)
+            .presentationDetents([.fraction(3/10), .medium])
+            .presentationBackground(.ultraThinMaterial)
+            .presentationBackgroundInteraction(.enabled(upThrough: .medium))
+            .presentationDragIndicator(.hidden)
+            .presentationCornerRadius(40)
         }
     }
     

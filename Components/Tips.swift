@@ -12,7 +12,7 @@ struct BlockControlTip: Tip {
         Text("Block Controls")
     }
     var message: Text? {
-        Text("Swipe left to delete. Swipe right to duplicate. Drag to rearange.")
+        Text("Swipe left to delete. Swipe right to duplicate. Drag and drop to reorder.")
         
     }
     var image: Image? {
@@ -25,7 +25,7 @@ struct BlocksTip: Tip {
         Text("Focus Blocks")
     }
     var message: Text? {
-        Text("Add Focus Blocks for each of your tasks, when you are done, start your Flow.")
+        Text("Add focus blocks for your tasks, your flow will start from the first block.")
         
     }
     var image: Image? {
@@ -38,7 +38,7 @@ struct CompleteTip: Tip {
         Text("Control Your Flow")
     }
     var message: Text? {
-        Text("Choose to take a break, start the next focus, or extend by swiping right.")
+        Text("Start the next focus, take a break, or extend your focus by swiping right on it.")
     }
     var image: Image? {
         Image(systemName: "circle")
