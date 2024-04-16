@@ -19,7 +19,6 @@ struct OnboardingView: View {
     var body: some View {
         ZStack {
             
-            
             Circle()
                 .foregroundStyle(.teal.opacity(0.5))
                 .frame(height: 400)
@@ -81,7 +80,6 @@ struct OnboardingView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.leading, 44)
                     
-                    
                     Spacer()
                     
                     HStack(alignment: .center) {
@@ -95,7 +93,7 @@ struct OnboardingView: View {
                                 .font(.title3)
                                 .fontWeight(.semibold)
                             
-                            Text("Flexible blocks of time for deep focus on a single task.")
+                            Text("Flexible blocks of time for deep, uninterrupted focus on a single task.")
                                 .font(.callout)
                                 .foregroundStyle(.secondary)
                         }
@@ -134,7 +132,6 @@ struct OnboardingView: View {
                             Text("Block apps you don't want to disturb or distract you during your flow.")
                                 .font(.callout)
                                 .foregroundStyle(.secondary)
-                            
                         }
                     }
                     .padding(.bottom)
@@ -143,19 +140,12 @@ struct OnboardingView: View {
                     
                     Button {
                         softHaptic()
-//                        if !proAccess {
-//                            withAnimation { selectedTab += 1 }
-//                        } else {
+                        if proAccess {
                             withAnimation { opacity = 0 }
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                showOnboarding = false
-                            }
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-                                if !proAccess {
-                                    model.showPayWall(large: false)
-                                }
-                            }
-//                        }
+                            showOnboarding = false
+                        } else {
+                            withAnimation { selectedTab += 1 }
+                        }
                     } label: {
                         Text("Continue")
                             .foregroundStyle(.teal)
@@ -169,8 +159,9 @@ struct OnboardingView: View {
                 .padding(.trailing, 40)
                 .tag(1)
                 
-//                SwiftUIView(model: model, opacity: $opacity)
-//                    .tag(2)
+                SwiftUIView(model: model, opacity: $opacity)
+                    .tag(2)
+                
             }
             .tabViewStyle(.page)
             .indexViewStyle(.page(backgroundDisplayMode: .never))

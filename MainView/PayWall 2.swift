@@ -33,13 +33,13 @@ struct SwiftUIView: View {
                     .foregroundStyle(.black.opacity(0.8))
                     .padding(6)
                     .background(Circle().foregroundStyle(.bar))
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-                    .padding(.trailing)
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+            .padding(.trailing)
             
             VStack {
                 
-                HStack {
+                VStack {
                     
                     Text("PRO")
                         .font(.system(size: 48))
@@ -58,20 +58,20 @@ struct SwiftUIView: View {
                     .font(.footnote)
                     .foregroundStyle(.teal)
                     .fontWeight(.medium)
-                    .padding(.vertical, 8)
+                    .padding(.vertical, 6)
                     .padding(.horizontal, 12)
                     .background(.bar)
                     .cornerRadius(24)
                 
                 Text("Your Free Week")
-                    .fontWeight(.semibold)
+                    .fontWeight(.bold)
                     .font(.largeTitle)
-                    .padding(.vertical)
+                    .padding(.vertical, 12)
                 
                 Text("7 days free. Cancel any time. Then $19.99/year ($1.67/month).")
                     .font(.callout)
                     .multilineTextAlignment(.center)
-                    .foregroundStyle(.secondary)
+//                    .foregroundStyle(.secondary)
                 
                 Spacer()
                 

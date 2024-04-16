@@ -52,9 +52,6 @@ struct MyFlow: App {
                         .datastoreLocation(.applicationDefault)
                     ])
                 }
-//                .fullScreenCover(isPresented: $model.showPayWall) {
-//                    SwiftUIView(model: model)
-//                }
                 .sheet(isPresented: $model.showPayWall) {
                     PayWall(detent: $model.detent)
                         .sheetMaterial()
@@ -62,13 +59,9 @@ struct MyFlow: App {
                         .interactiveDismissDisabled(model.detent == .large)
                         .presentationDragIndicator(.hidden)
                         .presentationBackgroundInteraction(.enabled)
-                        .interactiveDismissDisabled()
                 }
-                
                 if model.settings.showOnboarding {
                     OnboardingView(model: model)
-//                    SwiftUIView()
-//                        .background(.black)
                 }
             }
         }

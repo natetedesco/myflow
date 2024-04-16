@@ -309,7 +309,7 @@ struct MainView: View {
                         
                         if !proAccess {
                             Button {
-                                model.showPayWall(large: true)
+                                model.showPayWall(large: false)
                             } label: {
                                 Text("Pro")
                                     .fontWeight(.medium)

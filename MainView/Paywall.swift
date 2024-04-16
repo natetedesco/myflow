@@ -21,7 +21,7 @@ struct PayWall: View {
     var body: some View {
         ZStack {
             Color.black.opacity(detent == .large ? 0.4 : 0.0).ignoresSafeArea()
-            AnimatedBlur(opacity: 0.8).offset(y: 50)
+            AnimatedBlur(opacity: 0.6).offset(y: 50)
             
             VStack(alignment: .leading) {
                 
@@ -31,15 +31,20 @@ struct PayWall: View {
                     
                     VStack {
                         Text("Enhance your")
-                            .font(.system(size: 48))
+                            .font(.system(size: 44))
                             .fontWeight(.bold)
                             .leading()
                         Text("Flow")
-                            .font(.system(size: 48))
+                            .font(.system(size: 44))
                             .fontWeight(.bold)
-                            .foregroundColor(.teal)
+                            .foregroundStyle(LinearGradient(
+                                gradient: Gradient(colors: [.teal, .teal.opacity(0.9)]),
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ))
                             .leading()
                     }
+                    .padding(.leading, 24)
                     
                     Spacer()
                     
@@ -106,9 +111,6 @@ struct PayWall: View {
                         .padding(.top, 12)
                         .centered()
                     
-                    Spacer()
-                    
-                    
                     HStack {
                         ZStack {
                             Rectangle()
@@ -151,16 +153,16 @@ struct PayWall: View {
                         
                         VStack(alignment: .leading) {
                             Text("Today")
-//                                .font(.callout)
+                                .font(.callout)
                                 .fontWeight(.semibold)
-                            Text("Unlock all features. No Payment due.")
+                            Text("Unlock all features. No payment now.")
                                 .font(.footnote)
                                 .foregroundStyle(.secondary)
                             
                             Spacer()
                             
                             Text("Day 6")
-//                                .font(.callout)
+                                .font(.callout)
                                 .fontWeight(.semibold)
                             Text("You will not be charged if you cancel.")
                                 .font(.footnote)
@@ -169,17 +171,15 @@ struct PayWall: View {
                             Spacer()
                             
                             Text("Day 7")
-//                                .font(.callout)
+                                .font(.callout)
                                 .fontWeight(.semibold)
-                            Text("Your $19.99/year ($1.67/month) subscription begins.")
+                            Text("$19.99/year ($1.67/month) plan begins.")
                                 .font(.footnote)
                                 .foregroundStyle(.secondary)
                         }
                     }
-                    .padding(.leading, 8)
-                    .padding(.bottom, 8)
+                    .padding(.bottom, 24)
                     
-                    Spacer()
                 }
                 
                 // Terms • Privacy • Restore
@@ -234,7 +234,9 @@ struct PayWall: View {
                 Text(detent == .large ? "7 days free, then $19.99/year" : "Swipe up for details")
                     .font(.footnote)
                     .padding(.top, 12)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(detent == .large ? .secondary : .tertiary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal)
                     .centered()
             }
             .padding(.horizontal, 32)
