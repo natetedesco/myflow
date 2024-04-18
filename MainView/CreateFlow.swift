@@ -23,8 +23,10 @@ struct CreateFlowView: View {
                 
                 VStack {
                     
+                    Spacer()
+                    
                     Circles(model: model, size: 80, width: 8, fill: true)
-                        .padding(.top)
+//                        .padding(.top)
                     Spacer()
                     
                     TextField("New Flow", text: $newFlowTitle)
