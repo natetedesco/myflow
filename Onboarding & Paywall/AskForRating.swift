@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct AskForRating: View {
-    
+    @StateObject var settings = Settings()
     @AppStorage("ratedTheApp") var ratedTheApp: Bool = false
     @Environment(\.requestReview) var requestReview
     @Environment(\.dismiss) var dismiss
@@ -17,20 +17,18 @@ struct AskForRating: View {
         NavigationView {
             VStack {
                 
-//
-//                Text("Your Feedback is appreciated.")
-//                    .font(.callout)
+                Text("Enjoying MyFlow?")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .fontDesign(.rounded)
+                    .padding(.top, -8)
+                
                 Spacer()
 
-                HStack {
-                    ForEach(0..<5) {_ in
-                        Image(systemName: "star.fill")
-                            .font(.title2)
-                            .foregroundStyle(.teal)
-                    }
-                }
-                
-                .padding(.bottom, 24)
+                Text("Support the app by leaving a positive review. We greatly appreciate it.")
+                    .font(.callout)
+                    .multilineTextAlignment(.center)
+                    .padding(.bottom, 8)
                 
                 Spacer()
                 
@@ -39,8 +37,13 @@ struct AskForRating: View {
                     ratedTheApp = true
                     dismiss()
                 } label : {
-                    Text("Rate the App")
-                        .foregroundStyle(.white)
+                    HStack {
+                        ForEach(0..<5) {_ in
+                            Image(systemName: "star.fill")
+                                .font(.title3)
+                        }
+                    }
+                    .foregroundStyle(.white.opacity(0.8))
                         .font(.headline)
                         .frame(maxWidth: .infinity)
                         .padding()
@@ -51,9 +54,17 @@ struct AskForRating: View {
                         ))
                         .cornerRadius(20)
                 }
+                .padding(.bottom, 20)
+                
+                Button {
+                    settings.isShowingMailView.toggle()
+                } label: {
+                    Text("or send feedback")
+                        .font(.footnote)
+                }
+                .padding(.bottom, 4)
             }
             .padding(.horizontal, 32)
-            .navigationTitle("Enjoying MyFlow?").navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -71,6 +82,10 @@ struct AskForRating: View {
                 }
             }
         }
+        .sheet(isPresented: $settings.isShowingMailView) {
+            MailComposeViewControllerWrapper(isShowing: $settings.isShowingMailView)
+                .ignoresSafeArea()
+        }
     }
 }
 
@@ -78,7 +93,7 @@ struct AskForRating: View {
     SettingsView(model: FlowModel())
         .sheet(isPresented: .constant(true)) {
             AskForRating()
-                .sheetMaterial()
-                .presentationDetents([.fraction(3/10)])
+//                .presentationBackground(.regularMaterial)
+                .presentationCornerRadius(40)                .presentationDetents([.fraction(4/10)])
         }
 }

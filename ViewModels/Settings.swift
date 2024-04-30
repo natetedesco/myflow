@@ -10,8 +10,8 @@ import ManagedSettings
 class Settings: ObservableObject {
     
     //
-    var versionNumber = "v3.3.5"
-    var developerSettings = true
+    var versionNumber = "v3.3.6"
+    var developerSettings = false
     
     // General
     @AppStorage("NotificationsOn") var notificationsOn: Bool = true

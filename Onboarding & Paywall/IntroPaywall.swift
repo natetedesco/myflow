@@ -16,8 +16,6 @@ struct SwiftUIView: View {
     @AppStorage("showOnboarding") var showOnboarding: Bool = true
     @Binding var opacity: Double
     
-    
-    
     var body: some View {
         ZStack {
             
@@ -26,6 +24,9 @@ struct SwiftUIView: View {
                 withAnimation { opacity = 0 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     showOnboarding = false
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+                    model.showPayWall(large: false)
                 }
             } label: {
                 Image(systemName: "xmark")
@@ -68,10 +69,10 @@ struct SwiftUIView: View {
                     .font(.largeTitle)
                     .padding(.vertical, 12)
                 
-                Text("7 days free. Cancel any time. Then $19.99/year ($1.67/month).")
+                Text("7 days free. Cancel any time. Then $23.99/year ($1.99/month).")
                     .font(.callout)
                     .multilineTextAlignment(.center)
-//                    .foregroundStyle(.secondary)
+                    .padding(.bottom)
                 
                 Spacer()
                 

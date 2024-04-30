@@ -19,7 +19,6 @@ struct FlowView: View {
     @State var showDistractionBlocker = false
     @State var showRateTheApp = false
     
-    
     @State var newBlock = false
     
     var body: some View {
@@ -50,7 +49,7 @@ struct FlowView: View {
                             }
                         } label: {
                             BlockView(model: model, block: $block)
-                                .padding(.vertical, sizeClass == .regular ? 16 : -4)
+                                .padding(.vertical, sizeClass == .regular ? 16 : -2)
                         }
                         .swipeActions(edge: .leading) {
                             if model.mode == .initial {
@@ -73,7 +72,11 @@ struct FlowView: View {
                                 .tint(.teal)
                             } else if model.mode == .flowStart && completedBlock(block: block) {
                                 Button {
-                                    model.extend()
+                                    if proAccess {
+                                        model.extend()
+                                    } else {
+                                        showPayWall.toggle()
+                                    }
                                 } label: {
                                     Text("Extend")
                                 }
@@ -228,7 +231,7 @@ struct FlowView: View {
         .sheet(isPresented: $showRateTheApp) {
             AskForRating()
                 .sheetMaterial()
-                .presentationDetents([.fraction(3/10)])
+                .presentationDetents([.fraction(4/10)])
         }
     }
     

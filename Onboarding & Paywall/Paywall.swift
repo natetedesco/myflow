@@ -18,10 +18,12 @@ struct PayWall: View {
     @State var alertTitle = ""
     @State var alertDescription = ""
     
+    @State var showPlans = true
+    
     var body: some View {
         ZStack {
-            Color.black.opacity(detent == .large ? 0.4 : 0.0).ignoresSafeArea()
-            AnimatedBlur(opacity: 0.6).offset(y: 50)
+            Color.black.opacity(detent == .large ? 0.6 : 0.0).ignoresSafeArea()
+            AnimatedBlur(opacity: 0.8).offset(y: 50)
             
             VStack(alignment: .leading) {
                 
@@ -29,16 +31,17 @@ struct PayWall: View {
                 
                 if detent == .large {
                     
+                    // MyFlow Pro
                     VStack {
-                        Text("Enhance your")
-                            .font(.system(size: 44))
+                        Text("MyFlow")
+                            .font(.system(size: 48))
                             .fontWeight(.bold)
                             .leading()
-                        Text("Flow")
-                            .font(.system(size: 44))
+                        Text("Pro")
+                            .font(.system(size: 48))
                             .fontWeight(.bold)
                             .foregroundStyle(LinearGradient(
-                                gradient: Gradient(colors: [.teal, .teal.opacity(0.9)]),
+                                gradient: Gradient(colors: [.teal, .teal.opacity(0.8)]),
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             ))
@@ -48,63 +51,20 @@ struct PayWall: View {
                     
                     Spacer()
                     
-                    VStack(spacing: 48) {
-                        HStack {
-                            Image(systemName: "checkmark")
-                                .foregroundColor(.teal)
-                                .fontWeight(.bold)
-                            
-                            Text("Unlimited Flows")
-                                .fontWeight(.medium)
-                        }
-                        .leading()
-                        
-                        HStack {
-                            Image(systemName: "checkmark")
-                                .foregroundColor(.teal)
-                                .fontWeight(.bold)
-                            
-                            Text("Advanced Controls")
-                                .fontWeight(.medium)
-                        }
-                        .leading()
-                        
-                        HStack {
-                            Image(systemName: "checkmark")
-                                .foregroundColor(.teal)
-                                .fontWeight(.bold)
-                            
-                            Text("Visualize Activity")
-                                .fontWeight(.medium)
-
-                        }
-                        .leading()
-                        
-                        HStack {
-                            Image(systemName: "checkmark")
-                                .foregroundColor(.teal)
-                                .fontWeight(.bold)
-                            
-                            Text("Block Apps & Websites")
-                                .fontWeight(.medium)
-
-                        }
-                        .leading()
-                        
-                        HStack {
-                            Image(systemName: "checkmark")
-                                .foregroundColor(.teal)
-                                .fontWeight(.bold)
-                            
-                            Text("Live Activity & Dynamic Island")
-                                .fontWeight(.medium)
-                        }
-                        .leading()
+                    // Features
+                    VStack(alignment: .leading, spacing: 48) {
+                        Feature(text: "Unlimited Flows")
+                        Feature(text: "Advanced Controls")
+                        Feature(text: "Visualize Activity")
+                        Feature(text: "Block Apps & Websites")
+                        Feature(text: "Live Activity & Dynamic Island")
                     }
                     
                     Spacer()
                     
                 } else {
+                    
+                    // Your Free Week
                     Text("Your Free Week")
                         .font(.largeTitle)
                         .fontWeight(.bold)
@@ -149,11 +109,9 @@ struct PayWall: View {
                             }
                             .padding(.leading, -16)
                         }
-                        
-                        
                         VStack(alignment: .leading) {
                             Text("Today")
-                                .font(.callout)
+//                                .font(.callout)
                                 .fontWeight(.semibold)
                             Text("Unlock all features. No payment now.")
                                 .font(.footnote)
@@ -162,7 +120,7 @@ struct PayWall: View {
                             Spacer()
                             
                             Text("Day 6")
-                                .font(.callout)
+//                                .font(.callout)
                                 .fontWeight(.semibold)
                             Text("You will not be charged if you cancel.")
                                 .font(.footnote)
@@ -171,15 +129,14 @@ struct PayWall: View {
                             Spacer()
                             
                             Text("Day 7")
-                                .font(.callout)
+//                                .font(.callout)
                                 .fontWeight(.semibold)
-                            Text("$19.99/year ($1.67/month) plan begins.")
+                            Text("$23.99/year($1.99/month) plan begins.")
                                 .font(.footnote)
                                 .foregroundStyle(.secondary)
                         }
                     }
                     .padding(.bottom, 24)
-                    
                 }
                 
                 // Terms • Privacy • Restore
@@ -193,13 +150,13 @@ struct PayWall: View {
                             Text("Terms • Privacy")
                         }
                         
-                        Button { Task { do { try await AppStore.sync() } catch { print(error) }}
+                        Button { Task { do { try await AppStore.sync() } catch { print(error) } }
                         } label: {
                             Text("• Restore")
                         }
                         .padding(.leading, -6)
                     }
-                    .font(.caption)
+                    .font(.caption2)
                     .foregroundStyle(.tertiary)
                     .fontWeight(.medium)
                     .padding(.bottom, 12)
@@ -219,25 +176,26 @@ struct PayWall: View {
                     dismiss()
                 } label: {
                     ZStack {
-                        Text(detent == .large ? "Start my free week" : "Try Pro Free")
+                        Text(detent != .large ? "Start my free week" : "Try Pro Free")
                             .foregroundStyle(.white)
                             .font(.title3)
                             .fontWeight(.semibold)
                             .maxWidth()
                             .padding(.vertical)
                             .background(Color.teal)
-                            .cornerRadius(20)
+                            .cornerRadius(24)
                     }
                 }
                 
                 // Terms • Privacy • Restore
-                Text(detent == .large ? "7 days free, then $19.99/year" : "Swipe up for details")
+                    Text(detent == .large ? "7 days free, then $23.99/year($1.99/month)." : "Swipe up for details")
                     .font(.footnote)
-                    .padding(.top, 12)
-                    .foregroundStyle(detent == .large ? .secondary : .tertiary)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal)
-                    .centered()
+                    .fontWeight(.medium)
+                        .padding(.top, 12)
+                        .foregroundStyle(.tertiary)
+                        .multilineTextAlignment(.center)
+//                        .padding(.horizontal, 8)
+                        .centered()
             }
             .padding(.horizontal, 32)
             .alert(isPresented: $showAlert) {
@@ -250,7 +208,7 @@ struct PayWall: View {
 
 // Small view not working
 #Preview {
-    @State var detent = PresentationDetent.fraction(6/10)
+    @State var detent = PresentationDetent.large
     
     return ZStack {}
         .sheet(isPresented: .constant(true)) {
@@ -260,4 +218,19 @@ struct PayWall: View {
                 .interactiveDismissDisabled(detent == .large)
                 .presentationDragIndicator(detent != .large ? .visible : .hidden)
         }
+}
+
+struct Feature: View {
+    var text: String
+    
+    var body: some View {
+        HStack {
+            Image(systemName: "checkmark")
+                .foregroundColor(.teal)
+                .fontWeight(.bold)
+            
+            Text(text)
+                .fontWeight(.medium)
+        }
+    }
 }

@@ -71,13 +71,11 @@ struct DistractionBlocker: View {
                     .cornerRadius(24)
                     
                     Text("These apps will be blocked during focus blocks and cannot be changed during flow.")
-                        .font(.footnote)
+                        .font(.caption)
                         .foregroundStyle(.tertiary)
                         .padding(.horizontal)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .multilineTextAlignment(.leading)
+                        .multilineTextAlignment(.center)
                 }
-                
                 
                 Spacer()
                 
@@ -97,9 +95,8 @@ struct DistractionBlocker: View {
                         .cornerRadius(20)
                         .padding(.horizontal, 4)
                 }
-                
             }
-            .padding(.horizontal)
+            .padding(.horizontal, 24)
             .navigationTitle("Distraction Blocker")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {}
@@ -113,7 +110,6 @@ struct DistractionBlocker: View {
                 .presentationBackgroundInteraction(.enabled)
         }
     }
-    
 }
 
 #Preview {
@@ -122,7 +118,7 @@ struct DistractionBlocker: View {
     }
     .sheet(isPresented: .constant(true)) {
         DistractionBlocker(model: FlowModel())
-//            .sheetMaterial()
+            .sheetMaterial()
             .presentationDetents([.medium])
     }
 }

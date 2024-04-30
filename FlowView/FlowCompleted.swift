@@ -7,15 +7,12 @@
 import SwiftUI
 
 struct FlowCompletedView: View {
-    
     @State var model: FlowModel
     @Environment(\.dismiss) var dismiss
     
-    // if the use has already rated
     @Binding var showRateTheApp: Bool
     @AppStorage("ratedTheApp") var ratedTheApp: Bool = false
 
-    
     var body: some View {
         
         VStack {

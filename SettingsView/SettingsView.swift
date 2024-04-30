@@ -25,6 +25,7 @@ struct SettingsView: View {
                         ratedTheApp = true
                         requestReview()
                     } label: {
+                        
                         Text("Rate MyFlow")
                             .foregroundStyle(.white)
                             .fontWeight(.medium)
@@ -105,6 +106,13 @@ struct SettingsView: View {
                     
                     // Send Feedback
                     Button { settings.isShowingMailView.toggle() } label: { Label("Send Feedback", systemImage: "envelope") }
+                    
+                    // Share
+                    ShareLink(item: URL(string: "https://apps.apple.com/us/app/myflow-focus-time-blocking/id1575798388")!) {
+                        Label("Share MyFlow", systemImage: "square.and.arrow.up")
+                            .frame(height: 32)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
                     
                     // Privacy & Terms
                     Link(destination: URL(string: "https://myflow.notion.site/Privacy-Policy-0002d1598beb401e9801a0c7fe497fd3?pvs=4")!) {
@@ -190,19 +198,20 @@ struct SettingsView: View {
         .sheet(isPresented: $showRateTheApp) {
             AskForRating()
                 .sheetMaterial()
-                .presentationDetents([.fraction(3/10)])
+                .presentationDetents([.fraction(4/10)])
         }
     }
 }
 
 struct MailComposeViewControllerWrapper: UIViewControllerRepresentable {
+    @StateObject var settings = Settings()
     @Binding var isShowing: Bool
     
     func makeUIViewController(context: Context) -> MFMailComposeViewController {
         let mailComposeVC = MFMailComposeViewController()
         mailComposeVC.mailComposeDelegate = context.coordinator
         mailComposeVC.setToRecipients(["natetedesco@icloud.com"])
-        mailComposeVC.setSubject("MyFlow 3.1")
+        mailComposeVC.setSubject("MyFlow \(settings.versionNumber)")
         mailComposeVC.setMessageBody("", isHTML: false)
         return mailComposeVC
     }

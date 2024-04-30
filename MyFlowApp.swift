@@ -53,12 +53,15 @@ struct MyFlow: App {
                     ])
                 }
                 .sheet(isPresented: $model.showPayWall) {
-                    PayWall(detent: $model.detent)
-                        .sheetMaterial()
-                        .presentationDetents([.large, .fraction(6/10)], selection: $model.detent)
-                        .interactiveDismissDisabled(model.detent == .large)
-                        .presentationDragIndicator(.hidden)
-                        .presentationBackgroundInteraction(.enabled)
+                        PayWall(detent: $model.detent)
+                            .sheetMaterial()
+                            .presentationDetents([.large, .fraction(6/10)], selection: $model.detent)
+                            .interactiveDismissDisabled(model.detent == .large)
+                            .presentationDragIndicator(.hidden)
+                            .presentationBackgroundInteraction(.enabled)
+                }
+                .fullScreenCover(isPresented: $model.showLargePayWall) {
+                    LargePayWall()
                 }
                 if model.settings.showOnboarding {
                     OnboardingView(model: model)

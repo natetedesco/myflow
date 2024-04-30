@@ -10,7 +10,6 @@ struct BlockView: View {
     @State var model: FlowModel
     @Binding var block: Block
     @Environment(\.horizontalSizeClass) private var sizeClass
-//    @State var showTasks = false
     
     var body: some View {
         VStack(alignment: .leading) {

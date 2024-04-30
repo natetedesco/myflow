@@ -11,7 +11,8 @@ import SwiftUI
     var notifications = NotificationManager()
     
     var showPayWall = false
-    var detent = PresentationDetent.large
+    var showLargePayWall = false
+    var detent = PresentationDetent.fraction(6/10)
         
     var flow: Flow = Flow() { didSet { initialize() }}
     var flowList: [Flow] { didSet { initialize() }}

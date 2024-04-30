@@ -75,7 +75,7 @@ struct StatsView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     if !proAccess {
                         Button {
-                            model.showPayWall(large: true)
+                            model.showPayWall(large: false)
                         } label: {
                             Text("Unlock")                                    
                                 .fontWeight(.medium)

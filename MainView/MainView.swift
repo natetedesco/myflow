@@ -118,7 +118,7 @@ struct MainView: View {
                                             if proAccess {
                                                 model.duplicateFlow(flow: flow)
                                             } else {
-                                                model.showPayWall(large: true)
+                                                model.showLargePayWall.toggle()
                                             }
                                         } label: {
                                             Label("Duplicate", systemImage: "plus.square.on.square")
@@ -165,117 +165,6 @@ struct MainView: View {
                         }
                         .padding(.horizontal)
                         .animation(.default, value: model.flowList)
-                        
-                        
-//                        ForEach($model.flowList) { $flow in
-//                            ZStack {
-//                                Button {
-//                                    model.flow = flow
-//                                    lightHaptic()
-//                                    showFlow.toggle()
-//                                    
-//                                } label: {
-//                                    ZStack {
-//                                        ZStack {
-//                                            Circle()
-//                                                .foregroundStyle(.teal)
-//                                                .blur(radius: 140)
-//                                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
-//                                                .padding(-32)
-//                                                .padding(.leading, -224)
-//                                                .padding(.bottom, -256)
-//                                            
-//                                            Circle()
-//                                                .foregroundStyle(.teal)
-//                                                .blur(radius: 140)
-//                                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
-//                                                .padding(-32)
-//                                                .padding(.leading, -224)
-//                                                .padding(.bottom, -256)
-//                                                .opacity(0.3)
-//
-//                                        }
-//                                        
-//                                        VStack(alignment: .leading) {
-//                                            Text(flow.title)
-//                                                .font(.title2)
-//                                                .fontWeight(.semibold)
-//                                                .foregroundStyle(.white.opacity(0.9))
-//
-//                                            Text(flow.totalFlowTimeFormattedLong())
-//                                                .font(.callout)
-//                                                .fontWeight(.semibold)
-//                                                .foregroundStyle(.thinMaterial)
-//                                        }
-//                                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
-//                                    }
-//                                }
-//                                .fullScreenCover(isPresented: $showFlow) {
-//                                    FlowView(model: model)
-////                                        .presentationBackground(.regularMaterial)
-//                                }
-//                                
-//                                Menu {
-//                                    
-//                                    // Rename
-//                                    Button {
-//                                        model.flow = flow
-//                                        showRenameFlow.toggle()
-//                                    } label: {
-//                                        Label("Rename", systemImage: "pencil")
-//                                    }
-//                                    
-//                                    // Duplicate
-//                                    Button {
-//                                        if proAccess {
-//                                            model.duplicateFlow(flow: flow)
-//                                        } else {
-//                                            model.showPayWall(large: true)
-//                                        }
-//                                    } label: {
-//                                        Label("Duplicate", systemImage: "plus.square.on.square")
-//                                    }
-//                                    Divider()
-//                                    
-//                                    // Delete
-//                                    Button(role: .destructive) {
-//                                        model.deleteFlow(id: flow.id)
-//                                    } label: {
-//                                        Label("Delete", systemImage: "trash")
-//                                    }
-//                                } label: {
-//                                    Image(systemName: "ellipsis")
-//                                        .foregroundStyle(.teal)
-//                                        .padding(14)
-//                                        .background(Circle().foregroundStyle(.black.opacity(0.3)))
-//                                        .padding(.trailing, -8)
-//                                }
-//                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-//                                .shadow(color: .black.opacity(0.2), radius: 8)
-//                                
-//                                // Rename Flow Alert
-//                                .alert("Rename Flow", isPresented: $showRenameFlow) { // Create Flow Alert
-//                                    TextField("Flow Title", text: $renamedFlow)
-//                                    Button("Rename", action: {
-//                                        if !renamedFlow.isEmpty {
-//                                            model.flow.title = renamedFlow
-//                                            renamedFlow = ""
-//                                            model.saveFlow()
-//                                        }
-//                                    })
-//                                    Button("Cancel", role: .cancel, action: {showRenameFlow = false})
-//                                }
-//                            }
-//                            .padding(.vertical)
-//                            .padding(.horizontal, 20)
-//                            .background(.ultraThickMaterial)
-//                            .cornerRadius(30)
-//                            .frame(maxWidth: .infinity)
-//                            .frame(height: 120)
-//                            .padding(.vertical, 3)
-//                            .padding(.horizontal)
-//                        }
-                        
                     }
                     .animation(.default, value: model.flowList)
                 }
@@ -286,7 +175,7 @@ struct MainView: View {
                     if  model.flowList.count != 0 {
                         Button {
                             if model.flowList.count >= 1 && !proAccess {
-                                model.showPayWall(large: true)
+                                model.showLargePayWall.toggle()
                             } else {
                                 showCreateFlow = true
                             }
@@ -298,21 +187,22 @@ struct MainView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     HStack {
-                        if model.settings.developerSettings {
-                            Button {
-                                model.settings.showOnboarding = true
-                                fatalError()
-                            } label: {
-                                Image(systemName: "menucard")
-                            }
-                        }
-                        
                         if !proAccess {
                             Button {
-                                model.showPayWall(large: false)
+                                model.showLargePayWall.toggle()
                             } label: {
-                                Text("Pro")
+                                Text("Try Pro")
+                                    .font(.footnote)
+                                    .fontDesign(.rounded)
+                                    .foregroundStyle(.white)
                                     .fontWeight(.medium)
+                                    .padding(.horizontal, 12)
+                                    .padding(.vertical, 8)
+                                    .background(LinearGradient(
+                                        gradient: Gradient(colors: [.teal.opacity(1.0), .teal.opacity(0.7)]),
+                                        startPoint: .bottomLeading,
+                                        endPoint: .topTrailing
+                                    ))                                    .cornerRadius(232)
                             }
                         }
                     }
