@@ -38,7 +38,7 @@ extension FlowModel {
     func stopActivity() {
         Task {
             for activity in Activity<TimerWidgetAttributes>.activities{
-                await activity.end(dismissalPolicy: .immediate)
+                await activity.end(nil, dismissalPolicy: .immediate)
             }
         }
     }

@@ -167,11 +167,10 @@ struct LargePayWall: View {
                 // Terms • Privacy • Restore
                 Text("7 days free, then $23.99/year($1.99/month).")
                     .font(.footnote)
-                    .fontWeight(.medium)
-                    .padding(.top, 12)
-                    .foregroundStyle(.tertiary)
+//                    .fontWeight(.medium)
+                    .padding(.top).padding(.bottom, 4)
+                    .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
-//                    .padding(.horizontal)
                     .centered()
             }
             .padding(.horizontal, 32)

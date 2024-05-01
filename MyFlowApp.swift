@@ -11,6 +11,7 @@ import TipKit
 struct MyFlow: App {
     @State var model = FlowModel()
     @StateObject private var purchaseManager = PurchaseManager()
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate // App Termination
     
     init() {
         UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = .systemTeal
@@ -71,3 +72,14 @@ struct MyFlow: App {
     }
 }
 
+// Runs on termiation
+class AppDelegate: NSObject, UIApplicationDelegate {
+    let model = FlowModel()
+    func applicationWillTerminate(_ application: UIApplication) {
+        model.stopActivity()
+        
+        model.settings.stopRestrictions()
+        model.notifications.removeAllPendingNotificationRequests()
+        // add if flow is running - send a notification
+    }
+}

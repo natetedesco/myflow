@@ -9,8 +9,7 @@ import ManagedSettings
 
 class Settings: ObservableObject {
     
-    //
-    var versionNumber = "v3.3.6"
+    var versionNumber = "v3.3.7"
     var developerSettings = false
     
     // General
@@ -35,7 +34,7 @@ class Settings: ObservableObject {
     let center = AuthorizationCenter.shared
     let store = ManagedSettingsStore()
     @Published var activityPresented = false
-    @Published var activitySelection = FamilyActivitySelection() { didSet { saveActivitySelection()}}
+    @Published var activitySelection = FamilyActivitySelection()
     @AppStorage("ScreenTimeAuthorized") var isAuthorized: Bool = false
     
     init() {
@@ -43,13 +42,6 @@ class Settings: ObservableObject {
             if let decoded = try? JSONDecoder().decode(FamilyActivitySelection.self, from: data) {
                 activitySelection = decoded
             }
-        }
-    }
-    
-    // Save
-    func saveActivitySelection() {
-        if let encoded = try? JSONEncoder().encode(activitySelection) {
-            UserDefaults.standard.set(encoded, forKey: "activitySelection")
         }
     }
     
@@ -63,15 +55,25 @@ class Settings: ObservableObject {
         }}
     }
     
+    // Save
+    func saveActivitySelection() {
+        if let encoded = try? JSONEncoder().encode(activitySelection) {
+            UserDefaults.standard.set(encoded, forKey: "activitySelection")
+            print("saved")
+        }
+    }
+    
     // Start Restrictions
     func startRestriction() {
         if blockDistractions {
             let applications = activitySelection.applicationTokens
             let categories = activitySelection.categoryTokens
             let webCategories = activitySelection.webDomainTokens
+            let customMessage = "Sorry, this app is currently restricted. Please try again later."
             store.shield.applications = applications.isEmpty ? nil : applications
             store.shield.applicationCategories = ShieldSettings.ActivityCategoryPolicy.specific(categories, except: Set())
             store.shield.webDomains = webCategories
+            
         }
     }
     

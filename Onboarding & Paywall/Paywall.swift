@@ -111,7 +111,6 @@ struct PayWall: View {
                         }
                         VStack(alignment: .leading) {
                             Text("Today")
-//                                .font(.callout)
                                 .fontWeight(.semibold)
                             Text("Unlock all features. No payment now.")
                                 .font(.footnote)
@@ -120,7 +119,6 @@ struct PayWall: View {
                             Spacer()
                             
                             Text("Day 6")
-//                                .font(.callout)
                                 .fontWeight(.semibold)
                             Text("You will not be charged if you cancel.")
                                 .font(.footnote)
@@ -129,7 +127,6 @@ struct PayWall: View {
                             Spacer()
                             
                             Text("Day 7")
-//                                .font(.callout)
                                 .fontWeight(.semibold)
                             Text("$23.99/year($1.99/month) plan begins.")
                                 .font(.footnote)
@@ -188,14 +185,12 @@ struct PayWall: View {
                 }
                 
                 // Terms • Privacy • Restore
-                    Text(detent == .large ? "7 days free, then $23.99/year($1.99/month)." : "Swipe up for details")
+                Text(detent == .large ? "7 days free, then $23.99/year($1.99/month)." : "Swipe up for details")
                     .font(.footnote)
-                    .fontWeight(.medium)
-                        .padding(.top, 12)
-                        .foregroundStyle(.tertiary)
-                        .multilineTextAlignment(.center)
-//                        .padding(.horizontal, 8)
-                        .centered()
+                    .padding(.top)
+                    .foregroundStyle(detent == .large ? .secondary : .tertiary)
+                    .multilineTextAlignment(.center)
+                    .centered()
             }
             .padding(.horizontal, 32)
             .alert(isPresented: $showAlert) {

@@ -14,6 +14,7 @@ struct SettingsView: View {
     @AppStorage("ProAccess") var proAccess: Bool = false
     @Environment(\.requestReview) var requestReview
     
+    @State var activityPresented = false // lags/doesn't show when in settings
     @State var showRateTheApp = false
     @AppStorage("ratedTheApp") var ratedTheApp: Bool = false
     
@@ -56,9 +57,9 @@ struct SettingsView: View {
                 Section(header: Text("Flows")) {
                     
                     // App Blockler
-                    if !settings.isAuthorized {
+                    if !model.settings.isAuthorized {
                         Button {
-                            settings.authorizeScreenTime()
+                            model.settings.authorizeScreenTime()
                         } label: {
                             HStack {
                                 Label("App Blocker", systemImage: "shield")
@@ -69,20 +70,20 @@ struct SettingsView: View {
                             }
                         }
                     } else {
-                        Toggle(isOn: proAccess ? $settings.blockDistractions : $model.showPayWall) {
+                        Toggle(isOn: proAccess ? $model.settings.blockDistractions : $model.showPayWall) {
                             Label("App Blocker", systemImage: "shield")
                         }
                     }
                     
                     // Blocked Apps
-                    if settings.isAuthorized && settings.blockDistractions {
+                    if model.settings.isAuthorized && model.settings.blockDistractions {
                         Button {
-                            settings.activityPresented = true
+                            activityPresented = true
                         } label: {
                             HStack {
                                 Label("Blocked", systemImage: "xmark.app")
                                 Spacer()
-                                Text(settings.activitySelection.applicationTokens.count == 0 ? "0 Apps" : "^[\(settings.activitySelection.applicationTokens.count) App](inflect: true)")
+                                Text(model.settings.activitySelection.applicationTokens.count == 0 ? "0 Apps" : "^[\(model.settings.activitySelection.applicationTokens.count) App](inflect: true)")
                                     .foregroundStyle(.tertiary)
                                 Image(systemName: "chevron.right")
                                     .font(.footnote)
@@ -90,7 +91,10 @@ struct SettingsView: View {
                                     .foregroundStyle(.tertiary)
                             }
                         }
-                        .familyActivityPicker(isPresented: $settings.activityPresented, selection: $settings.activitySelection)
+                        .familyActivityPicker(isPresented: $activityPresented, selection: $model.settings.activitySelection)
+                        .onChange(of: model.settings.activitySelection) { oldValue, newValue in
+                            model.settings.saveActivitySelection()
+                        }
                     }
                     
                     // Focus View as Default

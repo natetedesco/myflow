@@ -9,11 +9,11 @@ import FamilyControls
 
 struct DistractionBlocker: View {
     @State var model: FlowModel
+    @State var activityPresented = false
     
     @State var showPayWall = false
     @State var detent = PresentationDetent.fraction(6/10)
     
-    @StateObject var settings = Settings()
     @AppStorage("ProAccess") var proAccess: Bool = false
     @Environment(\.dismiss) var dismiss
     
@@ -24,7 +24,7 @@ struct DistractionBlocker: View {
                 
                 Spacer()
                 
-                if !settings.isAuthorized {
+                if !model.settings.isAuthorized {
                     Text("Authorize ScreenTime")
                         .font(.title2)
                         .fontWeight(.semibold)
@@ -37,7 +37,7 @@ struct DistractionBlocker: View {
                 } else {
                     
                     VStack {
-                        Toggle(isOn: proAccess ? $settings.blockDistractions : $showPayWall) {
+                        Toggle(isOn: proAccess ? $model.settings.blockDistractions : $showPayWall) {
                             Label("App Blocker", systemImage: "shield.fill")
                         }
                         .tint(.teal)
@@ -47,13 +47,13 @@ struct DistractionBlocker: View {
                             .padding(.horizontal, -16)
                         
                         Button {
-                            settings.activityPresented = true
+                            activityPresented = true
                         } label: {
                             HStack {
                                 Label("Blocked Apps", systemImage: "xmark.app.fill")
                                     .foregroundStyle(.white)
                                 Spacer()
-                                Text(settings.activitySelection.applicationTokens.count == 0 ? "0 Apps" : "^[\(settings.activitySelection.applicationTokens.count) App](inflect: true)")
+                                Text(model.settings.activitySelection.applicationTokens.count == 0 ? "0 Apps" : "^[\(model.settings.activitySelection.applicationTokens.count) App](inflect: true)")
                                     .foregroundStyle(.white.tertiary)
                                 Image(systemName: "chevron.right")
                                     .font(.footnote)
@@ -64,7 +64,10 @@ struct DistractionBlocker: View {
                         }
                         .padding(.top, 12)
                         .padding(.bottom, 8)
-                        .familyActivityPicker(isPresented: $settings.activityPresented, selection: $settings.activitySelection)
+                        .familyActivityPicker(isPresented: $activityPresented, selection: $model.settings.activitySelection)
+                        .onChange(of: model.settings.activitySelection) { oldValue, newValue in
+                            model.settings.saveActivitySelection()
+                        }
                     }
                     .padding()
                     .background(.black.opacity(0.3))
@@ -80,13 +83,14 @@ struct DistractionBlocker: View {
                 Spacer()
                 
                 Button {
-                    if !settings.isAuthorized {
-                        settings.authorizeScreenTime()
+                    if !model.settings.isAuthorized {
+                        model.settings.authorizeScreenTime()
                     } else {
+                        model.settings.saveActivitySelection()
                         dismiss()
                     }
                 } label: {
-                    Text(settings.isAuthorized ? "Done" : "Authorize")
+                    Text(model.settings.isAuthorized ? "Done" : "Authorize")
                         .foregroundStyle(.white)
                         .font(.headline)
                         .frame(maxWidth: .infinity)

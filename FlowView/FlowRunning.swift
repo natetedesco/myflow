@@ -104,7 +104,6 @@ struct FlowRunning: View {
                     .font(.title3)
                     .fontWeight(.medium)
                     .multilineTextAlignment(.center)
-//                    .padding(.horizontal)
                 Spacer()
                 Button {
                     showWelcome.toggle()
