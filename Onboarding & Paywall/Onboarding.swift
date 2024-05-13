@@ -69,15 +69,17 @@ struct OnboardingView: View {
                 
                 VStack(alignment: .leading) {
                     
+//                    Spacer()
+                    
                     VStack(alignment: .leading) {
                         Text("Create your")
-                            .padding(.top, 48)
                         Text("Flow")
                             .foregroundStyle(.teal)
                     }
                     .fontWeight(.bold)
-                    .font(.system(size: 44))
+                    .font(.system(size: 40))
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.top, 48)
                     .padding(.leading, 44)
                     
                     Spacer()
@@ -93,9 +95,10 @@ struct OnboardingView: View {
                                 .font(.title3)
                                 .fontWeight(.semibold)
                             
-                            Text("Flexible blocks of time for deep, uninterrupted focus on a single task.")
+                            Text("Set a time for how long you want to focus on each task. Blocks can be completed early or extended.")
                                 .font(.callout)
                                 .foregroundStyle(.secondary)
+                                .fontWeight(.medium)
                         }
                     }
                     
@@ -111,9 +114,10 @@ struct OnboardingView: View {
                             Text("Take Breaks")
                                 .font(.title3)
                                 .fontWeight(.semibold)
-                            Text("Take timed breaks between blocks to recharge focus or stay in flow.")
+                            Text("After each focus, you will have the option to take a break to recharge, or start the next focus block.")
                                 .font(.callout)
                                 .foregroundStyle(.secondary)
+                                .fontWeight(.medium)
                         }
                     }
                     
@@ -129,9 +133,10 @@ struct OnboardingView: View {
                             Text("Block Distractions")
                                 .font(.title3)
                                 .fontWeight(.semibold)
-                            Text("Block apps you don't want to disturb or distract you during your flow.")
+                            Text("Block apps and websites from disturbing or distracting you during your flow.")
                                 .font(.callout)
                                 .foregroundStyle(.secondary)
+                                .fontWeight(.medium)
                         }
                     }
                     .padding(.bottom)
@@ -147,7 +152,7 @@ struct OnboardingView: View {
                             withAnimation { selectedTab += 1 }
                         }
                     } label: {
-                        Text("Continue")
+                        Text(selectedTab == 1 ? "Let's Flow" : "Continue")
                             .foregroundStyle(.teal)
                             .font(.title3)
                             .fontWeight(.medium)

@@ -19,7 +19,7 @@ struct CreateFlowView: View {
         
         NavigationStack {
             ZStack {
-                Color.black.opacity(0.1).ignoresSafeArea()
+                Color.black.opacity(0.2).ignoresSafeArea()
                 
                 VStack {
                     

@@ -25,7 +25,7 @@ struct BlocksTip: Tip {
         Text("Add Focus Blocks")
     }
     var message: Text? {
-        Text("Create your flow using focus blocks, your flow will start from the first block.")
+        Text("Create focus blocks for all of your tasks, your flow will start from the first block.")
         
     }
     var image: Image? {

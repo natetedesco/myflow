@@ -22,7 +22,7 @@ struct BlockView: View {
                         .padding(.leading, -2)
                 
                 Text(block.title.isEmpty ? "Focus" : block.title)
-                    .font(sizeClass == .regular ? .largeTitle : .title3)
+                    .font(sizeClass == .regular ? .largeTitle : .title2)
                     .fontWeight(.medium)
                     .foregroundStyle(focusLabelStyle)
                     .multilineTextAlignment(.leading)

@@ -17,6 +17,8 @@ struct LargePayWall: View {
     @State var alertTitle = ""
     @State var alertDescription = ""
     
+    @State var opacity = 1.0
+    
     var body: some View {
         ZStack {
             ZStack {
@@ -24,19 +26,23 @@ struct LargePayWall: View {
                 AnimatedBlur(opacity: 1.0).offset(y: 50)
                     .blur(radius: 300)
             }
+            .opacity(opacity)
             
             Button {
                 softHaptic()
                 dismiss()
+                withAnimation { opacity = 0.0 }
             } label: {
                 Image(systemName: "xmark")
-                    .fontWeight(.bold)
-                    .foregroundStyle(.black.opacity(0.8))
+                    .font(.callout)
+                    .fontWeight(.heavy)
+                    .foregroundStyle(.black.opacity(0.6))
                     .padding(6)
                     .background(Circle().foregroundStyle(.bar))
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-            .padding(.trailing)
+            .padding(.trailing, 32)
+            .padding(.top)
             
             VStack(alignment: .leading) {
                 
@@ -151,6 +157,8 @@ struct LargePayWall: View {
                         }
                     }
                     dismiss()
+                    softHaptic()
+                    withAnimation { opacity = 0.0 }
                 } label: {
                     ZStack {
                         Text("Try Pro Free")
@@ -167,7 +175,6 @@ struct LargePayWall: View {
                 // Terms • Privacy • Restore
                 Text("7 days free, then $23.99/year($1.99/month).")
                     .font(.footnote)
-//                    .fontWeight(.medium)
                     .padding(.top).padding(.bottom, 4)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)

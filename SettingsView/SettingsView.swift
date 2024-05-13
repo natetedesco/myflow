@@ -5,7 +5,6 @@
 //
 
 import SwiftUI
-import MessageUI
 import TipKit
 
 struct SettingsView: View {
@@ -15,15 +14,18 @@ struct SettingsView: View {
     @Environment(\.requestReview) var requestReview
     
     @State var activityPresented = false // lags/doesn't show when in settings
+    
     @State var showRateTheApp = false
-    @AppStorage("ratedTheApp") var ratedTheApp: Bool = false
+    @State var showWhatsNew = false
+
+    @State var taps = 0
     
     var body: some View {
         NavigationStack {
             List {
-                if !ratedTheApp {
+                if !settings.ratedTheApp {
                     Button {
-                        ratedTheApp = true
+                        settings.ratedTheApp = true
                         requestReview()
                     } label: {
                         
@@ -105,18 +107,18 @@ struct SettingsView: View {
                 // About
                 Section(header: Text("About")) {
                     
-                    // About
-                    NavigationLink(destination: AboutView(versionNumber: settings.versionNumber)) { Label("About", systemImage: "info.circle") }
-                    
                     // Send Feedback
-                    Button { settings.isShowingMailView.toggle() } label: { Label("Send Feedback", systemImage: "envelope") }
+                    Button { settings.isShowingMailView.toggle() } label: { Label("Send Feedback", systemImage: "megaphone") }
                     
                     // Share
                     ShareLink(item: URL(string: "https://apps.apple.com/us/app/myflow-focus-time-blocking/id1575798388")!) {
-                        Label("Share MyFlow", systemImage: "square.and.arrow.up")
+                        Label("Share MyFlow", systemImage: "person.2")
                             .frame(height: 32)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
+                    
+                    // About
+                    NavigationLink(destination: AboutView()) { Label("About", systemImage: "info.circle") }
                     
                     // Privacy & Terms
                     Link(destination: URL(string: "https://myflow.notion.site/Privacy-Policy-0002d1598beb401e9801a0c7fe497fd3?pvs=4")!) {
@@ -143,30 +145,27 @@ struct SettingsView: View {
                         // Show Onboarding
                         Toggle(isOn: $settings.showOnboarding) { Label("Show Onboarding", systemImage: "menucard") }
                         
-                        // ShowPayWall
-                        Button { model.showPayWall() } label: { Label("ShowPayWall", systemImage: "dollarsign.square") }
-                        
-                        
                         // Reset Ask Focus View
-                        Button { ratedTheApp.toggle() } label: { Label("Show Rate the App", systemImage: "square") }
-                        
-                        // Reset Ask Focus View
-                        Button { showRateTheApp.toggle() } label: { Label("Show Rate the App Sheet", systemImage: "square") }
+                        Toggle(isOn: $settings.ratedTheApp) { Label("Rated the App", systemImage: "star") }
                         
                         // Revoke ScreenTime
                         Button {
                             settings.center.revokeAuthorization { result in
-                                switch result {
-                                case .success:
-                                    settings.isAuthorized = false
-                                case .failure(let error):
-                                    print("Error revoking authorization: \(error.localizedDescription)")
+                                switch result { case .success: settings.isAuthorized = false
+                                case .failure(let error): print("Error: \(error.localizedDescription)")
                                 }
                             }
                         } label: {
                             Label("Revoke ScreenTime", systemImage: "clock.badge.xmark")
                         }
+                        
+                        // Rate the App Sheet
+                        Button { showRateTheApp.toggle() } label: { Label("Show Rate the App Sheet", systemImage: "platter.filled.bottom.iphone") }
                     }
+                    
+                    // What's New Sheet
+                    Button { showWhatsNew.toggle() } label: { Label("What's New", systemImage: "sparkles") }
+                    
                 }
                 
                 Text(settings.versionNumber)
@@ -176,6 +175,15 @@ struct SettingsView: View {
                     .centered()
                     .monospaced()
                     .listRowSeparator(.hidden, edges: [.bottom])
+                    .onTapGesture {
+                        taps += 1
+                    }
+                    .onLongPressGesture {
+                        if taps == 5 {
+                            settings.developerSettings.toggle()
+                            softHaptic()
+                        }
+                    }
             }
             .listStyle(.plain)
             .environment(\.defaultMinListRowHeight, 56)
@@ -204,190 +212,15 @@ struct SettingsView: View {
                 .sheetMaterial()
                 .presentationDetents([.fraction(4/10)])
         }
-    }
-}
-
-struct MailComposeViewControllerWrapper: UIViewControllerRepresentable {
-    @StateObject var settings = Settings()
-    @Binding var isShowing: Bool
-    
-    func makeUIViewController(context: Context) -> MFMailComposeViewController {
-        let mailComposeVC = MFMailComposeViewController()
-        mailComposeVC.mailComposeDelegate = context.coordinator
-        mailComposeVC.setToRecipients(["natetedesco@icloud.com"])
-        mailComposeVC.setSubject("MyFlow \(settings.versionNumber)")
-        mailComposeVC.setMessageBody("", isHTML: false)
-        return mailComposeVC
-    }
-    
-    func updateUIViewController(_ uiViewController: MFMailComposeViewController, context: Context) {}
-    
-    func makeCoordinator() -> Coordinator {
-        Coordinator(isShowing: $isShowing)
-    }
-    
-    class Coordinator: NSObject, MFMailComposeViewControllerDelegate {
-        @Binding var isShowing: Bool
-        
-        init(isShowing: Binding<Bool>) {
-            _isShowing = isShowing
+        .sheet(isPresented: $showWhatsNew) {
+            WhatsNewView()
+                .presentationCornerRadius(40)
+                .presentationBackground(.ultraThickMaterial)
+                .presentationDetents([.medium, .large])
         }
-        
-        func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-            isShowing = false
-        }
-    }
-}
-
-struct AboutView: View {
-    var versionNumber: String
-    
-    var body: some View {
-        ScrollView {
-            VStack {
-                Circles(model: FlowModel(), size: 112, width: 12.0, fill: true)
-                
-                VStack(spacing: 8) {
-                    Text("MyFlow")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                    
-                    Text("Focus on what matters")
-                        .font(.callout)
-//                        .fontWeight(.medium)
-                        .foregroundStyle(.secondary)
-                    
-//                    Text(versionNumber)
-//                        .foregroundStyle(.teal)
-//                        .font(.caption)
-//                        .fontWeight(.medium)
-//                        .monospaced()
-                }
-                .padding(.top)
-                
-                VStack(alignment: .leading, spacing: 16) {
-                    Text("MyFlow optimizes your time by enhancing your focus. Giving your complete focus to a task, and alloting a specific amount of time to it, allows you to complete things faster and with less distraction.")
-                    
-                    Text("Your feedback and support is greatly appreciated and continues to drive the development of MyFlow.")
-                }
-                .padding(.vertical, 24)
-                .padding(.horizontal)
-                
-                Text("Developed by Nate Tedesco")
-                    .font(.caption)
-                    .fontWeight(.medium)
-                    .foregroundStyle(.tertiary)
-                
-                Spacer()
-                
-            }
-            .padding(.horizontal)
-        }
-    }
-}
-
-struct HowItWorks: View {
-    var body: some View {
-        
-        VStack(alignment: .leading) {
-            
-            VStack(alignment: .leading) {
-                Text("Create your")
-                Text("Flow")
-                    .foregroundStyle(.teal)
-            }
-            .font(.system(size: 44))
-            .fontWeight(.bold)
-            .padding(.top, -32)
-            .padding(.bottom, 40)
-            
-            HStack(alignment: .top) {
-                Image(systemName: "rectangle.stack")
-                    .foregroundStyle(.teal)
-                    .font(.largeTitle)
-                    .fontWeight(.medium)
-                    .padding(.top, 4)
-                
-                VStack(alignment: .leading) {
-                    Text("Focus Blocks")
-                        .font(.title3)
-                        .fontWeight(.bold)
-                    
-                    Text("Setting a time for each block promotes deeper focus. Blocks can be complete early or extended.")
-                        .font(.callout)
-                        .fontWeight(.medium)
-                        .foregroundStyle(.secondary)
-                }
-            }
-            
-            Spacer()
-            
-            HStack(alignment: .top) {
-                Image(systemName: "timer")
-                    .foregroundStyle(.teal)
-                    .font(.largeTitle)
-                    .fontWeight(.medium)
-                    .padding(.top, 4)
-                
-                VStack(alignment: .leading) {
-                    Text("Take Breaks")
-                        .font(.title3)
-                        .fontWeight(.bold)
-                    
-                    Text("Breaks can help us stay in a flow, choose to take a break at the end of a focus or start the next focus.")
-                        .font(.callout)
-                        .fontWeight(.medium)
-                        .foregroundStyle(.secondary)
-                }
-            }
-            
-            Spacer()
-            
-            HStack(alignment: .top) {
-                Image(systemName: "shield")
-                    .foregroundStyle(.teal)
-                    .fontWeight(.medium)
-                    .font(.largeTitle)
-                    .padding(.top, 4)
-                
-                VStack(alignment: .leading) {
-                    Text("Block Distractions")
-                        .font(.title3)
-                    
-                        .fontWeight(.bold)
-                    
-                    Text("Block Apps you don't want to disturb you or use during your flow.")
-                        .font(.callout)
-                        .fontWeight(.medium)
-                        .foregroundStyle(.secondary)
-                }
-            }
-            
-            Spacer()
-        }
-        .padding(.horizontal, 28)
     }
 }
 
 #Preview {
     SettingsView(model: FlowModel())
 }
-
-//                        HStack {
-//                            Label("Default Focus Length", systemImage: "timer")
-//
-//                            Spacer()
-//
-//                            Menu {
-//                                Text("options")
-//                            } label: {
-//                                Text("20:00")
-//                                    .font(.callout)
-//                                    .padding(.horizontal, 10)
-//                                    .padding(.vertical, 6)
-//                                    .background(.regularMaterial)
-//                                    .cornerRadius(6)
-//                                    .foregroundStyle(.white.secondary)
-//                                    .padding(.trailing, -2)
-//                            }
-//                        }

@@ -43,6 +43,14 @@ extension Flow {
         return totalSeconds
     }
     
+    func totalFlowTimeInSecondsInt() -> Int {
+        var totalSeconds: Int = 0
+        for block in blocks {
+            totalSeconds += block.totalTimeInSecondsInt
+        }
+        return totalSeconds
+    }
+    
     func totalFlowTimeFormatted() -> String {
         let totalSeconds = totalFlowTimeInSeconds()
         let hours = Int(totalSeconds) / 3600
@@ -115,6 +123,11 @@ extension Flow {
 extension Block {
     var totalTimeInSeconds: TimeInterval {
         let totalSeconds = TimeInterval(minutes * 60 + seconds)
+        return totalSeconds
+    }
+    
+    var totalTimeInSecondsInt: Int {
+        let totalSeconds = (minutes * 60 + seconds)
         return totalSeconds
     }
 }

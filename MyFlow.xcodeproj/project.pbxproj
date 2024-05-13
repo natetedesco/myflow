@@ -10,6 +10,11 @@
 		8BACA2C22BBF41EE00A0AB49 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 8BACA2C12BBF41EE00A0AB49 /* Introspect */; };
 		8BACA2C62BC70A4B00A0AB49 /* Tips.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BACA2C52BC70A4B00A0AB49 /* Tips.swift */; };
 		8BACA3072BCC805B00A0AB49 /* IntroPaywall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BACA3062BCC805B00A0AB49 /* IntroPaywall.swift */; };
+		8BCAEF812BE7DD1900F72791 /* Other.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCAEF802BE7DD1900F72791 /* Other.swift */; };
+		8BCAEF832BE7DD8C00F72791 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCAEF822BE7DD8C00F72791 /* AboutView.swift */; };
+		8BCAEF852BE7DDBF00F72791 /* HowItWorksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCAEF842BE7DDBF00F72791 /* HowItWorksView.swift */; };
+		8BCAEF872BE7E05800F72791 /* WhatsNewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCAEF862BE7E05800F72791 /* WhatsNewView.swift */; };
+		8BCAEF892BE7E06600F72791 /* SendFeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCAEF882BE7E06600F72791 /* SendFeedbackView.swift */; };
 		8BEB935A2BE180B0004805E9 /* LargePaywall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BEB93592BE180B0004805E9 /* LargePaywall.swift */; };
 		F00426E12B2A452B00FAE36B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0948C1C26818EE100A5F48D /* Assets.xcassets */; };
 		F0171F252B3F68F6002F6FB7 /* AskForRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0171F242B3F68F6002F6FB7 /* AskForRating.swift */; };
@@ -92,6 +97,11 @@
 /* Begin PBXFileReference section */
 		8BACA2C52BC70A4B00A0AB49 /* Tips.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tips.swift; sourceTree = "<group>"; };
 		8BACA3062BCC805B00A0AB49 /* IntroPaywall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroPaywall.swift; sourceTree = "<group>"; };
+		8BCAEF802BE7DD1900F72791 /* Other.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Other.swift; sourceTree = "<group>"; };
+		8BCAEF822BE7DD8C00F72791 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		8BCAEF842BE7DDBF00F72791 /* HowItWorksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowItWorksView.swift; sourceTree = "<group>"; };
+		8BCAEF862BE7E05800F72791 /* WhatsNewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewView.swift; sourceTree = "<group>"; };
+		8BCAEF882BE7E06600F72791 /* SendFeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFeedbackView.swift; sourceTree = "<group>"; };
 		8BEB93592BE180B0004805E9 /* LargePaywall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargePaywall.swift; sourceTree = "<group>"; };
 		8BEB93612BE2BEE5004805E9 /* ManagedSettings.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ManagedSettings.framework; path = System/Library/Frameworks/ManagedSettings.framework; sourceTree = SDKROOT; };
 		F001C23828D3A12100134EB5 /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
@@ -161,9 +171,9 @@
 				F074D679271D124900CE1AB4 /* FlowView.swift */,
 				F01E848A2AB1249900CF418D /* FlowRunning.swift */,
 				F0A056412B1A5DD400AB430D /* BlockSheet.swift */,
+				F0954B112A95360F009E212E /* Block.swift */,
 				F0B6372A2B3F3DF600167D36 /* DistractionBlocker.swift */,
 				F0A6718E2B190C18003B3071 /* FlowCompleted.swift */,
-				F0954B112A95360F009E212E /* Block.swift */,
 			);
 			path = FlowView;
 			sourceTree = "<group>";
@@ -181,6 +191,10 @@
 			isa = PBXGroup;
 			children = (
 				F032564A272251A5009D3EFB /* SettingsView.swift */,
+				8BCAEF822BE7DD8C00F72791 /* AboutView.swift */,
+				8BCAEF842BE7DDBF00F72791 /* HowItWorksView.swift */,
+				8BCAEF862BE7E05800F72791 /* WhatsNewView.swift */,
+				8BCAEF882BE7E06600F72791 /* SendFeedbackView.swift */,
 			);
 			path = SettingsView;
 			sourceTree = "<group>";
@@ -215,6 +229,7 @@
 				F001C23828D3A12100134EB5 /* Modifiers.swift */,
 				F0729202297B78B200C25E0E /* Pickers.swift */,
 				F0435CD42A9F965C0073E7E1 /* Background.swift */,
+				8BCAEF802BE7DD1900F72791 /* Other.swift */,
 			);
 			path = "UI Elements";
 			sourceTree = "<group>";
@@ -410,22 +425,26 @@
 				F0EBC11B2A8D3C0B006F9616 /* LiveActivities.swift in Sources */,
 				8BACA3072BCC805B00A0AB49 /* IntroPaywall.swift in Sources */,
 				F0CA26C52B28D99200EA382E /* Data Types.swift in Sources */,
+				8BCAEF832BE7DD8C00F72791 /* AboutView.swift in Sources */,
 				F0B6372B2B3F3DF600167D36 /* DistractionBlocker.swift in Sources */,
 				F0EBC11C2A8D3C0B006F9616 /* Timer.swift in Sources */,
 				8BEB935A2BE180B0004805E9 /* LargePaywall.swift in Sources */,
 				F0EBC11E2A8D3C0B006F9616 /* FlowData.swift in Sources */,
+				8BCAEF892BE7E06600F72791 /* SendFeedbackView.swift in Sources */,
 				F05878932B28D8DD00508CA1 /* Purchases.swift in Sources */,
 				F08201E52B28D844003F7B1D /* LiveActivity.swift in Sources */,
 				F0CA26C72B28D9AF00EA382E /* GoalView.swift in Sources */,
 				F05878902B28D8DD00508CA1 /* Format.swift in Sources */,
 				F0EBC1212A8D3C0B006F9616 /* Widget.intentdefinition in Sources */,
 				8BACA2C62BC70A4B00A0AB49 /* Tips.swift in Sources */,
+				8BCAEF812BE7DD1900F72791 /* Other.swift in Sources */,
 				F0435CD92A9FA5850073E7E1 /* Settings.swift in Sources */,
 				F05878912B28D8DD00508CA1 /* Notifications.swift in Sources */,
 				F0435CD52A9F965C0073E7E1 /* Background.swift in Sources */,
 				F05878922B28D8DD00508CA1 /* Haptics.swift in Sources */,
 				F0EBC1272A8D3C0B006F9616 /* FlowView.swift in Sources */,
 				F0EBC1292A8D3C0B006F9616 /* Paywall.swift in Sources */,
+				8BCAEF852BE7DDBF00F72791 /* HowItWorksView.swift in Sources */,
 				F0A6718F2B190C18003B3071 /* FlowCompleted.swift in Sources */,
 				F0EBC12A2A8D3C0B006F9616 /* MonthCard.swift in Sources */,
 				F0EBC12C2A8D3C0B006F9616 /* MyFlowApp.swift in Sources */,
@@ -442,6 +461,7 @@
 				F0EBC1482A8D3C0B006F9616 /* WeekCard.swift in Sources */,
 				F0EBC1492A8D3C0B006F9616 /* SettingsView.swift in Sources */,
 				F0954B122A95360F009E212E /* Block.swift in Sources */,
+				8BCAEF872BE7E05800F72791 /* WhatsNewView.swift in Sources */,
 				F0A056422B1A5DD400AB430D /* BlockSheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -712,7 +732,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.3.6;
+				MARKETING_VERSION = 3.3.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -746,7 +766,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.3.6;
+				MARKETING_VERSION = 3.3.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -780,7 +800,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.3.6;
+				MARKETING_VERSION = 3.3.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

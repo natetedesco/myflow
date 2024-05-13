@@ -20,13 +20,12 @@ struct AskForRating: View {
                 Text("Enjoying MyFlow?")
                     .font(.title)
                     .fontWeight(.bold)
-                    .fontDesign(.rounded)
                     .padding(.top, -8)
                 
                 Spacer()
 
-                Text("Support the app by leaving a positive review. We greatly appreciate it.")
-                    .font(.callout)
+                Text("You can support the app by leaving a positive rating. We greatly appreciate it.")
+                    .fontDesign(.rounded)
                     .multilineTextAlignment(.center)
                     .padding(.bottom, 8)
                 
@@ -37,13 +36,14 @@ struct AskForRating: View {
                     ratedTheApp = true
                     dismiss()
                 } label : {
-                    HStack {
-                        ForEach(0..<5) {_ in
-                            Image(systemName: "star.fill")
-                                .font(.title3)
-                        }
-                    }
-                    .foregroundStyle(.white.opacity(0.8))
+                    Text("Rate the App")
+//                    HStack {
+//                        ForEach(0..<5) {_ in
+//                            Image(systemName: "star.fill")
+//                                .font(.title3)
+//                        }
+//                    }
+                    .foregroundStyle(.white)
                         .font(.headline)
                         .frame(maxWidth: .infinity)
                         .padding()
@@ -61,6 +61,8 @@ struct AskForRating: View {
                 } label: {
                     Text("or send feedback")
                         .font(.footnote)
+                        .fontDesign(.rounded)
+                        .foregroundStyle(.teal.secondary)
                 }
                 .padding(.bottom, 4)
             }
@@ -69,7 +71,6 @@ struct AskForRating: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         dismiss()
-                        ratedTheApp = true
                     } label: {
                         Image(systemName: "xmark")
                             .font(.footnote)

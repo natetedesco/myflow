@@ -8,10 +8,8 @@ import FamilyControls
 import ManagedSettings
 
 class Settings: ObservableObject {
-    
-    var versionNumber = "v3.3.7"
-    var developerSettings = false
-    
+    var versionNumber = "v3.3.9"
+
     // General
     @AppStorage("NotificationsOn") var notificationsOn: Bool = true
     @AppStorage("LiveActivities") var liveActivities: Bool = true
@@ -24,6 +22,8 @@ class Settings: ObservableObject {
     @Published var isShowingMailView = false
     
     // Developer
+    @AppStorage("DeveloperSettings") var developerSettings: Bool = false
+    @AppStorage("ratedTheApp") var ratedTheApp: Bool = false
     @AppStorage("UseDummyData") var useDummyData: Bool = false
     @AppStorage("multiplyTotalFlowTime") var multiplyTotalFlowTime: Bool = false
     @AppStorage("shouldResetTips") var shouldResetTips: Bool = false

@@ -25,9 +25,9 @@ struct SwiftUIView: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     showOnboarding = false
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-                    model.showPayWall(large: false)
-                }
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+//                    model.showPayWall(large: false)
+//                }
             } label: {
                 Image(systemName: "xmark")
                     .fontWeight(.bold)
@@ -57,6 +57,7 @@ struct SwiftUIView: View {
                 
                 Text("Welcome Offer")
                     .font(.footnote)
+                    .fontDesign(.rounded)
                     .foregroundStyle(.teal)
                     .fontWeight(.medium)
                     .padding(.vertical, 6)

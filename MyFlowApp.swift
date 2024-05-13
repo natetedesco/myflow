@@ -12,6 +12,11 @@ struct MyFlow: App {
     @State var model = FlowModel()
     @StateObject private var purchaseManager = PurchaseManager()
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate // App Termination
+    @AppStorage("ProAccess") var proAccess: Bool = false
+    
+    @AppStorage("FirstTimeOpen") var timesOpend = 0
+    @AppStorage("ratedTheApp") var ratedTheApp: Bool = false
+    @State var showRateTheApp = false
     
     init() {
         UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = .systemTeal
@@ -64,8 +69,28 @@ struct MyFlow: App {
                 .fullScreenCover(isPresented: $model.showLargePayWall) {
                     LargePayWall()
                 }
+                .sheet(isPresented: $showRateTheApp) {
+                    AskForRating()
+                        .sheetMaterial()
+                        .presentationDetents([.fraction(4/10)])
+                }
                 if model.settings.showOnboarding {
                     OnboardingView(model: model)
+                }
+            }
+            .onAppear {
+                if !proAccess && timesOpend > 5 && timesOpend % 5 != 0 {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                        softHaptic()
+                        model.showLargePayWall.toggle()
+                        timesOpend += 1
+                    }
+                }
+                else if !ratedTheApp && timesOpend != 0 && timesOpend % 5 == 0 {
+                    showRateTheApp.toggle()
+                    timesOpend += 1
+                } else {
+                    timesOpend += 1
                 }
             }
         }

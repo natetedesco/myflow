@@ -26,16 +26,17 @@ struct FlowView: View {
             VStack {
             List{
                 Section(header: HStack {
-                    // Block Count
-                    Text("^[\(model.flow.blocks.count) Block](inflect: true)")
-                        .fontWeight(.medium)
-                        .foregroundStyle(.white)
-                    Spacer()
                     
                     // Total Flow Time
                     Text(model.flow.totalFlowTimeFormatted())
                         .fontWeight(.medium)
+                        .foregroundStyle(.white)
+                    
+                    Spacer()
+                    Text("Ends \(DateFormatter.localizedString(from: Calendar.current.date(byAdding: .second, value: model.flow.totalFlowTimeInSecondsInt(), to: Date())!, dateStyle: .none, timeStyle: .short))")
+                        .fontWeight(.medium)
                         .font(.footnote)
+                        .foregroundStyle(.white.secondary)
                 }) {
                     
                     // Blocks
@@ -107,6 +108,7 @@ struct FlowView: View {
                     TipView(blockControlTip, arrowEdge: .top)
                         .listRowSeparator(.hidden, edges: [.bottom])
                 }
+                
             }
             .animation(.default, value: model.flow.blocks)
             .listStyle(.plain)
@@ -135,19 +137,7 @@ struct FlowView: View {
                                 .padding(6)
                                 .background(Circle().foregroundStyle(.ultraThinMaterial))
                         }
-                        
-                        //                        Button {
-                        //                        } label: {
-                        //                            Image(systemName: "ellipsis")
-                        //                                .font(.caption)
-                        //                                .fontWeight(.bold)
-                        //                                .padding(12)
-                        //                                .background(Circle().foregroundStyle(.ultraThinMaterial))
-                        //                                .padding(.horizontal, -6)
-                        //                        }
-                        
                     }
-                    
                 }
                 
                 ToolbarItemGroup(placement: .topBarLeading) {
@@ -213,10 +203,10 @@ struct FlowView: View {
         }
         
         // Flow Completed
-        .sheet(isPresented: $model.showFlowCompleted) {
+        .fullScreenCover(isPresented: $model.showFlowCompleted) {
             FlowCompletedView(model: model, showRateTheApp: $showRateTheApp)
-                .sheetMaterial()
-                .presentationDetents([.fraction(4/10)])
+//                .sheetMaterial()
+//                .presentationDetents([.fraction(4/10)])
         }
         
         // Paywall
@@ -267,7 +257,7 @@ struct FlowView: View {
             Image(systemName: model.mode == .flowRunning ? "pause.fill" : "play.fill")
                 .font(.title3)
                 .padding()
-                .background(Circle().foregroundStyle(.teal.quinary))
+                .background(Circle().foregroundStyle(.teal.quaternary))
                 .padding(.leading, -8)
         }
     }
@@ -284,6 +274,7 @@ struct FlowView: View {
         } label: {
             Text("Add Focus")
                 .fontWeight(.medium)
+                .fontDesign(.rounded)
         }
     }
     
