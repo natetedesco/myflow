@@ -17,7 +17,7 @@ struct FlowView: View {
     
     @State var showPayWall = false
     @State var showDistractionBlocker = false
-    @State var showRateTheApp = false
+//    @State var showRateTheApp = false
     
     @State var newBlock = false
     
@@ -33,6 +33,8 @@ struct FlowView: View {
                         .foregroundStyle(.white)
                     
                     Spacer()
+                    
+                    // End Time
                     Text("Ends \(DateFormatter.localizedString(from: Calendar.current.date(byAdding: .second, value: model.flow.totalFlowTimeInSecondsInt(), to: Date())!, dateStyle: .none, timeStyle: .short))")
                         .fontWeight(.medium)
                         .font(.footnote)
@@ -108,7 +110,6 @@ struct FlowView: View {
                     TipView(blockControlTip, arrowEdge: .top)
                         .listRowSeparator(.hidden, edges: [.bottom])
                 }
-                
             }
             .animation(.default, value: model.flow.blocks)
             .listStyle(.plain)
@@ -150,7 +151,6 @@ struct FlowView: View {
                 }
                 ToolbarItem(placement: .bottomBar) {
                     HStack {
-                        
                         // Left
                         if model.mode != .breakRunning && model.mode != .breakPaused {
                             startButton
@@ -204,9 +204,7 @@ struct FlowView: View {
         
         // Flow Completed
         .fullScreenCover(isPresented: $model.showFlowCompleted) {
-            FlowCompletedView(model: model, showRateTheApp: $showRateTheApp)
-//                .sheetMaterial()
-//                .presentationDetents([.fraction(4/10)])
+            FlowCompletedView(model: model)
         }
         
         // Paywall
@@ -217,11 +215,6 @@ struct FlowView: View {
                 .interactiveDismissDisabled(model.detent == .large)
                 .presentationDragIndicator(.hidden)
                 .presentationBackgroundInteraction(.enabled)
-        }
-        .sheet(isPresented: $showRateTheApp) {
-            AskForRating()
-                .sheetMaterial()
-                .presentationDetents([.fraction(4/10)])
         }
     }
     

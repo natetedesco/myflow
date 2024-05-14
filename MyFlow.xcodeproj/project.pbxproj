@@ -17,7 +17,6 @@
 		8BCAEF892BE7E06600F72791 /* SendFeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCAEF882BE7E06600F72791 /* SendFeedbackView.swift */; };
 		8BEB935A2BE180B0004805E9 /* LargePaywall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BEB93592BE180B0004805E9 /* LargePaywall.swift */; };
 		F00426E12B2A452B00FAE36B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0948C1C26818EE100A5F48D /* Assets.xcassets */; };
-		F0171F252B3F68F6002F6FB7 /* AskForRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0171F242B3F68F6002F6FB7 /* AskForRating.swift */; };
 		F01E848B2AB1249900CF418D /* FlowRunning.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E848A2AB1249900CF418D /* FlowRunning.swift */; };
 		F0435CD52A9F965C0073E7E1 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0435CD42A9F965C0073E7E1 /* Background.swift */; };
 		F0435CD92A9FA5850073E7E1 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0435CD82A9FA5850073E7E1 /* Settings.swift */; };
@@ -105,7 +104,6 @@
 		8BEB93592BE180B0004805E9 /* LargePaywall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargePaywall.swift; sourceTree = "<group>"; };
 		8BEB93612BE2BEE5004805E9 /* ManagedSettings.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ManagedSettings.framework; path = System/Library/Frameworks/ManagedSettings.framework; sourceTree = SDKROOT; };
 		F001C23828D3A12100134EB5 /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
-		F0171F242B3F68F6002F6FB7 /* AskForRating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskForRating.swift; sourceTree = "<group>"; };
 		F01962B0293184BD00336821 /* Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		F01E848A2AB1249900CF418D /* FlowRunning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowRunning.swift; sourceTree = "<group>"; };
 		F032564A272251A5009D3EFB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -206,7 +204,6 @@
 				F09861FE26968B4B00A61B42 /* Paywall.swift */,
 				8BEB93592BE180B0004805E9 /* LargePaywall.swift */,
 				8BACA3062BCC805B00A0AB49 /* IntroPaywall.swift */,
-				F0171F242B3F68F6002F6FB7 /* AskForRating.swift */,
 				8BACA2C52BC70A4B00A0AB49 /* Tips.swift */,
 			);
 			path = "Onboarding & Paywall";
@@ -456,7 +453,6 @@
 				F0EBC1442A8D3C0B006F9616 /* MainView.swift in Sources */,
 				F0A6718D2B190BF2003B3071 /* CreateFlow.swift in Sources */,
 				F0EBC1472A8D3C0B006F9616 /* Modifiers.swift in Sources */,
-				F0171F252B3F68F6002F6FB7 /* AskForRating.swift in Sources */,
 				F01E848B2AB1249900CF418D /* FlowRunning.swift in Sources */,
 				F0EBC1482A8D3C0B006F9616 /* WeekCard.swift in Sources */,
 				F0EBC1492A8D3C0B006F9616 /* SettingsView.swift in Sources */,
@@ -732,7 +728,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.3.8;
+				MARKETING_VERSION = 3.3.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -766,7 +762,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.3.8;
+				MARKETING_VERSION = 3.3.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -800,7 +796,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.3.8;
+				MARKETING_VERSION = 3.3.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.NathanielTedesco.MyFlow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -26,7 +26,7 @@ struct CreateFlowView: View {
                     Spacer()
                     
                     Circles(model: model, size: 80, width: 8, fill: true)
-//                        .padding(.top)
+
                     Spacer()
                     
                     TextField("New Flow", text: $newFlowTitle)
@@ -34,9 +34,7 @@ struct CreateFlowView: View {
                         .fontWeight(.semibold)
                         .multilineTextAlignment(.center)
                         .padding(.bottom, 8)
-//                        .padding(.leading)
                         .focused($isFocused)
-//                        .onSubmit { submit() }
                         .introspectTextField { textField in textField.becomeFirstResponder() }
                     
 //                     Future
@@ -116,7 +114,6 @@ struct CreateFlowView: View {
                 }
             }
         }
-        
     }
     
     func submit() {
@@ -132,9 +129,7 @@ struct CreateFlowView: View {
 }
 
 #Preview {
-    ZStack {
-        
-    }
+    ZStack {}
     .sheet(isPresented: .constant(true), content: {
         CreateFlowView(model: FlowModel(), showFlow: .constant(true))  
             .presentationBackground(.regularMaterial)

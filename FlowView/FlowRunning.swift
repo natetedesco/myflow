@@ -57,9 +57,6 @@ struct FlowRunning: View {
                 .font(.system(size: 76))
                 .fontWeight(.light)
                 .monospacedDigit()
-                .onTapGesture {
-                    showWelcome = true
-                }
             
             if model.flowExtended {
                 Image(systemName: "plus")

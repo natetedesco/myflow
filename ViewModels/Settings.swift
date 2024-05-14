@@ -8,7 +8,7 @@ import FamilyControls
 import ManagedSettings
 
 class Settings: ObservableObject {
-    var versionNumber = "v3.3.9"
+    var versionNumber = "v3.3.10"
 
     // General
     @AppStorage("NotificationsOn") var notificationsOn: Bool = true

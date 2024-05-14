@@ -9,11 +9,12 @@ import SwiftUI
 struct FlowCompletedView: View {
     @State var model: FlowModel
     @Environment(\.dismiss) var dismiss
+    @State var dismissed = false
     
-    @Binding var showRateTheApp: Bool
     @AppStorage("ratedTheApp") var ratedTheApp: Bool = false
-    @AppStorage("askedForReating") var askedForRating: Bool = false
+    @AppStorage("askedForReating") var flowsCompleted = 0
 
+    @Environment(\.requestReview) var requestReview
 
     var body: some View {
         ZStack {
@@ -25,6 +26,20 @@ struct FlowCompletedView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                 .padding(.top, -200)
                 .padding(.leading, -300)
+                .ignoresSafeArea()
+                .opacity(dismissed ? 0.0 : 1.0)
+                .animation(.easeOut, value: dismissed)
+            
+            Circle()
+                .foregroundStyle(.teal.opacity(0.5))
+                .frame(height: 400)
+                .blur(radius: 300)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                .padding(.top, -200)
+                .padding(.leading, -300)
+                .opacity(dismissed ? 0.0 : 1.0)
+                .animation(.easeOut, value: dismissed)
+                .ignoresSafeArea()
             
             VStack {
                 
@@ -32,8 +47,6 @@ struct FlowCompletedView: View {
                 
                 Circles(model: model, size: 72, width: 7.0, fill: true)
                     .padding(.bottom)
-                
-                //            Spacer()
                 
                 Text("Flow Completed")
                     .font(.title)
@@ -53,13 +66,12 @@ struct FlowCompletedView: View {
                 
                 Button {
                     dismiss()
-                    if !ratedTheApp && !askedForRating && model.totalFlowTime > 600 {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                            showRateTheApp = true
-                            askedForRating = true
-                        }
+                    dismissed.toggle()
+                    if !ratedTheApp && flowsCompleted != 0 && model.totalFlowTime > 600 {
+                        requestReview()
+                        flowsCompleted += 1
                     }
-                    
+                    flowsCompleted += 1
                 } label: {
                     Text("Dismiss")
                         .foregroundStyle(.white)
@@ -70,15 +82,15 @@ struct FlowCompletedView: View {
                         .cornerRadius(20)
                 }
                 
-                // only if completed, not reset
-                //            Button {
-                //
-                //            } label: {
-                //                Text("Extend last focus")
-                //                    .font(.footnote)
-                //                    .fontWeight(.medium)
-                //            }
-                //            .padding(.top)
+//                 only if completed, not reset
+                            Button {
+                
+                            } label: {
+                                Text("Extend last focus")
+                                    .font(.callout)
+                                    .fontWeight(.medium)
+                            }
+                            .padding(.vertical)
             }
             .padding(.horizontal, 24)
         }
@@ -86,5 +98,5 @@ struct FlowCompletedView: View {
 }
 
 #Preview {
-        FlowCompletedView(model: FlowModel(), showRateTheApp: .constant(false))
+        FlowCompletedView(model: FlowModel())
 }

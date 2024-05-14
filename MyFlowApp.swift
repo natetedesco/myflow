@@ -69,26 +69,17 @@ struct MyFlow: App {
                 .fullScreenCover(isPresented: $model.showLargePayWall) {
                     LargePayWall()
                 }
-                .sheet(isPresented: $showRateTheApp) {
-                    AskForRating()
-                        .sheetMaterial()
-                        .presentationDetents([.fraction(4/10)])
-                }
                 if model.settings.showOnboarding {
                     OnboardingView(model: model)
                 }
             }
             .onAppear {
-                if !proAccess && timesOpend > 5 && timesOpend % 5 != 0 {
+                if !proAccess && timesOpend > 5 {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
                         softHaptic()
                         model.showLargePayWall.toggle()
                         timesOpend += 1
                     }
-                }
-                else if !ratedTheApp && timesOpend != 0 && timesOpend % 5 == 0 {
-                    showRateTheApp.toggle()
-                    timesOpend += 1
                 } else {
                     timesOpend += 1
                 }

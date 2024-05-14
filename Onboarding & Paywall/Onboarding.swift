@@ -27,7 +27,6 @@ struct OnboardingView: View {
                 .padding(.top, -200)
                 .padding(.leading, -300)
             
-            
             Circle()
                 .foregroundStyle(.teal.opacity(0.5))
                 .frame(height: 400)

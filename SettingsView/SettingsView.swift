@@ -158,9 +158,6 @@ struct SettingsView: View {
                         } label: {
                             Label("Revoke ScreenTime", systemImage: "clock.badge.xmark")
                         }
-                        
-                        // Rate the App Sheet
-                        Button { showRateTheApp.toggle() } label: { Label("Show Rate the App Sheet", systemImage: "platter.filled.bottom.iphone") }
                     }
                     
                     // What's New Sheet
@@ -207,16 +204,12 @@ struct SettingsView: View {
             MailComposeViewControllerWrapper(isShowing: $settings.isShowingMailView)
                 .ignoresSafeArea()
         }
-        .sheet(isPresented: $showRateTheApp) {
-            AskForRating()
-                .sheetMaterial()
-                .presentationDetents([.fraction(4/10)])
-        }
         .sheet(isPresented: $showWhatsNew) {
             WhatsNewView()
                 .presentationCornerRadius(40)
-                .presentationBackground(.ultraThickMaterial)
+                .presentationBackground(.regularMaterial)
                 .presentationDetents([.medium, .large])
+                .presentationDragIndicator(.hidden)
         }
     }
 }
