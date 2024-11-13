@@ -151,7 +151,7 @@ struct OnboardingView: View {
                             withAnimation { selectedTab += 1 }
                         }
                     } label: {
-                        Text(selectedTab == 1 ? "Let's Flow" : "Continue")
+                        Text("Continue")
                             .foregroundStyle(.teal)
                             .font(.title3)
                             .fontWeight(.medium)

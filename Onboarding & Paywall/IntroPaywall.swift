@@ -25,9 +25,6 @@ struct SwiftUIView: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     showOnboarding = false
                 }
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-//                    model.showPayWall(large: false)
-//                }
             } label: {
                 Image(systemName: "xmark")
                     .fontWeight(.bold)
@@ -55,7 +52,7 @@ struct SwiftUIView: View {
                 
                 Spacer()
                 
-                Text("Welcome Offer")
+                Text("Your Free Week")
                     .font(.footnote)
                     .fontDesign(.rounded)
                     .foregroundStyle(.teal)
@@ -65,12 +62,12 @@ struct SwiftUIView: View {
                     .background(.bar)
                     .cornerRadius(24)
                 
-                Text("Your Free Week")
+                Text("Welcome Offer")
                     .fontWeight(.bold)
                     .font(.largeTitle)
                     .padding(.vertical, 12)
                 
-                Text("7 days free. Cancel any time. Then $23.99/year ($1.99/month).")
+                Text("7 days free. Cancel any time. Then $23.99/year($1.99/month).")
                     .font(.callout)
                     .multilineTextAlignment(.center)
                     .padding(.bottom)
@@ -113,7 +110,7 @@ struct SwiftUIView: View {
                         }
                     }
                 } label: {
-                    Text("Try Pro Free")
+                    Text("Continue")
                         .foregroundStyle(.white)
                         .font(.title3)
                         .fontWeight(.semibold)

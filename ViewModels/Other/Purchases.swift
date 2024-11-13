@@ -28,9 +28,10 @@ class PurchaseManager: ObservableObject {
     
     func loadProducts() async throws {
         guard !self.productsLoaded else { return }
-        self.products = try await Product.products(for: productIds)
-        self.selectedProduct = products[0]
-        self.productsLoaded = true
+        
+        products = try await Product.products(for: productIds)
+        selectedProduct = products[0]
+        productsLoaded = true
     }
     
     func purchase(_ product: Product) async throws {
@@ -39,18 +40,18 @@ class PurchaseManager: ObservableObject {
         switch result {
         case let .success(.verified(transaction)):
             await transaction.finish()
-            await self.updatePurchasedProducts()
+            await updatePurchasedProducts()
         case .success(.unverified(_, _)):
             print("success")
-            break
+            
         case .pending:
             print("pending")
-            break
+            
         case .userCancelled:
             print("cancled")
-            break
+            
         @unknown default:
-            break
+            print("Unknown purchase result")
         }
     }
     
@@ -59,12 +60,12 @@ class PurchaseManager: ObservableObject {
             guard case .verified(let transaction) = result else {
                 continue
             }
-            if transaction.revocationDate == nil {
-                self.purchasedProductIDs.insert(transaction.productID)
+            if let expirationDate = transaction.expirationDate, expirationDate > Date() {
+                purchasedProductIDs.insert(transaction.productID)
                 proAccess = true
                 print("success")
             } else {
-                self.purchasedProductIDs.remove(transaction.productID)
+                purchasedProductIDs.remove(transaction.productID)
                 proAccess = false
                 print("failed")
             }

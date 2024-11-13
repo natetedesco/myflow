@@ -64,10 +64,13 @@ struct FlowCompletedView: View {
                 
                 Spacer()
                 
+                let showRatingAt = [1, 6, 11, 16]
                 Button {
                     dismiss()
                     dismissed.toggle()
-                    if !ratedTheApp && flowsCompleted != 0 && model.totalFlowTime > 600 {
+                    
+                    
+                    if !ratedTheApp && showRatingAt.contains(flowsCompleted) && model.totalFlowTime > 600 {
                         requestReview()
                         flowsCompleted += 1
                     }
@@ -83,14 +86,14 @@ struct FlowCompletedView: View {
                 }
                 
 //                 only if completed, not reset
-                            Button {
-                
-                            } label: {
-                                Text("Extend last focus")
-                                    .font(.callout)
-                                    .fontWeight(.medium)
-                            }
-                            .padding(.vertical)
+//                            Button {
+//                
+//                            } label: {
+//                                Text("Extend last focus")
+//                                    .font(.callout)
+//                                    .fontWeight(.medium)
+//                            }
+//                            .padding(.vertical)
             }
             .padding(.horizontal, 24)
         }

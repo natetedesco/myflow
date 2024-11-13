@@ -187,7 +187,8 @@ struct PayWall: View {
                 // Terms • Privacy • Restore
                 Text(detent == .large ? "7 days free, then $23.99/year($1.99/month)." : "Swipe up for details")
                     .font(.footnote)
-                    .padding(.top)
+                    .padding(.top, 12)
+                    .padding(.bottom, -4)
                     .foregroundStyle(detent == .large ? .secondary : .tertiary)
                     .multilineTextAlignment(.center)
                     .centered()

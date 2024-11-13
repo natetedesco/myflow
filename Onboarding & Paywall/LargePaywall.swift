@@ -161,7 +161,7 @@ struct LargePayWall: View {
                     withAnimation { opacity = 0.0 }
                 } label: {
                     ZStack {
-                        Text("Try Pro Free")
+                        Text("Continue")
                             .foregroundStyle(.white)
                             .font(.title3)
                             .fontWeight(.semibold)
